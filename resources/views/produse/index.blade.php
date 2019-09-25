@@ -11,7 +11,8 @@
                     @csrf                    
                     <div class="input-group custom-search-form justify-content-center">
                         <div class="">
-                            <input type="text" class="form-control" name="search_nume" placeholder="Caută produs">
+                            <input type="text" class="form-control" name="search_cod_de_bare" placeholder="Caută cod de bare">
+                            {{-- <small class="form-text text-muted">Caută după cod de bare</small> --}}
                         </div>
                         <div class="">
                             <span class="input-group-btn">
@@ -44,8 +45,9 @@
                         <th>Produs</th>
                         <th>Preț</th>
                         <th class="text-center">Cantitate</th>
-                        <th>Descriere</th>
-                        <th>Acțiuni</th>
+                        <th>Cod de bare</th>
+                        {{-- <th class="px-0" style="width:20px">Descriere</th> --}}
+                        <th class="px-0" style="width:115px">Acțiuni</th>
                     </tr>
                 </thead>
                 <tbody>               
@@ -63,9 +65,17 @@
                             <td class="text-center">
                                 {{ $produs->cantitate }}
                             </td>
-                            <td>
-                                {{ $produs->descriere }}
+                            <td class="text-center">
+                                {{ $produs->cod_de_bare }}
                             </td>
+                            {{-- <td class="my-0 py-1 text-center">
+                                <img src="{{ asset('images/tourist-information-symbol-iso-sign-is-1293.png') }}" 
+                                    title="{{ $produs->descriere }}"
+                                    height="30" class="my-1">
+                                <button type="button" class="btn btn-info btn-sm text-white" title="{{ $produs->descriere }}">
+                                    <i class="fas fa-info-circle"></i>  
+                                </button>                              
+                            </td> --}}
                             <td class="my-0 py-1" align="center">   
                                 <div>
                                     <div style="float:right;" class="">

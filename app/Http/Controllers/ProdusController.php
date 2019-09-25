@@ -14,10 +14,10 @@ class ProdusController extends Controller
      */
     public function index()
     {
-        $search_nume = \Request::get('search_nume'); //<-- we use global request to get the param of URI        
+        $search_cod_de_bare = \Request::get('search_cod_de_bare'); //<-- we use global request to get the param of URI        
         $produse = Produs::
-                when($search_nume, function ($query, $search_nume) {
-                    return $query->where('nume', 'like', '%' . $search_nume . '%');
+                when($search_cod_de_bare, function ($query, $search_cod_de_bare) {
+                    return $query->where('cod_de_bare', 'like', '%' . $search_cod_de_bare . '%');
                 })
             ->Paginate(25);
                 
@@ -90,6 +90,18 @@ class ProdusController extends Controller
         // $this->authorize('delete', $produse);
         // dd($produse);
         $produse->delete();
-        return redirect('/produse')->with('status', 'Produsul "' . $produse->nume . '" a fost șters cu succes!');;
+        return redirect('/produse')->with('status', 'Produsul "' . $produse->nume . '" a fost șters cu succes!');
+    }
+
+    /**
+     * Vanzare de produse. Scaderea cantitatii produsului
+     *
+     * @param  \App\Produs  $produs
+     * @return \Illuminate\Http\Response
+     */
+    public function vanzari(Produs $produse)
+    {
+        
+        return view ('produse/vanzari');
     }
 }

@@ -10,6 +10,7 @@ $factory->define(Produs::class, function (Faker $faker) {
         'nume' => $faker->colorName,
         'pret' => $faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 500),
         'cantitate' => $faker->numberBetween(5 ,100),
+        'cod_de_bare' => $faker->numberBetween(100000000000, 999999999999),
         'descriere' => $faker->sentence($nbWords = 6, $variableNbWords = true),
     ];
 });

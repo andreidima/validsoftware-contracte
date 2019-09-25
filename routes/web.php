@@ -21,4 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::redirect('/', '/produse');
 
+Route::get('produse/vanzari', 'ProdusController@vanzari');
 Route::resource('produse', 'ProdusController');
