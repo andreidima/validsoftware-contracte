@@ -8,4 +8,9 @@ class Produs extends Model
 {
     protected $table = 'produse';
     protected $guarded = [];
+
+    public function path()
+    {
+        return "/produse/{$this->id}";
+    }
 }

@@ -14,7 +14,14 @@ class ProdusController extends Controller
      */
     public function index()
     {
-        //
+        $search_nume = \Request::get('search_nume'); //<-- we use global request to get the param of URI        
+        $produse = Produs::
+                when($search_nume, function ($query, $search_nume) {
+                    return $query->where('nume', 'like', '%' . $search_nume . '%');
+                })
+            ->Paginate(25);
+                
+        return view('produse.index', compact('produse'));
     }
 
     /**
@@ -78,8 +85,11 @@ class ProdusController extends Controller
      * @param  \App\Produs  $produs
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produs $produs)
+    public function destroy(Produs $produse)
     {
-        //
+        // $this->authorize('delete', $produse);
+        // dd($produse);
+        $produse->delete();
+        return redirect('/produse')->with('status', 'Produsul "' . $produse->nume . '" a fost șters cu succes!');;
     }
 }
