@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth::routes();
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::redirect('/', '/produse');
 
-Route::get('produse/vanzari', 'ProdusController@vanzari');
+Route::any('/produse/vanzari', 'ProdusController@vanzari');
+Route::any('produse/vanzari/descarca-produs', 'ProdusController@vanzariDescarcaProdus');
+
 Route::resource('produse', 'ProdusController');

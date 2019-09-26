@@ -4,14 +4,14 @@
     <div class="container card">
         <div class="row card-header">
             <div class="col-lg-4">
-                <h4 class="mt-2 mb-0"><a href="/produse"><i class="fas fa-file-alt mr-1"></i>Produse</a></h4>
+                <h4 class="mt-2 mb-0"><a href="/produse"><i class="fas fa-list-ul mr-1"></i>Produse</a></h4>
             </div> 
-            <div class="col-lg-4">             
+            <div class="col-lg-4" id="produse">
                 <form class="needs-validation" novalidate method="GET" action="/produse">
                     @csrf                    
                     <div class="input-group custom-search-form justify-content-center">
                         <div class="">
-                            <input type="text" class="form-control" name="search_cod_de_bare" placeholder="Caută cod de bare">
+                            <input type="text" class="form-control" id="search_cod_de_bare" name="search_cod_de_bare" placeholder="Caută cod de bare" autofocus>
                             {{-- <small class="form-text text-muted">Caută după cod de bare</small> --}}
                         </div>
                         <div class="">
@@ -25,14 +25,13 @@
                 </form>
             </div>
             <div class="col-lg-4 text-right">
-                {{-- <a class="btn btn-primary" href="/produse/adauga" role="button">Adaugă Produs</a> --}}
-                <a class="btn btn-primary" href="#" role="button">Adaugă Produs</a>
+                <a class="btn btn-primary" href="/produse/adauga" role="button">Adaugă Produs</a>
             </div>
         </div>
 
         <div class="card-body">
 
-            @if (session('status'))
+            @if (session()->has('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
@@ -122,7 +121,7 @@
 
                                     <div style="float:right;" class="mx-1">
                                         <a class="btn btn-primary" 
-                                            href="#" 
+                                            {{-- href="#"  --}}
                                             role="button"
                                             href="{{ $produs->path() }}/modifica"
                                             title="Editează Produsul"

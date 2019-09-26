@@ -18,7 +18,7 @@ class CreateProduseTable extends Migration
             $table->string('nume');
             $table->decimal('pret')->nullable();
             $table->integer('cantitate')->nullable();
-            $table->unsignedBigInteger('cod_de_bare')->nullable();
+            $table->string('cod_de_bare')->nullable();
             $table->string('descriere')->nullable();
 
             $table->timestamps();

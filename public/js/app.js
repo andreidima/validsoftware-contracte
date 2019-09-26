@@ -49356,9 +49356,33 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
-});
+if (document.querySelector('#produse')) {
+  var app = new Vue({
+    el: '#produse',
+    methods: {
+      formfocus: function formfocus() {
+        document.getElementById("search_cod_de_bare").focus();
+      }
+    },
+    mounted: function mounted() {
+      this.formfocus();
+    }
+  });
+}
+
+if (document.querySelector('#vanzari')) {
+  var _app = new Vue({
+    el: '#vanzari',
+    methods: {
+      formfocus: function formfocus() {
+        document.getElementById("cod_de_bare").focus();
+      }
+    },
+    mounted: function mounted() {
+      this.formfocus();
+    }
+  });
+}
 
 /***/ }),
 
@@ -49507,8 +49531,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laragon\www\casa-de-marcat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laragon\www\casa-de-marcat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\laragon\www\casa-de-marcat\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\laragon\www\casa-de-marcat\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

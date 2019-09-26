@@ -27,6 +27,30 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+if (document.querySelector('#produse')) {
+    const app = new Vue({
+        el: '#produse',
+        methods: {
+            formfocus() {
+                document.getElementById("search_cod_de_bare").focus();
+            }
+        },
+        mounted() {
+            this.formfocus()
+        }
+    });
+}
+
+if (document.querySelector('#vanzari')) {
+    const app = new Vue({
+        el: '#vanzari',
+        methods: {
+            formfocus() {
+                document.getElementById("cod_de_bare").focus();
+            }
+        },
+        mounted() {
+            this.formfocus()
+        }
+    });
+}

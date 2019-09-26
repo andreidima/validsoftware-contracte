@@ -19,6 +19,7 @@ class ProdusController extends Controller
                 when($search_cod_de_bare, function ($query, $search_cod_de_bare) {
                     return $query->where('cod_de_bare', 'like', '%' . $search_cod_de_bare . '%');
                 })
+            ->latest()
             ->Paginate(25);
                 
         return view('produse.index', compact('produse'));
@@ -31,7 +32,7 @@ class ProdusController extends Controller
      */
     public function create()
     {
-        //
+        return view('produse.create');
     }
 
     /**
@@ -42,7 +43,11 @@ class ProdusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produse = Produs::make($this->validateRequest());
+        // $this->authorize('update', $proiecte);
+        $produse->save();
+
+        return redirect('/produse')->with('status', 'Produsul "'.$produse->nume.'" a fost adăugat cu succes!');
     }
 
     /**
@@ -62,9 +67,9 @@ class ProdusController extends Controller
      * @param  \App\Produs  $produs
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produs $produs)
+    public function edit(Produs $produse)
     {
-        //
+        return view('produse.edit', compact('produse'));
     }
 
     /**
@@ -74,9 +79,14 @@ class ProdusController extends Controller
      * @param  \App\Produs  $produs
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produs $produs)
+    public function update(Request $request, Produs $produse)
     {
-        //
+        // $this->authorize('update', $proiecte);
+
+        $produse->update($this->validateRequest());
+
+        return redirect('/produse')->with('status', 'Produsul "'.$produse->nume.'" a fost modificat cu succes!');
+
     }
 
     /**
@@ -94,13 +104,61 @@ class ProdusController extends Controller
     }
 
     /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function validateRequest()
+    {
+        // dd ($request->_method);
+        return request()->validate([
+            'nume' =>['nullable', 'max:250'],
+            'pret' => [ 'nullable', 'regex:/^(\d+(.\d{1,2})?)?$/', 'max:9999999'],
+            'cantitate' => [ 'nullable', 'numeric', 'max:9999999999'],
+            'cod_de_bare' => ['nullable', 'max:999999999999'],
+            'descriere' => ['nullable', 'max:250'],
+        ],
+        [            
+            'pret.regex' => 'Câmpul Preț nu este completat corect.',
+        ]
+        );
+    }
+
+    /**
      * Vanzare de produse. Scaderea cantitatii produsului
      *
      * @param  \App\Produs  $produs
      * @return \Illuminate\Http\Response
      */
-    public function vanzari(Produs $produse)
-    {
+    public function vanzari(Request $request)
+    {         
+        return view ('produse/vanzari');
+    }
+    public function vanzariDescarcaProdus(Request $request)
+    { 
+        if (isset($request->cod_de_bare)){
+            $produs = Produs::where('cod_de_bare', $request->cod_de_bare)->first();
+
+            // dd($produs, $produs->id);
+
+            if (isset($produs->id)){
+                if (!is_numeric($request->nr_de_bucati) || $request->nr_de_bucati < 1 || $request->nr_de_bucati != round($request->nr_de_bucati)) {
+                    return redirect ('produse/vanzari')->with('error', 'Numărul de bucăți nu este o valoare întreagă pozitivă: "' . $request->nr_de_bucati . '"!');
+                }
+                if (($produs->cantitate - $request->nr_de_bucati) < 0){
+                    return redirect ('produse/vanzari')->with('error', 'Sunt mai puțin de "' . $request->nr_de_bucati . '" produse pe stoc!');
+                }
+                // dd($produs->cantitate - $request->nr_de_bucati);
+                $produs->cantitate = $produs->cantitate - $request->nr_de_bucati;
+                $produs->update();
+
+                return redirect ('produse/vanzari')->with('success', 'A fost vândut ' . $request->nr_de_bucati . ' buc. "' . $produs->nume . '"!');
+            } else{
+                return redirect ('produse/vanzari')->with('error', 'Nu se află nici un produs in baza de date, care să aibă codul: "' . $request->cod_de_bare . '"!');
+            }
+        } else {
+            return redirect ('produse/vanzari')->with('warning', 'Introduceti un cod de bare!');
+        } 
         
         return view ('produse/vanzari');
     }
