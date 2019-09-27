@@ -3,10 +3,10 @@
 @section('content')   
     <div class="container card">
         <div class="row card-header">
-            <div class="col-lg-4">
+            <div class="col-lg-4 my-1">
                 <h4 class="mt-2 mb-0"><a href="/produse"><i class="fas fa-list-ul mr-1"></i>Produse</a></h4>
             </div> 
-            <div class="col-lg-4" id="produse">
+            <div class="col-lg-4 my-1" id="produse">
                 <form class="needs-validation" novalidate method="GET" action="/produse">
                     @csrf                    
                     <div class="input-group custom-search-form justify-content-center">
@@ -24,7 +24,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-4 text-right">
+            <div class="col-lg-4 text-right my-1">
                 <a class="btn btn-primary" href="/produse/adauga" role="button">Adaugă Produs</a>
             </div>
         </div>
@@ -37,106 +37,108 @@
             </div>
             @endif
 
-            <table class="table table-striped"> 
-                <thead class="thead-dark">
-                    <tr class="text-center">
-                        <th>Nr. crt.</th>
-                        <th>Produs</th>
-                        <th>Preț</th>
-                        <th class="text-center">Cantitate</th>
-                        <th>Cod de bare</th>
-                        {{-- <th class="px-0" style="width:20px">Descriere</th> --}}
-                        <th class="px-0" style="width:115px">Acțiuni</th>
-                    </tr>
-                </thead>
-                <tbody>               
-                    @forelse ($produse as $produs) 
-                        <tr>                    
-                            <td align="center">
-                                {{ ($produse ->currentpage()-1) * $produse ->perpage() + $loop->index + 1 }}
-                            </td>
-                            <td>
-                                <b>{{ $produs->nume }}</b>
-                            </td>
-                            <td class="text-right">
-                                {{ $produs->pret }} lei
-                            </td>
-                            <td class="text-center">
-                                {{ $produs->cantitate }}
-                            </td>
-                            <td class="text-center">
-                                {{ $produs->cod_de_bare }}
-                            </td>
-                            {{-- <td class="my-0 py-1 text-center">
-                                <img src="{{ asset('images/tourist-information-symbol-iso-sign-is-1293.png') }}" 
-                                    title="{{ $produs->descriere }}"
-                                    height="30" class="my-1">
-                                <button type="button" class="btn btn-info btn-sm text-white" title="{{ $produs->descriere }}">
-                                    <i class="fas fa-info-circle"></i>  
-                                </button>                              
-                            </td> --}}
-                            <td class="my-0 py-1" align="center">   
-                                <div>
-                                    <div style="float:right;" class="">
-                                        <a class="btn btn-danger" 
-                                            href="#" 
-                                            role="button"
-                                            data-toggle="modal" 
-                                            data-target="#stergeProdus{{ $produs->id }}"
-                                            title="Șterge Produsul"
-                                            >
-                                            <i class="far fa-trash-alt"></i>
-                                        </a>
-                                            <div class="modal fade text-dark" id="stergeProdus{{ $produs->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header bg-danger">
-                                                        <h5 class="modal-title text-white" id="exampleModalLabel">Produs: <b>{{ $produs->nume }}</b></h5>
-                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body" style="text-align:left;">
-                                                        Ești sigur ca vrei să ștergi produsul?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+            <div class="table-responsive">
+                <table class="table table-striped"> 
+                    <thead class="thead-dark">
+                        <tr class="text-center">
+                            <th>Nr. crt.</th>
+                            <th>Produs</th>
+                            <th>Preț</th>
+                            <th class="text-center">Cantitate</th>
+                            <th>Cod de bare</th>
+                            {{-- <th class="px-0" style="width:20px">Descriere</th> --}}
+                            <th class="px-0" style="width:115px">Acțiuni</th>
+                        </tr>
+                    </thead>
+                    <tbody>               
+                        @forelse ($produse as $produs) 
+                            <tr>                    
+                                <td align="center">
+                                    {{ ($produse ->currentpage()-1) * $produse ->perpage() + $loop->index + 1 }}
+                                </td>
+                                <td>
+                                    <b>{{ $produs->nume }}</b>
+                                </td>
+                                <td class="text-right">
+                                    {{ $produs->pret }} lei
+                                </td>
+                                <td class="text-center">
+                                    {{ $produs->cantitate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $produs->cod_de_bare }}
+                                </td>
+                                {{-- <td class="my-0 py-1 text-center">
+                                    <img src="{{ asset('images/tourist-information-symbol-iso-sign-is-1293.png') }}" 
+                                        title="{{ $produs->descriere }}"
+                                        height="30" class="my-1">
+                                    <button type="button" class="btn btn-info btn-sm text-white" title="{{ $produs->descriere }}">
+                                        <i class="fas fa-info-circle"></i>  
+                                    </button>                              
+                                </td> --}}
+                                <td class="my-0 py-1" align="center">   
+                                    <div style="width:90px;">
+                                        <div style="float:right;" class="">
+                                            <a class="btn btn-danger" 
+                                                href="#" 
+                                                role="button"
+                                                data-toggle="modal" 
+                                                data-target="#stergeProdus{{ $produs->id }}"
+                                                title="Șterge Produsul"
+                                                >
+                                                <i class="far fa-trash-alt"></i>
+                                            </a>
+                                                <div class="modal fade text-dark" id="stergeProdus{{ $produs->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Produs: <b>{{ $produs->nume }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            Ești sigur ca vrei să ștergi produsul?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                            
+                                                            <form method="POST" action="{{ $produs->path() }}">
+                                                                @method('DELETE')  
+                                                                @csrf   
+                                                                <button 
+                                                                    type="submit" 
+                                                                    class="btn btn-danger"  
+                                                                    >
+                                                                    Șterge Produsul
+                                                                </button>                    
+                                                            </form>
                                                         
-                                                        <form method="POST" action="{{ $produs->path() }}">
-                                                            @method('DELETE')  
-                                                            @csrf   
-                                                            <button 
-                                                                type="submit" 
-                                                                class="btn btn-danger"  
-                                                                >
-                                                                Șterge Produsul
-                                                            </button>                    
-                                                        </form>
-                                                    
-                                                    </div>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                    </div> 
+                                        </div> 
 
-                                    <div style="float:right;" class="mx-1">
-                                        <a class="btn btn-primary" 
-                                            {{-- href="#"  --}}
-                                            role="button"
-                                            href="{{ $produs->path() }}/modifica"
-                                            title="Editează Produsul"
-                                            >
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                        <div style="float:right;" class="mx-1">
+                                            <a class="btn btn-primary" 
+                                                {{-- href="#"  --}}
+                                                role="button"
+                                                href="{{ $produs->path() }}/modifica"
+                                                title="Editează Produsul"
+                                                >
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>                                          
-                    @empty
-                        {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
-                    @endforelse
-                    </tbody>
-            </table>
+                                </td>
+                            </tr>                                          
+                        @empty
+                            {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
+                        @endforelse
+                        </tbody>
+                </table>
+            </div>
                 {{-- <p class="text-center">
                 Pagina nr. {{$rezervari->currentPage()}}
                 </p>

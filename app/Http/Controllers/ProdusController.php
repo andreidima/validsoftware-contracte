@@ -134,12 +134,11 @@ class ProdusController extends Controller
     {         
         return view ('produse/vanzari');
     }
+
     public function vanzariDescarcaProdus(Request $request)
     { 
         if (isset($request->cod_de_bare)){
             $produs = Produs::where('cod_de_bare', $request->cod_de_bare)->first();
-
-            // dd($produs, $produs->id);
 
             if (isset($produs->id)){
                 if (!is_numeric($request->nr_de_bucati) || $request->nr_de_bucati < 1 || $request->nr_de_bucati != round($request->nr_de_bucati)) {
@@ -148,18 +147,31 @@ class ProdusController extends Controller
                 if (($produs->cantitate - $request->nr_de_bucati) < 0){
                     return redirect ('produse/vanzari')->with('error', 'Sunt mai puțin de "' . $request->nr_de_bucati . '" produse pe stoc!');
                 }
-                // dd($produs->cantitate - $request->nr_de_bucati);
                 $produs->cantitate = $produs->cantitate - $request->nr_de_bucati;
                 $produs->update();
+
+                if ($request->session()->has('produse_vandute')) { 
+                    $request->session()->push('produse_vandute', '' . $request->nr_de_bucati . ' buc. ' . $produs->nume); 
+
+                } else {
+                    $request->session()->put('produse_vandute', []);
+                    $request->session()->push('produse_vandute', '' . $request->nr_de_bucati . ' buc. ' . $produs->nume);
+                }                
 
                 return redirect ('produse/vanzari')->with('success', 'A fost vândut ' . $request->nr_de_bucati . ' buc. "' . $produs->nume . '"!');
             } else{
                 return redirect ('produse/vanzari')->with('error', 'Nu se află nici un produs in baza de date, care să aibă codul: "' . $request->cod_de_bare . '"!');
             }
         } else {
-            return redirect ('produse/vanzari')->with('warning', 'Introduceti un cod de bare!');
+            return redirect ('produse/vanzari')->with('warning', 'Introdu un cod de bare!');
         } 
         
+        return view ('produse/vanzari');
+    }
+
+    public function vanzariGolesteCos(Request $request)
+    {         
+        $request->session()->forget('produse_vandute');
         return view ('produse/vanzari');
     }
 }
