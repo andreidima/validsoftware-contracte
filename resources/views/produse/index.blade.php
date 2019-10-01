@@ -11,7 +11,7 @@
                     @csrf                    
                     <div class="input-group custom-search-form justify-content-center">
                         <div class="">
-                            <input type="text" class="form-control" id="search_cod_de_bare" name="search_cod_de_bare" placeholder="Caută cod de bare" autofocus>
+                            <input type="text" class="form-control" id="search_nume" name="search_nume" placeholder="Nume" autofocus>
                             {{-- <small class="form-text text-muted">Caută după cod de bare</small> --}}
                         </div>
                         <div class="">
@@ -24,9 +24,9 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-4 text-right my-1">
+            {{-- <div class="col-lg-4 text-right my-1">
                 <a class="btn btn-primary" href="/produse/adauga" role="button">Adaugă Produs</a>
-            </div>
+            </div> --}}
         </div>
 
         <div class="card-body">
@@ -41,13 +41,13 @@
                 <table class="table table-striped"> 
                     <thead class="thead-dark">
                         <tr class="text-center">
-                            <th>Nr. crt.</th>
-                            <th>Produs</th>
-                            <th>Preț</th>
-                            <th class="text-center">Cantitate</th>
-                            <th>Cod de bare</th>
-                            {{-- <th class="px-0" style="width:20px">Descriere</th> --}}
-                            <th class="px-0" style="width:115px">Acțiuni</th>
+                            <th>Nr. Crt.</th>
+                            <th>Nume</th>
+                            <th>Cultura utilizare</th>
+                            <th>Agent</th>
+                            <th>Nume</th>
+                            <th>Substante active</th>
+                            <th>Stare</th>
                         </tr>
                     </thead>
                     <tbody>               
@@ -59,15 +59,24 @@
                                 <td>
                                     <b>{{ $produs->nume }}</b>
                                 </td>
-                                <td class="text-right">
-                                    {{ $produs->pret }} lei
+                                <td>
+                                    {{ $produs->utilizari_cultura }}
                                 </td>
-                                <td class="text-center">
-                                    {{ $produs->cantitate }}
+                                <td>
+                                    {{ $produs->utilizari_agent }}
                                 </td>
-                                <td class="text-center">
-                                    {{ $produs->cod_de_bare }}
+                                <td>
+                                    {{ $produs->utilizari_nume }}
                                 </td>
+                                <td>
+                                    {{ $produs->substanteActive_nume }}
+                                </td>
+                                <td>
+                                    {{ $produs->stare }}
+                                </td>
+                                {{-- <td class="text-center">
+                                    {{ $produs-> }}
+                                </td> --}}
                                 {{-- <td class="my-0 py-1 text-center">
                                     <img src="{{ asset('images/tourist-information-symbol-iso-sign-is-1293.png') }}" 
                                         title="{{ $produs->descriere }}"
@@ -76,7 +85,7 @@
                                         <i class="fas fa-info-circle"></i>  
                                     </button>                              
                                 </td> --}}
-                                <td class="my-0 py-1" align="center">   
+                                {{-- <td class="my-0 py-1" align="center">   
                                     <div style="width:90px;">
                                         <div style="float:right;" class="">
                                             <a class="btn btn-danger" 
@@ -122,7 +131,6 @@
 
                                         <div style="float:right;" class="mx-1">
                                             <a class="btn btn-primary" 
-                                                {{-- href="#"  --}}
                                                 role="button"
                                                 href="{{ $produs->path() }}/modifica"
                                                 title="Editează Produsul"
@@ -131,7 +139,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>                                          
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}

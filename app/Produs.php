@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produs extends Model
 {
-    protected $table = 'produse';
+    protected $table = 'products';
     protected $guarded = [];
+
+    public $timestamps = false;
 
     public function path()
     {

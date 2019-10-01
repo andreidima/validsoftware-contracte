@@ -14,12 +14,11 @@ class ProdusController extends Controller
      */
     public function index()
     {
-        $search_cod_de_bare = \Request::get('search_cod_de_bare'); //<-- we use global request to get the param of URI        
+        $search_nume = \Request::get('search_nume'); //<-- we use global request to get the param of URI        
         $produse = Produs::
-                when($search_cod_de_bare, function ($query, $search_cod_de_bare) {
-                    return $query->where('cod_de_bare', 'like', '%' . $search_cod_de_bare . '%');
+                when($search_nume, function ($query, $search_nume) {
+                    return $query->where('nume', 'like', '%' . $search_nume . '%');
                 })
-            ->latest()
             ->Paginate(25);
                 
         return view('produse.index', compact('produse'));

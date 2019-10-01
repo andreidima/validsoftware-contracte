@@ -27,10 +27,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
-                <img src="{{ asset('images/cropped-gsmobile-logo-red.jpg') }}" height="40" class="mr-4">
-                {{-- <a class="navbar-brand mr-4" href="{{ url('/') }}">
+                {{-- <img src="{{ asset('images/cropped-gsmobile-logo-red.jpg') }}" height="40" class="mr-4"> --}}
+                <a class="navbar-brand mr-4" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
-                </a> --}}
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -38,16 +38,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active mr-4">
+                        {{-- <li class="nav-item active mr-4">
                             <a class="nav-link" href="/produse">
                                 <i class="fas fa-list-ul mr-1"></i>Produse
                             </a>
-                        </li>
-                        <li class="nav-item active mr-4">
+                        </li> --}}
+                        {{-- <li class="nav-item active mr-4">
                             <a class="nav-link" href="/produse/vanzari">
                                 <i class="fas fa-shopping-cart mr-1"></i>Vânzări
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->
