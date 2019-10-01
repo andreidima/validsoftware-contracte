@@ -21,7 +21,7 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::redirect('/', '/produse');
+Route::redirect('/', 'produse');
 
 Route::any('/produse/vanzari', 'ProdusController@vanzari');
 Route::any('produse/vanzari/descarca-produs', 'ProdusController@vanzariDescarcaProdus');

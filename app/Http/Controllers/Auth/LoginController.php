@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Socialite;
+use App\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -68,10 +69,10 @@ class LoginController extends Controller
         // check if they're an existing user
         $existingUser = User::where('email', $user->email)->first();
         if($existingUser){
-            // log them in
+        // log them in
             auth()->login($existingUser, true);
         } else {
-            // create a new user
+        // create a new user
             $newUser                  = new User;
             $newUser->name            = $user->name;
             $newUser->email           = $user->email;
@@ -82,5 +83,10 @@ class LoginController extends Controller
             auth()->login($newUser, true);
         }
         return redirect()->to('/');
+        
+        //$user = Socialite::with($service)->user();
+        // $user = Socialite::driver('google')->stateless()->user();
+        // dd($user);
+        // return view('home')->withDetails($user)->withService('google');
     }
 }

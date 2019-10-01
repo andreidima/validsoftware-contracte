@@ -38,11 +38,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        {{-- <li class="nav-item active mr-4">
+                        <li class="nav-item active mr-4">
                             <a class="nav-link" href="/produse">
                                 <i class="fas fa-list-ul mr-1"></i>Produse
                             </a>
-                        </li> --}}
+                        </li>
                         {{-- <li class="nav-item active mr-4">
                             <a class="nav-link" href="/produse/vanzari">
                                 <i class="fas fa-shopping-cart mr-1"></i>Vânzări
@@ -51,19 +51,22 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto text-white">
                         <!-- Authentication Links -->
-                        {{-- @guest
-                            <li class="nav-item">
+                        @guest
+                            <li class="nav-item active">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item active dropdown d-flex justify-content-around">
+                                    @isset(auth()->user()->avatar)
+                                        <img src="{{ Auth::user()->avatar }}" class="rounded-circle my-0 py-0" height="40">
+                                    @endisset
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -80,7 +83,7 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest --}}
+                        @endguest
                     </ul>
                 </div>
             </div>
