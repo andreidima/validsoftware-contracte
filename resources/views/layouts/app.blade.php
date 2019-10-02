@@ -39,7 +39,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active mr-4">
-                            <a class="nav-link" href="/produse">
+                            <a class="nav-link" href="produse">
                                 <i class="fas fa-list-ul mr-1"></i>Produse
                             </a>
                         </li>

@@ -14,4 +14,10 @@ return [
 
     'failed'   => 'Datele de identificare nu pot fi confirmate.',
     'throttle' => 'Prea multe încercări de intrare în cont. Poți încerca din nou peste :seconds secunde.',
+
+    //Andrei
+    'Login' => 'Autentificare',
+    'Register' => 'Înregistrează-te',
+    'Remember Me' => 'Ține-ma minte',
+    'Forgot Your Password?' => 'Ți-ai uitat parola?',
 ];
