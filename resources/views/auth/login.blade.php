@@ -16,15 +16,15 @@
                                         <i class="fab fa-google fa-lg"></i>
                                     </div>
                                     <div class="flex-grow-1">
-                                        Login with Google
+                                        {{ __('auth.Login with Google') }}
                                     </div>
                                 </a>
-                                <a href="{{url('/login/google')}}" class="btn btn-primary btn-block d-flex">
+                                <a href="{{url('/login/facebook')}}" class="btn btn-primary btn-block d-flex">
                                     <div class="d-inline-flex align-self-center">
                                         <i class="fab fa-facebook-f fa-lg p-1"></i>
                                     </div>
                                     <div class="flex-grow-1">
-                                        Login with Facebook
+                                        {{ __('auth.Login with Facebook') }}
                                     </div>
                                 </a>
                                 <div style="width: 100%; height: 15px; text-align: center" class="my-3 border-bottom border-black-50">

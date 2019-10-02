@@ -38,16 +38,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active mr-4">
-                            <a class="nav-link" href="produse">
-                                <i class="fas fa-list-ul mr-1"></i>Produse
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item active mr-4">
-                            <a class="nav-link" href="/produse/vanzari">
-                                <i class="fas fa-shopping-cart mr-1"></i>Vânzări
-                            </a>
-                        </li> --}}
+                        @guest
+                        @else
+                            <li class="nav-item active mr-4">
+                                <a class="nav-link" href="produse">
+                                    <i class="fas fa-list-ul mr-1"></i>Produse
+                                </a>
+                            </li>
+                            {{-- <li class="nav-item active mr-4">
+                                <a class="nav-link" href="/produse/vanzari">
+                                    <i class="fas fa-shopping-cart mr-1"></i>Vânzări
+                                </a>
+                            </li> --}}
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -55,11 +58,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('auth.Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('auth.Register') }}</a>
                                 </li>
                             @endif
                         @else

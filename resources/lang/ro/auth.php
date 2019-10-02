@@ -17,7 +17,9 @@ return [
 
     //Andrei
     'Login' => 'Autentificare',
-    'Register' => 'Înregistrează-te',
-    'Remember Me' => 'Ține-ma minte',
+    'Register' => 'Înregistrare',
+    'Remember Me' => 'Ține-mă minte',
     'Forgot Your Password?' => 'Ți-ai uitat parola?',
+    'Login with Google' => 'Autentificare cu Google',
+    'Login with Facebook' => 'Autentificare cu Facebook',
 ];

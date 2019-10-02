@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -45,7 +45,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider()
+    public function googleRedirectToProvider()
     {
         return Socialite::driver('google')->redirect();
     }
@@ -55,7 +55,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function googleHandleProviderCallback()
     {
         try {
             $user = Socialite::driver('google')->user();
@@ -76,14 +76,66 @@ class LoginController extends Controller
             $newUser                  = new User;
             $newUser->name            = $user->name;
             $newUser->email           = $user->email;
-            $newUser->google_id       = $user->id;
+            $newUser->provider        = 'google';
+            $newUser->provider_id     = $user->id;
             $newUser->avatar          = $user->avatar;
             $newUser->avatar_original = $user->avatar_original;
             $newUser->save();
             auth()->login($newUser, true);
         }
         return redirect()->to('/');
-        
+
+        //$user = Socialite::with($service)->user();
+        // $user = Socialite::driver('google')->stateless()->user();
+        // dd($user);
+        // return view('home')->withDetails($user)->withService('google');
+    }
+
+    /**
+     * Redirect the user to the Facebook authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function facebookRedirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Facebook.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function facebookHandleProviderCallback()
+    {
+        try {
+            $user = Socialite::driver('facebook')->user();
+        } catch (\Exception $e) {
+            return redirect('/login');
+        }
+        // only allow people with @company.com to login
+        // if(explode("@", $user->email)[1] !== 'gmail.com'){
+        //     return redirect()->to('/');
+        // }
+        // check if they're an existing user
+        $existingUser = User::where('email', $user->email)->first();
+        if ($existingUser) {
+            // log them in
+            auth()->login($existingUser, true);
+        } else {
+            // create a new user
+            $newUser                  = new User;
+            $newUser->name            = $user->name;
+            $newUser->email           = $user->email;
+            $newUser->provider        = 'facebook';
+            $newUser->provider_id     = $user->id;
+            $newUser->avatar          = $user->avatar;
+            $newUser->avatar_original = $user->avatar_original;
+            $newUser->save();
+            auth()->login($newUser, true);
+        }
+        return redirect()->to('/');
+
         //$user = Socialite::with($service)->user();
         // $user = Socialite::driver('google')->stateless()->user();
         // dd($user);
