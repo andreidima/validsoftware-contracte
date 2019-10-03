@@ -51,7 +51,7 @@
                             @if (auth()->user()->roles()->pluck( 'nume' )->contains( 'administrator' ))
                                 <li class="nav-item active mr-4">
                                     <a class="nav-link" href="users">
-                                        <i class="fas fa-shopping-cart mr-1"></i>Utilizatori
+                                        <i class="fas fa-users mr-1"></i>Utilizatori
                                     </a>
                                 </li>
                             @endif
