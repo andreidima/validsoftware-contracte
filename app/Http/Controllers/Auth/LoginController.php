@@ -76,11 +76,12 @@ class LoginController extends Controller
             $newUser                  = new User;
             $newUser->name            = $user->name;
             $newUser->email           = $user->email;
-            $newUser->provider        = 'google';
+            $newUser->provider        = 'Google';
             $newUser->provider_id     = $user->id;
             $newUser->avatar          = $user->avatar;
             $newUser->avatar_original = $user->avatar_original;
             $newUser->save();
+            $newUser->roles()->attach(\App\Role::where('nume', 'demo')->get());
             auth()->login($newUser, true);
         }
         return redirect()->to('/');
@@ -127,11 +128,12 @@ class LoginController extends Controller
             $newUser                  = new User;
             $newUser->name            = $user->name;
             $newUser->email           = $user->email;
-            $newUser->provider        = 'facebook';
+            $newUser->provider        = 'Facebook';
             $newUser->provider_id     = $user->id;
             $newUser->avatar          = $user->avatar;
             $newUser->avatar_original = $user->avatar_original;
             $newUser->save();
+            $newUser->roles()->attach(\App\Role::where('nume', 'demo')->get());
             auth()->login($newUser, true);
         }
         return redirect()->to('/');

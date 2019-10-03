@@ -14,6 +14,8 @@ class ProdusController extends Controller
      */
     public function index()
     {
+        // dd(\App\Role::where('nume', 'demo')->get());
+
         $search_nume = \Request::get('search_nume'); //<-- we use global request to get the param of URI        
         $produse = Produs::
                 when($search_nume, function ($query, $search_nume) {

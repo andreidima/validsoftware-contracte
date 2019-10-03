@@ -45,11 +45,16 @@
                                     <i class="fas fa-list-ul mr-1"></i>Produse
                                 </a>
                             </li>
-                            {{-- <li class="nav-item active mr-4">
-                                <a class="nav-link" href="/produse/vanzari">
-                                    <i class="fas fa-shopping-cart mr-1"></i>Vânzări
-                                </a>
-                            </li> --}}
+                            {{-- @php
+                                dd(auth()->user()->roles()->get());
+                            @endphp --}}
+                            @if (auth()->user()->roles()->pluck( 'nume' )->contains( 'administrator' ))
+                                <li class="nav-item active mr-4">
+                                    <a class="nav-link" href="users">
+                                        <i class="fas fa-shopping-cart mr-1"></i>Utilizatori
+                                    </a>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
 
