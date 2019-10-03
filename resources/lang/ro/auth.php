@@ -22,4 +22,6 @@ return [
     'Forgot Your Password?' => 'Ți-ai uitat parola?',
     'Login with Google' => 'Autentificare cu Google',
     'Login with Facebook' => 'Autentificare cu Facebook',
+    'E-Mail Address' => 'Email',
+    'Password' => 'Parola'
 ];
