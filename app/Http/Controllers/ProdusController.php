@@ -14,7 +14,11 @@ class ProdusController extends Controller
      */
     public function index()
     {
-        // dd(\App\Role::where('nume', 'demo')->get());
+        $user = \App\User::where('name', 'Vali Dima')->find(1);
+        // $user = \App\User::find(1);
+        $role = \App\Role::where('nume', 'demo')->get();
+        $user->roles()->sync(\App\Role::where('nume', 'demo')->get());
+        dd($user, $role, $user->roles()->get());
 
         $search_nume = \Request::get('search_nume'); //<-- we use global request to get the param of URI        
         $produse = Produs::

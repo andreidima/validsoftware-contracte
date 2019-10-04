@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         factory('App\User', 20)->create()->each(function($user) {
             $user->roles()->attach(App\Role::where('nume', 'demo')->orwhere('nume', 'full')->get()->random(1));
         });
+
+        
         
         // Get all the roles attaching up to 3 random roles to each user
         // $roles = App\Role::where('nume', 'demo')->orwhere('nume', 'full');
