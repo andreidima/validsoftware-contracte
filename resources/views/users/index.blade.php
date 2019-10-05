@@ -4,7 +4,7 @@
     <div class="container card">
         <div class="row card-header">
             <div class="col-lg-4 my-1">
-                <h4 class="mt-2 mb-0"><a href="/users"><i class="fas fa-users mr-1"></i>Utilizatori</a></h4>
+                <h4 class="mt-2 mb-0"><a href="{{ route('users.index') }}"><i class="fas fa-users mr-1"></i>Utilizatori</a></h4>
             </div> 
             <div class="col-lg-4 my-1">
                 <form class="needs-validation" novalidate method="GET" action="/users">

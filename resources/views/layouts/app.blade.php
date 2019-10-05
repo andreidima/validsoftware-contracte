@@ -41,7 +41,7 @@
                         @guest
                         @else
                             <li class="nav-item active mr-4">
-                                <a class="nav-link" href="produse">
+                                <a class="nav-link" href="{{ route('produse.index') }}">
                                     <i class="fas fa-list-ul mr-1"></i>Produse
                                 </a>
                             </li>
@@ -50,7 +50,7 @@
                             @endphp --}}
                             @if (auth()->user()->roles()->pluck( 'nume' )->contains( 'administrator' ))
                                 <li class="nav-item active mr-4">
-                                    <a class="nav-link" href="users">
+                                    <a class="nav-link" href="{{ route('users.index') }}">
                                         <i class="fas fa-users mr-1"></i>Utilizatori
                                     </a>
                                 </li>

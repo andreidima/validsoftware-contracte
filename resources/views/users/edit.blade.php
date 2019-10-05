@@ -5,17 +5,18 @@
     <div class="container card">
             <div class="row card-header">
                 <div class="mt-2 mb-0">
-                    <h4 class=""><a href="{{ route('produse.adauga') }}"><i class="fas fa-list-ul mr-1"></i>Adaugă produs</a></h4>
+                    <h4 class=""><a href="{{ route('users.index') }}"><i class="fas fa-list-ul mr-1"></i>Produse</a> / {{ $produse->nume }}</h4>
                 </div> 
             </div>
             <div class="card-body">
                 <div class="row justify-content-center">
-                    <div class="col-lg-5">     
+                    <div class="col-lg-5">
                         
                         @include ('errors')
                     
                         <div class="">
-                            <form  class="needs-validation" novalidate method="POST" action="/produse">
+                            <form  class="needs-validation" novalidate method="POST" action="{{ $produse->path() }}">
+                                @method('PATCH')
                                 @csrf 
 
                             <div class="form-group row">
@@ -25,7 +26,7 @@
                                         class="form-control {{ $errors->has('nume') ? 'is-invalid' : '' }}" 
                                         name="nume"
                                         placeholder="Nume"                                        
-                                        value="{{ old('nume')}}"
+                                        value="{{ old('nume') == '' ? $produse->nume : old('nume') }}"
                                         >
                                 </div>
                             </div>
@@ -35,8 +36,8 @@
                                     <input type="number" min="1" step="any" 
                                         class="form-control {{ $errors->has('pret') ? 'is-invalid' : '' }}" 
                                         name="pret"
-                                        placeholder="Preț"                                        
-                                        value="{{ old('pret') }}"
+                                        placeholder="Preț"         
+                                        value="{{ old('pret') == '' ? $produse->pret : old('pret') }}"
                                         >
                                 </div>
                             </div>
@@ -46,8 +47,8 @@
                                     <input type="number" min="1" max="9999999" 
                                         class="form-control {{ $errors->has('cantitate') ? 'is-invalid' : '' }}" 
                                         name="cantitate"
-                                        placeholder="Cantitate"                                        
-                                        value="{{ old('cantitate') }}"                                        
+                                        placeholder="Cantitate"        
+                                        value="{{ old('cantitate') == '' ? $produse->cantitate : old('cantitate') }}"
                                         >
                                 </div>
                             </div>
@@ -56,24 +57,24 @@
                                 <div class="col-sm-7">
                                     <input type="text" class="form-control {{ $errors->has('cod_de_bare') ? 'is-invalid' : '' }}" 
                                         name="cod_de_bare"
-                                        placeholder="Cod de bare"                                        
-                                        value="{{ old('cod_de_bare') }}"
+                                        placeholder="Cod de bare"         
+                                        value="{{ old('cod_de_bare') == '' ? $produse->cod_de_bare : old('cod_de_bare') }}"
                                         >
                                 </div>
                             </div>
                             <div class="form-group row">
                                     <label for="descriere" class="col-sm-5 col-form-label">Descriere:</label>
-                                <div class="col-sm-7">
+                                <div class="col-sm-7">                                      
                                     <textarea class="form-control {{ $errors->has('descriere') ? 'is-invalid' : '' }}" 
                                         name="descriere"
                                         placeholder="Descriere"
-                                        >{{ old('descriere') }}</textarea>
+                                        >{{ old('descriere') == '' ? $produse->descriere : old('descriere') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-12 text-center">
-                                    <button type="submit" class="btn btn-primary btn-lg py-2">Adaugă produsul</button>
+                                    <button type="submit" class="btn btn-primary btn-lg py-2">Modifică produsul</button>
                                 </div>
                             </div>  
                         </form>

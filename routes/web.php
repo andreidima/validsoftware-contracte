@@ -12,9 +12,11 @@
 */
 Route::group(['scheme' => 'https'], function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
+    
+    // Route::get('/home', 'HomeController@index')->name('home');
 
     Auth::routes();
     Route::get('login/google', 'Auth\LoginController@googleRedirectToProvider');
@@ -22,7 +24,6 @@ Route::group(['scheme' => 'https'], function () {
     Route::get('login/facebook', 'Auth\LoginController@FacebookRedirectToProvider');
     Route::get('login/facebook/callback', 'Auth\LoginController@facebookHandleProviderCallback');
 
-    // Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group(['middleware' => 'auth'], function () {
 
@@ -33,6 +34,9 @@ Route::group(['scheme' => 'https'], function () {
         // Route::any('produse/vanzari/goleste-cos', 'ProdusController@vanzariGolesteCos');
         
         Route::resource('users', 'UserController');
-        Route::resource('produse', 'ProdusController');
+        Route::post('produse', 'ProdusController@comparatie_adaugaProdus')->name('comparatie_adaugaProdus');
+        Route::resource('produse', 'ProdusController')->only([
+            'index', 'show'
+        ]);
     });
 });

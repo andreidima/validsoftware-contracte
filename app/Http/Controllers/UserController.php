@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -42,7 +42,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = User::make($this->validateRequest());
+        // $this->authorize('update', $proiecte);
+        $users->save();
+
+        return redirect('/users')->with('status', 'Utilizatorul "' . $users->nume . '" a fost adăugat cu succes!');
     }
 
     /**
@@ -51,7 +55,7 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(User $users)
     {
         //
     }
@@ -62,9 +66,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $users)
     {
-        //
+        return view('users.edit', compact('users'));
     }
 
     /**
@@ -74,9 +78,12 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $users)
     {
-        //
+        // $this->authorize('update', $proiecte);
+        $users->update($this->validateRequest());
+
+        return redirect('/users')->with('status', 'Utilizatorul "' . $users->name . '" a fost modificat cu succes!');
     }
 
     /**
@@ -85,8 +92,28 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $users)
     {
-        //
+        // $this->authorize('delete', $produse);
+        // dd($produse);
+        $users->delete();
+        return redirect('/users')->with('status', 'Utilizatorul "' . $users->name . '" a fost șters cu succes!');
+    }
+
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function validateRequest()
+    {
+        // dd ($request->_method);
+        return request()->validate(
+            [
+                'name' => ['max:150'],
+                'email' => ['max:150'],
+                'password' => ['max:150'],
+            ]
+        );
     }
 }
