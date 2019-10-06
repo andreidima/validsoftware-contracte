@@ -16,7 +16,7 @@
 
             @if (count($produse_pentru_comparatie) === 2)
                 <div class="table-responsive col-md-12">
-                    <table class="table table-striped table-hover table-dark table-sm"> 
+                    <table class="table table-striped table-hover table-dark table-sm" style="background-color:chocolate"> 
                         <tbody>   
                             <tr>
                                 <td>
@@ -145,7 +145,7 @@
 
                 <div class="table-responsive col-md-6">
                     <table class="table table-striped table-hover table-sm"> 
-                        <thead class="thead-dark">
+                        <thead class="text-white" style="background-color:chocolate">
                             <tr>
                                 <th colspan="6" class="text-center">
                                     {{ $produse_pentru_comparatie[0]['nume'] }}
@@ -201,7 +201,7 @@
 
                 <div class="table-responsive col-md-6">
                     <table class="table table-striped table-hover table-sm"> 
-                        <thead class="thead-dark">
+                        <thead class="text-white" style="background-color:chocolate">
                             <tr>
                                 <th colspan="6" class="text-center">
                                     {{ $produse_pentru_comparatie[1]['nume'] }}
@@ -259,7 +259,7 @@
 
             @if (count($produse_pentru_comparatie) === 3)
                 <div class="table-responsive col-md-12">
-                    <table class="table table-striped table-hover table-dark table-sm"> 
+                    <table class="table table-striped table-hover table-dark table-sm" style="background-color:chocolate"> 
                         <tbody>   
                             <tr>
                                 <td>
@@ -421,7 +421,7 @@
 
                 <div class="table-responsive col-md-4 pl-0" style="font-size: 0.8rem;">
                     <table class="table table-striped table-hover table-sm"> 
-                        <thead class="thead-dark">
+                        <thead class="text-white" style="background-color:chocolate">
                             <tr>
                                 <th colspan="6" class="text-center">
                                     {{ $produse_pentru_comparatie[0]['nume'] }}
@@ -477,7 +477,7 @@
 
                 <div class="table-responsive col-md-4 pl-0" style="font-size: 0.8rem;">
                     <table class="table table-striped table-hover table-sm"> 
-                        <thead class="thead-dark">
+                        <thead class="text-white" style="background-color:chocolate">
                             <tr>
                                 <th colspan="6" class="text-center">
                                     {{ $produse_pentru_comparatie[1]['nume'] }}
@@ -533,7 +533,7 @@
 
                 <div class="table-responsive col-md-4 pl-0" style="font-size: 0.8rem;">
                     <table class="table table-striped table-hover table-sm"> 
-                        <thead class="thead-dark">
+                        <thead class="text-white" style="background-color:chocolate">
                             <tr>
                                 <th colspan="6" class="text-center">
                                     {{ $produse_pentru_comparatie[2]['nume'] }}

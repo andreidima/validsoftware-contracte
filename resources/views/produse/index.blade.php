@@ -3,9 +3,9 @@
 @section('content')   
 <div class="container card">
         <div class="row card-header">
-            <div class="col-lg-4 pl-0">
+            {{-- <div class="col-lg-4 pl-0">
                 <h4 class=" mb-0"><a href="{{ route('produse.index') }}"><i class="fas fa-list-ul mr-1"></i>Produse</a></h4>
-            </div> 
+            </div>  --}}
             <div class="col-lg-12 p-1 mb-1">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('produse.index') }}">
                     @csrf                    
@@ -118,7 +118,7 @@
             </div> --}}
         </div>
 
-        <div class="card-body px-0">
+        <div class="card-body px-0 py-3">
 
             @if (session()->has('status'))
             <div class="alert alert-success">
@@ -128,9 +128,9 @@
 
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-sm"> 
-                    <thead class="thead-dark">
+                    <thead class="text-white" style="background-color:brown">
                         <tr class="text-center">
-                            <th>Nr. Crt.</th>
+                            <th>Nr.</th>
                             <th>Nume</th>
                             <th>Cultura utilizare</th>
                             <th>Agent</th>

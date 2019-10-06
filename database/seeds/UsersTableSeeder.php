@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
 
         $user = \App\User::create([
             'name' => 'Vali Dima',
+            'provider' => 'Site',
             'email' => 'contact@validsoftware.ro',
             'password' => bcrypt('39143914'),
         ]);

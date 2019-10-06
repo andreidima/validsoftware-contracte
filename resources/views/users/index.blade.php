@@ -38,11 +38,12 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table table-striped"> 
-                    <thead class="thead-dark">
+                <table class="table table-sm table-striped"> 
+                    <thead class="text-white" style="background-color:brown">
                         <tr class="text-center">
                             <th>Nr. Crt.</th>
                             <th>Nume</th>
+                            <th>Sursă cont</th>
                             <th>Tip cont</th>
                             <th>Email</th>
                             <th>Data</th>
@@ -59,6 +60,9 @@
                                 </td>
                                 <td>
                                     {{ $user->provider }}
+                                </td>
+                                <td>
+                                    {{ $user->roles->first()->nume }}
                                 </td>
                                 <td>
                                     {{ $user->email }}

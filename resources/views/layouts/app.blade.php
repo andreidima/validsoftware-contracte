@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color:brown">
             <div class="container">
                 {{-- <img src="{{ asset('images/cropped-gsmobile-logo-red.jpg') }}" height="40" class="mr-4"> --}}
                 <a class="navbar-brand mr-4" href="{{ url('/') }}">
@@ -97,7 +97,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-3">
             @yield('content')
         </main>
     </div>

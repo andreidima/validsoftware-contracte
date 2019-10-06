@@ -21,7 +21,7 @@
             @endif
 
             <div class="table-responsive col-md-5">
-                <table class="table table-striped table-hover table-dark table-sm"> 
+                <table class="table table-striped table-hover table-dark table-sm" style="background-color:chocolate"> 
                     <tbody>   
                         <tr>
                             <td>
@@ -117,7 +117,7 @@
 
             <div class="table-responsive col-md-7">
                 <table class="table table-striped table-hover table-sm"> 
-                    <thead class="thead-dark">
+                    <thead class="text-white" style="background-color:chocolate">
                         <tr>
                             <th>
                                 Cultura
