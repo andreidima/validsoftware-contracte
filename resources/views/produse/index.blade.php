@@ -130,11 +130,10 @@
                 <table class="table table-striped table-hover table-sm"> 
                     <thead class="text-white" style="background-color:brown">
                         <tr class="text-center">
-                            <th>Nr.</th>
+                            <th>Nr. Crt.</th>
                             <th>Nume</th>
-                            <th>Cultura utilizare</th>
                             <th>Agent</th>
-                            <th>Organism țintă</th>
+                            <th style="white-space: nowrap;">Cultura utilizare<br> Organism țintă</th>
                             <th>Substanțe active</th>
                             <th>Stare</th>
                             <th>Acțiuni</th>
@@ -152,14 +151,26 @@
                                     </a>
                                 </td>
                                 <td>
-                                    {{ $produs->utilizari_cultura }}
-                                </td>
-                                <td>
                                     {{ $produs->utilizari_agent }}
                                 </td>
-                                <td>
-                                    {{ $produs->utilizari_nume }}
+                                <td class="text-center">
+                                    @php
+                                        $culturi = '';
+                                        $culturi = \App\Produs::select('id', 'nume', 'utilizari_cultura', 'utilizari_nume')->where('nume', $produs->nume)->get();
+                                        // dd($culturi);
+                                    @endphp
+                                    
+                                    <i class="fas fa-clipboard-list fa-2x text-success"
+                                        title="
+                                            @forelse ($culturi as $cultura){{ $cultura->utilizari_cultura }} - {{ $cultura->utilizari_nume }}
+@empty
+                                            @endforelse
+                                        "
+                                    ></i>                                    
                                 </td>
+                                {{-- <td>
+                                    {{ $produs->utilizari_nume }}
+                                </td> --}}
                                 <td>
                                     {{ $produs->substanteActive_nume }}
                                 </td>
