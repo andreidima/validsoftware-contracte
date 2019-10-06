@@ -34,7 +34,15 @@ Route::group(['scheme' => 'https'], function () {
         // Route::any('produse/vanzari/goleste-cos', 'ProdusController@vanzariGolesteCos');
         
         Route::resource('users', 'UserController');
-        Route::post('produse', 'ProdusController@comparatie_adaugaProdus')->name('comparatie_adaugaProdus');
+
+        // Comparatie Produse
+        Route::any('produse/comparatie-adauga-produs', 'ProdusController@comparatieAdaugaProdus')->name('comparatieAdaugaProdus');
+        Route::any('produse/comparatie-sterge-produse', 'ProdusController@comparatieStergeProduse')->name('comparatieStergeProduse');
+        Route::get('produse/comparatie-compara-produse', 'ProdusController@comparatieComparaProduse')->name('comparatieComparaProduse');
+
+        // Export Fisa produs
+        Route::get('produse/{produse}/export/{view_type}', 'ProdusController@fisaProdus')->name('fisaProdus');
+
         Route::resource('produse', 'ProdusController')->only([
             'index', 'show'
         ]);

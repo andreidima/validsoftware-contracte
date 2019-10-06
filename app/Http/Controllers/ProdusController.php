@@ -229,26 +229,71 @@ class ProdusController extends Controller
     }
 
     public function vanzariGolesteCos(Request $request)
-    {         
+    {
         $request->session()->forget('produse_vandute');
         return view ('produse/vanzari');
     }
 
     /**
-     * Adaugare produs in sesiune pentru comparatie
+     * Functii comparatie produse
      *
      * @param  \App\Produs  $produs
      * @return \Illuminate\Http\Response
      */
     public function comparatieAdaugaProdus(Request $request)
     {
-        if ($request->session()->has('produse_vandute')) {
-            $request->session()->push('produse_pentru_comparatie', '' . $request->nr_de_bucati . ' buc. ' . $produs->nume); 
-        } else {
-                    $request->session()->put('produse_vandute', []);
-                    $request->session()->push('produse_vandute', '' . $request->nr_de_bucati . ' buc. ' . $produs->nume);
-                }  
+        // dd($request);
+        if (isset($request->produs_id)) {
+            $produs = Produs::where('id', $request->produs_id)->first();
 
-        return view('produse/vanzari');
+            if ($request->session()->has('produse_pentru_comparatie')) {
+                $request->session()->push('produse_pentru_comparatie', $produs); 
+            } else {
+                $request->session()->put('produse_pentru_comparatie', []);
+                $request->session()->push('produse_pentru_comparatie', $produs);
+            } 
+        } 
+
+        // dd($request->session()->all());
+
+        return redirect('produse');
+    }
+    public function comparatieStergeProduse(Request $request)
+    {
+        $request->session()->forget('produse_pentru_comparatie');
+        return redirect('produse');
+    }
+    public function comparatieComparaProduse(Request $request)
+    {
+        $produse_pentru_comparatie = session('produse_pentru_comparatie');
+
+        foreach($produse_pentru_comparatie as $produs) {
+            $produs['tratamente_tinta'] = Produs::select('nume', 'utilizari_cultura', 'utilizari_agent', 'utilizari_nume', 'utilizari_doza', 'utilizari_pauza', 'utilizari_nrTrat')
+                ->having('nume', $produs->nume)
+                ->get();
+        }       
+        return view('produse/show_comparatie_produse', compact('produse_pentru_comparatie'));
+    }
+
+    /**
+     * Functii comparatie produse
+     *
+     * @param  \App\Produs  $produs
+     * @return \Illuminate\Http\Response
+     */
+    public function fisaProdus(Request $request, Produs $produse)
+    {
+        $tratamente_tinta = Produs::select('nume', 'utilizari_cultura', 'utilizari_agent', 'utilizari_nume', 'utilizari_doza', 'utilizari_pauza', 'utilizari_nrTrat')
+            // ->groupBy('nume')
+            ->having('nume', $produse->nume)
+            ->get();
+        if ($request->view_type === 'produs-html') {
+            return view('produse.export.fisa_produs', compact('produse', 'tratamente_tinta'));
+        } elseif ($request->view_type === 'produs-pdf') {
+            $pdf = \PDF::loadView('produse.export.fisa_produs', compact('produse', 'tratamente_tinta'))
+                ->setPaper('a4');
+            // return $pdf->stream('Produs ' . $produse->nume . '.pdf');
+            return $pdf->download('Produs ' . $produse->nume . '.pdf');
+        }
     }
 }
