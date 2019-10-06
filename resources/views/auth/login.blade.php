@@ -112,7 +112,7 @@
                                 <div class="col-md-12 text-center">
                                     <hr>
                                     Nu ai cont? 
-                                    <a class="" href="{{ route('register') }}">{{ __('auth.Register') }}</a>
+                                    <a class="" href="{{ route('register') }}">Înregistrează-te</a>
                                 </div>
                             </div>
                         @endif
