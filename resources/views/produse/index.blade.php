@@ -91,14 +91,14 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-12 p-1 border">
+            <div class="col-lg-12 p-1 border text-center">
                 Adaugă 2 sau 3 produse în listă pentru a le compara:
                 @if (Session::get('produse_pentru_comparatie') !== null)
                     @foreach (Session::get('produse_pentru_comparatie') as $key => $produs)
                         @if ($key > 0)
                             ,
                         @endif
-                        {{ $produs['nume'] }}
+                        <a href="produse/{{ $produs['id'] }}"> {{ $produs['nume'] }} </a>
                     @endforeach
                 @endif
                     <a class="btn btn-sm btn-primary

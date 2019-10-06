@@ -256,12 +256,12 @@ class ProdusController extends Controller
 
         // dd($request->session()->all());
 
-        return redirect('produse');
+        return redirect('produse')->with('status', 'Produsul "' . $produs->nume . '" a fost adăugat în lista pentru comparație!');
     }
     public function comparatieStergeProduse(Request $request)
     {
         $request->session()->forget('produse_pentru_comparatie');
-        return redirect('produse');
+        return redirect('produse')->with('status', 'Lista cu produse pentru comparație a fost golită!');
     }
     public function comparatieComparaProduse(Request $request)
     {

@@ -419,7 +419,7 @@
                     </table>
                 </div>
 
-                <div class="table-responsive col-md-4 pl-0" style="font-size: 0.8rem;">
+                <div class="table-responsive col-md-4 pl-0" style="font-size: 0.7rem;">
                     <table class="table table-striped table-hover table-sm"> 
                         <thead class="text-white" style="background-color:chocolate">
                             <tr>
@@ -475,7 +475,7 @@
                     </table>
                 </div>                
 
-                <div class="table-responsive col-md-4 pl-0" style="font-size: 0.8rem;">
+                <div class="table-responsive col-md-4 pl-0" style="font-size: 0.7rem;">
                     <table class="table table-striped table-hover table-sm"> 
                         <thead class="text-white" style="background-color:chocolate">
                             <tr>
@@ -531,7 +531,7 @@
                     </table>
                 </div>               
 
-                <div class="table-responsive col-md-4 pl-0" style="font-size: 0.8rem;">
+                <div class="table-responsive col-md-4 pl-0" style="font-size: 0.7rem;">
                     <table class="table table-striped table-hover table-sm"> 
                         <thead class="text-white" style="background-color:chocolate">
                             <tr>
