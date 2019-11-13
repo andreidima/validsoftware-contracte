@@ -20,6 +20,7 @@ class CreateProduseTable extends Migration
             $table->integer('cantitate')->nullable();
             $table->string('cod_de_bare')->nullable();
             $table->string('descriere')->nullable();
+            $table->date('data')->nullable();
 
             $table->timestamps();
         });
