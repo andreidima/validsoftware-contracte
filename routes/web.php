@@ -10,7 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
 Route::group(['scheme' => 'https'], function () {
+
+    Route::get('/testari-cod', function () {
+        return view('testari-cod');
+    });
 
     // Route::get('/', function () {
     //     return view('welcome');
