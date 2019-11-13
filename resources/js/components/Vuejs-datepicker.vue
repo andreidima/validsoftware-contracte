@@ -17,7 +17,7 @@ export default {
       disabledDates: {
         to: new Date(2019, 10, 13), // Disable all dates up to specific date
         // // from: new Date(2019, 12, 26), // Disable all dates after specific date
-        days: [0,1,2,4,5], // Disable Saturday's and Sunday's
+        days: [1,2,3,5,6], // Disable Saturday's and Sunday's
         dates: [ // Disable an array of dates
           new Date(2019, 11, 25),
           new Date(2020, 0, 1)
@@ -79,7 +79,8 @@ export default {
       v-model="time2"
       :language="ro"
       :disabled-dates="disabledDates"
-      :format="customFormatter"
+      :format="customFormatter"      
+      :monday-first="true"
     >
     </datepicker>
     <!-- <date-picker 

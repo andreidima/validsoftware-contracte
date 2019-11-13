@@ -2005,7 +2005,7 @@ __webpack_require__.r(__webpack_exports__);
         to: new Date(2019, 10, 13),
         // Disable all dates up to specific date
         // // from: new Date(2019, 12, 26), // Disable all dates after specific date
-        days: [0, 1, 2, 4, 5],
+        days: [1, 2, 3, 5, 6],
         // Disable Saturday's and Sunday's
         dates: [// Disable an array of dates
         new Date(2019, 11, 25), new Date(2020, 0, 1)] // daysOfMonth: [29], // Disable 29th, 30th and 31st of each month
@@ -55095,7 +55095,8 @@ var render = function() {
         attrs: {
           language: _vm.ro,
           "disabled-dates": _vm.disabledDates,
-          format: _vm.customFormatter
+          format: _vm.customFormatter,
+          "monday-first": true
         },
         model: {
           value: _vm.time2,
