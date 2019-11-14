@@ -1,20 +1,27 @@
 <script>
 import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
-import 'vue2-datepicker/locale/ro';
 import moment from 'moment';
  
 export default {
   components: { DatePicker },
-  props: ['dataVeche', 'numeCampDb', 'tip', 'notBefore'],
+  props: ['dataVeche', 'numeCampDb', 'tip', 'latime', 'notBefore'],
   data() {
     return {
-      time1: null,
-      time2: null,
-      time3: null,
+      time1: '',
+      time2: '',
+      time3: '',
       dataNoua: '',
       format: '',
-      ziua: '',
+      // custom lang
+      lang: {
+        days: ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'],
+        months: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Noi', 'Dec'],
+        pickers: ['next 7 days', 'next 30 days', 'previous 7 days', 'previous 30 days'],
+        placeholder: {
+          date: 'Selectează Data',
+          dateRange: 'Select Date Range'
+        }
+      },
       // custom range shortcuts
       shortcuts: [
         {
@@ -29,31 +36,34 @@ export default {
         step: '00:30',
         end: '23:30'
       },
+      // disabledDays: {
+      //   // // to: new Date(2019, 12, 5), // Disable all dates up to specific date
+      //   // // from: new Date(2019, 12, 26), // Disable all dates after specific date
+      //   // days: [6, 0], // Disable Saturday's and Sunday's
+      //   // daysOfMonth: [29], // Disable 29th, 30th and 31st of each month
+      //   moment(2019, 11, 25) => true
+      //   // days: [ // Disable an array of dates
+      //   //   new Date(2019, 11, 25),
+      //   //   new Date(2020, 1, 1)
+      //   // ]
+      // }
     }
   },
-    methods: {
-      notBeforeToday(date) {
-        const today = new Date(this.notBefore);
-        today.setHours(0, 0, 0, 0);
-        return date.getTime() < today.getTime();
-      },
-      disabledDays (value) {
-        // const date = new Date(value)
-        // const today = new Date()
-        // const todayDay = today.getDay()
-        // const dateDay = date.getDay()
-      // if today is Friday, Monday can be choosed.
-        // if (todayDay === 5) {
-        //   return dateDay !== 1
-        // }
-        return new Date(2019, 11, 21);
-      },
-      notAfterToday(date) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        return date.getTime() > today.getTime();
-      },
-    },
+  methods: {
+    disableDays (date) {
+      const day = new Date(date).getDay();
+      if (date == new Date('2019-11-25')){
+        return date
+      }
+      //   date = new Date('2019-11-25');
+      // if (day === 0 || day === 1 || day === 2 || day === 4 || day === 5) {
+      //   return day === 0 || day === 1 || day === 2 || day === 4 || day === 5;
+      // }
+      // else{
+      //   return date;
+      // }
+    }
+  },
     created() {
         if (this.dataVeche == "") {
             // this.time2 = new Date()
@@ -70,7 +80,6 @@ export default {
         else {
           this.format = "DD.MM.YYYY, HH:mm"
         }
-        this.ziua = new Date();
     },
     updated() {
       if (this.time2 instanceof Date) {
@@ -98,17 +107,8 @@ export default {
     <p>dataNoua = {{ dataNoua }}</p>
     <p>time2 = {{ time2 }}</p> -->
     <input type="text" :name=numeCampDb v-model="dataNoua" v-show="false">
-    <!-- <date-picker v-model="time1"></date-picker> -->
+    <!-- <date-picker v-model="time1" :first-day-of-week="1"></date-picker> -->
     <date-picker 
-      v-model="time2"
-      :format="format"
-      :style="{ width: '120px' }"
-      :disabled-date="notBeforeToday"
-      :disabled-days="disabledDays"
-    >      
-    </date-picker>
-    <input type="text" :name=numeCampDb v-model="ziua" v-show="true">
-    <!-- <date-picker 
       v-model="time2"
       :type=tip
       :not-before="notBefore"
@@ -119,9 +119,9 @@ export default {
       :first-day-of-week="1"
       :lang="lang"
       :time-picker-options="timePickerOptions"
-      :disabled-days="['2019-12-25','2020-01-01']"
+      :disabled-days="disableDays"
       >
-    </date-picker> -->
+    </date-picker>
     <!-- <date-picker v-model="time3" range :shortcuts="shortcuts"></date-picker> -->
     <!-- <date-picker v-model="value" :lang="lang"></date-picker> -->
   </div>
