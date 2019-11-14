@@ -13,45 +13,46 @@
 
 
 
-Route::group(['scheme' => 'https'], function () {
+// Route::group(['scheme' => 'https'], function () {
 
-    Route::get('/testari-cod', function () {
-        return view('testari-cod');
-    });
-
-    // Route::get('/', function () {
-    //     return view('welcome');
-    // });
-    
-    // Route::get('/home', 'HomeController@index')->name('home');
-
-    Auth::routes();
-    Route::get('login/google', 'Auth\LoginController@googleRedirectToProvider');
-    Route::get('login/google/callback', 'Auth\LoginController@googleHandleProviderCallback');
-    Route::get('login/facebook', 'Auth\LoginController@FacebookRedirectToProvider');
-    Route::get('login/facebook/callback', 'Auth\LoginController@facebookHandleProviderCallback');
+//     Route::get('/testari-cod', function () {
+//         return view('testari-cod');
+//     });
 
 
-    Route::group(['middleware' => 'auth'], function () {
+//     Auth::routes();
+//     Route::get('login/google', 'Auth\LoginController@googleRedirectToProvider');
+//     Route::get('login/google/callback', 'Auth\LoginController@googleHandleProviderCallback');
+//     Route::get('login/facebook', 'Auth\LoginController@FacebookRedirectToProvider');
+//     Route::get('login/facebook/callback', 'Auth\LoginController@facebookHandleProviderCallback');
 
-        Route::redirect('/', 'produse');
 
-        // Route::any('/produse/vanzari', 'ProdusController@vanzari');
-        // Route::any('produse/vanzari/descarca-produs', 'ProdusController@vanzariDescarcaProdus');
-        // Route::any('produse/vanzari/goleste-cos', 'ProdusController@vanzariGolesteCos');
+//     Route::group(['middleware' => 'auth'], function () {
+
+//         Route::redirect('/', 'produse');
+
+//         // Route::any('/produse/vanzari', 'ProdusController@vanzari');
+//         // Route::any('produse/vanzari/descarca-produs', 'ProdusController@vanzariDescarcaProdus');
+//         // Route::any('produse/vanzari/goleste-cos', 'ProdusController@vanzariGolesteCos');
         
-        Route::resource('users', 'UserController');
+//         Route::resource('users', 'UserController');
 
-        // Comparatie Produse
-        Route::any('produse/comparatie-adauga-produs', 'ProdusController@comparatieAdaugaProdus')->name('comparatieAdaugaProdus');
-        Route::any('produse/comparatie-sterge-produse', 'ProdusController@comparatieStergeProduse')->name('comparatieStergeProduse');
-        Route::get('produse/comparatie-compara-produse', 'ProdusController@comparatieComparaProduse')->name('comparatieComparaProduse');
+//         // Comparatie Produse
+//         Route::any('produse/comparatie-adauga-produs', 'ProdusController@comparatieAdaugaProdus')->name('comparatieAdaugaProdus');
+//         Route::any('produse/comparatie-sterge-produse', 'ProdusController@comparatieStergeProduse')->name('comparatieStergeProduse');
+//         Route::get('produse/comparatie-compara-produse', 'ProdusController@comparatieComparaProduse')->name('comparatieComparaProduse');
 
-        // Export Fisa produs
-        Route::get('produse/{produse}/export/{view_type}', 'ProdusController@fisaProdus')->name('fisaProdus');
+//         // Export Fisa produs
+//         Route::get('produse/{produse}/export/{view_type}', 'ProdusController@fisaProdus')->name('fisaProdus');
 
-        Route::resource('produse', 'ProdusController')->only([
-            'index', 'show'
-        ]);
-    });
+//         Route::resource('produse', 'ProdusController')->only([
+//             'index', 'show'
+//         ]);
+//     });
+// });
+
+Auth::routes();
+
+Route::get('/', function () {
+    return view('acasa');
 });

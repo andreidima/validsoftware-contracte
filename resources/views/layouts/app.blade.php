@@ -59,7 +59,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto text-white">
+                    {{-- <ul class="navbar-nav ml-auto text-white">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item active">
@@ -92,7 +92,7 @@
                                 </div>
                             </li>
                         @endguest
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </nav>
