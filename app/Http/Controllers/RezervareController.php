@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Rezervare;
+use App\Oras;
 use Illuminate\Http\Request;
 
 class RezervareController extends Controller
@@ -177,24 +178,28 @@ class RezervareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function adaugaRezervare1(Request $request)
+    public function adaugaRezervarePasul1(Request $request)
     {
-        $curse = Cursa::select('id', 'plecare_id', 'sosire_id')
-            ->get();
-        $orase = Oras::has('curse_plecare')
-            ->orderBy('nume')        
-            ->get();
-        $statii = OrasStatie::select('id', 'nume')
-            ->orderBy('nume')
-            ->get();
-        $tipuri_plati = TipPlata::select('id', 'nume')
-            ->orderBy('nume')
+        // $curse = Cursa::select('id', 'plecare_id', 'sosire_id')
+        //     ->get();
+        // $orase = Oras::has('curse_plecare')
+        //     ->orderBy('nume')        
+        //     ->get();
+        // $statii = OrasStatie::select('id', 'nume')
+        //     ->orderBy('nume')
+        //     ->get();
+        // $tipuri_plati = TipPlata::select('id', 'nume')
+        //     ->orderBy('nume')
+        //     ->get();
+
+        // $rezervare = $request->session()->get('rezervare');
+        // return view('rezervari.guest-create/adauga-rezervare1',compact('rezervare', $rezervare, 'curse', 'orase', 'statii', 'tipuri_plati'));
+
+        $orase = Oras::
+            orderBy('nume')        
             ->get();
 
-        $rezervare = $request->session()->get('rezervare');
-        return view('rezervari.guest-create/adauga-rezervare1',compact('rezervare', $rezervare, 'curse', 'orase', 'statii', 'tipuri_plati'));
-
-
+        return view('rezervari.guest-create/adauga-rezervare-pasul-1', compact('orase'));
     }
 
     /**

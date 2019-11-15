@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRezervaresTable extends Migration
+class CreateOraseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateRezervaresTable extends Migration
      */
     public function up()
     {
-        Schema::create('rezervares', function (Blueprint $table) {
+        Schema::create('orase', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('nume');
+            $table->string('tara');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateRezervaresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rezervares');
+        Schema::dropIfExists('orase');
     }
 }

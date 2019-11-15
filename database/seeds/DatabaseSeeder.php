@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesTableSeeder::class,
             UsersTableSeeder::class,
+            OraseTableSeeder::class
         ]);
         factory('App\User', 20)->create()->each(function($user) {
             $user->roles()->attach(App\Role::where('nume', 'demo')->orwhere('nume', 'full')->get()->random(1));

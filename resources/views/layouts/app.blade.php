@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/form-jeyakarthika.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"> --}}
 
     <!-- Font Awesome links -->
@@ -25,9 +26,8 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color:brown">
+        {{-- <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color:brown">
             <div class="container">
-                {{-- <img src="{{ asset('images/cropped-gsmobile-logo-red.jpg') }}" height="40" class="mr-4"> --}}
                 <a class="navbar-brand mr-4" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -45,9 +45,6 @@
                                     <i class="fas fa-list-ul mr-1"></i>Produse
                                 </a>
                             </li>
-                            {{-- @php
-                                dd(auth()->user()->roles()->get());
-                            @endphp --}}
                             @if (auth()->user()->roles()->pluck( 'nume' )->contains( 'administrator' ))
                                 <li class="nav-item active mr-4">
                                     <a class="nav-link" href="{{ route('users.index') }}">
@@ -59,7 +56,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    {{-- <ul class="navbar-nav ml-auto text-white">
+                    <ul class="navbar-nav ml-auto text-white">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item active">
@@ -92,10 +89,10 @@
                                 </div>
                             </li>
                         @endguest
-                    </ul> --}}
+                    </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
         <main class="py-3">
             @yield('content')
