@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rezervare;
 use App\Oras;
+use App\Tarif;
 use Illuminate\Http\Request;
 
 class RezervareController extends Controller
@@ -85,7 +86,81 @@ class RezervareController extends Controller
     }
 
 
-    
+
+    /**
+     * Returnarea oraselor de sosire
+     */
+    public function orase_rezervari(Request $request)
+    {
+        $pret_adult = 0;
+        $pret_copil = 0;
+        $pret_animal_mic = 0;
+        $pret_animal_mare = 0;
+        $tur_retur = 0;
+        $raspuns = '';
+        switch ($_GET['request']) {
+            case 'orase_plecare':
+                $raspuns = Oras::select('id', 'nume', 'tara')
+                    ->where('tara', '1')
+                    ->orderBy('nume')
+                    ->get();
+                break;
+            case 'orase_sosire':
+                $raspuns = Oras::select('id', 'nume', 'tara')
+                    ->where('tara', '2')
+                    ->orderBy('nume')
+                    ->get();
+                break;
+            case 'preturi':
+                if (($request->oras_sosire) && ($request->tur_retur)) {
+                    $traseu = Oras::select('id', 'nume', 'traseu')
+                        ->where('id', $request->oras_sosire)
+                        ->first();
+                    if ($request->tur_retur == 'false'){
+                        $tur_retur = 0;
+                    } else{
+                        $tur_retur = 1;
+                    }
+                    $raspuns = Tarif::all()
+                        ->where('traseu_id', $traseu->traseu)
+                        ->where('tur_retur', $tur_retur)
+                        ->first();
+                    $pret_adult = $raspuns->adult;
+                    $pret_copil = $raspuns->copil;
+                    $pret_animal_mic = $raspuns->animal_mic;
+                    $pret_animal_mare = $raspuns->animal_mare;
+                } else {
+                    $raspuns = '';
+                }
+
+                break;
+            default:
+                break;
+        }
+        return response()->json([
+            'raspuns' => $raspuns,
+            'pret_adult' => $pret_adult,
+            'pret_copil' => $pret_copil,
+            'pret_animal_mic' => $pret_animal_mic,
+            'pret_animal_mare' => $pret_animal_mare,
+        ]);
+    }
+
+    public function testare_axios(Request $request)
+    {
+        $traseu = Oras::select('id', 'nume', 'traseu')
+            ->where('id', 114)
+            ->first();
+        $raspuns = Tarif::all()
+            ->where('traseu_id', $traseu->traseu)
+            ->where('tur_retur', 1)
+            ->first();
+        // $pret_adult = $raspuns->adult;
+        // $pret_copil = $raspuns->copil;
+        // $pret_animal_mic = $raspuns->animal_mic;
+        // $pret_animal_mare = $raspuns->animal_mare;
+        dd($traseu, $raspuns);
+    }
 
     /**
      * Validate the request attributes.
@@ -195,11 +270,11 @@ class RezervareController extends Controller
         // $rezervare = $request->session()->get('rezervare');
         // return view('rezervari.guest-create/adauga-rezervare1',compact('rezervare', $rezervare, 'curse', 'orase', 'statii', 'tipuri_plati'));
 
-        $orase = Oras::
-            orderBy('nume')        
+        $orase_romania = Oras::where('tara', '1')
+            ->orderBy('nume')        
             ->get();
 
-        return view('rezervari.guest-create/adauga-rezervare-pasul-1', compact('orase'));
+        return view('rezervari.guest-create/adauga-rezervare-pasul-1', compact('orase_romania'));
     }
 
     /**

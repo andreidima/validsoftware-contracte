@@ -64,3 +64,10 @@ Route::get('/adauga-rezervare-pasul-1', 'RezervareController@adaugaRezervarePasu
 // Route::post('/adauga-rezervare-pasul-2', 'RezervareController@postAdaugaRezervare2');
 // Route::get('/adauga-rezervare-pasul-3', 'RezervareController@adaugaRezervare3');
 // Route::get('/bilet-rezervat', 'RezervareController@pdfexportguest');
+
+
+// Extras date cu Axios
+Route::get('/orase_rezervari', 'RezervareController@orase_rezervari');
+
+// Testare Extras date cu Axios
+Route::get('/testare-axios', 'RezervareController@testare_axios');

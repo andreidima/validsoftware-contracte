@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOraseTable extends Migration
+class CreateTarifeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateOraseTable extends Migration
      */
     public function up()
     {
-        Schema::create('orase', function (Blueprint $table) {
+        Schema::create('tarife', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nume');
-            $table->string('tara');
-            $table->string('traseu');
+            $table->string('traseu_id');
+            $table->boolean('tur_retur');
+            $table->string('adult');
+            $table->string('copil');
+            $table->string('animal_mic');
+            $table->string('animal_mare');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateOraseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orase');
+        Schema::dropIfExists('tarife');
     }
 }

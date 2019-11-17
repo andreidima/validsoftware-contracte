@@ -18,7 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/form-jeyakarthika.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/form-jeyakarthika.css') }}" rel="stylesheet"> --}}
     {{-- <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"> --}}
 
     <!-- Font Awesome links -->

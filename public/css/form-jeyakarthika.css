@@ -1,19 +1,41 @@
 .formStyle { 
   background-color: crimson;
-  padding: 20px; 
-  width: 400px; 
-  margin-bottom: 20px; 
+  /* padding: 20px;  */
+  width: 600px; 
+  /* margin-bottom: 20px;  */
   border-bottom-width: 1px; 
   border-bottom-style: solid; 
   border-bottom-color: #ecf0f1; 
   border-top-style: none; 
   border-right-style: none; 
   border-left-style: none; 
-  font-size: 1em;
-  font-weight: 100;
+  /* font-size: 1em;
+  font-weight: 100; */
   color: #ffffff;
 }
 
 input:focus {
   outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px crimson inset !important;
+    -webkit-text-fill-color: white !important;
+    box-shadow: crimson;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color:lightgray;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:lightgray;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:lightgray;
 }

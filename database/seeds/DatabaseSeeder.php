@@ -13,15 +13,14 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this->call([
-            RolesTableSeeder::class,
-            UsersTableSeeder::class,
-            OraseTableSeeder::class
+            // RolesTableSeeder::class,
+            // UsersTableSeeder::class,
+            // OraseTableSeeder::class,
+            TarifeTableSeeder::class,
         ]);
-        factory('App\User', 20)->create()->each(function($user) {
-            $user->roles()->attach(App\Role::where('nume', 'demo')->orwhere('nume', 'full')->get()->random(1));
-        });
-
-        
+        // factory('App\User', 20)->create()->each(function($user) {
+        //     $user->roles()->attach(App\Role::where('nume', 'demo')->orwhere('nume', 'full')->get()->random(1));
+        // });        
         
         // Get all the roles attaching up to 3 random roles to each user
         // $roles = App\Role::where('nume', 'demo')->orwhere('nume', 'full');
@@ -33,6 +32,6 @@ class DatabaseSeeder extends Seeder
         //     ); 
         // });
 
-        factory('App\Produs', 200)->create();
+        // factory('App\Produs', 200)->create();
     }
 }

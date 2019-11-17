@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="shadow-lg bg-white" style="border-radius: 40px 40px 40px 40px;">
-                <div class="text-center border-warning p-2" style="border-radius: 40px 40px 0px 0px;"> 
+                <div class="text-center border border-danger p-2" style="border-radius: 40px 40px 0px 0px;"> 
                     <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="140" class="mr-4">
                 </div>
 

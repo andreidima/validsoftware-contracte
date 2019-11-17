@@ -20,7 +20,8 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('vue2-datepicker', require('./components/DatePicker.vue').default);
+Vue.component('vue2-datepicker-miercuri', require('./components/DatePickerMiercuri.vue').default);
+Vue.component('vue2-datepicker-duminica', require('./components/DatePickerDuminica.vue').default);
 Vue.component('vuejs-datepicker', require('./components/Vuejs-datepicker.vue').default);
 
 /**
@@ -32,6 +33,136 @@ Vue.component('vuejs-datepicker', require('./components/Vuejs-datepicker.vue').d
 if (document.querySelector('#app1')) {
     const app1 = new Vue({
         el: '#app1'
+    });
+}
+
+if (document.querySelector('#adauga-rezervare')) {
+    const app1 = new Vue({
+        el: '#adauga-rezervare',
+        data: {
+            traseu: traseuVechi,
+            active: "active",
+            isActive2: false,
+            oras_plecare: orasPlecareVechi,
+            orase_plecare: '',
+            oras_sosire: orasSosireVechi,
+            orase_sosire: '',
+
+            nr_adulti: nrAdultiVechi,
+            nr_copii: nrCopiiVechi,
+            nr_animale_mici: nrAnimaleMiciVechi,
+            nr_animale_mari: nrAnimaleMariVechi,
+
+            pret_adult: 0,
+            pret_copil: 0,
+            pret_animal_mic: 0,
+            pret_animal_mare: 0,
+
+            pret_total: pretTotal,
+
+            tur_retur: turReturVechi,
+        },
+
+        created: function () {
+            // this.getOrasePlecareInitial()
+        },
+        methods: {
+            getOrasePlecareInitial: function () {
+                axios.get('/orase_rezervari', {
+                    params: {
+                        request: 'orase_plecare',
+                    }
+                })
+                    .then(function (response) {
+                        app1.orase_plecare = response.data.raspuns;
+                    });
+            },
+            getOrasePlecare: function () {
+                axios.get('/orase_rezervari', {
+                    params: {
+                        request: 'orase_plecare',
+                    }
+                })
+                    .then(function (response) {
+                        app1.orase_plecare = '';
+                        app1.orase_sosire = '';
+                        app1.oras_plecare = 0;
+                        app1.oras_sosire = 0;
+                        app1.pret_adult = 0;
+                        app1.pret_copil = 0;
+                        app1.pret_animal_mic = 0,
+                        app1.pret_animal_mare = 0,
+
+                        app1.orase_plecare = response.data.raspuns;
+                    });
+            },
+            getOraseSosireInitial: function () {
+                axios.get('/orase_rezervari', {
+                    params: {
+                        request: 'orase_sosire',
+                        // oras_plecare: this.oras_plecare,
+                    }
+                })
+                    .then(function (response) {
+                        app1.orase_sosire = response.data.raspuns;
+                    });
+            },            
+            getOraseSosire: function () {
+                axios.get('/orase_rezervari', {
+                    params: {
+                        request: 'orase_sosire',
+                    }
+                })
+                    .then(function (response) {
+                        app1.orase_sosire = '';
+                        app1.oras_sosire = 0;
+                        app1.pret_adult = 0;
+                        app1.pret_copil = 0;
+                        app1.pret_animal_mic = 0,
+                        app1.pret_animal_mare = 0,
+
+                        app1.orase_sosire = response.data.raspuns;
+                        // app1.getPretTotal();
+                    });
+                // app2.getPretTotal();
+            },
+            getPreturi: function () {
+                if ((typeof this.oras_sosire !== 'undefined') && (this.oras_sosire !==0)) {
+                    axios.get('/orase_rezervari', {
+                        params: {
+                            request: 'preturi',
+                            oras_sosire: this.oras_sosire,
+                            tur_retur: this.tur_retur
+                        }
+                    })
+                        .then(function (response) {
+                            app1.pret_adult = response.data.pret_adult;
+                            app1.pret_copil = response.data.pret_copil;
+                            app1.pret_animal_mic = response.data.pret_animal_mic;
+                            app1.pret_animal_mare = response.data.pret_animal_mare;
+                            // Vue.set(app2.pret_adult);
+                            // Vue.set(app2.pret_copil = response.data.pret_copil);
+                            app1.getPretTotal();
+                        });
+                    // app2.getPretTotal();
+                }                
+            },
+            getPretTotal() {
+                this.pret_total = 0;
+                if (!isNaN(this.nr_adulti) && (this.nr_adulti > 0)) {
+                    this.pret_total = this.pret_total + this.pret_adult * this.nr_adulti
+                }
+                if (!isNaN(this.nr_copii) && (this.nr_copii > 0)) {
+                    this.pret_total = this.pret_total + this.pret_copil * this.nr_copii
+                }
+                if (!isNaN(this.nr_animale_mici) && (this.nr_animale_mici > 0)) {
+                    this.pret_total = this.pret_total + this.pret_animal_mic * this.nr_animale_mici
+                }
+                if (!isNaN(this.nr_animale_mari) && (this.nr_animale_mari > 0)) {
+                    this.pret_total = this.pret_total + this.pret_animal_mare * this.nr_animale_mari
+                }
+            },
+        }
     });
 }
 
