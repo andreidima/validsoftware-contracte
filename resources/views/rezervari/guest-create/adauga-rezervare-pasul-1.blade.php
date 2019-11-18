@@ -9,6 +9,8 @@
                     <h3 class="ml-3" style="color:brown"><i class="fas fa-ticket-alt fa-lg mr-1"></i>Rezervare bilet</h3>
                     <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="70" class="mr-3">
                 </div>
+                
+                @include ('errors')                
 
                 <div class="card-body py-2" 
                     style="
@@ -18,8 +20,8 @@
                     "
                     id="adauga-rezervare"
                 >
-                    {{-- <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-pasul-1">
-                        @csrf --}}
+                    <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-pasul-1">
+                        @csrf
 
                         <div class="form-row mb-0 d-flex justify-content-center border-radius: 0px 0px 40px 40px">
                             <div class="form-group col-lg-12 px-2 mb-0">
@@ -39,13 +41,13 @@
                                         <label class="btn btn-success btn-sm border" v-bind:class="[traseu==1 ? active : '']">
                                             <input type="radio" class="btn-group-toggle" name="traseu" id="traseu1" autocomplete="off"
                                                 v-model="traseu" value="1"
-                                                v-on:change="getOrasePlecare()"
+                                                v-on:change="getOrasePlecare(); getOraseSosire()"
                                                 >România -> Italia
                                         </label>
                                         <label class="btn btn-success btn-sm border" v-bind:class="[traseu==2 ? active : '']">
                                             <input type="radio" class="btn-group-toggle" name="traseu" id="traseu2" autocomplete="off"
                                                 v-model="traseu" value="2"
-                                                v-on:change="getOrasePlecare()"
+                                                v-on:change="getOrasePlecare(); getOraseSosire()"
                                                 >Italia -> România
                                         </label>
                                     </div>
@@ -59,7 +61,7 @@
                                         <select class="custom-select-sm custom-select {{ $errors->has('oras_plecare') ? 'is-invalid' : '' }}"
                                             name="oras_plecare"
                                             v-model="oras_plecare"
-                                            @change='getOraseSosire()'
+                                            @change='getPreturi();getPretTotal()'
                                             >                                                
                                             <option
                                                 v-for='oras_plecare in orase_plecare'
@@ -88,11 +90,11 @@
                                         <script type="application/javascript"> 
                                             turReturVechi={!! json_encode(old('tur_retur') == "true" ? true : false) !!}
                                         </script>
-                                        <input type="hidden" name="tur_retur" value="0" />
+                                        <input type="hidden" name="tur_retur" value="false" />
                                         {{-- <input type="checkbox" class="custom-control-input" id="customSwitch1"> --}}
                                         <input type="checkbox" class="custom-control-input custom-control-lg" id="customSwitch1" 
-                                        name="tur_retur" v-model="tur_retur" value="1" required
-                                        {{ old('tur_retur') == '1' ? 'checked' : '' }}
+                                        name="tur_retur" v-model="tur_retur" value="true" required
+                                        {{ old('tur_retur') == 'true' ? 'checked' : '' }}
                                         @change='getPreturi();getPretTotal()'
                                         >
                                         <label class="custom-control-label" for="customSwitch1">TUR - RETUR</label>                                        
@@ -177,12 +179,15 @@
                                     </div>
                                     <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="nr_adulti" class="col-form-label mb-0 mr-2">Adulți:*</label></label>
-                                        <div class="px-0 d-flex align-self-center" style="width:90px">  
+                                        <div class="px-0 d-flex align-self-center" style="width:110px">  
                                             <button type="button" class="btn m-0 p-0"
                                                 v-on:click="nr_adulti -= 1;getPretTotal()"
                                                 >
                                                 <i class="far fa-minus-square bg-danger text-white fa-2x"></i>
-                                            </button>                                      
+                                            </button>  
+                                            <script type="application/javascript"> 
+                                                nrAdultiVechi={!! json_encode(old('nr_adulti', '0'), JSON_NUMERIC_CHECK) !!}
+                                            </script>                                    
                                             <input 
                                                 type="text" 
                                                 class="form-control form-control-sm {{ $errors->has('nr_adulti') ? 'is-invalid' : '' }}" 
@@ -190,7 +195,7 @@
                                                 v-model="nr_adulti" 
                                                 value="{{ old('nr_adulti') }}"
                                                 required
-                                                disabled>
+                                                readonly>
                                             <button type="button" class="btn m-0 p-0" 
                                                 v-on:click="nr_adulti += 1;getPretTotal()">
                                                 <i class="far fa-plus-square bg-success text-white fa-2x">
@@ -202,20 +207,23 @@
                                         <label for="pret_animal_mic" class="col-form-label mb-0 mr-2"><small>Animale companie talie mică (< 10 kg)</small>:</label>
                                         <div class="px-0 d-flex align-self-center" style="width:90px">
                                             <button type="button" class="btn m-0 p-0"
-                                                v-on:click="nr_copii -= 1;getPretTotal()"
+                                                v-on:click="nr_animale_mici -= 1;getPretTotal()"
                                                 >
                                                 <i class="far fa-minus-square bg-danger text-white fa-2x"></i>
-                                            </button>                                        
+                                            </button>  
+                                            <script type="application/javascript"> 
+                                                nrAnimaleMiciVechi={!! json_encode(old('nr_animale_mici', '0'), JSON_NUMERIC_CHECK) !!}
+                                            </script>                                        
                                             <input 
                                                 type="text" 
-                                                class="form-control form-control-sm {{ $errors->has('nr_copii') ? 'is-invalid' : '' }}" 
-                                                name="nr_copii"
-                                                v-model="nr_copii" 
-                                                value="{{ old('nr_copii') }}"
+                                                class="form-control form-control-sm {{ $errors->has('nr_animale_mici') ? 'is-invalid' : '' }}" 
+                                                name="nr_animale_mici"
+                                                v-model="nr_animale_mici" 
+                                                value="{{ old('nr_animale_mici') }}"
                                                 required
-                                                disabled>
+                                                readonly>
                                             <button type="button" class="btn m-0 p-0" 
-                                                v-on:click="nr_copii += 1;getPretTotal()">
+                                                v-on:click="nr_animale_mici += 1;getPretTotal()">
                                                 <i class="far fa-plus-square bg-success text-white fa-2x">
                                                 </i>
                                             </button>  
@@ -225,20 +233,23 @@
                                         <label for="pret_copil" class="col-form-label mb-0 mr-2">Copii (vârsta < 10 ani):</label>
                                         <div class="px-0 d-flex align-self-center" style="width:90px">  
                                             <button type="button" class="btn m-0 p-0"
-                                                v-on:click="nr_animale_mici -= 1;getPretTotal()"
+                                                v-on:click="nr_copii -= 1;getPretTotal()"
                                                 >
                                                 <i class="far fa-minus-square bg-danger text-white fa-2x"></i>
-                                            </button>                                     
+                                            </button>   
+                                            <script type="application/javascript"> 
+                                                nrCopiiVechi={!! json_encode(old('nr_copii', '0'), JSON_NUMERIC_CHECK) !!}
+                                            </script>                                    
                                             <input 
                                                 type="text" 
-                                                class="form-control form-control-sm {{ $errors->has('nr_animale_mici') ? 'is-invalid' : '' }}" 
-                                                name="nr_animale_mici"
-                                                v-model="nr_animale_mici" 
-                                                value="{{ old('nr_animale_mici') }}"
+                                                class="form-control form-control-sm {{ $errors->has('nr_copii') ? 'is-invalid' : '' }}" 
+                                                name="nr_copii"
+                                                v-model="nr_copii" 
+                                                value="{{ old('nr_copii') }}"
                                                 required
-                                                disabled>
+                                                readonly>
                                             <button type="button" class="btn m-0 p-0" 
-                                                v-on:click="nr_animale_mici += 1;getPretTotal()">
+                                                v-on:click="nr_copii += 1;getPretTotal()">
                                                 <i class="far fa-plus-square bg-success text-white fa-2x">
                                                 </i>
                                             </button>   
@@ -251,7 +262,10 @@
                                                 v-on:click="nr_animale_mari -= 1;getPretTotal()"
                                                 >
                                                 <i class="far fa-minus-square bg-danger text-white fa-2x"></i>
-                                            </button>                                       
+                                            </button>        
+                                            <script type="application/javascript"> 
+                                                nrAnimaleMariVechi={!! json_encode(old('nr_animale_mari', '0'), JSON_NUMERIC_CHECK) !!}
+                                            </script>                                 
                                             <input 
                                                 type="text" 
                                                 class="form-control form-control-sm {{ $errors->has('nr_animale_mari') ? 'is-invalid' : '' }}" 
@@ -259,7 +273,7 @@
                                                 v-model="nr_animale_mari" 
                                                 value="{{ old('nr_animale_mari') }}"
                                                 required
-                                                disabled>
+                                                readonly>
                                             <button type="button" class="btn m-0 p-0" 
                                                 v-on:click="nr_animale_mari += 1;getPretTotal()">
                                                 <i class="far fa-plus-square bg-success text-white fa-2x">
@@ -355,7 +369,7 @@
                                 </div>
                             </div>
                         </div>
-                    {{-- </form> --}}
+                    </form>
                 </div>
             </div>
         </div>

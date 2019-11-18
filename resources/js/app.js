@@ -42,7 +42,6 @@ if (document.querySelector('#adauga-rezervare')) {
         data: {
             traseu: traseuVechi,
             active: "active",
-            isActive2: false,
             oras_plecare: orasPlecareVechi,
             orase_plecare: '',
             oras_sosire: orasSosireVechi,
@@ -64,13 +63,16 @@ if (document.querySelector('#adauga-rezervare')) {
         },
 
         created: function () {
-            // this.getOrasePlecareInitial()
+            this.getOrasePlecareInitial()
+            this.getOraseSosireInitial()
+            this.getPreturi()
         },
         methods: {
             getOrasePlecareInitial: function () {
                 axios.get('/orase_rezervari', {
                     params: {
                         request: 'orase_plecare',
+                        traseu: this.traseu,
                     }
                 })
                     .then(function (response) {
@@ -81,13 +83,14 @@ if (document.querySelector('#adauga-rezervare')) {
                 axios.get('/orase_rezervari', {
                     params: {
                         request: 'orase_plecare',
+                        traseu: this.traseu,
                     }
                 })
                     .then(function (response) {
                         app1.orase_plecare = '';
-                        app1.orase_sosire = '';
+                        // app1.orase_sosire = '';
                         app1.oras_plecare = 0;
-                        app1.oras_sosire = 0;
+                        // app1.oras_sosire = 0;
                         app1.pret_adult = 0;
                         app1.pret_copil = 0;
                         app1.pret_animal_mic = 0,
@@ -100,7 +103,7 @@ if (document.querySelector('#adauga-rezervare')) {
                 axios.get('/orase_rezervari', {
                     params: {
                         request: 'orase_sosire',
-                        // oras_plecare: this.oras_plecare,
+                        traseu: this.traseu,
                     }
                 })
                     .then(function (response) {
@@ -111,6 +114,7 @@ if (document.querySelector('#adauga-rezervare')) {
                 axios.get('/orase_rezervari', {
                     params: {
                         request: 'orase_sosire',
+                        traseu: this.traseu,
                     }
                 })
                     .then(function (response) {
@@ -127,11 +131,18 @@ if (document.querySelector('#adauga-rezervare')) {
                 // app2.getPretTotal();
             },
             getPreturi: function () {
-                if ((typeof this.oras_sosire !== 'undefined') && (this.oras_sosire !==0)) {
+                if ((typeof this.oras_sosire !== 'undefined') && (this.oras_sosire !== 0) && (typeof this.oras_plecare !== 'undefined') && (this.oras_plecare !== 0)) {
+                    if (this.traseu == 1){
+                        var oras = this.oras_sosire
+                    } else if (this.traseu == 2){
+                        var oras = this.oras_plecare
+                    }
                     axios.get('/orase_rezervari', {
                         params: {
                             request: 'preturi',
-                            oras_sosire: this.oras_sosire,
+                            oras,
+                            // oras_plecare: this.oras_plecare,
+                            // oras_sosire: this.oras_sosire,
                             tur_retur: this.tur_retur
                         }
                     })

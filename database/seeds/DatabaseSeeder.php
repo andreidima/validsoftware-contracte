@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // RolesTableSeeder::class,
             // UsersTableSeeder::class,
-            // OraseTableSeeder::class,
+            OraseTableSeeder::class,
             TarifeTableSeeder::class,
         ]);
         // factory('App\User', 20)->create()->each(function($user) {

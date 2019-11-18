@@ -15,11 +15,20 @@ class CreateRezervariTable extends Migration
     {
         Schema::create('rezervari', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedSmallInteger('oras_plecare');
+            $table->unsignedSmallInteger('oras_sosire');
+            $table->boolean('tur_retur');
+            $table->date('data_plecare');
+            $table->date('data_intoarcere')->nullable();
+            $table->smallInteger('nr_adulti');
+            $table->smallInteger('nr_copii');
+            $table->smallInteger('nr_animale_mici');
+            $table->smallInteger('nr_animale_mari');
             $table->string('nume');
             $table->string('telefon');
             $table->string('email');
-            $table->unsignedBigInteger('oras_id');
-            $table->unsignedBigInteger('tur_retur');
+            $table->string('adresa', 2002);
+            $table->string('observatii', 2002);
             $table->timestamps();
         });
     }

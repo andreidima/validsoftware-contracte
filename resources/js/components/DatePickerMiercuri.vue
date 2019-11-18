@@ -86,35 +86,12 @@ export default {
     },
     created() {
         if (this.dataVeche == "") {
-            // this.time2 = new Date()
-            // this.dataNoua = moment(this.time2, 'DD.MM.YYYY, HH:mm'). format('YYYY-MM-DD')
         }
         else {
-          this.time2 = this.dataVeche,
-          this.dataNoua = this.dataVeche
-        }
-
-        if (this.tip == "date"){
-          this.format = "DD.MM.YYYY"
-        }
-        else {
-          this.format = "DD.MM.YYYY, HH:mm"
+          this.time2 = this.dataVeche
         }
     },
     updated() {
-      if (this.time2 instanceof Date) {
-        this.dataNoua = moment(this.time2, 'DD.MM.YYYY, HH:mm'). format('YYYY-MM-DD')
-      }
-      else {
-        this.dataNoua = ''
-      }
-
-      if (this.tip == "date"){
-        this.format = "DD.MM.YYYY"
-      }
-      else {
-        this.format = "DD.MM.YYYY, HH:mm"
-      }
     }
 
 
@@ -123,34 +100,15 @@ export default {
  
 <template>
   <div>
-    <!-- <p>dataVeche = {{ dataVeche }}</p>
-    <p>dataNoua = {{ dataNoua }}</p>
-    <p>time2 = {{ time2 }}</p> -->
-    <input type="text" :name=numeCampDb v-model="dataNoua" v-show="false">
-    <!-- <date-picker v-model="time1"></date-picker> -->
+    <input type="text" :name=numeCampDb v-model="time2" v-show="false">
     <date-picker 
-      v-model="time2"
-      :format="format"
+      v-model="time2"  
+      value-type="YYYY-MM-DD"
+      format="DD-MM-YYYY"
       :editable="false"
       :style="{ width: '120px' }"
       :disabled-date="notBeforeTodayMiercuri"
     >      
     </date-picker>
-    <!-- <date-picker 
-      v-model="time2"
-      :type=tip
-      :not-before="notBefore"
-      :format="format"
-      :width="latime"
-      :height="10"
-      :clearable=true
-      :first-day-of-week="1"
-      :lang="lang"
-      :time-picker-options="timePickerOptions"
-      :disabled-days="['2019-12-25','2020-01-01']"
-      >
-    </date-picker> -->
-    <!-- <date-picker v-model="time3" range :shortcuts="shortcuts"></date-picker> -->
-    <!-- <date-picker v-model="value" :lang="lang"></date-picker> -->
   </div>
 </template>

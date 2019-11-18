@@ -1918,31 +1918,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    if (this.dataVeche == "") {// this.time2 = new Date()
-      // this.dataNoua = moment(this.time2, 'DD.MM.YYYY, HH:mm'). format('YYYY-MM-DD')
-    } else {
-      this.time2 = this.dataVeche, this.dataNoua = this.dataVeche;
-    }
-
-    if (this.tip == "date") {
-      this.format = "DD.MM.YYYY";
-    } else {
-      this.format = "DD.MM.YYYY, HH:mm";
+    if (this.dataVeche == "") {} else {
+      this.time2 = this.dataVeche;
     }
   },
-  updated: function updated() {
-    if (this.time2 instanceof Date) {
-      this.dataNoua = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.time2, 'DD.MM.YYYY, HH:mm').format('YYYY-MM-DD');
-    } else {
-      this.dataNoua = '';
-    }
-
-    if (this.tip == "date") {
-      this.format = "DD.MM.YYYY";
-    } else {
-      this.format = "DD.MM.YYYY, HH:mm";
-    }
-  }
+  updated: function updated() {}
 });
 
 /***/ }),
@@ -2036,31 +2016,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    if (this.dataVeche == "") {// this.time2 = new Date()
-      // this.dataNoua = moment(this.time2, 'DD.MM.YYYY, HH:mm'). format('YYYY-MM-DD')
-    } else {
-      this.time2 = this.dataVeche, this.dataNoua = this.dataVeche;
-    }
-
-    if (this.tip == "date") {
-      this.format = "DD.MM.YYYY";
-    } else {
-      this.format = "DD.MM.YYYY, HH:mm";
+    if (this.dataVeche == "") {} else {
+      this.time2 = this.dataVeche;
     }
   },
-  updated: function updated() {
-    if (this.time2 instanceof Date) {
-      this.dataNoua = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.time2, 'DD.MM.YYYY, HH:mm').format('YYYY-MM-DD');
-    } else {
-      this.dataNoua = '';
-    }
-
-    if (this.tip == "date") {
-      this.format = "DD.MM.YYYY";
-    } else {
-      this.format = "DD.MM.YYYY, HH:mm";
-    }
-  }
+  updated: function updated() {}
 });
 
 /***/ }),
@@ -72135,19 +72095,19 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.dataNoua,
-            expression: "dataNoua"
+            value: _vm.time2,
+            expression: "time2"
           },
           { name: "show", rawName: "v-show", value: false, expression: "false" }
         ],
         attrs: { type: "text", name: _vm.numeCampDb },
-        domProps: { value: _vm.dataNoua },
+        domProps: { value: _vm.time2 },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.dataNoua = $event.target.value
+            _vm.time2 = $event.target.value
           }
         }
       }),
@@ -72155,7 +72115,8 @@ var render = function() {
       _c("date-picker", {
         style: { width: "120px" },
         attrs: {
-          format: _vm.format,
+          "value-type": "YYYY-MM-DD",
+          format: "DD-MM-YYYY",
           editable: false,
           "disabled-date": _vm.notBeforeTodayDuminica
         },
@@ -72201,19 +72162,19 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.dataNoua,
-            expression: "dataNoua"
+            value: _vm.time2,
+            expression: "time2"
           },
           { name: "show", rawName: "v-show", value: false, expression: "false" }
         ],
         attrs: { type: "text", name: _vm.numeCampDb },
-        domProps: { value: _vm.dataNoua },
+        domProps: { value: _vm.time2 },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.dataNoua = $event.target.value
+            _vm.time2 = $event.target.value
           }
         }
       }),
@@ -72221,7 +72182,8 @@ var render = function() {
       _c("date-picker", {
         style: { width: "120px" },
         attrs: {
-          format: _vm.format,
+          "value-type": "YYYY-MM-DD",
+          format: "DD-MM-YYYY",
           editable: false,
           "disabled-date": _vm.notBeforeTodayMiercuri
         },
@@ -91081,7 +91043,6 @@ if (document.querySelector('#adauga-rezervare')) {
     data: {
       traseu: traseuVechi,
       active: "active",
-      isActive2: false,
       oras_plecare: orasPlecareVechi,
       orase_plecare: '',
       oras_sosire: orasSosireVechi,
@@ -91097,13 +91058,17 @@ if (document.querySelector('#adauga-rezervare')) {
       pret_total: pretTotal,
       tur_retur: turReturVechi
     },
-    created: function created() {// this.getOrasePlecareInitial()
+    created: function created() {
+      this.getOrasePlecareInitial();
+      this.getOraseSosireInitial();
+      this.getPreturi();
     },
     methods: {
       getOrasePlecareInitial: function getOrasePlecareInitial() {
         axios.get('/orase_rezervari', {
           params: {
-            request: 'orase_plecare'
+            request: 'orase_plecare',
+            traseu: this.traseu
           }
         }).then(function (response) {
           _app.orase_plecare = response.data.raspuns;
@@ -91112,13 +91077,14 @@ if (document.querySelector('#adauga-rezervare')) {
       getOrasePlecare: function getOrasePlecare() {
         axios.get('/orase_rezervari', {
           params: {
-            request: 'orase_plecare'
+            request: 'orase_plecare',
+            traseu: this.traseu
           }
         }).then(function (response) {
-          _app.orase_plecare = '';
-          _app.orase_sosire = '';
-          _app.oras_plecare = 0;
-          _app.oras_sosire = 0;
+          _app.orase_plecare = ''; // app1.orase_sosire = '';
+
+          _app.oras_plecare = 0; // app1.oras_sosire = 0;
+
           _app.pret_adult = 0;
           _app.pret_copil = 0;
           _app.pret_animal_mic = 0, _app.pret_animal_mare = 0, _app.orase_plecare = response.data.raspuns;
@@ -91127,8 +91093,8 @@ if (document.querySelector('#adauga-rezervare')) {
       getOraseSosireInitial: function getOraseSosireInitial() {
         axios.get('/orase_rezervari', {
           params: {
-            request: 'orase_sosire' // oras_plecare: this.oras_plecare,
-
+            request: 'orase_sosire',
+            traseu: this.traseu
           }
         }).then(function (response) {
           _app.orase_sosire = response.data.raspuns;
@@ -91137,7 +91103,8 @@ if (document.querySelector('#adauga-rezervare')) {
       getOraseSosire: function getOraseSosire() {
         axios.get('/orase_rezervari', {
           params: {
-            request: 'orase_sosire'
+            request: 'orase_sosire',
+            traseu: this.traseu
           }
         }).then(function (response) {
           _app.orase_sosire = '';
@@ -91148,11 +91115,19 @@ if (document.querySelector('#adauga-rezervare')) {
         }); // app2.getPretTotal();
       },
       getPreturi: function getPreturi() {
-        if (typeof this.oras_sosire !== 'undefined' && this.oras_sosire !== 0) {
+        if (typeof this.oras_sosire !== 'undefined' && this.oras_sosire !== 0 && typeof this.oras_plecare !== 'undefined' && this.oras_plecare !== 0) {
+          if (this.traseu == 1) {
+            var oras = this.oras_sosire;
+          } else if (this.traseu == 2) {
+            var oras = this.oras_plecare;
+          }
+
           axios.get('/orase_rezervari', {
             params: {
               request: 'preturi',
-              oras_sosire: this.oras_sosire,
+              oras: oras,
+              // oras_plecare: this.oras_plecare,
+              // oras_sosire: this.oras_sosire,
               tur_retur: this.tur_retur
             }
           }).then(function (response) {
@@ -91571,8 +91546,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laragon\www\transport-galati\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laragon\www\transport-galati\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\laragon\www\transport-galati\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\laragon\www\transport-galati\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

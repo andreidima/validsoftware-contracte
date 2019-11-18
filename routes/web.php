@@ -59,11 +59,11 @@ Route::get('/', function () {
 
 // Rute pentru rezervare facuta de guest
 Route::get('/adauga-rezervare-pasul-1', 'RezervareController@adaugaRezervarePasul1');
-// Route::post('/adauga-rezervare-pasul-1', 'RezervareController@postAdaugaRezervare1');
-// Route::get('/adauga-rezervare-pasul-2', 'RezervareController@adaugaRezervare2');
-// Route::post('/adauga-rezervare-pasul-2', 'RezervareController@postAdaugaRezervare2');
-// Route::get('/adauga-rezervare-pasul-3', 'RezervareController@adaugaRezervare3');
-// Route::get('/bilet-rezervat', 'RezervareController@pdfexportguest');
+Route::post('/adauga-rezervare-pasul-1', 'RezervareController@postAdaugaRezervare1');
+Route::get('/adauga-rezervare-pasul-2', 'RezervareController@adaugaRezervare2');
+Route::post('/adauga-rezervare-pasul-2', 'RezervareController@postAdaugaRezervare2');
+Route::get('/adauga-rezervare-pasul-3', 'RezervareController@adaugaRezervare3');
+Route::get('/bilet-rezervat', 'RezervareController@pdfexportguest');
 
 
 // Extras date cu Axios

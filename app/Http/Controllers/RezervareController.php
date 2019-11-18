@@ -6,6 +6,7 @@ use App\Rezervare;
 use App\Oras;
 use App\Tarif;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RezervareController extends Controller
 {
@@ -101,20 +102,20 @@ class RezervareController extends Controller
         switch ($_GET['request']) {
             case 'orase_plecare':
                 $raspuns = Oras::select('id', 'nume', 'tara')
-                    ->where('tara', '1')
+                    ->where('tara', $request->traseu)
                     ->orderBy('nume')
                     ->get();
                 break;
             case 'orase_sosire':
                 $raspuns = Oras::select('id', 'nume', 'tara')
-                    ->where('tara', '2')
+                    ->where('tara', '<>', $request->traseu)
                     ->orderBy('nume')
                     ->get();
                 break;
             case 'preturi':
-                if (($request->oras_sosire) && ($request->tur_retur)) {
+                if (($request->oras) && ($request->tur_retur)) {
                     $traseu = Oras::select('id', 'nume', 'traseu')
-                        ->where('id', $request->oras_sosire)
+                        ->where('id', $request->oras)
                         ->first();
                     if ($request->tur_retur == 'false'){
                         $tur_retur = 0;
@@ -171,13 +172,20 @@ class RezervareController extends Controller
     {
         // dd ($request->_method);
         return request()->validate([
-            'cursa_id' =>['nullable', 'numeric', 'max:999'],
-            'oras_plecare' => [ 'required', 'numeric', 'max:999'],
-            'oras_sosire' => [ 'required', 'nullable', 'numeric', 'max:999'],
-            'statie_id' => ['nullable', 'numeric', 'max:999'],
-            'statie_imbarcare' => ['nullable'],
-            'data_cursa' => [ 'required', 'max:50'],
-            'ora_id' =>[ 'required', 'nullable', 'max:99'],
+            // 'cursa_id' =>['nullable', 'numeric', 'max:999'],
+            'traseu' => ['required'],
+            'oras_plecare' => [ 'required', 'integer', 'max:999'],
+            'oras_sosire' => [ 'required', 'integer', 'max:999'],
+            'tur_retur' => [''],
+            // 'statie_id' => ['nullable', 'numeric', 'max:999'],
+            // 'statie_imbarcare' => ['nullable'],
+            'nr_adulti' => [ 'required', 'integer', 'between:1,100'],
+            'nr_copii' => [ 'nullable', 'integer', 'between:0,100'],
+            'nr_animale_mici' => [ 'nullable', 'integer', 'between:0,10'],
+            'nr_animale_mari' => [ 'nullable', 'integer', 'between:0,10'],
+            'data_plecare' => [ 'required', 'max:50'],
+            // 'data_intoarcere' => [ 'required_if:tur_retur,true', 'max:50'],
+            // 'ora_id' =>[ 'required', 'nullable', 'max:99'],
             'nume' => ($request->_method === "PATCH") ?
                 ['required', 'max:200',
                     Rule::unique('rezervari')->ignore($rezervari->id)->where(function ($query) use($rezervari,$request) {
@@ -189,36 +197,35 @@ class RezervareController extends Controller
                 ['required', 'max:200',
                     Rule::unique('rezervari')->where(function ($query) use($rezervari,$request) {
                         return $query->where('telefon', $request->telefon)
-                                    ->where('data_cursa', $request->data_cursa);
+                                    ->where('data_plecare', $request->data_plecare);
                     }),        
                 ],
             'telefon' => [ 'required', 'regex:/^[0-9 ]+$/', 'max: 100'],
             'email' => [ 'required', 'email', 'max:100'],
-            'nr_adulti' => [ 'required', 'integer', 'between:1,20'],
-            'nr_copii' => [ 'nullable', 'integer', 'between:0,10'],
-            'pret_total' => ['nullable', 'numeric', 'max:999999'],
-            'observatii' => ['max:10000'],
-            'comision_agentie' => [ 'nullable', 'numeric', 'max:999999'],
-            'tip_plata_id' => [''],
-            'retur' => [''],
-            'retur_ora_id' =>[ 'required_if:retur,true', 'nullable', 'max:99'],
-            'retur_data_cursa' => [ 'required_if:retur,true', 'max:50'],
-            'retur_zbor_oras_decolare' => ['max:100'],
-            'retur_zbor_ora_decolare' => ['max:100'],
-            'retur_zbor_ora_aterizare' => ['max:100'],
+            // 'pret_total' => ['nullable', 'numeric', 'max:999999'],
+            'adresa' => ['max:2000'],
+            'observatii' => ['max:2000'],
+            // 'comision_agentie' => [ 'nullable', 'numeric', 'max:999999'],
+            // 'tip_plata_id' => [''],
             
-            'plata_online' => [''],
+            // 'retur_ora_id' =>[ 'required_if:retur,true', 'nullable', 'max:99'],
+            // 'retur_data_cursa' => [ 'required_if:retur,true', 'max:50'],
+            // 'retur_zbor_oras_decolare' => ['max:100'],
+            // 'retur_zbor_ora_decolare' => ['max:100'],
+            // 'retur_zbor_ora_aterizare' => ['max:100'],
+            
+            // 'plata_online' => [''],
             // 'adresa' => ['required_if:plata_online,true', 'nullable', 'max:99'],
 
-            'order_id' => [''],
-            'user_id' => [''],
-            'status' => [''],
-            'plata_cu_card' => [''],
-            'acord_de_confidentialitate' => auth()->user() === null ? ['required'] : [''],
+            // 'order_id' => [''],
+            // 'user_id' => [''],
+            // 'status' => [''],
+            // 'plata_cu_card' => [''],
+            // 'acord_de_confidentialitate' => auth()->user() === null ? ['required'] : [''],
             // 'oferta' => [''],
         ],
         [
-            'ora_id.required' => 'Câmpul Ora de plecare este obligatoriu.',
+            // 'ora_id.required' => 'Câmpul Ora de plecare este obligatoriu.',
             'telefon.regex' => 'Câmpul Telefon poate conține doar cifre și spații.',
             'nume.unique' => 'Această Rezervare este deja înregistrată.',
             // 'adresa.required_if' => 'Câmpul Adresa este obligatoriu dacă este selectată plata cu card'
@@ -255,26 +262,7 @@ class RezervareController extends Controller
      */
     public function adaugaRezervarePasul1(Request $request)
     {
-        // $curse = Cursa::select('id', 'plecare_id', 'sosire_id')
-        //     ->get();
-        // $orase = Oras::has('curse_plecare')
-        //     ->orderBy('nume')        
-        //     ->get();
-        // $statii = OrasStatie::select('id', 'nume')
-        //     ->orderBy('nume')
-        //     ->get();
-        // $tipuri_plati = TipPlata::select('id', 'nume')
-        //     ->orderBy('nume')
-        //     ->get();
-
-        // $rezervare = $request->session()->get('rezervare');
-        // return view('rezervari.guest-create/adauga-rezervare1',compact('rezervare', $rezervare, 'curse', 'orase', 'statii', 'tipuri_plati'));
-
-        $orase_romania = Oras::where('tara', '1')
-            ->orderBy('nume')        
-            ->get();
-
-        return view('rezervari.guest-create/adauga-rezervare-pasul-1', compact('orase_romania'));
+        return view('rezervari.guest-create/adauga-rezervare-pasul-1');
     }
 
     /**
@@ -288,31 +276,18 @@ class RezervareController extends Controller
             $request->session()->forget('rezervare');
             $rezervare = Rezervare::make($this->validateRequest($request)); 
 
-                // aflarea id-ului cursei in functie de orasele introduse
-                $cursa = Cursa::select('id', 'pret_adult', 'pret_copil')
-                    ->where([
-                        ['plecare_id', $request->oras_plecare],
-                        ['sosire_id', $request->oras_sosire]
-                    ])
-                    ->first();
-                
-                // setarea id-ului cursei in functie de orasele introduse
-                $rezervare->cursa_id = $cursa->id;
-
                 // calcularea pretului total
-                $rezervare->pret_total = $cursa->pret_adult * $rezervare->nr_adulti + $cursa->pret_copil * $rezervare->nr_copii;
-
-                $rezervare->nume = strtoupper($rezervare->nume);
-                $rezervare->zbor_oras_decolare = strtoupper($rezervare->zbor_oras_decolare);
+                // $rezervare->pret_total = $cursa->pret_adult * $rezervare->nr_adulti + $cursa->pret_copil * $rezervare->nr_copii;
 
 
+                
                 // stergerea oraselor din request, se foloseste id-ul cursei in DB
                 // stergerea ore_plecare din request, se foloseste ora_id orei in DB
-                unset($rezervare['oras_plecare'], $rezervare['oras_sosire'], $rezervare['ora_plecare'], $rezervare['cursa'], $rezervare['statie'], $rezervare['ora'],
-                    $rezervare['acord_de_confidentialitate']);
+                // unset($rezervare['oras_plecare'], $rezervare['oras_sosire'], $rezervare['ora_plecare'], $rezervare['cursa'], $rezervare['statie'], $rezervare['ora'],
+                //     $rezervare['acord_de_confidentialitate']);
 
             $request->session()->put('rezervare', $rezervare);
-
+            dd($request);
         return redirect('/adauga-rezervare-pasul-2');
     }
 
