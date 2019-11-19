@@ -13,4 +13,9 @@ class Oras extends Model
     {
         return "/orase/{$this->id}";
     }
+
+    public function rezervari()
+    {
+        return $this->hasMany('App\Rezervare', 'oras_plecare');
+    }
 }

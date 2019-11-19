@@ -185,7 +185,7 @@ class RezervareController extends Controller
             'nr_animale_mici' => [ 'nullable', 'integer', 'between:0,10'],
             'nr_animale_mari' => [ 'nullable', 'integer', 'between:0,10'],
             'data_plecare' => [ 'required', 'max:50'],
-            // 'data_intoarcere' => [ 'required_if:tur_retur,true', 'max:50'],
+            'data_intoarcere' => [ 'required_if:tur_retur,true', 'max:50'],
             // 'ora_id' =>[ 'required', 'nullable', 'max:99'],
             'nume' => ($request->_method === "PATCH") ?
                 ['required', 'max:200',
@@ -302,7 +302,15 @@ class RezervareController extends Controller
     public function adaugaRezervarePasul2(Request $request)
     {
         $rezervare = $request->session()->get('rezervare');
-        return view('rezervari.guest-create/adauga-rezervare-pasul-2',compact('rezervare', $rezervare));
+        
+        $tarife = DB::table('tarife')
+            ->where([
+                ['traseu_id', $rezervare->traseu],
+                ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
+            ])
+            ->first();
+
+        return view('rezervari.guest-create/adauga-rezervare-pasul-2',compact('rezervare', 'tarife'));
     }
 
     /**
@@ -312,52 +320,41 @@ class RezervareController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function postAdaugaRezervarePasul2(Request $request)
-    {       
-        // if(empty($request->session()->get('rezervare'))){
-        //     $rezervare = new Rezervare();
-        //     $rezervare->fill($this->validateRequest());
-        //     $request->session()->put('rezervare', $rezervare);
-        // }else{
-        //     $rezervare = $request->session()->get('rezervare');
-        //     $rezervare->fill($this->validateRequest());
-        //     $request->session()->put('rezervare', $rezervare);
-        // }
-
+    {   
         $rezervare = $request->session()->get('rezervare');
         $rezervare->created_at = \Carbon\Carbon::now();
-        $rezervare->tip_plata_id = 1;
-
-
-        // aflarea id-ului cursei in functie de orasele introduse
-        $cursa = Cursa::select('id', 'pret_adult', 'pret_copil')
-            ->where('id', $rezervare->cursa_id)
-            ->first();
-
+        
         // calcularea pretului total
-        $rezervare->pret_total = $cursa->pret_adult * $rezervare->nr_adulti + $cursa->pret_copil * $rezervare->nr_copii;
-
-
-        $rezervare_array = $rezervare->toArray();
-        $plata_online = $rezervare_array['plata_online'];
-        unset($rezervare_array['cursa'], $rezervare_array['statie'], $rezervare_array['ora'], $rezervare_array['tip_plata'], $rezervare_array['id'],
-            $rezervare_array['plata_online'], $rezervare_array['adresa']);
-            
+        $tarife = DB::table('tarife')
+            ->where([
+                ['traseu_id', $rezervare->traseu],
+                ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
+            ])
+            ->first();
+        $rezervare->pret_total = $tarife->adult * $rezervare->nr_adulti +
+                                $tarife->copil * $rezervare->nr_copii +
+                                $tarife->animal_mic * $rezervare->nr_animale_mici +
+                                $tarife->animal_mare * $rezervare->nr_animale_mari;            
         
         // Verificare rezervare duplicat
         $request_verificare_duplicate = new Request([
             'nume' => $request->session()->get('rezervare.nume'),
             'telefon' => $request->session()->get('rezervare.telefon'),
-            'data_cursa' => $request->session()->get('rezervare.data_cursa'),
-            'ora_id' => $request->session()->get('rezervare.ora_id')
+            'data_plecare' => $request->session()->get('rezervare.data_plecare')
         ]);
 
         $this->validate($request_verificare_duplicate, [
-            'nume' => ['required', 'max:100', 'unique:rezervari,nume,NULL,id,telefon,' . $request_verificare_duplicate->telefon . ',data_cursa,' . $request_verificare_duplicate->data_cursa . ',ora_id,' . $request_verificare_duplicate->ora_id]
+            'nume' => ['required', 'max:100', 'unique:rezervari,nume,NULL,id,telefon,' . $request_verificare_duplicate->telefon . ',data_plecare,' . $request_verificare_duplicate->data_plecare]
         ],
         [
             'nume.unique' => 'Această Rezervare este deja înregistrată.'
         ]);
 
+        //Schimbare tur_retur din "true or false" din vue, in "0 or 1" pentru baza de date
+        ($rezervare->tur_retur == "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
+
+        $rezervare_array = $rezervare->toArray();
+        unset($rezervare_array['traseu'], $rezervare_array['oras_plecare_nume'], $rezervare_array['oras_sosire_nume']);
         
         //Inserarea rezervarii in baza de date
         $id = DB::table('rezervari')->insertGetId($rezervare_array);
@@ -366,35 +363,23 @@ class RezervareController extends Controller
         
         $rezervare->id = $id;
 
-        // $rezervare->data_cursa = \Carbon\Carbon::createFromFormat('Y.m.d H:i', $rezervare->data_cursa)->format('d.m.Y');
 
         $request->session()->put('rezervare', $rezervare);
-
-        // dd($plata_online);
-
-        // if($rezervari->save()){
-        //     dd(Response::json(array('success' => true, 'last_insert_id' => $rezervari->id), 200));
-        // };
-        // dd($request);
-        // $rezervare = $request->session()->get('rezervare');
-        // if (!empty($rezervare->data_cursa)){
-        //     $rezervare->data_cursa = \Carbon\Carbon::createFromFormat('Y.m.d H:i', $rezervare->data_cursa)->format('d.m.Y');
-        // }
-        // $request->session()->put('rezervare', $rezervare);
-        // dd($request->session()->get('rezervare'));        
+      
 
         // Trimitere email
-        if (!empty($rezervare->email)) {
-            \Mail::to($rezervare->email)->send(
-                new BiletClient($rezervare)
-            );
-        }
+        // if (!empty($rezervare->email)) {
+        //     \Mail::to($rezervare->email)->send(
+        //         new BiletClient($rezervare)
+        //     );
+        // }
 
-        if ($plata_online == 1){
-            return redirect('/trimitere-catre-plata');
-        }else{
+        // if ($plata_online == 1){
+        //     return redirect('/trimitere-catre-plata');
+        // }else{
+        // return redirect('/adauga-rezervare-pasul-3');
+        // }
         return redirect('/adauga-rezervare-pasul-3');
-        }
     }
 
         /**
@@ -404,17 +389,6 @@ class RezervareController extends Controller
      */
     public function adaugaRezervarePasul3(Request $request)
     {
-        // if ((Auth::check()) && (Auth::user()->id == 355)) {
-        //     dd($request->session()->get('rezervare'), $request->orderId);
-        // }
-
-        // if (Session::has('rezervare')) {
-        //     $rezervare = $request->session()->get('rezervare');
-        // }else {
-        //     $payment = DB::table('payment_notifications')->where('order_id', $request->orderId)->first();
-        //     $rezervare = DB::table('rezervari')->where('id', $payment->rezervare_id)->first();
-        // }
-
         if ($request->has('orderId')) {
             $plata_online = \App\PlataOnline::where('order_id', $request->orderId)->latest()->first();
             $rezervare = \App\Rezervare::where('id', $plata_online->rezervare_id)->first();
@@ -425,12 +399,12 @@ class RezervareController extends Controller
 
             // dd($rezervare, $rezervare->ora->ora);
 
-            return view('rezervari.guest-create/adauga-rezervare3', compact('rezervare', 'plata_online'));
+            return view('rezervari.guest-create/adauga-rezervare-pasul-3', compact('rezervare', 'plata_online'));
 
         } else {
             $rezervare = $request->session()->get('rezervare');
             
-            return view('rezervari.guest-create/adauga-rezervare3', compact('rezervare'));
+            return view('rezervari.guest-create/adauga-rezervare-pasul-3', compact('rezervare'));
         }
 
         // $request->session()->forget('rezervare');

@@ -24,6 +24,7 @@ class CreateRezervariTable extends Migration
             $table->smallInteger('nr_copii');
             $table->smallInteger('nr_animale_mici');
             $table->smallInteger('nr_animale_mari');
+            $table->integer('pret_total');
             $table->string('nume');
             $table->string('telefon');
             $table->string('email');

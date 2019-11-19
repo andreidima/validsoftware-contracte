@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="shadow-lg bg-white" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-danger p-2 d-flex justify-content-between align-items-end" style="border-radius: 40px 40px 0px 0px;">                     
                     <h3 class="ml-3" style="color:brown"><i class="fas fa-ticket-alt fa-lg mr-1"></i>Verificare bilet</h3>
@@ -14,34 +14,157 @@
 
                 <div class="card-body py-2" 
                     style="
-                        color:ivory; 
+                        /* color:ivory;  */
                         background-color:crimson; 
                         border-radius: 0px 0px 40px 40px
                     "
-                    id="adauga-rezervare"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-pasul-1">
-                        @csrf
 
-                        <div class="form-row mb-0 d-flex justify-content-center border-radius: 0px 0px 40px 40px">
-                            <div class="form-group col-lg-12 px-2 mb-0">
-                                <div class="form-row mb-3 d-flex justify-content-center">
-                                    <div class="col-lg-7">
-                                        Traseu: 
-                                        @if ($rezervare->traseu == 1)
-                                            România -> Italia
-                                        @else
-                                            Italia -> România
+                        <div class="row mb-0 d-flex justify-content-center border-radius: 0px 0px 40px 40px">
+                            <div class="col-lg-12 p-4 mb-0">
+                                <div class="row mb-3 d-flex justify-content-center">
+                                    <div class="col-lg-11 px-0 border rounded-lg">
+                                        <h5 class="bg-warning p-1 m-0 text-center">
+                                            Informații călătorie
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-11 p-4 mb-4 bg-white border rounded-lg">
+                                        <div class="row text-center">
+                                            <div class="col-lg-3">
+                                                Data de plecare:
+                                                <br>
+                                                {{-- {{ \Carbon\Carbon::parse($rezervare->data_plecare)->isoFormat('dddd') }}
+                                                <br> --}}
+                                                <span class="badge badge-primary" style="font-size:1.1em">
+                                                    {{ \Carbon\Carbon::parse($rezervare->data_plecare)->isoFormat('D.MM.YYYY') }}
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                Oraș plecare:
+                                                <br>
+                                                <span class="badge badge-primary" style="font-size:1.1em">
+                                                    {{ $rezervare->oras_plecare_nume->nume }}
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-1 pt-1 text-primary">
+                                                {{-- <span class="badge badge-primary" style="font-size:1.1em"> --}}
+                                                    <i class="fas fa-long-arrow-alt-right fa-4x"></i>
+                                                {{-- </span> --}}
+                                            </div>
+                                            <div class="col-lg-4">
+                                                Oraș sosire:
+                                                <br>
+                                                <span class="badge badge-primary" style="font-size:1.1em">
+                                                    {{ $rezervare->oras_sosire_nume->nume }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        @if ($rezervare->tur_retur === "true")
+                                            <div class="row text-center">
+                                                <div class="col-lg-12 text-primary">
+                                                    <hr class="bg-primary">
+                                                    {{-- <i class="fas fa-chevron-down fa-7x"></i> --}}
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    Data de întoarcere:
+                                                    <br>
+                                                    {{-- {{ \Carbon\Carbon::parse($rezervare->data_intoarcere)->isoFormat('dddd') }}
+                                                    <br> --}}
+                                                    <span class="badge badge-primary" style="font-size:1.1em">
+                                                        {{ \Carbon\Carbon::parse($rezervare->data_intoarcere)->isoFormat('D.MM.YYYY') }}
+                                                    </span>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    Oraș sosire:
+                                                    <br>
+                                                    <span class="badge badge-primary" style="font-size:1.1em">
+                                                        {{ $rezervare->oras_plecare_nume->nume }}
+                                                    </span>
+                                                </div>
+                                                <div class="col-lg-1 pt-1 text-primary">
+                                                    {{-- <span class="badge badge-primary" style="font-size:1.1em"> --}}
+                                                        <i class="fas fa-long-arrow-alt-left fa-4x"></i>
+                                                    {{-- </span> --}}
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    Oraș plecare:
+                                                    <br>
+                                                    <span class="badge badge-primary" style="font-size:1.1em">
+                                                        {{ $rezervare->oras_sosire_nume->nume }}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         @endif
                                     </div>
-                                    <div class="col-lg-7">
-                                        Data de plecare:
-                                        {{ \Carbon\Carbon::parse($rezervare->data_plecare)->isoFormat('D.MM.YYYY') }}
+                                    <div class="col-lg-11 px-0 border rounded-lg">
+                                        <h5 class="bg-warning p-1 m-0 text-center">
+                                            Informații pasageri
+                                        </h5>
                                     </div>
-                                </div>    
+                                    <div class="col-lg-11 px-4 py-2 bg-white border rounded-lg">
+                                        Număr adulți: 
+                                        <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->nr_adulti }}</span>
+                                         * {{ $tarife->adult }}€ = {{ $rezervare->nr_adulti * $tarife->adult}}€
+                                        @if ($rezervare->nr_copii > 0)
+                                            <br>
+                                            Număr copii: 
+                                            <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->nr_copii }}</span>
+                                            * {{ $tarife->copil }}€ = {{ $rezervare->nr_copii * $tarife->copil}}€
+                                        @endif
+                                        @if ($rezervare->nr_animale_mici > 0)
+                                            <br>
+                                            Număr animale de companie de talie mică (< 10 kg): 
+                                            <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->nr_animale_mici }}</span>
+                                            * {{ $tarife->animal_mic }}€ = {{ $rezervare->nr_animale_mici * $tarife->animal_mic}}€
+                                        @endif
+                                        @if ($rezervare->nr_animale_mari > 0)
+                                            <br>
+                                            Număr animale de companie de talie mare (> 10 kg): 
+                                            <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->nr_animale_mari }}</span>
+                                            * {{ $tarife->animal_mare }}€ = {{ $rezervare->nr_animale_mari * $tarife->animal_mare}}€
+                                        @endif
+                                    </div>
+                                    <div class="col-lg-11 px-4 py-2 mb-4 bg-white border rounded-lg text-right">
+                                        Preț total: <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->pret_total }}€</span>
+                                    </div>
+                                    <div class="col-lg-11 px-0 border rounded-lg">
+                                        <h5 class="bg-warning p-1 m-0 text-center">
+                                            Informații client
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-11 px-4 py-2 mb-2 bg-white border rounded-lg">
+                                        Nume: <span class="badge badge-primary" style="font-size:1.1em">{{ $rezervare->nume }}</span>
+                                        <br>
+                                        Telefon: <b>{{ $rezervare->telefon }}</b>
+                                        <br>
+                                        Email: <b>{{ $rezervare->email }}</b>
+                                        <br>
+                                        Adresa: {{ $rezervare->adresa }}
+                                        <br>
+                                        Observații: {{ $rezervare->observatii }}
+                                    </div>
+                                </div>  
+                                
+                                
+                                
+                                <div class="row">
+                                    <div class="col-lg-12 d-flex justify-content-center">  
+                                        <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-pasul-2">
+                                            @csrf                                                 
+                                            @if ($rezervare->plata_online == "1")
+                                                <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Plătește rezervarea</button>
+                                            @else
+                                                <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Salvează rezervarea</button> 
+                                            @endif
+                                        </form>
+                                        
+                                        <a class="btn btn-secondary rounded-pill border border-white" style="border-width:3px !important;" href="/" role="button">Anulează rezervarea</a>
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
