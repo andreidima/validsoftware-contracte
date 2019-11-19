@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Rezervare;
 use App\Oras;
 use App\Tarif;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -271,23 +272,25 @@ class RezervareController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postAdaugaRezervare1(Request $request)
+    public function postAdaugaRezervarePasul1(Request $request)
     {       
-            $request->session()->forget('rezervare');
-            $rezervare = Rezervare::make($this->validateRequest($request)); 
+        $request->session()->forget('rezervare');
+        $rezervare = Rezervare::make($this->validateRequest($request));
 
-                // calcularea pretului total
-                // $rezervare->pret_total = $cursa->pret_adult * $rezervare->nr_adulti + $cursa->pret_copil * $rezervare->nr_copii;
+        // calcularea pretului total
+        $tarife = DB::table('tarife')
+            ->where([
+                ['traseu_id', $rezervare->traseu],
+                ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
+            ])
+            ->first();
+        $rezervare->pret_total = $tarife->adult * $rezervare->nr_adulti +
+                                $tarife->copil * $rezervare->nr_copii +
+                                $tarife->animal_mic * $rezervare->nr_animale_mici +
+                                $tarife->animal_mare * $rezervare->nr_animale_mari;
 
-
-                
-                // stergerea oraselor din request, se foloseste id-ul cursei in DB
-                // stergerea ore_plecare din request, se foloseste ora_id orei in DB
-                // unset($rezervare['oras_plecare'], $rezervare['oras_sosire'], $rezervare['ora_plecare'], $rezervare['cursa'], $rezervare['statie'], $rezervare['ora'],
-                //     $rezervare['acord_de_confidentialitate']);
-
-            $request->session()->put('rezervare', $rezervare);
-            dd($request);
+        $request->session()->put('rezervare', $rezervare);
+        // dd($rezervare, $tarife);
         return redirect('/adauga-rezervare-pasul-2');
     }
 
@@ -296,10 +299,10 @@ class RezervareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function adaugaRezervare2(Request $request)
+    public function adaugaRezervarePasul2(Request $request)
     {
         $rezervare = $request->session()->get('rezervare');
-        return view('rezervari.guest-create/adauga-rezervare2',compact('rezervare', $rezervare));
+        return view('rezervari.guest-create/adauga-rezervare-pasul-2',compact('rezervare', $rezervare));
     }
 
     /**
@@ -308,7 +311,7 @@ class RezervareController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postAdaugaRezervare2(Request $request)
+    public function postAdaugaRezervarePasul2(Request $request)
     {       
         // if(empty($request->session()->get('rezervare'))){
         //     $rezervare = new Rezervare();
@@ -399,7 +402,7 @@ class RezervareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function adaugaRezervare3(Request $request)
+    public function adaugaRezervarePasul3(Request $request)
     {
         // if ((Auth::check()) && (Auth::user()->id == 355)) {
         //     dd($request->session()->get('rezervare'), $request->orderId);
