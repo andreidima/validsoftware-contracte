@@ -105,6 +105,20 @@
                         <b>{{ $rezervare->email }}</b>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="3">                        
+                        Adresa: 
+                        <br>
+                        <b>{{ $rezervare->adresa }}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">                        
+                        Observatii: 
+                        <br>
+                        <b>{{ $rezervare->observatii }}</b>
+                    </td>
+                </tr>
             </table>
 
             <table style="margin-bottom:40px">    
