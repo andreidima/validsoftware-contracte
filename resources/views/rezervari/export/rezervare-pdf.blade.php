@@ -25,7 +25,7 @@
         table{
             border-collapse:collapse;
             margin: 0px;
-            padding: 0px;
+            padding: 5px;
             margin-top: 0px;
             border-style: solid;
             border-width: 0px;
@@ -34,7 +34,7 @@
         }
         
         th, td {
-            padding: 1px 1px;
+            padding: 1px 10px;
             border-width: 0px;
             border-style: solid;
             
@@ -59,224 +59,143 @@
     {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}
     <div style="border:dashed #999;
         width:710px; 
-        min-height:600px;            
+        min-height:500px;            
         padding: 0px 8px 0px 8px;
         margin:0px 0px;
             -moz-border-radius: 10px;
             -webkit-border-radius: 10px;
             border-radius: 10px;">
 
-                <table style="">
+                <table style="margin:20px 0 20px 0">
                     <tr style="">
                         <td style="border-width:0px; padding:0rem; margin:0rem; width:40%">
-                            <img src="{{ asset('images/logo-zuzu.png') }}" width="300px">
+                            <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" width="300px">
                         </td>
                         <td style="border-width:0px; padding:0rem; margin:0rem; width:60%; text-align:center; font-size:16px">
-                            REZERVA BILET
+                            BILET REZERVAT
                             <br>
-                            Cod bilet: RO{{ $rezervari->id }}
+                            Cod bilet: RO{{ $rezervare->id }}
                         </td>
                     </tr>
                 </table>
             
                             
-            <table>
+            <table style="margin-bottom:40px">
                 <tr style="text-align:center; font-weight:bold;">
                     <td colspan="3" style="border-width:0px; padding:0rem;">
-                        <h3 style="background-color:#e7d790; color:black; margin:0px 0px 2px 0px; padding:2px 0px;">
+                        <h3 style="background-color:#e7d790; color:black; margin:0px 0px 5px 0px; padding:5px 0px;">
                         Informatii Calator
                         </h3>
                     </td>
                 </tr>
                 <tr>
                     <td width="35%" style="">
-                        Calator: <b>{{ $rezervari->nume }}</b>
+                        Calator: 
+                        <br>
+                        <b>{{ $rezervare->nume }}</b>
                     </td>
                     <td width="25%" style="text-align:center;">
-                        Telefon: <b>{{ $rezervari->telefon }}</b>
+                        Telefon: 
+                        <br>
+                        <b>{{ $rezervare->telefon }}</b>
                     </td>
                     <td width="40%" style="text-align:right;">
-                        E-mail: <b>{{ $rezervari->email }}</b>
+                        E-mail: 
+                        <br>
+                        <b>{{ $rezervare->email }}</b>
                     </td>
                 </tr>
             </table>
 
-            <table>    
+            <table style="margin-bottom:40px">    
                 <tr style="text-align:center; font-weight:bold;">
                     <td colspan="5" style="padding:0rem;">
-                        <h3 style="background-color:#e7d790; color:black; margin:10px 0px 2px 0px; padding:2px 0px">
+                        <h3 style="background-color:#e7d790; color:black; margin:10px 0px 5px 0px; padding:5px 0px">
                         Informatii Rezervare bilet
                         </h3>
                     </td>
                 </tr>
-                <tr valign="top">
+                <tr style="">
                     <td style="">
-                        Data de plecare 
+                        Data de plecare: 
                         <br>
+                        <b>{{ \Carbon\Carbon::parse($rezervare->data_plecare)->isoFormat('D.MM.YYYY') }}</b>
                     </td>
                     <td style="">
-                        Plecare:
+                        Oraș plecare:
                         <br>
-                        <br>
-                        {{-- @if (!empty(auth()->user())) --}}
-                            <br>
-                            {{ \Carbon\Carbon::parse($rezervari->data_plecare)->isoFormat('D MMM YYYY') }}
-                        {{-- @else
-                            <span style="font-size:1.2rem;">
-                                {{ \Carbon\Carbon::createFromFormat('Y.m.d H:i', $rezervari->data_cursa)->isoFormat('dddd') }}
-                            </span>
-                            <br>
-                            {{ \Carbon\Carbon::createFromFormat('Y.m.d H:i', $rezervari->data_cursa)->isoFormat('D MMM YYYY') }}
-                        @endif --}}
+                        <b>{{ $rezervare->oras_plecare_nume->nume }}</b>
                     </td>
                     <td>
-                        <br>
-                        <img src="{{ asset('images/sageata.gif') }}" width="50px">
+                        <img src="{{ asset('images/sageata dreapta.jpg') }}" width="50px">
                     </td>
                     <td style="">
-                        Debarcare:
+                        Oraș sosire:
                         <br>
-                    </td>
-                    <td style="">
-                        Sosire:
-                        <br>
-                        <br>
-                        
-                        {{-- @else
-                            <span style="font-size:1.2rem;">
-                                {{ \Carbon\Carbon::createFromFormat('Y.m.d H:i', $rezervari->data_cursa)
-                                    ->addHours(\Carbon\Carbon::parse($rezervari->ora->ora)->hour)
-                                    ->addMinutes(\Carbon\Carbon::parse($rezervari->ora->ora)->minute) 
-                                    ->addHours(\Carbon\Carbon::parse($rezervari->cursa->durata)->hour)
-                                    ->addMinutes(\Carbon\Carbon::parse($rezervari->cursa->durata)->minute)                               
-                                    ->isoFormat('dddd') }}
-                            </span>
-                            <br>
-                                {{ \Carbon\Carbon::createFromFormat('Y.m.d H:i', $rezervari->data_cursa)
-                                    ->addHours(\Carbon\Carbon::parse($rezervari->ora->ora)->hour)
-                                    ->addMinutes(\Carbon\Carbon::parse($rezervari->ora->ora)->minute) 
-                                    ->addHours(\Carbon\Carbon::parse($rezervari->cursa->durata)->hour)
-                                    ->addMinutes(\Carbon\Carbon::parse($rezervari->cursa->durata)->minute)
-                                    ->isoFormat('D MMM YYYY') }}
-                        @endif --}}
-                        <br>
+                        <b>{{ $rezervare->oras_sosire_nume->nume }}</b>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5">
+                    <td>
+                        &nbsp;
                     </td>
                 </tr>
+                @if (($rezervare->tur_retur === "true") || ($rezervare->tur_retur === 1))
+
+                    <tr>
+                        <td style="">
+                            Data de întoarcere: 
+                            <br>
+                            <b>{{ \Carbon\Carbon::parse($rezervare->data_intoarcere)->isoFormat('D.MM.YYYY') }}</b>
+                        </td>
+                        <td style="">
+                            Oraș sosire:
+                            <br>
+                            <b>{{ $rezervare->oras_plecare_nume->nume }}</b>
+                        </td>
+                        <td>
+                        <img src="{{ asset('images/sageata stanga.jpg') }}" width="50px">
+                        </td>
+                        <td style="">
+                            Oraș plecare:
+                            <br>
+                            <b>{{ $rezervare->oras_sosire_nume->nume }}</b>
+                        </td>
+                    </tr>
+                @endif
             </table>
                             
-            <table>
+            <table style="margin-bottom:20px">
                 <tr style="text-align:center; font-weight:bold;">
                     <td colspan="6" style="border-width:0px; padding:0rem;">
-                        <h3 style="background-color:#e7d790; color:black; margin:10px 0px 0px 0px; padding:2px 0px">
+                        <h3 style="background-color:#e7d790; color:black; margin:10px 0px 5px 0px; padding:5px 0px">
                         Calatorie | Tarif
                         </h3>
                     </td>
                 </tr>
                 <tr>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        Pret per adult
+                    <td>
+                        Număr adulți: {{ $rezervare->nr_adulti }} * {{ $tarife->adult }}Euro = {{ $rezervare->nr_adulti * $tarife->adult}}Euro
+                        @if ($rezervare->nr_copii > 0)
+                            <br>
+                            Număr copii: {{ $rezervare->nr_copii }} * {{ $tarife->copil }}Euro = {{ $rezervare->nr_copii * $tarife->copil}}Euro
+                        @endif
+                        @if ($rezervare->nr_animale_mici > 0)
+                            <br>
+                            Număr animale de companie de talie mică, mai mici de 10 kg: {{ $rezervare->nr_animale_mici }} * {{ $tarife->animal_mic }}Euro = {{ $rezervare->nr_animale_mici * $tarife->animal_mic}}Euro
+                        @endif
+                        @if ($rezervare->nr_animale_mari > 0)
+                            <br>
+                            Număr animale de companie de talie mare, mai mari de 10 kg: {{ $rezervare->nr_animale_mari }} * {{ $tarife->animal_mare }}Euro = {{ $rezervare->nr_animale_mari * $tarife->animal_mare}}Euro
+                        @endif
+                        <br>
+                        <br>
+                        <b>Preț total: {{ $rezervare->pret_total }}Euro</b>
+
                     </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        Pret per copil
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        Adulti
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        Copii
-                    </td>
-                    <td colspan="2" style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        Valoare
-                    </td>
-                </tr>
-                <tr style="text-align:center">
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        {{-- {{ $rezervari->cursa->pret_adult }} lei --}}
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        {{-- {{ $rezervari->cursa->pret_copil }} lei --}}
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        {{-- {{ $rezervari->nr_adulti }} --}}
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        {{-- {{ $rezervari->nr_copii }} --}}
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        {{ $rezervari->pret_total }} lei
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                </tr>
-                {{-- <tr>                    
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 5px 0 5px; text-align:right;">
-                        Total
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 0 0 5px; text-align:center;">
-                        {{ $rezervari->pret_total }} lei
-                    </td>
-                </tr> --}}
-                <tr>                    
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:1px; padding: 0 5px 0 5px; text-align:right;">
-                        Achitat:
-                    </td>
-                </tr>
-                <tr>                    
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                    <td style="border-style: solid; border-width:0px; padding: 0 0 0 5px;">
-                        
-                    </td>
-                </tr>
+                </tr>                
             </table>
-                            
-            <table>
-                <tr style="text-align:center; font-weight:bold;">
-                    <td style="border-width:0px; padding:0rem;">
-                        <h3 style="background-color:#e7d790; color:black; margin:10px 0px 2px 0px; padding:2px 0px">
-                        Operator Transport
-                        </h3>
-                    </td>
-                </tr>
-                <tr>
-                </tr>
-            </table>
+                     
                             
             
 

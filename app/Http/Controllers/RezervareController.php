@@ -278,6 +278,11 @@ class RezervareController extends Controller
         $request->session()->forget('rezervare');
         $rezervare = Rezervare::make($this->validateRequest($request));
 
+        //Schimbare tur_retur din "true or false" din vue, in "0 or 1" pentru baza de date
+        ($rezervare->tur_retur === "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
+        
+        // dd($rezervare);
+
         // calcularea pretului total
         $tarife = DB::table('tarife')
             ->where([
@@ -306,6 +311,9 @@ class RezervareController extends Controller
         $rezervare = $request->session()->get('rezervare');
         $tarife = $request->session()->get('tarife');
         
+        
+        // dd($rezervare, $tarife);
+
         // $tarife = DB::table('tarife')
         //     ->where([
         //         ['traseu_id', $rezervare->traseu],
@@ -356,7 +364,7 @@ class RezervareController extends Controller
         ]);
 
         //Schimbare tur_retur din "true or false" din vue, in "0 or 1" pentru baza de date
-        ($rezervare->tur_retur == "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
+        // ($rezervare->tur_retur === "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
 
         $rezervare_array = $rezervare->toArray();
         unset($rezervare_array['traseu'], $rezervare_array['oras_plecare_nume'], $rezervare_array['oras_sosire_nume']);
@@ -420,10 +428,10 @@ class RezervareController extends Controller
     public function pdfExportGuest(Request $request)
     {
         if (Session::has('plata_online')) {
-            $rezervari = \App\Rezervare::where('id', $request->session()->get('rezervare_id'))->first();
-            // dd($rezervari);
+            $rezervare = \App\Rezervare::where('id', $request->session()->get('rezervare_id'))->first();
+            // dd($rezervare);
         }else {
-            $rezervari = $request->session()->get('rezervare');
+            $rezervare = $request->session()->get('rezervare');
         }
         
         $tarife = $request->session()->get('tarife');
@@ -436,11 +444,11 @@ class RezervareController extends Controller
         //     ->first();
 
         if ($request->view_type === 'rezervare-html') {
-            return view('rezervari.export.rezervare-pdf', compact('rezervari'));
+            return view('rezervari.export.rezervare-pdf', compact('rezervare', 'tarife'));
         } elseif ($request->view_type === 'rezervare-pdf') {
-        $pdf = \PDF::loadView('rezervari.export.rezervare-pdf', compact('rezervari'))
+        $pdf = \PDF::loadView('rezervari.export.rezervare-pdf', compact('rezervare', 'tarife'))
             ->setPaper('a4');
-                return $pdf->download('Rezervare ' . $rezervari->nume . '.pdf');
+                return $pdf->download('Rezervare ' . $rezervare->nume . '.pdf');
         }
     }
 }

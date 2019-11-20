@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="shadow-lg bg-white" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-danger p-2 d-flex justify-content-between align-items-end" style="border-radius: 40px 40px 0px 0px;">                     
                     <h3 class="ml-3" style="color:brown"><i class="fas fa-ticket-alt fa-lg mr-1"></i>Rezervare bilet</h3>
@@ -178,8 +178,10 @@
                                         {{-- </span> --}}
                                     </div>
                                     <div class="form-group col-lg-6 m-0 d-flex">
+                                            
                                         <label for="nr_adulti" class="col-form-label mb-0 mr-2">Adulți:*</label></label>
-                                        <div class="px-0 d-flex align-self-center" style="width:110px">  
+                                        
+                                        <div class="col-lg-4 px-0 d-flex align-self-center">  
                                             <button type="button" class="btn m-0 p-0"
                                                 v-on:click="nr_adulti -= 1;getPretTotal()"
                                                 >
@@ -205,7 +207,7 @@
                                     </div>
                                     <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_animal_mic" class="col-form-label mb-0 mr-2"><small>Animale companie talie mică (< 10 kg)</small>:</label>
-                                        <div class="px-0 d-flex align-self-center" style="width:110px">
+                                        <div class="col-lg-4 px-0 d-flex align-self-center">
                                             <button type="button" class="btn m-0 p-0"
                                                 v-on:click="nr_animale_mici -= 1;getPretTotal()"
                                                 >
@@ -231,7 +233,7 @@
                                     </div>
                                     <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_copil" class="col-form-label mb-0 mr-2">Copii (vârsta < 10 ani):</label>
-                                        <div class="px-0 d-flex align-self-center" style="width:110px">  
+                                        <div class="col-lg-4 px-0 d-flex align-self-center">  
                                             <button type="button" class="btn m-0 p-0"
                                                 v-on:click="nr_copii -= 1;getPretTotal()"
                                                 >
@@ -257,7 +259,7 @@
                                     </div>
                                     <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_animal_mare" class="col-form-label mb-0 mr-2"><small>Animale companie talie mare (> 10 kg):</small></label>
-                                        <div class="px-0 d-flex align-self-center" style="width:110px">  
+                                        <div class="col-lg-4 px-0 d-flex align-self-center">  
                                             <button type="button" class="btn m-0 p-0"
                                                 v-on:click="nr_animale_mari -= 1;getPretTotal()"
                                                 >

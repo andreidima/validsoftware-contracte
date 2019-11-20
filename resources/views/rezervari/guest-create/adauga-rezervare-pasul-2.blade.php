@@ -59,7 +59,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        @if (($rezervare->tur_retur === "true") || ($rezervare->tur_retur = 1))
+                                        @if (($rezervare->tur_retur === "true") || ($rezervare->tur_retur === 1))
                                             <div class="row text-center">
                                                 <div class="col-lg-12 text-primary">
                                                     <hr class="bg-primary">
