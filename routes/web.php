@@ -63,7 +63,7 @@ Route::post('/adauga-rezervare-pasul-1', 'RezervareController@postAdaugaRezervar
 Route::get('/adauga-rezervare-pasul-2', 'RezervareController@adaugaRezervarePasul2');
 Route::post('/adauga-rezervare-pasul-2', 'RezervareController@postAdaugaRezervarePasul2');
 Route::get('/adauga-rezervare-pasul-3', 'RezervareController@adaugaRezervarePasul3');
-Route::get('/bilet-rezervat', 'RezervareController@pdfexportguest');
+Route::get('/bilet-rezervat/{view_type}', 'RezervareController@pdfExportGuest');
 
 
 // Extras date cu Axios

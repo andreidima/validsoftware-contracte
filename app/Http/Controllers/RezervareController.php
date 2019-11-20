@@ -8,6 +8,7 @@ use App\Tarif;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Session;
 
 class RezervareController extends Controller
 {
@@ -290,6 +291,7 @@ class RezervareController extends Controller
                                 $tarife->animal_mare * $rezervare->nr_animale_mari;
 
         $request->session()->put('rezervare', $rezervare);
+        $request->session()->put('tarife', $tarife);
         // dd($rezervare, $tarife);
         return redirect('/adauga-rezervare-pasul-2');
     }
@@ -302,13 +304,14 @@ class RezervareController extends Controller
     public function adaugaRezervarePasul2(Request $request)
     {
         $rezervare = $request->session()->get('rezervare');
+        $tarife = $request->session()->get('tarife');
         
-        $tarife = DB::table('tarife')
-            ->where([
-                ['traseu_id', $rezervare->traseu],
-                ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
-            ])
-            ->first();
+        // $tarife = DB::table('tarife')
+        //     ->where([
+        //         ['traseu_id', $rezervare->traseu],
+        //         ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
+        //     ])
+        //     ->first();
 
         return view('rezervari.guest-create/adauga-rezervare-pasul-2',compact('rezervare', 'tarife'));
     }
@@ -323,14 +326,16 @@ class RezervareController extends Controller
     {   
         $rezervare = $request->session()->get('rezervare');
         $rezervare->created_at = \Carbon\Carbon::now();
+
+        $tarife = $request->session()->get('tarife');
         
         // calcularea pretului total
-        $tarife = DB::table('tarife')
-            ->where([
-                ['traseu_id', $rezervare->traseu],
-                ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
-            ])
-            ->first();
+        // $tarife = DB::table('tarife')
+        //     ->where([
+        //         ['traseu_id', $rezervare->traseu],
+        //         ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
+        //     ])
+        //     ->first();
         $rezervare->pret_total = $tarife->adult * $rezervare->nr_adulti +
                                 $tarife->copil * $rezervare->nr_copii +
                                 $tarife->animal_mic * $rezervare->nr_animale_mici +
@@ -412,7 +417,7 @@ class RezervareController extends Controller
         // dd (session()); 
     }
 
-    public function pdfexportguest(Request $request)
+    public function pdfExportGuest(Request $request)
     {
         if (Session::has('plata_online')) {
             $rezervari = \App\Rezervare::where('id', $request->session()->get('rezervare_id'))->first();
@@ -420,10 +425,22 @@ class RezervareController extends Controller
         }else {
             $rezervari = $request->session()->get('rezervare');
         }
+        
+        $tarife = $request->session()->get('tarife');
 
-        // dd($rezervari);
+        // $tarife = DB::table('tarife')
+        //     ->where([
+        //         ['traseu_id', $rezervari->traseu],
+        //         ['tur_retur', ($rezervari->tur_retur == 'true' ? 1 : 0)]
+        //     ])
+        //     ->first();
+
+        if ($request->view_type === 'rezervare-html') {
+            return view('rezervari.export.rezervare-pdf', compact('rezervari'));
+        } elseif ($request->view_type === 'rezervare-pdf') {
         $pdf = \PDF::loadView('rezervari.export.rezervare-pdf', compact('rezervari'))
             ->setPaper('a4');
                 return $pdf->download('Rezervare ' . $rezervari->nume . '.pdf');
+        }
     }
 }

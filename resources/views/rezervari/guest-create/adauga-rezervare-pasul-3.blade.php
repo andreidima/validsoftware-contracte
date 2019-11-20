@@ -31,7 +31,7 @@
                                     <div class="col-lg-11 p-4 bg-white border rounded-lg">
                                         <div class="row">
                                             <div class="col-sm-12 text-center"> 
-                                                <a href="/bilet-rezervat"
+                                                <a href="/bilet-rezervat/rezervare-html"
                                                     class="btn btn-success border border-white rounded-lg mb-3"
                                                     role="button"
                                                     target="_blank"
