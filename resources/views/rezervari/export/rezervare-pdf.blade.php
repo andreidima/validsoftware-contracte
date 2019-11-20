@@ -107,16 +107,12 @@
                 </tr>
                 <tr>
                     <td colspan="3">                        
-                        Adresa: 
-                        <br>
-                        <b>{{ $rezervare->adresa }}</b>
+                        Adresa: {{ $rezervare->adresa }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">                    
-                        Observatii: 
-                        <br>
-                        <b>{{ $rezervare->observatii }}</b>
+                        Observatii: {{ $rezervare->observatii }}
                     </td>
                 </tr>
             </table>
