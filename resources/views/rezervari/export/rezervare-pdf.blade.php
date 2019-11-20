@@ -113,7 +113,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3">                        
+                    <td colspan="3">                    
                         Observatii: 
                         <br>
                         <b>{{ $rezervare->observatii }}</b>
