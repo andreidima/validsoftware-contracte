@@ -287,7 +287,7 @@ class RezervareController extends Controller
         $tarife = DB::table('tarife')
             ->where([
                 ['traseu_id', $rezervare->traseu],
-                ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
+                ['tur_retur', $rezervare->tur_retur]
             ])
             ->first();
         $rezervare->pret_total = $tarife->adult * $rezervare->nr_adulti +

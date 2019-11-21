@@ -34,7 +34,7 @@
 //         // Route::any('/produse/vanzari', 'ProdusController@vanzari');
 //         // Route::any('produse/vanzari/descarca-produs', 'ProdusController@vanzariDescarcaProdus');
 //         // Route::any('produse/vanzari/goleste-cos', 'ProdusController@vanzariGolesteCos');
-        
+
 //         Route::resource('users', 'UserController');
 
 //         // Comparatie Produse
@@ -51,7 +51,7 @@
 //     });
 // });
 
-// Auth::routes();
+Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
 Route::get('/', function () {
     return view('acasa');

@@ -9,7 +9,7 @@
 
                 <div class="card-body pb-0">
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <div class="col-md-12">
                                 <a href="{{url('/login/google')}}" class="btn btn-danger btn-block d-flex">
                                     <div class="d-inline-flex align-self-center">
@@ -34,7 +34,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> --}}
 
 
                     <form method="POST" action="{{ route('login') }}">
