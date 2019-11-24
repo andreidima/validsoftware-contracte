@@ -10,12 +10,12 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ route('rezervari.index') }}">
                     @csrf                    
                     <div class=" row input-group custom-search-form">
-                        <input type="text" class="form-control form-control-sm col-md-3" id="search_nume" name="search_nume" placeholder="Nume" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-3 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                 value="{{ $search_nume }}">
-                        <button class="btn btn-sm btn-primary col-md-3 mr-4" type="submit">
+                        <button class="btn btn-sm btn-primary col-md-3 mr-4 border border-dark rounded-pill" type="submit">
                             <i class="fas fa-search text-white mr-1"></i>Caută
                         </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-3" href="{{ route('rezervari.index') }}" role="button">
+                        <a class="btn btn-sm bg-secondary text-white col-md-3 border border-dark rounded-pill" href="{{ route('rezervari.index') }}" role="button">
                             <i class="far fa-trash-alt text-white mr-1"></i>Resetează căutarea
                         </a>
                     </div>
