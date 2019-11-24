@@ -19,7 +19,15 @@ class RezervareController extends Controller
      */
     public function index()
     {
-        //
+        $search_nume = \Request::get('search_nume');
+        $rezervari = Rezervare::
+            when($search_nume, function ($query, $search_nume) {
+                return $query->where('nume', 'like', '%' . $search_nume . '%');
+            })
+            ->latest()
+            ->Paginate(25);
+
+        return view('rezervari.index', compact('rezervari', 'search_nume'));
     }
 
     /**
@@ -49,9 +57,9 @@ class RezervareController extends Controller
      * @param  \App\Rezervare  $rezervare
      * @return \Illuminate\Http\Response
      */
-    public function show(Rezervare $rezervare)
+    public function show(Rezervare $rezervari)
     {
-        //
+        return view('rezervari.show', compact('rezervari'));
     }
 
     /**

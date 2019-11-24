@@ -65,9 +65,17 @@ Route::post('/adauga-rezervare-pasul-2', 'RezervareController@postAdaugaRezervar
 Route::get('/adauga-rezervare-pasul-3', 'RezervareController@adaugaRezervarePasul3');
 Route::get('/bilet-rezervat/{view_type}', 'RezervareController@pdfExportGuest');
 
-
 // Extras date cu Axios
 Route::get('/orase_rezervari', 'RezervareController@orase_rezervari');
 
 // Testare Extras date cu Axios
 Route::get('/testare-axios', 'RezervareController@testare_axios');
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::redirect('/', 'rezervari');
+
+    Route::resource('rezervari', 'RezervareController')->only([
+            'index', 'show'
+        ]);
+});

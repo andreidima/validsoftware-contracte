@@ -38,12 +38,12 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
-                        {{-- <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto">
                             @guest
                             @else
                                 <li class="nav-item active mr-4">
-                                    <a class="nav-link" href="{{ route('produse.index') }}">
-                                        <i class="fas fa-list-ul mr-1"></i>Produse
+                                    <a class="nav-link" href="{{ route('rezervari.index') }}">
+                                        <i class="fas fa-list-ul mr-1"></i>Rezervări
                                     </a>
                                 </li>
                                 @if (auth()->user()->roles()->pluck( 'nume' )->contains( 'administrator' ))
@@ -54,7 +54,7 @@
                                     </li>
                                 @endif
                             @endguest
-                        </ul> --}}
+                        </ul>
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto text-white">
