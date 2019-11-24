@@ -27,10 +27,11 @@
 <body>
     <div id="app">
         @auth
-            <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color:brown">
+            <nav class="navbar navbar-expand-md navbar-dark shadow-sm py-0" style="background-color:brown">
                 <div class="container">
                     <a class="navbar-brand mr-4" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{-- {{ config('app.name', 'Laravel') }} --}}
+                        <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="40" class="border border-dark rounded-pill mr-4">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
