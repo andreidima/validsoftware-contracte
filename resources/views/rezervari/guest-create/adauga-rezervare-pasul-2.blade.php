@@ -151,7 +151,8 @@
                                     <div class="col-lg-12 d-flex justify-content-center">  
                                         <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-pasul-2">
                                             @csrf                                                 
-                                            @if ($rezervare->plata_online == "1")
+                                            {{-- @if ($rezervare->plata_online == "1") --}}
+                                            @if ($auth->user->id == 2)
                                                 <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Plătește rezervarea</button>
                                             @else
                                                 <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Salvează rezervarea</button> 

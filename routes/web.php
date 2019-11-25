@@ -58,6 +58,10 @@ Route::group(['scheme' => 'https'], function () {
         return view('acasa');
     });
 
+    //MobilPay
+    Route::get('/trimitere-catre-plata', 'PlataOnlineController@trimitereCatrePlata')->name('trimitere-catre-plata');
+    Route::post('/confirmare-plata', 'PlataOnlineController@confirmarePlata')->name('confirmare-plata');
+
     // Rute pentru rezervare facuta de guest
     Route::get('/adauga-rezervare-pasul-1', 'RezervareController@adaugaRezervarePasul1');
     Route::post('/adauga-rezervare-pasul-1', 'RezervareController@postAdaugaRezervarePasul1');
