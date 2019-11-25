@@ -51,31 +51,33 @@
 //     });
 // });
 
-Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
+Route::group(['scheme' => 'https'], function () {
+    Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
-Route::get('/', function () {
-    return view('acasa');
-});
+    Route::get('/', function () {
+        return view('acasa');
+    });
 
-// Rute pentru rezervare facuta de guest
-Route::get('/adauga-rezervare-pasul-1', 'RezervareController@adaugaRezervarePasul1');
-Route::post('/adauga-rezervare-pasul-1', 'RezervareController@postAdaugaRezervarePasul1');
-Route::get('/adauga-rezervare-pasul-2', 'RezervareController@adaugaRezervarePasul2');
-Route::post('/adauga-rezervare-pasul-2', 'RezervareController@postAdaugaRezervarePasul2');
-Route::get('/adauga-rezervare-pasul-3', 'RezervareController@adaugaRezervarePasul3');
-Route::get('/bilet-rezervat/{view_type}', 'RezervareController@pdfExportGuest');
+    // Rute pentru rezervare facuta de guest
+    Route::get('/adauga-rezervare-pasul-1', 'RezervareController@adaugaRezervarePasul1');
+    Route::post('/adauga-rezervare-pasul-1', 'RezervareController@postAdaugaRezervarePasul1');
+    Route::get('/adauga-rezervare-pasul-2', 'RezervareController@adaugaRezervarePasul2');
+    Route::post('/adauga-rezervare-pasul-2', 'RezervareController@postAdaugaRezervarePasul2');
+    Route::get('/adauga-rezervare-pasul-3', 'RezervareController@adaugaRezervarePasul3');
+    Route::get('/bilet-rezervat/{view_type}', 'RezervareController@pdfExportGuest');
 
-// Extras date cu Axios
-Route::get('/orase_rezervari', 'RezervareController@orase_rezervari');
+    // Extras date cu Axios
+    Route::get('/orase_rezervari', 'RezervareController@orase_rezervari');
 
-// Testare Extras date cu Axios
-Route::get('/testare-axios', 'RezervareController@testare_axios');
+    // Testare Extras date cu Axios
+    Route::get('/testare-axios', 'RezervareController@testare_axios');
 
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::redirect('/', 'rezervari');
+    Route::group(['middleware' => 'auth'], function () {
+        Route::redirect('/', 'rezervari');
 
-    Route::resource('rezervari', 'RezervareController')->only([
-            'index', 'show'
-        ]);
+        Route::resource('rezervari', 'RezervareController')->only([
+                'index', 'show'
+            ]);
+    });
 });
