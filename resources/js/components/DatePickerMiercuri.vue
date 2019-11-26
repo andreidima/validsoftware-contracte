@@ -35,17 +35,18 @@ export default {
         const today = new Date(this.notBefore);
         today.setHours(0, 0, 0, 0);
 
-        // const data_fixa1 = new Date('2019-11-28 00:00:00');
-        // const data_fixa2 = new Date('2019-12-01 00:00:00');
+        const data_fixa1 = new Date('2019-12-26 00:00:00');
+        const data_fixa2 = new Date('2019-12-27 00:00:00');
 
         const dateDay = date.getDay()
         
         return (
             (date.getTime() < today.getTime()) || 
-            // (date.getTime() == data_fixa1.getTime()) || 
+            (date.getTime() == data_fixa1.getTime()) || 
             // (date.getTime() == data_fixa2.getTime()) ||
             // ((dateDay !== 4) && (dateDay !== 0))
             (dateDay !== 4)
+            // ((dateDay !== 4) && (date.getTime() == data_fixa1.getTime())
           );
         // return ((date < today) || (date == data_fixa));
       },
