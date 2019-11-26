@@ -54,7 +54,7 @@
 Route::group(['scheme' => 'https'], function () {
     Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
-    Route::get('/', function () {
+    Route::get('/rezervare-client', function () {
         return view('acasa');
     });
 

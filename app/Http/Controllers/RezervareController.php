@@ -395,12 +395,11 @@ class RezervareController extends Controller
         //     );
         // }
 
-        // if ($plata_online == 1){
-        //     return redirect('/trimitere-catre-plata');
-        // }else{
-        // return redirect('/adauga-rezervare-pasul-3');
-        // }
+        if ($plata_online == 1){
+            return redirect('/trimitere-catre-plata');
+        }else{
         return redirect('/adauga-rezervare-pasul-3');
+        }
     }
 
         /**
