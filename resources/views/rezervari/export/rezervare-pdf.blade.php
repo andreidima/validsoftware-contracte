@@ -1,4 +1,6 @@
-<!DOCTYPE  html>
+here
+
+{{-- <!DOCTYPE  html>
 <html lang="ro">
 
 <head>
@@ -56,7 +58,6 @@
 </head>
 
 <body>
-    {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}
     <div style="border:dashed #999;
         width:710px; 
         min-height:500px;            
@@ -74,10 +75,10 @@
                         <td style="border-width:0px; padding:0rem; margin:0rem; width:60%; text-align:center; font-size:16px">
                             BILET REZERVAT
                             <br>
-                            {{-- Cod bilet: RO{{ $rezervare->id }} --}}
+                            Cod bilet: RO{{ $rezervare->id }}
                         </td>
                     </tr>
-                </table>
+                </table> --}}
             
                             
             {{-- <table style="margin-bottom:40px">
@@ -210,9 +211,9 @@
             
 
 
-
+{{-- 
     </div>
 </body>
 
-</html>
+</html> --}}
     
