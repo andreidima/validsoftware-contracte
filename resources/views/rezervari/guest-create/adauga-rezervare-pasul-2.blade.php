@@ -154,6 +154,7 @@
                                                 @php
                                                     $rezervare->plata_online = 1;
                                                     // dd($rezervare);
+                                                    // dd();
                                                 @endphp
                                                 <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Plătește rezervarea</button>
                                             @else
