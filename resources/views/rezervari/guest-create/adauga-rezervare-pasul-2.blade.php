@@ -158,6 +158,9 @@
                                                 @endphp
                                                 <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Plătește rezervarea</button>
                                             @else
+                                                @php
+                                                    $rezervare->plata_online = 0;
+                                                @endphp
                                                 <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Salvează rezervarea</button> 
                                             @endif
                                         </form>
