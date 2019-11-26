@@ -375,6 +375,7 @@ class RezervareController extends Controller
         // ($rezervare->tur_retur === "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
 
         $rezervare_array = $rezervare->toArray();
+        $plata_online = $rezervare_array['plata_online'];
         unset($rezervare_array['traseu'], $rezervare_array['oras_plecare_nume'], $rezervare_array['oras_sosire_nume'], $rezervare_array['plata_online']);
         
         //Inserarea rezervarii in baza de date
