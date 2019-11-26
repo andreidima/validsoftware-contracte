@@ -454,9 +454,10 @@ class RezervareController extends Controller
         if ($request->view_type === 'rezervare-html') {
             return view('rezervari.export.rezervare-pdf', compact('rezervare', 'tarife'));
         } elseif ($request->view_type === 'rezervare-pdf') {
-        $pdf = \PDF::loadView('rezervari.export.rezervare-pdf', compact('rezervare', 'tarife'))
-            ->setPaper('a4');
-                return $pdf->download('Rezervare ' . $rezervare->nume . '.pdf');
+        // $pdf = \PDF::loadView('rezervari.export.rezervare-pdf', compact('rezervare', 'tarife'))
+        //     ->setPaper('a4');
+        //         return $pdf->download('Rezervare ' . $rezervare->nume . '.pdf');
+        dd('dada');
         }
     }
 }
