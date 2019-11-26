@@ -74,13 +74,13 @@
                         <td style="border-width:0px; padding:0rem; margin:0rem; width:60%; text-align:center; font-size:16px">
                             BILET REZERVAT
                             <br>
-                            Cod bilet: RO{{ $rezervare->id }}
+                            {{-- Cod bilet: RO{{ $rezervare->id }} --}}
                         </td>
                     </tr>
                 </table>
             
                             
-            <table style="margin-bottom:40px">
+            {{-- <table style="margin-bottom:40px">
                 <tr style="text-align:center; font-weight:bold;">
                     <td colspan="3" style="border-width:0px; padding:0rem;">
                         <h3 style="background-color:#e7d790; color:black; margin:0px 0px 5px 0px; padding:5px 0px;">
@@ -204,7 +204,7 @@
 
                     </td>
                 </tr>                
-            </table>
+            </table> --}}
                      
                             
             
