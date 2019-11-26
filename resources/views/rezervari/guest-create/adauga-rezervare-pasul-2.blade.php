@@ -33,8 +33,6 @@
                                             <div class="col-lg-3">
                                                 Data de plecare:
                                                 <br>
-                                                {{-- {{ \Carbon\Carbon::parse($rezervare->data_plecare)->isoFormat('dddd') }}
-                                                <br> --}}
                                                 <span class="badge badge-primary" style="font-size:1.1em">
                                                     {{ \Carbon\Carbon::parse($rezervare->data_plecare)->isoFormat('D.MM.YYYY') }}
                                                 </span>
@@ -152,7 +150,7 @@
                                         <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-pasul-2">
                                             @csrf                                                 
                                             {{-- @if ($rezervare->plata_online == "1") --}}
-                                            @if ($auth->user->id == 2)
+                                            @if ((auth()->user()->id ?? null) === 2))
                                                 <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Plătește rezervarea</button>
                                             @else
                                                 <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Salvează rezervarea</button> 

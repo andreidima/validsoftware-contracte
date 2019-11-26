@@ -319,7 +319,7 @@ class RezervareController extends Controller
         $rezervare = $request->session()->get('rezervare');
         $tarife = $request->session()->get('tarife');
         
-        
+            
         // dd($rezervare, $tarife);
 
         // $tarife = DB::table('tarife')
