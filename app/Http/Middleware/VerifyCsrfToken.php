@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'mobilpay/*',
+        // 'confirmare-plata',
+        'https://dezvoltare.zuzu-transfer-aeroport.ro/confirmare-plata',
     ];
 }
