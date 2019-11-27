@@ -43,7 +43,7 @@
                                                             <h5 class="p-0 m-0">Descărcați și tipăriți biletul de rezervare</h5>
                                                         </a>
                                                     @else                            
-                                                        Plata rezervării nu s-a efectuat cu succes!
+                                                        Plata rezervării <span class="text-danger">NU</span> s-a efectuat cu succes!
                                                         <br>                                                      
                                                         <a href="/adauga-rezervare-pasul-1"
                                                             class="btn btn-primary border border-white rounded-lg mb-3"
