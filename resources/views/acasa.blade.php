@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="shadow-lg bg-white" style="border-radius: 40px 40px 40px 40px;">
                 <div class="text-center border border-danger p-2" style="border-radius: 40px 40px 0px 0px;"> 
-                    <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="140" class="mr-4">
+                    <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="120" class="mr-2">
                 </div>
 
                 <div class="card-body text-center" 
