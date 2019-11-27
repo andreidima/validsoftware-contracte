@@ -56,6 +56,7 @@
 </head>
 
 <body>
+    {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}
     <div style="border:dashed #999;
         width:710px; 
         min-height:500px;            
@@ -79,7 +80,7 @@
                 </table>
             
                             
-            {{-- <table style="margin-bottom:40px">
+            <table style="margin-bottom:40px">
                 <tr style="text-align:center; font-weight:bold;">
                     <td colspan="3" style="border-width:0px; padding:0rem;">
                         <h3 style="background-color:#e7d790; color:black; margin:0px 0px 5px 0px; padding:5px 0px;">
@@ -203,15 +204,15 @@
 
                     </td>
                 </tr>                
-            </table> --}}
+            </table>
                      
                             
             
 
 
-{{-- 
+
     </div>
 </body>
 
-</html> --}}
+</html>
     
