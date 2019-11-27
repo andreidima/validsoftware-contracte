@@ -85,9 +85,9 @@
                                 </td>
                                 <td>
                                     @if(isset($rezervare->plata_efectuata))
-                                        DA
+                                        <span class="text-success">DA</span>
                                     @else
-                                        NU
+                                        <span class="text-danger">NU</span>
                                     @endif
                                 </td>
                             </tr>                                          
