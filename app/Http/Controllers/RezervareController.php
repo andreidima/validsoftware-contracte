@@ -289,15 +289,25 @@ class RezervareController extends Controller
         //Schimbare tur_retur din "true or false" din vue, in "0 or 1" pentru baza de date
         ($rezervare->tur_retur === "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
         
-        dd($rezervare);
+        // dd($rezervare);
 
         // calcularea pretului total
+        if ($rezervare->traseu == 1){
+            $oras = DB::table('orase')
+                ->where('id', $rezervare->oras_sosire)
+                ->first();
+        } elseif ($rezervare->traseu == 2){
+            $oras = DB::table('orase')
+                ->where('id', $rezervare->oras_plecare)
+                ->first();
+        }
         $tarife = DB::table('tarife')
             ->where([
-                ['traseu_id', $rezervare->traseu],
+                ['traseu_id', $oras->traseu],
                 ['tur_retur', $rezervare->tur_retur]
             ])
             ->first();
+        // dd($rezervare, $oras, $tarife);
         $rezervare->pret_total = $tarife->adult * $rezervare->nr_adulti +
                                 $tarife->copil * $rezervare->nr_copii +
                                 $tarife->animal_mic * $rezervare->nr_animale_mici +
