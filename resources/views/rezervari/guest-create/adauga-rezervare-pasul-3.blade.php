@@ -60,7 +60,7 @@
                                                     <br> --}}
                                                 @endisset
                                                 <br>
-                                                <a href="/"
+                                                <a href="/rezervare-client"
                                                     class="btn btn-primary border border-white rounded-lg"
                                                     role="button"
                                                     title="Înapoi la pagina principală">
