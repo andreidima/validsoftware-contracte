@@ -84,7 +84,11 @@
                                     {{ $rezervare->pret_total }}
                                 </td>
                                 <td>
-                                    {{ $rezervare->plata_efectuata }}
+                                    @if(isset($rezervare->plata_efectuata))
+                                        DA
+                                    @else
+                                        NU
+                                    @endif
                                 </td>
                             </tr>                                          
                         @empty
