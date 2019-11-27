@@ -289,7 +289,7 @@ class RezervareController extends Controller
         //Schimbare tur_retur din "true or false" din vue, in "0 or 1" pentru baza de date
         ($rezervare->tur_retur === "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
         
-        // dd($rezervare);
+        dd($rezervare);
 
         // calcularea pretului total
         $tarife = DB::table('tarife')
