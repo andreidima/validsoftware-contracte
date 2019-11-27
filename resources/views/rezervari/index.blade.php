@@ -45,6 +45,7 @@
                             <th>Data plecare</th>
                             <th>Data intoarcere</th>
                             <th>Pret</th>
+                            <th>Plătit</th>
                         </tr>
                     </thead>
                     <tbody>               
@@ -81,6 +82,9 @@
                                 </td>
                                 <td>
                                     {{ $rezervare->pret_total }}
+                                </td>
+                                <td>
+                                    {{ $rezervare->plata_efectuata }}
                                 </td>
                             </tr>                                          
                         @empty
