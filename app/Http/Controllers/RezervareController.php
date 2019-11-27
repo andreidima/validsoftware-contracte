@@ -286,6 +286,10 @@ class RezervareController extends Controller
         $request->session()->forget('rezervare');
         $rezervare = Rezervare::make($this->validateRequest($request));
 
+        //Animalele nu mai sunt folosite, sunt setate doar ca sa nu genereze erori mai departe in logic aplicatiei
+        $rezervare->nr_animale_mici = 0;
+        $rezervare->nr_animale_mari = 0;
+
         //Schimbare tur_retur din "true or false" din vue, in "0 or 1" pentru baza de date
         ($rezervare->tur_retur === "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
         

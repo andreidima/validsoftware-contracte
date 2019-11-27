@@ -205,7 +205,7 @@
                                             </button>  
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-6 m-0 d-flex">
+                                    {{-- <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_animal_mic" class="col-form-label mb-0 mr-2"><small>Animale companie talie mică (< 10 kg)</small>:</label>
                                         <div class="col-lg-4 px-0 d-flex align-self-center">
                                             <button type="button" class="btn m-0 p-0"
@@ -230,7 +230,7 @@
                                                 </i>
                                             </button>  
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_copil" class="col-form-label mb-0 mr-2">Copii (vârsta < 10 ani):</label>
                                         <div class="col-lg-4 px-0 d-flex align-self-center">  
@@ -257,7 +257,7 @@
                                             </button>   
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-6 m-0 d-flex">
+                                    {{-- <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_animal_mare" class="col-form-label mb-0 mr-2"><small>Animale companie talie mare (> 10 kg):</small></label>
                                         <div class="col-lg-4 px-0 d-flex align-self-center">  
                                             <button type="button" class="btn m-0 p-0"
@@ -282,7 +282,7 @@
                                                 </i>
                                             </button> 
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="form-row mb-1 d-flex justify-content-between align-items-center">
                                     <div class="form-group col-lg-3">
@@ -356,12 +356,12 @@
                                     <div class="form-group col-lg-6 mb-1 justify-content-center"> 
                                         <label for="adresa" class="mb-0">Adresa:</label>
                                         <textarea class="form-control {{ $errors->has('adresa') ? 'is-invalid' : '' }}" 
-                                            name="adresa" id="adresa" rows="2"></textarea>
+                                            name="adresa" id="adresa" rows="2">{{ old('adresa') }}</textarea>
                                     </div>                               
                                     <div class="form-group col-lg-6 mb-1 justify-content-center"> 
                                         <label for="observatii" class="mb-0">Observații:</label>
                                         <textarea class="form-control {{ $errors->has('observatii') ? 'is-invalid' : '' }}" 
-                                            name="observatii" id="observatii" rows="2"></textarea>
+                                            name="observatii" id="observatii" rows="2">{{ old('observatii') }}</textarea>
                                     </div> 
                                 </div>
                                 <div class="form-row mb-1 px-2 justify-content-center align-items-center">                                    
