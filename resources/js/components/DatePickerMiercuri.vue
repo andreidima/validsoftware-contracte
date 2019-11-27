@@ -41,12 +41,12 @@ export default {
         const dateDay = date.getDay()
         
         return (
-            (date.getTime() < today.getTime()) || 
+            ((date.getTime() < today.getTime()) || 
             (date.getTime() == data_fixa1.getTime()) || 
             // (date.getTime() == data_fixa2.getTime()) ||
             // ((dateDay !== 4) && (dateDay !== 0))
-            (dateDay !== 4)
-            // ((dateDay !== 4) && (date.getTime() == data_fixa1.getTime())
+            (dateDay !== 4)) &&
+            !(date.getTime() == data_fixa2.getTime())
           );
         // return ((date < today) || (date == data_fixa));
       },
