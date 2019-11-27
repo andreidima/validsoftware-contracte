@@ -1,6 +1,4 @@
-here
-
-{{-- <!DOCTYPE  html>
+<!DOCTYPE  html>
 <html lang="ro">
 
 <head>
@@ -78,7 +76,7 @@ here
                             Cod bilet: RO{{ $rezervare->id }}
                         </td>
                     </tr>
-                </table> --}}
+                </table>
             
                             
             {{-- <table style="margin-bottom:40px">

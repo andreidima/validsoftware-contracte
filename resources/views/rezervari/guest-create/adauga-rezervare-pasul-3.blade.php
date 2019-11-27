@@ -30,15 +30,35 @@
                                     </div>
                                     <div class="col-lg-11 p-4 bg-white border rounded-lg">
                                         <div class="row">
-                                            <div class="col-sm-12 text-center"> 
-                                                <a href="/bilet-rezervat/rezervare-pdf"
-                                                    class="btn btn-success border border-white rounded-lg mb-3"
-                                                    role="button"
-                                                    target="_blank"
-                                                    title="Descarcă bilet"
-                                                    >
-                                                    <h5 class="p-0 m-0">Descărcați și tipăriți biletul de rezervare</h5>
-                                                </a>
+                                            <div class="col-sm-12 text-center">                                                 
+                                                @isset($plata_online)
+                                                    <br>
+                                                    @if ($plata_online->error_code == 0 )                                                        
+                                                        <a href="/bilet-rezervat/rezervare-pdf"
+                                                            class="btn btn-success border border-white rounded-lg mb-3"
+                                                            role="button"
+                                                            target="_blank"
+                                                            title="Descarcă bilet"
+                                                            >
+                                                            <h5 class="p-0 m-0">Descărcați și tipăriți biletul de rezervare</h5>
+                                                        </a>
+                                                    @else                            
+                                                        Plata rezervării nu s-a efectuat cu succes!
+                                                        <br>                                                      
+                                                        <a href="/adauga-rezervare-pasul-1"
+                                                            class="btn btn-primary border border-white rounded-lg mb-3"
+                                                            role="button"
+                                                            target="_blank"
+                                                            title="Creare Rezervare"
+                                                            >
+                                                            <h5 class="p-0 m-0">Vă rugăm să reîncercați</h5>
+                                                        </a>                                                        
+                                                    @endif
+                                                    <br>
+                                                    {{-- <br>
+                                                    Starea plății pentru această rezervare este: {{ $plata_online->error_message }}
+                                                    <br> --}}
+                                                @endisset
                                                 <br>
                                                 <a href="/"
                                                     class="btn btn-primary border border-white rounded-lg"
