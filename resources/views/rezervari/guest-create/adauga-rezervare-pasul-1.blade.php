@@ -122,7 +122,7 @@
                                             Euro
                                         </label>
                                     </div>
-                                    <div class="form-group col-lg-6 m-0 d-flex">
+                                    {{-- <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_animal_mic" class="col-form-label mb-0 mr-2"><small>Animal companie talie mică (< 10 kg)</small>:</label>
                                         <div class="px-0" style="width:50px">
                                             <input 
@@ -137,7 +137,7 @@
                                         <label id="" class="col-form-label pl-1 align-bottom">
                                             Euro
                                         </label>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_copil" class="col-form-label mb-0 mr-2">Preț copil (vârsta < 10 ani):</label>
                                         <div class="px-0" style="width:50px">
@@ -154,7 +154,7 @@
                                             Euro
                                         </label>
                                     </div>
-                                    <div class="form-group col-lg-6 m-0 d-flex">
+                                    {{-- <div class="form-group col-lg-6 m-0 d-flex">
                                         <label for="pret_animal_mare" class="col-form-label mb-0 mr-2"><small>Animal companie talie mare (> 10 kg):</small></label>
                                         <div class="px-0" style="width:50px">
                                             <input 
@@ -169,7 +169,7 @@
                                         <label id="" class="col-form-label pl-1 align-bottom">
                                             Euro
                                         </label>
-                                    </div>
+                                    </div> --}}
                                 </div>                               
                                 <div class="form-row mb-3 px-2 pt-2 d-flex justify-content-between align-items-center bg-primary border rounded">                                    
                                     <div class="form-group col-lg-12 mb-2 d-flex justify-content-center border-bottom">
