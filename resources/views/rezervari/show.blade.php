@@ -123,7 +123,7 @@
                             {{ $rezervari->nr_copii }}
                         </td>
                     </tr>
-                    </tr>
+                    {{-- </tr>
                         <td>
                             Nr. animale mici
                         </td>
@@ -138,7 +138,7 @@
                         <td>
                             {{ $rezervari->nr_animale_mari }}
                         </td>
-                    </tr>
+                    </tr> --}}
                     </tr>
                         <td>
                             Preț total
