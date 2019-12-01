@@ -232,7 +232,8 @@ class RezervareController extends Controller
             // 'user_id' => [''],
             // 'status' => [''],
             // 'plata_cu_card' => [''],
-            // 'acord_de_confidentialitate' => auth()->user() === null ? ['required'] : [''],
+            'acord_de_confidentialitate' => ['required'],
+            'termeni_si_conditii' => ['required'],
             // 'oferta' => [''],
         ],
         [
@@ -391,7 +392,8 @@ class RezervareController extends Controller
 
         $rezervare_array = $rezervare->toArray();
         $plata_online = $rezervare_array['plata_online'];
-        unset($rezervare_array['traseu'], $rezervare_array['oras_plecare_nume'], $rezervare_array['oras_sosire_nume'], $rezervare_array['plata_online']);
+        unset($rezervare_array['traseu'], $rezervare_array['oras_plecare_nume'], $rezervare_array['oras_sosire_nume'], 
+            $rezervare_array['plata_online'], $rezervare_array['acord_de_confidentialitate'], $rezervare_array['termeni_si_conditii']);
         
         //Inserarea rezervarii in baza de date
         $id = DB::table('rezervari')->insertGetId($rezervare_array);
@@ -405,7 +407,7 @@ class RezervareController extends Controller
       
 
         // Trimitere email
-        \Mail::to('andrei.dima@usm.ro')->send(
+        \Mail::to('alsimy_mond_travel@yahoo.com')->send(
             new CreareRezervare($rezervare, $tarife)
         );
 

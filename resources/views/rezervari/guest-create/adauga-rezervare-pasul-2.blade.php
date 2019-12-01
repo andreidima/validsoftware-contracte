@@ -146,7 +146,7 @@
                                 
                                 
                                 <div class="row">
-                                    <div class="col-lg-12 d-flex justify-content-center">  
+                                    <div class="col-lg-12 d-flex justify-content-center mb-4">  
                                         <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-pasul-2">
                                             @csrf                                                 
                                             {{-- @if ($rezervare->plata_online == "1") --}}
@@ -162,7 +162,9 @@
                                                 <button type="submit" class="btn btn-primary mr-4 rounded-pill border border-white" style="border-width:3px !important;">Salvează rezervarea</button> 
                                             @endif --}}
                                         </form>
-                                        
+                                        <img src="{{ asset('images/banner-no-operators.jpg') }}" height="43" class="mr-3 bg-white rounded-pill border border-white">
+                                    </div>
+                                    <div class="col-lg-12 d-flex justify-content-center">  
                                         <a class="btn btn-secondary rounded-pill border border-white" style="border-width:3px !important;" href="/" role="button">Anulează rezervarea</a>
 
                                     </div>

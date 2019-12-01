@@ -386,6 +386,26 @@
                                             name="observatii" id="observatii" rows="2">{{ old('observatii') }}</textarea>
                                     </div> 
                                 </div>
+                                <div class="form-row px-2 py-2 justify-content-between">                                
+                                    <div class="form-group col-lg-12 border-left border-warning" style="border-width:5px !important">
+                                        <label for="" class="mr-4">Acord de confidențialitate:</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" name="acord_de_confidentialitate" value="1" required
+                                            {{ old('acord_de_confidentialitate') == '1' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="acord_de_confidentialitate">prin utilizarea acestui formular sunteți de acord cu stocarea și procesarea datelor dvs. pe acest site web</label> 
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="form-row mb-2 px-2 py-2 justify-content-between">                                  
+                                    <div class="form-group col-lg-12 border-left border-warning" style="border-width:5px !important">
+                                        <label for="" class="mr-4">Termeni și condiții:</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" name="termeni_si_conditii" value="1" required
+                                            {{ old('termeni_si_conditii') == '1' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="termeni_si_conditii">prin utilizarea acestui formular sunteți de acord cu termenii și condițiile acestui site web</label> 
+                                        </div>
+                                    </div>
+                                </div> 
                                 <div class="form-row mb-1 px-2 justify-content-center align-items-center">                                    
                                     <div class="col-lg-8 d-flex justify-content-center">  
                                         <button type="submit" class="btn btn-lg btn-warning btn-block mr-4">Verifică Rezervarea</button>  

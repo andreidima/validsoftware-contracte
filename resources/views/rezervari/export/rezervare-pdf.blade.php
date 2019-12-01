@@ -205,11 +205,13 @@
                     </td>
                 </tr>                
             </table>
-                     
-                            
-            
 
-
+            <br>
+            Ptr rezervari făcute cu mai puțin de 24 ore înainte de plecare sunați la nr de telefon: <b>0755106508</b> sau <b>0742296938</b>
+            <br>
+            E-mail: <a href="mailto:alsimy_mond_travel@yahoo.com">alsimy_mond_travel@yahoo.com</a> 
+                / 
+                <a href="mailto:alsimy.mond.travel@gmail.com">alsimy.mond.travel@gmail.com</a>
 
     </div>
 </body>
