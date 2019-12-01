@@ -9,6 +9,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Session;
+use App\Mail\CreareRezervare;
 
 class RezervareController extends Controller
 {
@@ -404,11 +405,9 @@ class RezervareController extends Controller
       
 
         // Trimitere email
-        // if (!empty($rezervare->email)) {
-        //     \Mail::to($rezervare->email)->send(
-        //         new BiletClient($rezervare)
-        //     );
-        // }
+        \Mail::to('andrei.dima@usm.ro')->send(
+            new CreareRezervare($rezervare, $tarife)
+        );
 
         if ($plata_online == 1){
             return redirect('/trimitere-catre-plata');

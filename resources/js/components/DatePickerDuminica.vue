@@ -53,8 +53,11 @@ export default {
         const today = new Date(this.notBefore);
         today.setHours(0, 0, 0, 0);
 
-        // const data_fixa1 = new Date('2019-11-28 00:00:00');
-        // const data_fixa2 = new Date('2019-12-01 00:00:00');
+        // const data_disabled1 = new Date('2019-12-26 00:00:00');
+        // const data_disabled2 = new Date('2020-01-02 00:00:00');
+
+        // const data_enabled1 = new Date('2019-12-27 00:00:00');
+        // const data_enabled2 = new Date('2020-01-03 00:00:00');
 
         const dateDay = date.getDay()
         

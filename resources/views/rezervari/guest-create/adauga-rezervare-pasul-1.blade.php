@@ -287,23 +287,45 @@
                                 <div class="form-row mb-1 d-flex justify-content-between align-items-center">
                                     <div class="form-group col-lg-3">
                                         <label for="data_plecare" class="mb-0">Dată plecare:*<span class="text-danger">*</span></label>
-                                        <vue2-datepicker-miercuri
-                                            data-veche="{{ old('data_plecare') == '' ? '' : old('data_plecare') }}"
-                                            nume-camp-db="data_plecare"
-                                            tip="date"
-                                            latime="150"
-                                            not-before="{{ \Carbon\Carbon::today() }}"
-                                        ></vue2-datepicker-miercuri> 
+                                        <div v-if="traseu === '1'">
+                                            <vue2-datepicker-miercuri
+                                                data-veche="{{ old('data_plecare') == '' ? '' : old('data_plecare') }}"
+                                                nume-camp-db="data_plecare"
+                                                tip="date"
+                                                latime="150"
+                                                not-before="{{ \Carbon\Carbon::today() }}"
+                                            ></vue2-datepicker-miercuri>
+                                        </div> 
+                                        <div v-else>
+                                            <vue2-datepicker-duminica
+                                                data-veche="{{ old('data_intoarcere') == '' ? '' : old('data_intoarcere') }}"
+                                                nume-camp-db="data_intoarcere"
+                                                tip="date"
+                                                latime="150"
+                                                not-before="{{ \Carbon\Carbon::today() }}"
+                                            ></vue2-datepicker-duminica> 
+                                        </div>
                                     </div>
                                     <div v-if="tur_retur" class="form-group col-lg-3">
                                         <label for="data_intoarcere" class="mb-0">Dată întoarcere:*<span class="text-danger">*</span></label>
-                                        <vue2-datepicker-duminica
-                                            data-veche="{{ old('data_intoarcere') == '' ? '' : old('data_intoarcere') }}"
-                                            nume-camp-db="data_intoarcere"
-                                            tip="date"
-                                            latime="150"
-                                            not-before="{{ \Carbon\Carbon::today() }}"
-                                        ></vue2-datepicker-duminica> 
+                                        <div v-if="traseu === '2'">
+                                            <vue2-datepicker-miercuri
+                                                data-veche="{{ old('data_plecare') == '' ? '' : old('data_plecare') }}"
+                                                nume-camp-db="data_plecare"
+                                                tip="date"
+                                                latime="150"
+                                                not-before="{{ \Carbon\Carbon::today() }}"
+                                            ></vue2-datepicker-miercuri>
+                                        </div> 
+                                        <div v-else>
+                                            <vue2-datepicker-duminica
+                                                data-veche="{{ old('data_intoarcere') == '' ? '' : old('data_intoarcere') }}"
+                                                nume-camp-db="data_intoarcere"
+                                                tip="date"
+                                                latime="150"
+                                                not-before="{{ \Carbon\Carbon::today() }}"
+                                            ></vue2-datepicker-duminica> 
+                                        </div>
                                     </div>
                                     <div class="form-group col-lg-2">
                                         <label for="pret_total" class="mb-0">Preț total:
