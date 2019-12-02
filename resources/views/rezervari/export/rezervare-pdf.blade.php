@@ -212,7 +212,8 @@
             E-mail: <a href="mailto:alsimy_mond_travel@yahoo.com">alsimy_mond_travel@yahoo.com</a> 
                 / 
                 <a href="mailto:alsimy.mond.travel@gmail.com">alsimy.mond.travel@gmail.com</a>
-
+            <br>
+            FACTURA FISCALA O VEȚI PRIMI PE E-MAIL
     </div>
 </body>
 

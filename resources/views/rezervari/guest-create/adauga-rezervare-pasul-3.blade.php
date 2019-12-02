@@ -66,6 +66,8 @@
                                                     / 
                                                     <a href="mailto:alsimy.mond.travel@gmail.com">alsimy.mond.travel@gmail.com</a>                                                    
                                                 <br>
+                                                FACTURA FISCALA O VEȚI PRIMI PE E-MAIL
+                                                <br>
                                                 <a href="/rezervare-client"
                                                     class="btn btn-primary border border-white rounded-lg"
                                                     role="button"
