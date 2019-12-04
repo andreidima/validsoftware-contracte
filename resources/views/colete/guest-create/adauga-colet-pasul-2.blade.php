@@ -60,7 +60,7 @@
                                         Număr colete: 
                                         <span class="badge badge-primary" style="font-size:1em">{{ $colet->numar_colete }}</span>
                                         <br>
-                                        Observații colete: {{ $colet->observatii }}
+                                        Detalii colete: {{ $colet->detalii_colete }}
                                     </div>  
                                     <div class="col-lg-11 px-0 border rounded-lg">
                                         <h5 class="bg-warning p-1 m-0 text-center">
