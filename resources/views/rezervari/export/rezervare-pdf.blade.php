@@ -216,13 +216,13 @@
                 </tr>
                 <tr>
                     <td>
-                        Document de călătorie: {{ $rezervare->document_de_calatorie }}
+                        Document de călătorie:<b> {{ $rezervare->document_de_calatorie }} </b>
                         <br>
-                        Data expirării documentului: {{ $rezervare->expirare_document }}
+                        Data expirării documentului:<b> {{ \Carbon\Carbon::parse($rezervare->expirare_document)->isoFormat('D.MM.YYYY') }} </b>
                         <br>
-                        Seria buletin / pașaport: {{ $rezervare->serie_document }}
+                        Seria buletin / pașaport:<b> {{ $rezervare->serie_document }} </b>
                         <br>
-                        Cnp: {{ $rezervare->cnp }}
+                        Cnp:<b> {{ $rezervare->cnp }} </b>
                         <br>
                     </td>
                 </tr>                
