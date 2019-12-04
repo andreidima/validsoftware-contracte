@@ -232,6 +232,10 @@ class RezervareController extends Controller
             // 'user_id' => [''],
             // 'status' => [''],
             // 'plata_cu_card' => [''],
+            'document_de_calatorie' => [ '', 'max:20'],
+            'expirare_document' => ['', 'max:50'],
+            'serie_document' => ['', 'max:20'],
+            'cnp' => ['', 'max:20'],
             'acord_de_confidentialitate' => ['required'],
             'termeni_si_conditii' => ['required'],
             // 'oferta' => [''],
@@ -404,12 +408,15 @@ class RezervareController extends Controller
 
 
         $request->session()->put('rezervare', $rezervare);
-      
+
 
         // Trimitere email
-        \Mail::to('alsimy_mond_travel@yahoo.com')->send(
+        \Mail::to('andrei.dima@usm.ro')->send(
             new CreareRezervare($rezervare, $tarife)
         );
+        // \Mail::to('alsimy_mond_travel@yahoo.com')->send(
+        //     new CreareRezervare($rezervare, $tarife)
+        // );
 
         if ($plata_online == 1){
             return redirect('/trimitere-catre-plata');

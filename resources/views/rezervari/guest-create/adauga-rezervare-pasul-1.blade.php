@@ -344,7 +344,7 @@
                                         </div>
                                     </div>
                                 </div> 
-                                <div class="form-row mb-3 px-2 py-2 justify-content-between align-items-center border">                                    
+                                <div class="form-row mb-3 px-2 py-2 justify-content-between align-items-center border rounded">                                    
                                     <div class="form-group col-lg-4">  
                                         <label for="nume" class="mb-0">Nume Client:*</label>                                      
                                         <input 
@@ -385,7 +385,52 @@
                                         <textarea class="form-control {{ $errors->has('observatii') ? 'is-invalid' : '' }}" 
                                             name="observatii" id="observatii" rows="2">{{ old('observatii') }}</textarea>
                                     </div> 
-                                </div>
+                                </div>                              
+                                <div class="form-row mb-4 px-2 pt-2 d-flex justify-content-between align-items-center border rounded" style="background-color:darkcyan">
+                                    <div class="form-group col-lg-12 mb-2 d-flex justify-content-center border-bottom">
+                                            <h5 class="mb-1">Date pentru factură:</h5>
+                                    </div>
+                                    <div class="form-group col-lg-3 mb-2">
+                                        <label for="document_de_calatorie" class="mb-0">Document de călătorie:</label>                                        
+                                        <input 
+                                            type="text" 
+                                            class="form-control form-control-sm {{ $errors->has('document_de_calatorie') ? 'is-invalid' : '' }}" 
+                                            name="document_de_calatorie" 
+                                            placeholder="" 
+                                            value="{{ old('document_de_calatorie') }}"
+                                            required> 
+                                    </div>
+                                    <div class="form-group col-lg-3 mb-2">
+                                        <label for="expirare_document" class="mb-0"><small> Data expirării documentului:</small></label>
+                                            <vue2-datepicker-buletin
+                                                data-veche="{{ old('expirare_document') == '' ? '' : old('expirare_document') }}"
+                                                nume-camp-db="expirare_document"
+                                                tip="date"
+                                                latime="150"
+                                                not-before="{{ \Carbon\Carbon::today() }}"
+                                            ></vue2-datepicker-buletin>
+                                    </div>
+                                    <div class="form-group col-lg-3 mb-2">
+                                        <label for="serie_document" class="mb-0">Seria buletin / pașaport:</label>                                        
+                                        <input 
+                                            type="text" 
+                                            class="form-control form-control-sm {{ $errors->has('serie_document') ? 'is-invalid' : '' }}" 
+                                            name="serie_document" 
+                                            placeholder="" 
+                                            value="{{ old('serie_document') }}"
+                                            required> 
+                                    </div>
+                                    <div class="form-group col-lg-3 mb-2">
+                                        <label for="cnp" class="mb-0">Cnp:</label>                                        
+                                        <input 
+                                            type="text" 
+                                            class="form-control form-control-sm {{ $errors->has('cnp') ? 'is-invalid' : '' }}" 
+                                            name="cnp" 
+                                            placeholder="" 
+                                            value="{{ old('cnp') }}"
+                                            required> 
+                                    </div>
+                                </div>  
                                 <div class="form-row px-2 py-2 justify-content-between">                                
                                     <div class="form-group col-lg-12 border-left border-warning" style="border-width:5px !important">
                                         <label for="" class="mr-4">Acord de confidențialitate:</label>

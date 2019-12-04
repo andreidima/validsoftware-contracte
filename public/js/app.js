@@ -1829,6 +1829,88 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DatePickerBuletin.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DatePickerBuletin.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue2_datepicker_locale_ro__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-datepicker/locale/ro */ "./node_modules/vue2-datepicker/locale/ro.js");
+/* harmony import */ var vue2_datepicker_locale_ro__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_locale_ro__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['dataVeche', 'numeCampDb', 'tip', 'notBefore'],
+  data: function data() {
+    var _this = this;
+
+    return {
+      time1: null,
+      time2: null,
+      time3: null,
+      dataNoua: '',
+      format: '',
+      // custom range shortcuts
+      shortcuts: [{
+        text: 'Today',
+        onClick: function onClick() {
+          _this.time3 = [new Date(), new Date()];
+        }
+      }],
+      timePickerOptions: {
+        start: '00:00',
+        step: '00:30',
+        end: '23:30'
+      }
+    };
+  },
+  methods: {
+    notBeforeToday: function notBeforeToday(date) {
+      var today = new Date(this.notBefore);
+      today.setHours(0, 0, 0, 0);
+      var dateDay = date.getDay();
+      return date.getTime() < today.getTime(); // return ((date < today) || (date == data_fixa));
+    },
+    disabledDays: function disabledDays(value) {
+      // const date = new Date(value)
+      // const today = new Date()
+      // const todayDay = today.getDay()
+      // const dateDay = date.getDay()
+      // if today is Friday, Monday can be choosed.
+      // if (todayDay === 5) {
+      //   return dateDay !== 1
+      // }
+      return new Date(2019, 11, 21);
+    },
+    notAfterToday: function notAfterToday(date) {
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return date.getTime() > today.getTime() && date.getTime() < tomorrow.getTime();
+    }
+  },
+  created: function created() {
+    if (this.dataVeche == "") {} else {
+      this.time2 = this.dataVeche;
+    }
+  },
+  updated: function updated() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DatePickerDuminica.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DatePickerDuminica.vue?vue&type=script&lang=js& ***!
@@ -72075,6 +72157,73 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DatePickerBuletin.vue?vue&type=template&id=04e10194&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DatePickerBuletin.vue?vue&type=template&id=04e10194& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.time2,
+            expression: "time2"
+          },
+          { name: "show", rawName: "v-show", value: false, expression: "false" }
+        ],
+        attrs: { type: "text", name: _vm.numeCampDb },
+        domProps: { value: _vm.time2 },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.time2 = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("date-picker", {
+        style: { width: "170px" },
+        attrs: {
+          "value-type": "YYYY-MM-DD",
+          format: "DD-MM-YYYY",
+          editable: false,
+          "disabled-date": _vm.notBeforeToday
+        },
+        model: {
+          value: _vm.time2,
+          callback: function($$v) {
+            _vm.time2 = $$v
+          },
+          expression: "time2"
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DatePickerDuminica.vue?vue&type=template&id=ec7f0526&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DatePickerDuminica.vue?vue&type=template&id=ec7f0526& ***!
@@ -91027,6 +91176,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('vue2-datepicker-miercuri', __webpack_require__(/*! ./components/DatePickerMiercuri.vue */ "./resources/js/components/DatePickerMiercuri.vue")["default"]);
 Vue.component('vue2-datepicker-duminica', __webpack_require__(/*! ./components/DatePickerDuminica.vue */ "./resources/js/components/DatePickerDuminica.vue")["default"]);
+Vue.component('vue2-datepicker-buletin', __webpack_require__(/*! ./components/DatePickerBuletin.vue */ "./resources/js/components/DatePickerBuletin.vue")["default"]);
 Vue.component('vuejs-datepicker', __webpack_require__(/*! ./components/Vuejs-datepicker.vue */ "./resources/js/components/Vuejs-datepicker.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -91252,6 +91402,75 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/DatePickerBuletin.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/DatePickerBuletin.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DatePickerBuletin_vue_vue_type_template_id_04e10194___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DatePickerBuletin.vue?vue&type=template&id=04e10194& */ "./resources/js/components/DatePickerBuletin.vue?vue&type=template&id=04e10194&");
+/* harmony import */ var _DatePickerBuletin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DatePickerBuletin.vue?vue&type=script&lang=js& */ "./resources/js/components/DatePickerBuletin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DatePickerBuletin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DatePickerBuletin_vue_vue_type_template_id_04e10194___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DatePickerBuletin_vue_vue_type_template_id_04e10194___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DatePickerBuletin.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/DatePickerBuletin.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/DatePickerBuletin.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerBuletin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DatePickerBuletin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DatePickerBuletin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerBuletin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DatePickerBuletin.vue?vue&type=template&id=04e10194&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/DatePickerBuletin.vue?vue&type=template&id=04e10194& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerBuletin_vue_vue_type_template_id_04e10194___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DatePickerBuletin.vue?vue&type=template&id=04e10194& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DatePickerBuletin.vue?vue&type=template&id=04e10194&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerBuletin_vue_vue_type_template_id_04e10194___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerBuletin_vue_vue_type_template_id_04e10194___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

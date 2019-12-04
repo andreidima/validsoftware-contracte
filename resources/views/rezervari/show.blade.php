@@ -58,6 +58,38 @@
                     </tr>
                     </tr>
                         <td>
+                            Document de călătorie
+                        </td>
+                        <td>
+                            {{ $rezervari->document_de_calatorie }}
+                        </td>
+                    </tr>
+                    </tr>
+                        <td>
+                            <small> Data expirării documentului</small>
+                        </td>
+                        <td>
+                            {{ \Carbon\Carbon::parse($rezervari->expirare_document)->isoFormat('D.MM.YYYY') }}
+                        </td>
+                    </tr>
+                    </tr>
+                        <td>
+                            Seria buletin / pașaport
+                        </td>
+                        <td>
+                            {{ $rezervari->serie_document }}
+                        </td>
+                    </tr>
+                    </tr>
+                        <td>
+                            Cnp
+                        </td>
+                        <td>
+                            {{ $rezervari->cnp }}
+                        </td>
+                    </tr>
+                    </tr>
+                        <td>
                             Data rezervarii
                         </td>
                         <td>
