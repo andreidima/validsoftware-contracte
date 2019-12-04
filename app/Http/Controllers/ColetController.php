@@ -7,6 +7,7 @@ use App\Oras;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use App\Mail\CreareTransportColet;
 
 class ColetController extends Controller
 {
