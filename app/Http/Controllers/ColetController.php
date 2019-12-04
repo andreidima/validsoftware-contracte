@@ -260,6 +260,10 @@ class ColetController extends Controller
         unset($colet_array['traseu'], $colet_array['oras_plecare_nume'], $colet_array['oras_sosire_nume'],
                 $colet_array['acord_de_confidentialitate'], $colet_array['termeni_si_conditii']);
 
+        if (isset($colet->id)){
+            return redirect('/adauga-colet-pasul-2')->with('error', 'Aceasta rezervare este deja inregistrata');
+        }
+        
         //Inserarea rezervarii in baza de date
         $id = DB::table('colete')->insertGetId($colet_array);
 
