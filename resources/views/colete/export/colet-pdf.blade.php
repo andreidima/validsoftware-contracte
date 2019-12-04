@@ -119,7 +119,7 @@
 
             <table style="margin-bottom:40px">    
                 <tr style="text-align:center; font-weight:bold;">
-                    <td colspan="4" style="padding:0rem;">
+                    <td colspan="3" style="padding:0rem;">
                         <h3 style="background-color:#e7d790; color:black; margin:10px 0px 5px 0px; padding:5px 0px">
                         Informatii rezervare transport
                         </h3>
@@ -138,6 +138,13 @@
                         Oraș sosire:
                         <br>
                         <b>{{ $colet->oras_sosire_nume->nume }}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        Numar colete: {{ $colet->numar_colete }}
+                        <br>
+                        Detalii colete: {{ $colet->detalii_colete }}
                     </td>
                 </tr>
                 <tr>

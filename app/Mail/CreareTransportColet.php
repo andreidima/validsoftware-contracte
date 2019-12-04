@@ -30,7 +30,7 @@ class CreareTransportColet extends Mailable
     public function build()
     {
         $colet = $this->colet;
-        $pdf = \PDF::loadView('rezervari.export.colet-pdf', compact('colet'))
+        $pdf = \PDF::loadView('colete.export.colet-pdf', compact('colet'))
             ->setPaper('a4');
 
         return $this->markdown('mail.creare-colet')

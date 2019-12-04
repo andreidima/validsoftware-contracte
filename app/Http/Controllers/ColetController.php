@@ -261,7 +261,7 @@ class ColetController extends Controller
                 $colet_array['acord_de_confidentialitate'], $colet_array['termeni_si_conditii']);
 
         if (isset($colet->id)){
-            return redirect('/adauga-colet-pasul-2')->with('error', 'Aceasta rezervare este deja inregistrata');
+            return back()->withErrors(['Aceasta rezervare este deja inregistrata']);
         }
         
         //Inserarea rezervarii in baza de date
