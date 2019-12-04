@@ -77,6 +77,18 @@ Route::group(['scheme' => 'https'], function () {
     Route::get('/testare-axios', 'RezervareController@testare_axios');
 
 
+    // Rute pentru colete facuta de guest
+    Route::get('/adauga-colet-pasul-1', 'ColetController@adaugaColetPasul1');
+    Route::post('/adauga-colet-pasul-1', 'ColetController@postAdaugaColetPasul1');
+    Route::get('/adauga-colet-pasul-2', 'ColetController@adaugaColetPasul2');
+    Route::post('/adauga-colet-pasul-2', 'ColetController@postAdaugaColetPasul2');
+    Route::get('/adauga-colet-pasul-3', 'ColetController@adaugaColetPasul3');
+    Route::get('/transport-colete/{view_type}', 'ColetController@pdfExportGuest');
+
+    // Extras date cu Axios
+    Route::get('/orase_colete', 'ColetController@orase_colete');
+
+
     Route::group(['middleware' => 'auth'], function () {
         Route::redirect('/', 'rezervari');
 

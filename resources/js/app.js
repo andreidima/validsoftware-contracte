@@ -178,6 +178,80 @@ if (document.querySelector('#adauga-rezervare')) {
     });
 }
 
+if (document.querySelector('#transport-colete')) {
+    const app1 = new Vue({
+        el: '#transport-colete',
+        data: {
+            traseu: traseuVechi,
+            active: "active",
+            oras_plecare: orasPlecareVechi,
+            orase_plecare: '',
+            oras_sosire: orasSosireVechi,
+            orase_sosire: '',
+
+            numar_colete: numarColeteVechi,
+        },
+
+        created: function () {
+            this.getOrasePlecareInitial()
+            this.getOraseSosireInitial()
+        },
+        methods: {
+            getOrasePlecareInitial: function () {
+                axios.get('/orase_colete', {
+                    params: {
+                        request: 'orase_plecare',
+                        traseu: this.traseu,
+                    }
+                })
+                    .then(function (response) {
+                        app1.orase_plecare = response.data.raspuns;
+                    });
+            },
+            getOrasePlecare: function () {
+                axios.get('/orase_colete', {
+                    params: {
+                        request: 'orase_plecare',
+                        traseu: this.traseu,
+                    }
+                })
+                    .then(function (response) {
+                        app1.orase_plecare = '';
+                        app1.oras_plecare = 0;
+
+                        app1.orase_plecare = response.data.raspuns;
+                    });
+            },
+            getOraseSosireInitial: function () {
+                axios.get('/orase_colete', {
+                    params: {
+                        request: 'orase_sosire',
+                        traseu: this.traseu,
+                    }
+                })
+                    .then(function (response) {
+                        app1.orase_sosire = response.data.raspuns;
+                    });
+            },
+            getOraseSosire: function () {
+                axios.get('/orase_colete', {
+                    params: {
+                        request: 'orase_sosire',
+                        traseu: this.traseu,
+                    }
+                })
+                    .then(function (response) {
+                        app1.orase_sosire = '';
+                        app1.oras_sosire = 0;
+
+                        app1.orase_sosire = response.data.raspuns;
+                        
+                    });
+            },
+        }
+    });
+}
+
 if (document.querySelector('#produse')) {
     const app = new Vue({
         el: '#produse',

@@ -130,7 +130,7 @@
                                             Informații client
                                         </h5>
                                     </div>
-                                    <div class="col-lg-11 px-4 py-2 mb-2 bg-white border rounded-lg">
+                                    <div class="col-lg-11 px-4 py-2 mb-4 bg-white border rounded-lg">
                                         Nume: <span class="badge badge-primary" style="font-size:1.1em">{{ $rezervare->nume }}</span>
                                         <br>
                                         Telefon: <b>{{ $rezervare->telefon }}</b>
@@ -141,6 +141,22 @@
                                         <br>
                                         Observații: {{ $rezervare->observatii }}
                                     </div>
+
+                                    <div class="col-lg-11 px-0 border rounded-lg">
+                                        <h5 class="bg-warning p-1 m-0 text-center">
+                                            Date pentru facturare
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-11 px-4 py-2 mb-2 bg-white border rounded-lg">
+                                        Document de călătorie: {{ $rezervare->document_de_calatorie }}
+                                        <br>
+                                        Data expirării documentului: {{ \Carbon\Carbon::parse($rezervare->expirare_document)->isoFormat('D.MM.YYYY') }}
+                                        <br>
+                                        Seria buletin / pașaport:: {{ $rezervare->serie_document }}
+                                        <br>
+                                        Cnp: {{ $rezervare->cnp }}
+                                    </div>
+
                                 </div>  
                                 
                                 
@@ -165,7 +181,7 @@
                                         <img src="{{ asset('images/banner-no-operators.jpg') }}" height="43" class="mr-3 bg-white rounded-pill border border-white">
                                     </div>
                                     <div class="col-lg-12 d-flex justify-content-center">  
-                                        <a class="btn btn-secondary rounded-pill border border-white" style="border-width:3px !important;" href="/" role="button">Anulează rezervarea</a>
+                                        <a class="btn btn-secondary rounded-pill border border-white" style="border-width:3px !important;" href="/rezervare-client" role="button">Anulează rezervarea</a>
 
                                     </div>
                                 </div>

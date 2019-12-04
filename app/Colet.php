@@ -13,4 +13,14 @@ class Colet extends Model
     {
         return "/colete/{$this->id}";
     }
+
+    public function oras_plecare_nume()
+    {
+        return $this->belongsTo('App\Oras', 'oras_plecare');
+    }
+
+    public function oras_sosire_nume()
+    {
+        return $this->belongsTo('App\Oras', 'oras_sosire');
+    }
 }

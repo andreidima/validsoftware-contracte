@@ -91317,6 +91317,71 @@ if (document.querySelector('#adauga-rezervare')) {
   });
 }
 
+if (document.querySelector('#transport-colete')) {
+  var _app2 = new Vue({
+    el: '#transport-colete',
+    data: {
+      traseu: traseuVechi,
+      active: "active",
+      oras_plecare: orasPlecareVechi,
+      orase_plecare: '',
+      oras_sosire: orasSosireVechi,
+      orase_sosire: '',
+      numar_colete: numarColeteVechi
+    },
+    created: function created() {
+      this.getOrasePlecareInitial();
+      this.getOraseSosireInitial();
+    },
+    methods: {
+      getOrasePlecareInitial: function getOrasePlecareInitial() {
+        axios.get('/orase_colete', {
+          params: {
+            request: 'orase_plecare',
+            traseu: this.traseu
+          }
+        }).then(function (response) {
+          _app2.orase_plecare = response.data.raspuns;
+        });
+      },
+      getOrasePlecare: function getOrasePlecare() {
+        axios.get('/orase_colete', {
+          params: {
+            request: 'orase_plecare',
+            traseu: this.traseu
+          }
+        }).then(function (response) {
+          _app2.orase_plecare = '';
+          _app2.oras_plecare = 0;
+          _app2.orase_plecare = response.data.raspuns;
+        });
+      },
+      getOraseSosireInitial: function getOraseSosireInitial() {
+        axios.get('/orase_colete', {
+          params: {
+            request: 'orase_sosire',
+            traseu: this.traseu
+          }
+        }).then(function (response) {
+          _app2.orase_sosire = response.data.raspuns;
+        });
+      },
+      getOraseSosire: function getOraseSosire() {
+        axios.get('/orase_colete', {
+          params: {
+            request: 'orase_sosire',
+            traseu: this.traseu
+          }
+        }).then(function (response) {
+          _app2.orase_sosire = '';
+          _app2.oras_sosire = 0;
+          _app2.orase_sosire = response.data.raspuns;
+        });
+      }
+    }
+  });
+}
+
 if (document.querySelector('#produse')) {
   var app = new Vue({
     el: '#produse',
@@ -91332,7 +91397,7 @@ if (document.querySelector('#produse')) {
 }
 
 if (document.querySelector('#vanzari')) {
-  var _app2 = new Vue({
+  var _app3 = new Vue({
     el: '#vanzari',
     methods: {
       formfocus: function formfocus() {
