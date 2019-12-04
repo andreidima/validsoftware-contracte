@@ -205,6 +205,28 @@
                     </td>
                 </tr>                
             </table>
+                            
+            <table style="margin-bottom:20px">
+                <tr style="text-align:center; font-weight:bold;">
+                    <td colspan="6" style="border-width:0px; padding:0rem;">
+                        <h3 style="background-color:#e7d790; color:black; margin:10px 0px 5px 0px; padding:5px 0px">
+                        Date pentru facturare
+                        </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Document de călătorie: {{ $rezervare->document_de_calatorie }}
+                        <br>
+                        Data expirării documentului: {{ $rezervare->expirare_document }}
+                        <br>
+                        Seria buletin / pașaport: {{ $rezervare->serie_document }}
+                        <br>
+                        Cnp: {{ $rezervare->cnp }}
+                        <br>
+                    </td>
+                </tr>                
+            </table>
 
             <br>
             Ptr rezervari făcute cu mai puțin de 24 ore înainte de plecare sunați la nr de telefon: <b>0755106508</b> sau <b>0742296938</b>

@@ -388,7 +388,7 @@
                                 </div>                              
                                 <div class="form-row mb-4 px-2 pt-2 d-flex justify-content-between align-items-center border rounded" style="background-color:darkcyan">
                                     <div class="form-group col-lg-12 mb-2 d-flex justify-content-center border-bottom">
-                                            <h5 class="mb-1">Date pentru factură:</h5>
+                                            <h5 class="mb-1">Date pentru facturare:</h5>
                                     </div>
                                     <div class="form-group col-lg-3 mb-2">
                                         <label for="document_de_calatorie" class="mb-0">Document de călătorie:</label>                                        
