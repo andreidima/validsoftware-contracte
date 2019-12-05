@@ -29,16 +29,11 @@
                         </div>
                         <div class="col-md-6 border-left">
                             <i class="fas fa-box m-4" style="font-size: 12em;"></i>
-                            {{-- <a class="btn btn-lg text-white" href="/adauga-rezervare-pasul-1" role="button" style="font-size: 2em; background-color:brown">Rezervă un bilet!</a> --}}
-                            @auth
-                                @if (auth()->user()->id == 2)
-                                    <a class="btn btn-primary btn-lg" href="/adauga-colet-pasul-1" role="button" 
-                                        style="font-size: 2em;border-radius: 40px; border: 5px solid white;">
-                                        {{-- <i class="fas fa-ticket-alt mr-2"></i> --}}
-                                        Transport colete!
-                                    </a>
-                                @endif
-                            @endauth
+                                <a class="btn btn-primary btn-lg" href="/adauga-colet-pasul-1" role="button" 
+                                    style="font-size: 2em;border-radius: 40px; border: 5px solid white;">
+                                    {{-- <i class="fas fa-ticket-alt mr-2"></i> --}}
+                                    Transport colete!
+                                </a>
                         </div>
                     </div>
                 </div>
