@@ -95,5 +95,9 @@ Route::group(['scheme' => 'https'], function () {
         Route::resource('rezervari', 'RezervareController')->only([
                 'index', 'show'
             ]);
+
+        Route::resource('colete', 'ColetController')->only([
+                'index', 'show'
+            ]);
     });
 });

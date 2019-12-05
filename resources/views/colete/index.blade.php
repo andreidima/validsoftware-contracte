@@ -4,7 +4,7 @@
 <div class="container card">
         <div class="row card-header align-items-center">
             <div class="col-lg-4">
-                <h4 class=" mb-0"><a href="{{ route('rezervari.index') }}"><i class="fas fa-list-ul mr-1"></i>Rezervări</a></h4>
+                <h4 class=" mb-0"><a href="{{ route('colete.index') }}"><i class="fas fa-list-ul mr-1"></i>Colete</a></h4>
             </div> 
             <div class="col-lg-8">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('rezervari.index') }}">
@@ -38,57 +38,33 @@
                             <th>Nr. Crt.</th>
                             <th>Nume</th>
                             <th>Telefon</th>
-                            <th>Nr. pers.</th>
+                            <th>Nr. colete.</th>
                             <th>Oraș plecare</th>
                             <th>Oraș sosire</th>
-                            <th>Tur retur</th>
-                            <th>Data plecare</th>
-                            <th>Data intoarcere</th>
-                            <th>Pret</th>
-                            <th>Plătit</th>
                         </tr>
                     </thead>
                     <tbody>               
-                        @forelse ($rezervari as $rezervare) 
+                        @forelse ($colete as $colet) 
                             <tr>                  
                                 <td align="">
-                                    {{ ($rezervari ->currentpage()-1) * $rezervari ->perpage() + $loop->index + 1 }}
+                                    {{ ($colete ->currentpage()-1) * $colete ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    <a href="{{ $rezervare->path() }}">  
-                                        <b>{{ $rezervare->nume }}</b>
+                                    <a href="{{ $colet->path() }}">  
+                                        <b>{{ $colet->nume }}</b>
                                     </a>
                                 </td>
                                 <td>
-                                    {{ $rezervare->telefon }}
+                                    {{ $colet->telefon }}
                                 </td>
                                 <td>
-                                    {{ $rezervare->nr_adulti + $rezervare->nr_copii }}
+                                    {{ $colet->numar_colete }}
                                 </td>
                                 <td>
-                                    {{ $rezervare->oras_plecare_nume->nume }}
+                                    {{ $colet->oras_plecare_nume->nume }}
                                 </td>
                                 <td>
-                                    {{ $rezervare->oras_sosire_nume->nume }}
-                                </td>
-                                <td>
-                                    {{ $rezervare->tur_retur ? 'DA' : 'NU' }}
-                                </td>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($rezervare->data_plecare)->isoFormat('D.MM.YYYY') }}
-                                </td>
-                                <td>
-                                    {{ $rezervare->data_intoarcere ? \Carbon\Carbon::parse($rezervare->data_intoarcere)->isoFormat('D.MM.YYYY') : '-' }}
-                                </td>
-                                <td>
-                                    {{ $rezervare->pret_total }}
-                                </td>
-                                <td>
-                                    @if(isset($rezervare->plata_efectuata))
-                                        <span class="text-success">DA</span>
-                                    @else
-                                        <span class="text-danger">NU</span>
-                                    @endif
+                                    {{ $colet->oras_sosire_nume->nume }}
                                 </td>
                             </tr>                                          
                         @empty
@@ -100,7 +76,7 @@
 
                 <nav>
                     <ul class="pagination justify-content-center">
-                        {{$rezervari->links()}}
+                        {{$colete->links()}}
                     </ul>
                 </nav>
 

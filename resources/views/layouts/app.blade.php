@@ -47,13 +47,11 @@
                                         <i class="fas fa-list-ul mr-1"></i>Rezervări
                                     </a>
                                 </li>
-                                @if (auth()->user()->roles()->pluck( 'nume' )->contains( 'administrator' ))
-                                    <li class="nav-item active mr-4">
-                                        <a class="nav-link" href="{{ route('users.index') }}">
-                                            <i class="fas fa-users mr-1"></i>Utilizatori
-                                        </a>
-                                    </li>
-                                @endif
+                                <li class="nav-item active mr-4">
+                                    <a class="nav-link" href="{{ route('colete.index') }}">
+                                        <i class="fas fa-box mr-1"></i>Colete
+                                    </a>
+                                </li>
                             @endguest
                         </ul>
 

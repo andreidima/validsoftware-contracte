@@ -18,7 +18,15 @@ class ColetController extends Controller
      */
     public function index()
     {
-        //
+        $search_nume = \Request::get('search_nume');
+        $colete = Colet::
+            when($search_nume, function ($query, $search_nume) {
+                return $query->where('nume', 'like', '%' . $search_nume . '%');
+            })
+            ->latest()
+            ->Paginate(25);
+
+        return view('colete.index', compact('colete', 'search_nume'));
     }
 
     /**
@@ -48,9 +56,9 @@ class ColetController extends Controller
      * @param  \App\Colet  $colet
      * @return \Illuminate\Http\Response
      */
-    public function show(Colet $colet)
+    public function show(Colet $colete)
     {
-        //
+        return view('colete.show', compact('colete'));
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('content')   
     <div class="container card">
         <div class="row card-header">
-                <h4 class="mb-0"><a href="{{ route('rezervari.index') }}"><i class="fas fa-list-ul mr-1"></i>Rezervari</a> / {{ $rezervari->nume }}</h4>
+                <h4 class="mb-0"><a href="{{ route('colete.index') }}"><i class="fas fa-list-ul mr-1"></i>Colete</a> / {{ $colete->nume }}</h4>
         </div>
 
         <div class="card-body d-flex">
@@ -21,7 +21,7 @@
                             Nume
                         </td>
                         <td>
-                            {{ $rezervari->nume }}
+                            {{ $colete->nume }}
                         </td>
                     </tr>
                     </tr>
@@ -29,7 +29,7 @@
                             Telefon
                         </td>
                         <td>
-                            {{ $rezervari->telefon }}
+                            {{ $colete->telefon }}
                         </td>
                     </tr>
                     </tr>
@@ -37,7 +37,7 @@
                             Email
                         </td>
                         <td>
-                            {{ $rezervari->email }}
+                            {{ $colete->email }}
                         </td>
                     </tr>
                     </tr>
@@ -45,7 +45,7 @@
                             Adresa
                         </td>
                         <td>
-                            {{ $rezervari->adresa }}
+                            {{ $colete->adresa }}
                         </td>
                     </tr>
                     </tr>
@@ -53,7 +53,7 @@
                             Observatii
                         </td>
                         <td>
-                            {{ $rezervari->observatii }}
+                            {{ $colete->observatii }}
                         </td>
                     </tr>
                     </tr>
@@ -61,7 +61,7 @@
                             Document de călătorie
                         </td>
                         <td>
-                            {{ $rezervari->document_de_calatorie }}
+                            {{ $colete->document_de_calatorie }}
                         </td>
                     </tr>
                     </tr>
@@ -69,7 +69,7 @@
                             <small> Data expirării documentului</small>
                         </td>
                         <td>
-                            {{ \Carbon\Carbon::parse($rezervari->expirare_document)->isoFormat('D.MM.YYYY') }}
+                            {{ \Carbon\Carbon::parse($colete->expirare_document)->isoFormat('D.MM.YYYY') }}
                         </td>
                     </tr>
                     </tr>
@@ -77,7 +77,7 @@
                             Seria buletin / pașaport
                         </td>
                         <td>
-                            {{ $rezervari->serie_document }}
+                            {{ $colete->serie_document }}
                         </td>
                     </tr>
                     </tr>
@@ -85,7 +85,7 @@
                             Cnp
                         </td>
                         <td>
-                            {{ $rezervari->cnp }}
+                            {{ $colete->cnp }}
                         </td>
                     </tr>
                     </tr>
@@ -93,7 +93,7 @@
                             Data rezervarii
                         </td>
                         <td>
-                            {{ \Carbon\Carbon::parse($rezervari->created_at)->isoFormat('D.MM.YYYY') }}
+                            {{ \Carbon\Carbon::parse($colete->created_at)->isoFormat('D.MM.YYYY') }}
                         </td>
                     </tr>
                 </table>
@@ -105,7 +105,7 @@
                             Oras plecare
                         </td>
                         <td>
-                            {{ $rezervari->oras_plecare_nume->nume }}
+                            {{ $colete->oras_plecare_nume->nume }}
                         </td>
                     </tr>
                     <tr>
@@ -113,70 +113,23 @@
                             Oras sosire
                         </td>
                         <td>
-                            {{ $rezervari->oras_sosire_nume->nume }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Tur - retur
-                        </td>
-                        <td>
-                            {{ $rezervari->tur_retur ? 'DA' : 'NU' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Data_plecare
-                        </td>
-                        <td>
-                            {{ \Carbon\Carbon::parse($rezervari->data_plecare)->isoFormat('D.MM.YYYY') }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Data_intoarcere
-                        </td>
-                        <td>
-                            {{ \Carbon\Carbon::parse($rezervari->data_intoarcere)->isoFormat('D.MM.YYYY') }}
-                        </td>
-                    </tr>
-                        <td>
-                            Nr. adulți
-                        </td>
-                        <td>
-                            {{ $rezervari->nr_adulti }}
+                            {{ $colete->oras_sosire_nume->nume }}
                         </td>
                     </tr>
                     </tr>
                         <td>
-                            Nr. copii
+                            Nr. colete
                         </td>
                         <td>
-                            {{ $rezervari->nr_copii }}
-                        </td>
-                    </tr>
-                    {{-- </tr>
-                        <td>
-                            Nr. animale mici
-                        </td>
-                        <td>
-                            {{ $rezervari->nr_animale_mici }}
+                            {{ $colete->numar_colete }}
                         </td>
                     </tr>
                     </tr>
                         <td>
-                            Nr. animale mari
+                            Detalii colete
                         </td>
                         <td>
-                            {{ $rezervari->nr_animale_mari }}
-                        </td>
-                    </tr> --}}
-                    </tr>
-                        <td>
-                            Preț total
-                        </td>
-                        <td>
-                            {{ $rezervari->pret_total }}
+                            {{ $colete->detalii_colete }}
                         </td>
                     </tr>
                 </table>
