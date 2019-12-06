@@ -284,12 +284,12 @@ class ColetController extends Controller
 
 
         // Trimitere email
-        // \Mail::to('andrei.dima@usm.ro')->send(
-        //     new CreareTransportColet($colet)
-        // );
-        \Mail::to('alsimy_mond_travel@yahoo.com')->send(
-            new CreareRezervare($rezervare, $tarife)
+        \Mail::to('andrei.dima@usm.ro')->send(
+            new CreareTransportColet($colet)
         );
+        // \Mail::to('alsimy_mond_travel@yahoo.com')->send(
+        //     new CreareRezervare($rezervare, $tarife)
+        // );
 
         return redirect('/adauga-colet-pasul-3');
     }

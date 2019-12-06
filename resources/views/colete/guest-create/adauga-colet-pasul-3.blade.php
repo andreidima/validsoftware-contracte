@@ -37,7 +37,7 @@
                                                     target="_blank"
                                                     title="Descarcă bilet"
                                                     >
-                                                    <h5 class="p-0 m-0">Descărcați și tipăriți biletul de rezervare</h5>
+                                                    <h5 class="p-0 m-0">Descărcați și tipăriți rezervarea pentru colete</h5>
                                                 </a>
                                                 <br>
                                                 Ptr rezervari făcute cu mai puțin de 24 ore înainte de plecare sunați la nr de telefon: <b>0755106508</b> sau <b>0742296938</b>

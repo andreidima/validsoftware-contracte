@@ -67,7 +67,7 @@
                                             Informații client
                                         </h5>
                                     </div>
-                                    <div class="col-lg-11 px-4 py-2 mb-4 bg-white border rounded-lg">
+                                    <div class="col-lg-11 px-4 py-2 bg-white border rounded-lg">
                                         Nume: <span class="badge badge-primary" style="font-size:1.1em">{{ $colet->nume }}</span>
                                         <br>
                                         Telefon: <b>{{ $colet->telefon }}</b>
@@ -79,7 +79,7 @@
                                         Observații: {{ $colet->observatii }}
                                     </div> 
 
-                                    <div class="col-lg-11 px-0 border rounded-lg">
+                                    {{-- <div class="col-lg-11 px-0 border rounded-lg">
                                         <h5 class="bg-warning p-1 m-0 text-center">
                                             Date pentru facturare
                                         </h5>
@@ -92,7 +92,7 @@
                                         Seria buletin / pașaport:: {{ $colet->serie_document }}
                                         <br>
                                         Cnp: {{ $colet->cnp }}
-                                    </div>
+                                    </div> --}}
                                 </div>  
                                 
                                 

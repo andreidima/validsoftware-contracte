@@ -56,7 +56,7 @@
                             {{ $colete->observatii }}
                         </td>
                     </tr>
-                    </tr>
+                    {{-- </tr>
                         <td>
                             Document de călătorie
                         </td>
@@ -87,7 +87,7 @@
                         <td>
                             {{ $colete->cnp }}
                         </td>
-                    </tr>
+                    </tr> --}}
                     </tr>
                         <td>
                             Data rezervarii

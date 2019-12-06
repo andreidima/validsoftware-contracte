@@ -72,7 +72,7 @@
                             <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" width="300px">
                         </td>
                         <td style="border-width:0px; padding:0rem; margin:0rem; width:60%; text-align:center; font-size:16px">
-                            COLET REZERVAT
+                            REZERVARI COLETE
                             <br>
                             Cod rezervare transport: RO{{ $colet->id }}
                         </td>
@@ -154,7 +154,7 @@
                 </tr>
             </table>
                             
-            <table style="margin-bottom:20px">
+            {{-- <table style="margin-bottom:20px">
                 <tr style="text-align:center; font-weight:bold;">
                     <td colspan="6" style="border-width:0px; padding:0rem;">
                         <h3 style="background-color:#e7d790; color:black; margin:10px 0px 5px 0px; padding:5px 0px">
@@ -174,7 +174,7 @@
                         <br>
                     </td>
                 </tr>                
-            </table>
+            </table> --}}
 
             <br>
             Ptr rezervari făcute cu mai puțin de 24 ore înainte de plecare sunați la nr de telefon: <b>0755106508</b> sau <b>0742296938</b>

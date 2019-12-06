@@ -6,7 +6,7 @@
         <div class="col-md-9">
             <div class="shadow-lg bg-white" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-danger p-2 d-flex justify-content-between align-items-end" style="border-radius: 40px 40px 0px 0px;">                     
-                    <h3 class="ml-3" style="color:brown"><i class="fas fa-ticket-alt fa-lg mr-1"></i>Transport colete</h3>
+                    <h3 class="ml-3" style="color:brown"><i class="fas fa-ticket-alt fa-lg mr-1"></i>Rezervări colete</h3>
                     <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="70" class="mr-3">
                 </div>
                 
@@ -180,7 +180,7 @@
                                             name="observatii" id="observatii" rows="2">{{ old('observatii') }}</textarea>
                                     </div> 
                                 </div>                              
-                                <div class="form-row mb-4 px-2 pt-2 d-flex justify-content-between align-items-center border rounded" style="background-color:darkcyan">
+                                {{-- <div class="form-row mb-4 px-2 pt-2 d-flex justify-content-between align-items-center border rounded" style="background-color:darkcyan">
                                     <div class="form-group col-lg-12 mb-2 d-flex justify-content-center border-bottom">
                                             <h5 class="mb-1">Date pentru facturare:</h5>
                                     </div>
@@ -224,7 +224,7 @@
                                             value="{{ old('cnp') }}"
                                             required> 
                                     </div>
-                                </div>  
+                                </div>   --}}
                                 <div class="form-row px-2 py-2 justify-content-between">                                
                                     <div class="form-group col-lg-12 border-left border-warning" style="border-width:5px !important">
                                         <label for="" class="mr-4">Acord de confidențialitate:</label>

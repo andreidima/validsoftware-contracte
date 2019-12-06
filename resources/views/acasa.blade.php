@@ -32,7 +32,7 @@
                                 <a class="btn btn-primary btn-lg" href="/adauga-colet-pasul-1" role="button" 
                                     style="font-size: 2em;border-radius: 40px; border: 5px solid white;">
                                     {{-- <i class="fas fa-ticket-alt mr-2"></i> --}}
-                                    Transport colete!
+                                    Rezervări colete!
                                 </a>
                         </div>
                     </div>
