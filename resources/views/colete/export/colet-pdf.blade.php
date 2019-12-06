@@ -184,6 +184,7 @@
                 <a href="mailto:alsimy.mond.travel@gmail.com">alsimy.mond.travel@gmail.com</a>
             <br>
             FACTURA FISCALA O VEȚI PRIMI PE E-MAIL
+            <br>
     </div>
 </body>
 
