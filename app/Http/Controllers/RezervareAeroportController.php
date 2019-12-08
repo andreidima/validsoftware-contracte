@@ -433,9 +433,9 @@ class RezervareAeroportController extends Controller
             $rezervare = $request->session()->get('rezervare');
         }
         
-        if ($request->view_type === 'rezervare-html') {
+        if ($request->view_type === 'rezervare-aeroport-html') {
             return view('rezervari-aeroport.export.rezervare-aeroport-pdf', compact('rezervare'));
-        } elseif ($request->view_type === 'rezervare-pdf') {
+        } elseif ($request->view_type === 'rezervare-aeroport-pdf') {
         $pdf = \PDF::loadView('rezervari-aeroport.export.rezervare-aeroport-pdf', compact('rezervare'))
             ->setPaper('a4');
                 return $pdf->download('Rezervare ' . $rezervare->nume . '.pdf');
