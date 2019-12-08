@@ -34,7 +34,7 @@
                                                 @isset($plata_online)
                                                     <br>
                                                     @if ($plata_online->error_code == 0 )                                                        
-                                                        <a href="/bilet-rezervat/rezervare-aeroport-pdf"
+                                                        <a href="/rezervare-aeroport/rezervare-aeroport-pdf"
                                                             class="btn btn-success border border-white rounded-lg mb-3"
                                                             role="button"
                                                             target="_blank"
