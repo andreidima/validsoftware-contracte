@@ -25,8 +25,8 @@ class PlataOnlineController extends Controller
         $rezervare = $request->session()->get('rezervare');
 
         $comanda = Mobilpay::setOrderId(md5(uniqid(rand())))
-        // ->setAmount($rezervare->pret_total)
-        ->setAmount('0.05')
+        ->setAmount($rezervare->pret_total)
+        // ->setAmount('0.05')
         ->setCurrency($rezervare->currency)
         ->setReturnUrl($rezervare->return_url)
         ->setDetails('Plata online pentru biletul - ' . $rezervare->id)
