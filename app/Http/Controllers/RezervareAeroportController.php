@@ -386,12 +386,12 @@ class RezervareAeroportController extends Controller
 
 
         // Trimitere email
-        \Mail::to('andrei.dima@usm.ro')->send(
-            new CreareRezervareAeroport($rezervare)
-        );
-        // \Mail::to('alsimy_mond_travel@yahoo.com')->send(
+        // \Mail::to('andrei.dima@usm.ro')->send(
         //     new CreareRezervareAeroport($rezervare)
         // );
+        \Mail::to('alsimy_mond_travel@yahoo.com')->send(
+            new CreareRezervareAeroport($rezervare)
+        );
 
         if ($plata_online == 1){
             return redirect('/trimitere-catre-plata');

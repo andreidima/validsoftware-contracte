@@ -415,12 +415,12 @@ class RezervareController extends Controller
 
 
         // Trimitere email
-        \Mail::to('andrei.dima@usm.ro')->send(
-            new CreareRezervare($rezervare, $tarife)
-        );
-        // \Mail::to('alsimy_mond_travel@yahoo.com')->send(
+        // \Mail::to('andrei.dima@usm.ro')->send(
         //     new CreareRezervare($rezervare, $tarife)
         // );
+        \Mail::to('alsimy_mond_travel@yahoo.com')->send(
+            new CreareRezervare($rezervare, $tarife)
+        );
 
         if ($plata_online == 1){
             return redirect('/trimitere-catre-plata');
