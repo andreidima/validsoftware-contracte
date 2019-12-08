@@ -150,7 +150,10 @@
                                     <div class="col-lg-11 px-4 py-2 mb-2 bg-white border rounded-lg">
                                         Document de călătorie: {{ $rezervare->document_de_calatorie }}
                                         <br>
-                                        Data expirării documentului: {{ \Carbon\Carbon::parse($rezervare->expirare_document)->isoFormat('D.MM.YYYY') }}
+                                        Data expirării documentului: 
+                                            @if ($rezervare->expirare_document !== null)
+                                                {{ \Carbon\Carbon::parse($rezervare->expirare_document)->isoFormat('D.MM.YYYY') }}    
+                                            @endif 
                                         <br>
                                         Seria buletin / pașaport:: {{ $rezervare->serie_document }}
                                         <br>
