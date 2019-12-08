@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="shadow-lg bg-white" style="border-radius: 40px 40px 40px 40px;">
                 <div class="text-center border border-danger p-2" style="border-radius: 40px 40px 0px 0px;"> 
                     <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" class="mr-2" style="max-width:60%">
@@ -18,22 +18,30 @@
                     "
                 >
                     <div class="row">
-                        <div class="col-md-6">
-                            <i class="fas fa-bus-alt m-4" style="font-size: 12em;"></i>
-                            {{-- <a class="btn btn-lg text-white" href="/adauga-rezervare-pasul-1" role="button" style="font-size: 2em; background-color:brown">Rezervă un bilet!</a> --}}
-                            <a class="btn btn-primary btn-lg" href="/adauga-rezervare-pasul-1" role="button" 
-                                style="font-size: 2em;border-radius: 40px; border: 5px solid white;">
-                                {{-- <i class="fas fa-ticket-alt mr-2"></i> --}}
-                                Rezervă un bilet!
-                            </a>
-                        </div>
-                        <div class="col-md-6 border-left">
+                        <a href="/adauga-rezervare-pasul-1" class="text-white">
+                            <div class="col-md-4">
+                                <i class="fas fa-bus-alt m-4" style="font-size: 12em;"></i>
+                                <a class="btn btn-primary btn-lg" href="/adauga-rezervare-pasul-1" role="button" 
+                                    style="font-size: 2em;border-radius: 40px; border: 5px solid white;">
+                                    Rezervări bilete
+                                </a>
+                            </div>
+                        </a>
+                        <div class="col-md-4 border-left">
                             <i class="fas fa-box m-4" style="font-size: 12em;"></i>
                                 <a class="btn btn-primary btn-lg" href="/adauga-colet-pasul-1" role="button" 
                                     style="font-size: 2em;border-radius: 40px; border: 5px solid white;">
-                                    {{-- <i class="fas fa-ticket-alt mr-2"></i> --}}
-                                    Rezervări colete!
+                                    Rezervări colete
                                 </a>
+                        </div>
+                        <div class="col-md-4 border-left">
+                            <i class="fas fa-plane m-4" style="font-size: 12em;"></i>
+                                @if (isset(auth()->user()->id) && (auth()->user()->id == 2))
+                                    <a class="btn btn-primary btn-lg" href="/adauga-rezervare-aeroport-pasul-1" role="button" 
+                                        style="font-size: 2em;border-radius: 40px; border: 5px solid white;">
+                                        Rezervări aeroport
+                                    </a>
+                                @endif
                         </div>
                     </div>
                 </div>

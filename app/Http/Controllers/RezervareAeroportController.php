@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Rezervare;
+use App\RezervareAeroport;
 use App\Oras;
 use App\Tarif;
 use DB;
@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 use Session;
 use App\Mail\CreareRezervare;
 
-class RezervareController extends Controller
+class RezervareAeroportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class RezervareController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
-        $rezervari = Rezervare::
+        $rezervari = RezervareAeroport::
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
@@ -55,10 +55,10 @@ class RezervareController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Rezervare  $rezervare
+     * @param  \App\RezervareAeroport  $rezervare
      * @return \Illuminate\Http\Response
      */
-    public function show(Rezervare $rezervari)
+    public function show(RezervareAeroport $rezervari)
     {
         return view('rezervari.show', compact('rezervari'));
     }
@@ -66,10 +66,10 @@ class RezervareController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Rezervare  $rezervare
+     * @param  \App\RezervareAeroport  $rezervare
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rezervare $rezervare)
+    public function edit(RezervareAeroport $rezervare)
     {
         //
     }
@@ -78,10 +78,10 @@ class RezervareController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Rezervare  $rezervare
+     * @param  \App\RezervareAeroport  $rezervare
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rezervare $rezervare)
+    public function update(Request $request, RezervareAeroport $rezervare)
     {
         //
     }
@@ -89,10 +89,10 @@ class RezervareController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Rezervare  $rezervare
+     * @param  \App\RezervareAeroport  $rezervare
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rezervare $rezervare)
+    public function destroy(RezervareAeroport $rezervare)
     {
         //
     }
@@ -185,8 +185,8 @@ class RezervareController extends Controller
         return request()->validate([
             // 'cursa_id' =>['nullable', 'numeric', 'max:999'],
             'traseu' => ['required'],
-            'oras_plecare' => [ 'required', 'integer', 'max:999'],
-            'oras_sosire' => [ 'required', 'integer', 'max:999'],
+            'oras_plecare' => [''],
+            'oras_sosire' => [''],
             'tur_retur' => [''],
             // 'statie_id' => ['nullable', 'numeric', 'max:999'],
             // 'statie_imbarcare' => ['nullable'],
@@ -249,7 +249,7 @@ class RezervareController extends Controller
         );
     }
 
-    public function pdfexport(Request $request, Rezervare $rezervari)
+    public function pdfexport(Request $request, RezervareAeroport $rezervari)
     {
         if ($request->view_type === 'rezervare-html') {
             return view('rezervari.export.rezervare-pdf', compact('rezervari'));
@@ -276,9 +276,9 @@ class RezervareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function adaugaRezervarePasul1(Request $request)
+    public function adaugaRezervareAeroportPasul1(Request $request)
     {
-        return view('rezervari.guest-create/adauga-rezervare-pasul-1');
+        return view('rezervari-aeroport.guest-create/adauga-rezervare-aeroport-pasul-1');
     }
 
     /**
@@ -287,10 +287,10 @@ class RezervareController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postAdaugaRezervarePasul1(Request $request)
+    public function postAdaugaRezervareAeroportPasul1(Request $request)
     {       
         $request->session()->forget('rezervare');
-        $rezervare = Rezervare::make($this->validateRequest($request));
+        $rezervare = RezervareAeroport::make($this->validateRequest($request));
 
         //Animalele nu mai sunt folosite, sunt setate doar ca sa nu genereze erori mai departe in logic aplicatiei
         $rezervare->nr_animale_mici = 0;
@@ -298,35 +298,35 @@ class RezervareController extends Controller
 
         //Schimbare tur_retur din "true or false" din vue, in "0 or 1" pentru baza de date
         ($rezervare->tur_retur === "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
-        
-        // dd($rezervare);
 
-        // calcularea pretului total
-        if ($rezervare->traseu == 1){
-            $oras = DB::table('orase')
-                ->where('id', $rezervare->oras_sosire)
-                ->first();
-        } elseif ($rezervare->traseu == 2){
-            $oras = DB::table('orase')
-                ->where('id', $rezervare->oras_plecare)
-                ->first();
+        //Setarea oraselor
+        if ($rezervare->traseu === '1') {
+            $rezervare->oras_plecare = "Galați";
+            $rezervare->oras_sosire = "Otopeni";
+        } else{
+            $rezervare->oras_plecare = "Otopeni";
+            $rezervare->oras_sosire = "Galați";
         }
-        $tarife = DB::table('tarife')
-            ->where([
-                ['traseu_id', $oras->traseu],
-                ['tur_retur', $rezervare->tur_retur]
-            ])
-            ->first();
-        // dd($rezervare, $oras, $tarife);
-        $rezervare->pret_total = $tarife->adult * $rezervare->nr_adulti +
-                                $tarife->copil * $rezervare->nr_copii +
-                                $tarife->animal_mic * $rezervare->nr_animale_mici +
-                                $tarife->animal_mare * $rezervare->nr_animale_mari;
+
+        // setarea preturilor si calcularea pretului total
+        if ($rezervare->tur_retur === 0) {
+            $rezervare->pret_adult = 70;
+            $rezervare->pret_copil = 40;
+        } else if ($rezervare->tur_retur === 1) {
+            if ($rezervare->nr_adulti < 5) {
+                $rezervare->pret_adult = 120;
+                $rezervare->pret_copil = 80;                      
+            } else if ($rezervare->nr_adulti > 4) {
+                $rezervare->pret_adult = 100;
+                $rezervare->pret_copil = 80;
+            }
+        }
+        $rezervare->pret_total = $rezervare->pret_adult * $rezervare->nr_adulti +
+                                $rezervare->pret_copil * $rezervare->nr_copii;
 
         $request->session()->put('rezervare', $rezervare);
-        $request->session()->put('tarife', $tarife);
-        // dd($rezervare, $tarife);
-        return redirect('/adauga-rezervare-pasul-2');
+
+        return redirect('/adauga-rezervare-aeroport-pasul-2');
     }
 
         /**
@@ -334,22 +334,11 @@ class RezervareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function adaugaRezervarePasul2(Request $request)
+    public function adaugaRezervareAeroportPasul2(Request $request)
     {
         $rezervare = $request->session()->get('rezervare');
-        $tarife = $request->session()->get('tarife');
-        
-            
-        // dd($rezervare, $tarife);
 
-        // $tarife = DB::table('tarife')
-        //     ->where([
-        //         ['traseu_id', $rezervare->traseu],
-        //         ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
-        //     ])
-        //     ->first();
-
-        return view('rezervari.guest-create/adauga-rezervare-pasul-2',compact('rezervare', 'tarife'));
+        return view('rezervari-aeroport.guest-create/adauga-rezervare-aeroport-pasul-2',compact('rezervare'));
     }
 
     /**
@@ -358,25 +347,11 @@ class RezervareController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postAdaugaRezervarePasul2(Request $request)
+    public function postAdaugaRezervareAeroportPasul2(Request $request)
     {   
         $rezervare = $request->session()->get('rezervare');
         $rezervare->created_at = \Carbon\Carbon::now();
-
-        $tarife = $request->session()->get('tarife');
-        
-        // calcularea pretului total
-        // $tarife = DB::table('tarife')
-        //     ->where([
-        //         ['traseu_id', $rezervare->traseu],
-        //         ['tur_retur', ($rezervare->tur_retur=='true' ? 1 : 0)]
-        //     ])
-        //     ->first();
-        $rezervare->pret_total = $tarife->adult * $rezervare->nr_adulti +
-                                $tarife->copil * $rezervare->nr_copii +
-                                $tarife->animal_mic * $rezervare->nr_animale_mici +
-                                $tarife->animal_mare * $rezervare->nr_animale_mari;            
-        
+                  
         // Verificare rezervare duplicat
         $request_verificare_duplicate = new Request([
             'nume' => $request->session()->get('rezervare.nume'),
@@ -391,13 +366,9 @@ class RezervareController extends Controller
             'nume.unique' => 'Această Rezervare este deja înregistrată.'
         ]);
 
-        //Schimbare tur_retur din "true or false" din vue, in "0 or 1" pentru baza de date
-        // ($rezervare->tur_retur === "true") ? ($rezervare->tur_retur = 1) : ($rezervare->tur_retur = 0);
-
         $rezervare_array = $rezervare->toArray();
         $plata_online = $rezervare_array['plata_online'];
-        unset($rezervare_array['traseu'], $rezervare_array['oras_plecare_nume'], $rezervare_array['oras_sosire_nume'], 
-            $rezervare_array['plata_online'], $rezervare_array['acord_de_confidentialitate'], $rezervare_array['termeni_si_conditii']);
+        unset($rezervare_array['traseu'], $rezervare_array['acord_de_confidentialitate'], $rezervare_array['termeni_si_conditii']);
         
         //Inserarea rezervarii in baza de date
         $id = DB::table('rezervari')->insertGetId($rezervare_array);
@@ -406,24 +377,23 @@ class RezervareController extends Controller
         
         $rezervare->id = $id;
 
-        $rezervare->currency = 'EUR';
-
+        $rezervare->tabel = 'rezervari_aeroport';
 
         $request->session()->put('rezervare', $rezervare);
 
 
         // Trimitere email
-        \Mail::to('andrei.dima@usm.ro')->send(
-            new CreareRezervare($rezervare, $tarife)
-        );
+        // \Mail::to('andrei.dima@usm.ro')->send(
+        //     new CreareRezervare($rezervare)
+        // );
         // \Mail::to('alsimy_mond_travel@yahoo.com')->send(
-        //     new CreareRezervare($rezervare, $tarife)
+        //     new CreareRezervare($rezervare)
         // );
 
         if ($plata_online == 1){
             return redirect('/trimitere-catre-plata');
         }else{
-        return redirect('/adauga-rezervare-pasul-3');
+        return redirect('/adauga-rezervare-aeroport-pasul-3');
         }
     }
 
@@ -432,11 +402,11 @@ class RezervareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function adaugaRezervarePasul3(Request $request)
+    public function adaugaRezervareAeroportPasul3(Request $request)
     {
         if ($request->has('orderId')) {
             $plata_online = \App\PlataOnline::where('order_id', $request->orderId)->latest()->first();
-            $rezervare = \App\Rezervare::where('id', $plata_online->rezervare_id)->first();
+            $rezervare = \App\RezervareAeroport::where('id', $plata_online->rezervare_id)->first();
 
             $request->session()->put('plata_online', $plata_online);
             $request->session()->forget('rezervare');
@@ -444,12 +414,12 @@ class RezervareController extends Controller
 
             // dd($rezervare, $rezervare->ora->ora);
 
-            return view('rezervari.guest-create/adauga-rezervare-pasul-3', compact('rezervare', 'plata_online'));
+            return view('rezervari-aeroport.guest-create/adauga-rezervare-aeroport-pasul-3', compact('rezervare', 'plata_online'));
 
         } else {
             $rezervare = $request->session()->get('rezervare');
             
-            return view('rezervari.guest-create/adauga-rezervare-pasul-3', compact('rezervare'));
+            return view('rezervari-aeroport.guest-create/adauga-rezervare-aeroport-pasul-3', compact('rezervare'));
         }
 
         // $request->session()->forget('rezervare');
@@ -460,7 +430,7 @@ class RezervareController extends Controller
     public function pdfExportGuest(Request $request)
     {
         if (Session::has('plata_online')) {
-            $rezervare = \App\Rezervare::where('id', $request->session()->get('rezervare_id'))->first();
+            $rezervare = \App\RezervareAeroport::where('id', $request->session()->get('rezervare_id'))->first();
         }else {
             $rezervare = $request->session()->get('rezervare');
         }
@@ -475,9 +445,9 @@ class RezervareController extends Controller
         //     ->first();
 
         if ($request->view_type === 'rezervare-html') {
-            return view('rezervari.export.rezervare-pdf', compact('rezervare', 'tarife'));
+            return view('rezervari-aeroport.export.rezervare-pdf', compact('rezervare'));
         } elseif ($request->view_type === 'rezervare-pdf') {
-        $pdf = \PDF::loadView('rezervari.export.rezervare-pdf', compact('rezervare', 'tarife'))
+        $pdf = \PDF::loadView('rezervari-aeroport.export.rezervare-pdf', compact('rezervare'))
             ->setPaper('a4');
                 return $pdf->download('Rezervare ' . $rezervare->nume . '.pdf');
         }

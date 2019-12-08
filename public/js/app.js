@@ -91382,6 +91382,58 @@ if (document.querySelector('#transport-colete')) {
   });
 }
 
+if (document.querySelector('#adauga-rezervare-aeroport')) {
+  var _app3 = new Vue({
+    el: '#adauga-rezervare-aeroport',
+    data: {
+      traseu: traseuVechi,
+      active: "active",
+      nr_adulti: nrAdultiVechi,
+      nr_copii: nrCopiiVechi,
+      pret_adult: 0,
+      pret_copil: 0,
+      pret_total: pretTotal,
+      tur_retur: turReturVechi
+    },
+    created: function created() {
+      this.getPreturi();
+      this.getPretTotal();
+    },
+    methods: {
+      getPreturi: function getPreturi() {
+        if (this.tur_retur === false) {
+          this.pret_adult = 70, this.pret_copil = 40;
+        } else if (this.tur_retur === true) {
+          if (this.nr_adulti < 5) {
+            this.pret_adult = 120, this.pret_copil = 80;
+          } else if (this.nr_adulti > 4) {
+            this.pret_adult = 100, this.pret_copil = 80;
+          }
+        }
+      },
+      getPretTotal: function getPretTotal() {
+        this.pret_total = 0;
+
+        if (!isNaN(this.nr_adulti) && this.nr_adulti > 0) {
+          this.pret_total = this.pret_total + this.pret_adult * this.nr_adulti;
+        }
+
+        if (!isNaN(this.nr_copii) && this.nr_copii > 0) {
+          this.pret_total = this.pret_total + this.pret_copil * this.nr_copii;
+        }
+
+        if (!isNaN(this.nr_animale_mici) && this.nr_animale_mici > 0) {
+          this.pret_total = this.pret_total + this.pret_animal_mic * this.nr_animale_mici;
+        }
+
+        if (!isNaN(this.nr_animale_mari) && this.nr_animale_mari > 0) {
+          this.pret_total = this.pret_total + this.pret_animal_mare * this.nr_animale_mari;
+        }
+      }
+    }
+  });
+}
+
 if (document.querySelector('#produse')) {
   var app = new Vue({
     el: '#produse',
@@ -91397,7 +91449,7 @@ if (document.querySelector('#produse')) {
 }
 
 if (document.querySelector('#vanzari')) {
-  var _app3 = new Vue({
+  var _app4 = new Vue({
     el: '#vanzari',
     methods: {
       formfocus: function formfocus() {
