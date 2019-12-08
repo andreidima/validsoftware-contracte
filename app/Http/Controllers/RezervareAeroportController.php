@@ -380,14 +380,15 @@ class RezervareAeroportController extends Controller
 
         $rezervare->tabel = 'rezervari_aeroport';
         $rezervare->currency = 'RON';
+        $rezervare->return_url = 'https://aplicatie.alsimymondtravel.ro/adauga-rezervare-aeroport-pasul-3';
 
         $request->session()->put('rezervare', $rezervare);
 
 
         // Trimitere email
-        // \Mail::to('andrei.dima@usm.ro')->send(
-        //     new CreareRezervareAeroport($rezervare)
-        // );
+        \Mail::to('andrei.dima@usm.ro')->send(
+            new CreareRezervareAeroport($rezervare)
+        );
         // \Mail::to('alsimy_mond_travel@yahoo.com')->send(
         //     new CreareRezervareAeroport($rezervare)
         // );

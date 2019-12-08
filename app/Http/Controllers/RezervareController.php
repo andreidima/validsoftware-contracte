@@ -408,6 +408,7 @@ class RezervareController extends Controller
 
         $rezervare->tabel = 'rezervari';
         $rezervare->currency = 'EUR';
+        $rezervare->return_url = 'https://aplicatie.alsimymondtravel.ro/adauga-rezervare-pasul-3';
 
 
         $request->session()->put('rezervare', $rezervare);
