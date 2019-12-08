@@ -102,28 +102,28 @@
                                     <div class="col-lg-11 px-4 py-2 bg-white border rounded-lg">
                                         Număr adulți: 
                                         <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->nr_adulti }}</span>
-                                         * {{ $rezervare->pret_adult }}€ = {{ $rezervare->nr_adulti * $rezervare->pret_adult}}€
+                                         * {{ $rezervare->pret_adult }} lei = {{ $rezervare->nr_adulti * $rezervare->pret_adult}} lei
                                         @if ($rezervare->nr_copii > 0)
                                             <br>
                                             Număr copii: 
                                             <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->nr_copii }}</span>
-                                            * {{ $rezervare->pret_copil }}€ = {{ $rezervare->nr_copii * $rezervare->pret_copil}}€
+                                            * {{ $rezervare->pret_copil }} lei = {{ $rezervare->nr_copii * $rezervare->pret_copil}} lei
                                         @endif
                                         @if ($rezervare->nr_animale_mici > 0)
                                             <br>
                                             Număr animale de companie de talie mică (< 10 kg): 
                                             <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->nr_animale_mici }}</span>
-                                            * {{ $rezervare->pret_animal_mic }}€ = {{ $rezervare->nr_animale_mici * $rezervare->pret_animal_mic}}€
+                                            * {{ $rezervare->pret_animal_mic }} lei = {{ $rezervare->nr_animale_mici * $rezervare->pret_animal_mic}} lei
                                         @endif
                                         @if ($rezervare->nr_animale_mari > 0)
                                             <br>
                                             Număr animale de companie de talie mare (> 10 kg): 
                                             <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->nr_animale_mari }}</span>
-                                            * {{ $rezervare->pret_animal_mare }}€ = {{ $rezervare->nr_animale_mari * $rezervare->pret_animal_mare}}€
+                                            * {{ $rezervare->pret_animal_mare }} lei = {{ $rezervare->nr_animale_mari * $rezervare->pret_animal_mare}} lei
                                         @endif
                                     </div>
                                     <div class="col-lg-11 px-4 py-2 mb-4 bg-white border rounded-lg text-right">
-                                        Preț total: <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->pret_total }}€</span>
+                                        Preț total: <span class="badge badge-primary" style="font-size:1em">{{ $rezervare->pret_total }} lei</span>
                                     </div>
                                     <div class="col-lg-11 px-0 border rounded-lg">
                                         <h5 class="bg-warning p-1 m-0 text-center">
