@@ -134,7 +134,7 @@
                     <td style="">
                         Oraș plecare:
                         <br>
-                        <b>{{ $rezervare->oras_plecare_nume->nume }}</b>
+                        <b>{{ $rezervare->oras_plecare }}</b>
                     </td>
                     <td>
                         <img src="{{ asset('images/sageata dreapta.jpg') }}" width="50px">
@@ -142,7 +142,7 @@
                     <td style="">
                         Oraș sosire:
                         <br>
-                        <b>{{ $rezervare->oras_sosire_nume->nume }}</b>
+                        <b>{{ $rezervare->oras_sosire }}</b>
                     </td>
                 </tr>
                 <tr>
@@ -161,7 +161,7 @@
                         <td style="">
                             Oraș sosire:
                             <br>
-                            <b>{{ $rezervare->oras_plecare_nume->nume }}</b>
+                            <b>{{ $rezervare->oras_plecare }}</b>
                         </td>
                         <td>
                         <img src="{{ asset('images/sageata stanga.jpg') }}" width="50px">
@@ -169,7 +169,7 @@
                         <td style="">
                             Oraș plecare:
                             <br>
-                            <b>{{ $rezervare->oras_sosire_nume->nume }}</b>
+                            <b>{{ $rezervare->oras_sosire }}</b>
                         </td>
                     </tr>
                 @endif
@@ -185,22 +185,14 @@
                 </tr>
                 <tr>
                     <td>
-                        Număr adulți: {{ $rezervare->nr_adulti }} * {{ $tarife->adult }}Euro = {{ $rezervare->nr_adulti * $tarife->adult}}Euro
+                        Număr adulți: {{ $rezervare->nr_adulti }} * {{ $rezervare->pret_adult }}Euro = {{ $rezervare->nr_adulti * $rezervare->pret_adult}}Euro
                         @if ($rezervare->nr_copii > 0)
                             <br>
-                            Număr copii: {{ $rezervare->nr_copii }} * {{ $tarife->copil }}Euro = {{ $rezervare->nr_copii * $tarife->copil}}Euro
-                        @endif
-                        @if ($rezervare->nr_animale_mici > 0)
-                            <br>
-                            Număr animale de companie de talie mică, mai mici de 10 kg: {{ $rezervare->nr_animale_mici }} * {{ $tarife->animal_mic }}Euro = {{ $rezervare->nr_animale_mici * $tarife->animal_mic}}Euro
-                        @endif
-                        @if ($rezervare->nr_animale_mari > 0)
-                            <br>
-                            Număr animale de companie de talie mare, mai mari de 10 kg: {{ $rezervare->nr_animale_mari }} * {{ $tarife->animal_mare }}Euro = {{ $rezervare->nr_animale_mari * $tarife->animal_mare}}Euro
+                            Număr copii: {{ $rezervare->nr_copii }} * {{ $rezervare->pret_copil }}Euro = {{ $rezervare->nr_copii * $rezervare->pret_copil}}Euro
                         @endif
                         <br>
                         <br>
-                        <b>Preț total: {{ $rezervare->pret_total }}Euro</b>
+                        <b>Preț total: {{ $rezervare->pret_total }}Ron</b>
 
                     </td>
                 </tr>                
@@ -228,8 +220,8 @@
                 </tr>                
             </table>
             
-            * IN PRETUL BILETULUI AVETI INCLUS 40 KG PTR BAGAJUL DVS , CE DEPASESTE SE TAXEAZA CU 1 EURO / KG !!!
-            <br><br>
+            {{-- * IN PRETUL BILETULUI AVETI INCLUS 40 KG PTR BAGAJUL DVS , CE DEPASESTE SE TAXEAZA CU 1 EURO / KG !!!
+            <br><br> --}}
             Ptr rezervari făcute cu mai puțin de 24 ore înainte de plecare sunați la nr de telefon: <b>0755106508</b> sau <b>0742296938</b>
             <br>
             E-mail: <a href="mailto:alsimy_mond_travel@yahoo.com">alsimy_mond_travel@yahoo.com</a> 

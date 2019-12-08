@@ -9,7 +9,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Session;
-use App\Mail\CreareRezervare;
+use App\Mail\CreareRezervareAeroport;
 
 class RezervareAeroportController extends Controller
 {
@@ -368,26 +368,28 @@ class RezervareAeroportController extends Controller
 
         $rezervare_array = $rezervare->toArray();
         $plata_online = $rezervare_array['plata_online'];
-        unset($rezervare_array['traseu'], $rezervare_array['acord_de_confidentialitate'], $rezervare_array['termeni_si_conditii']);
+        unset($rezervare_array['traseu'], $rezervare_array['plata_online'], 
+                    $rezervare_array['acord_de_confidentialitate'], $rezervare_array['termeni_si_conditii']);
         
         //Inserarea rezervarii in baza de date
-        $id = DB::table('rezervari')->insertGetId($rezervare_array);
+        $id = DB::table('rezervari_aeroport')->insertGetId($rezervare_array);
         
         // $id = $rezervari->save->insertGetId;
         
         $rezervare->id = $id;
 
         $rezervare->tabel = 'rezervari_aeroport';
+        $rezervare->currency = 'RON';
 
         $request->session()->put('rezervare', $rezervare);
 
 
         // Trimitere email
         // \Mail::to('andrei.dima@usm.ro')->send(
-        //     new CreareRezervare($rezervare)
+        //     new CreareRezervareAeroport($rezervare)
         // );
         // \Mail::to('alsimy_mond_travel@yahoo.com')->send(
-        //     new CreareRezervare($rezervare)
+        //     new CreareRezervareAeroport($rezervare)
         // );
 
         if ($plata_online == 1){
@@ -412,8 +414,6 @@ class RezervareAeroportController extends Controller
             $request->session()->forget('rezervare');
             $request->session()->put('rezervare_id', $rezervare->id);
 
-            // dd($rezervare, $rezervare->ora->ora);
-
             return view('rezervari-aeroport.guest-create/adauga-rezervare-aeroport-pasul-3', compact('rezervare', 'plata_online'));
 
         } else {
@@ -421,10 +421,7 @@ class RezervareAeroportController extends Controller
             
             return view('rezervari-aeroport.guest-create/adauga-rezervare-aeroport-pasul-3', compact('rezervare'));
         }
-
-        // $request->session()->forget('rezervare');
-        // $request->session()->flush();
-        // dd (session()); 
+ 
     }
 
     public function pdfExportGuest(Request $request)
@@ -435,19 +432,10 @@ class RezervareAeroportController extends Controller
             $rezervare = $request->session()->get('rezervare');
         }
         
-        $tarife = $request->session()->get('tarife');
-
-        // $tarife = DB::table('tarife')
-        //     ->where([
-        //         ['traseu_id', $rezervari->traseu],
-        //         ['tur_retur', ($rezervari->tur_retur == 'true' ? 1 : 0)]
-        //     ])
-        //     ->first();
-
         if ($request->view_type === 'rezervare-html') {
-            return view('rezervari-aeroport.export.rezervare-pdf', compact('rezervare'));
+            return view('rezervari-aeroport.export.rezervare-aeroport-pdf', compact('rezervare'));
         } elseif ($request->view_type === 'rezervare-pdf') {
-        $pdf = \PDF::loadView('rezervari-aeroport.export.rezervare-pdf', compact('rezervare'))
+        $pdf = \PDF::loadView('rezervari-aeroport.export.rezervare-aeroport-pdf', compact('rezervare'))
             ->setPaper('a4');
                 return $pdf->download('Rezervare ' . $rezervare->nume . '.pdf');
         }

@@ -163,7 +163,7 @@
                                 
                                 <div class="row">
                                     <div class="col-lg-12 d-flex justify-content-center mb-4">  
-                                        <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-pasul-2">
+                                        <form  class="needs-validation" novalidate method="POST" action="/adauga-rezervare-aeroport-pasul-2">
                                             @csrf                                                 
                                             {{-- @if ($rezervare->plata_online == "1") --}}
                                             {{-- @if ((auth()->user()->id ?? null) === 2) --}}

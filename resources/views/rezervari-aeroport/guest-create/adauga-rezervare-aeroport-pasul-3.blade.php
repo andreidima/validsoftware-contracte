@@ -6,7 +6,7 @@
         <div class="col-lg-8">
             <div class="shadow-lg bg-white" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-danger p-2 d-flex justify-content-between align-items-end" style="border-radius: 40px 40px 0px 0px;">                     
-                    <h3 class="ml-3" style="color:brown"><i class="fas fa-ticket-alt fa-lg mr-1"></i>Verificare bilet</h3>
+                    <h3 class="ml-3" style="color:brown"><i class="fas fa-ticket-alt fa-lg mr-1"></i>Rezervare aeroport</h3>
                     <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="70" class="mr-3">
                 </div>
                 
@@ -34,7 +34,7 @@
                                                 @isset($plata_online)
                                                     <br>
                                                     @if ($plata_online->error_code == 0 )                                                        
-                                                        <a href="/bilet-rezervat/rezervare-pdf"
+                                                        <a href="/bilet-rezervat/rezervare-aeroport-pdf"
                                                             class="btn btn-success border border-white rounded-lg mb-3"
                                                             role="button"
                                                             target="_blank"
@@ -45,7 +45,7 @@
                                                     @else                            
                                                         Plata rezervării <span class="text-danger">NU</span> s-a efectuat cu succes!
                                                         <br>                                                      
-                                                        <a href="/adauga-rezervare-pasul-1"
+                                                        <a href="/adauga-rezervare-aeroport-pasul-1"
                                                             class="btn btn-primary border border-white rounded-lg mb-3"
                                                             role="button"
                                                             target="_blank"
