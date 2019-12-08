@@ -218,7 +218,12 @@
                     <td>
                         Document de călătorie:<b> {{ $rezervare->document_de_calatorie }} </b>
                         <br>
-                        Data expirării documentului:<b> {{ \Carbon\Carbon::parse($rezervare->expirare_document)->isoFormat('D.MM.YYYY') }} </b>
+                        Data expirării documentului:
+                            <b>
+                                @if ($rezervare->expirare_document !== null)
+                                    {{ \Carbon\Carbon::parse($rezervare->expirare_document)->isoFormat('D.MM.YYYY') }}    
+                                @endif 
+                            </b>
                         <br>
                         Seria buletin / pașaport:<b> {{ $rezervare->serie_document }} </b>
                         <br>

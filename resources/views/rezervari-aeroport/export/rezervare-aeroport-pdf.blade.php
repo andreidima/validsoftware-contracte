@@ -185,14 +185,14 @@
                 </tr>
                 <tr>
                     <td>
-                        Număr adulți: {{ $rezervare->nr_adulti }} * {{ $rezervare->pret_adult }}Euro = {{ $rezervare->nr_adulti * $rezervare->pret_adult}}Euro
+                        Număr adulți: {{ $rezervare->nr_adulti }} * {{ $rezervare->pret_adult }} lei = {{ $rezervare->nr_adulti * $rezervare->pret_adult}} lei
                         @if ($rezervare->nr_copii > 0)
                             <br>
-                            Număr copii: {{ $rezervare->nr_copii }} * {{ $rezervare->pret_copil }}Euro = {{ $rezervare->nr_copii * $rezervare->pret_copil}}Euro
+                            Număr copii: {{ $rezervare->nr_copii }} * {{ $rezervare->pret_copil }} lei = {{ $rezervare->nr_copii * $rezervare->pret_copil}} lei
                         @endif
                         <br>
                         <br>
-                        <b>Preț total: {{ $rezervare->pret_total }}Ron</b>
+                        <b>Preț total: {{ $rezervare->pret_total }} lei</b>
 
                     </td>
                 </tr>                
@@ -210,7 +210,12 @@
                     <td>
                         Document de călătorie:<b> {{ $rezervare->document_de_calatorie }} </b>
                         <br>
-                        Data expirării documentului:<b> {{ \Carbon\Carbon::parse($rezervare->expirare_document)->isoFormat('D.MM.YYYY') }} </b>
+                        Data expirării documentului:
+                            <b>
+                                @if ($rezervare->expirare_document !== null)
+                                    {{ \Carbon\Carbon::parse($rezervare->expirare_document)->isoFormat('D.MM.YYYY') }}    
+                                @endif 
+                            </b>
                         <br>
                         Seria buletin / pașaport:<b> {{ $rezervare->serie_document }} </b>
                         <br>
