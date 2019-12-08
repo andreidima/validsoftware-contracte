@@ -406,7 +406,8 @@ class RezervareController extends Controller
         
         $rezervare->id = $id;
 
-        $rezervare->currency = 'EUR';
+        $rezervare->tabel = 'rezervari';
+        $rezervare->currency = 'RON';
 
 
         $request->session()->put('rezervare', $rezervare);
