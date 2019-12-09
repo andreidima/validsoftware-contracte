@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Oras;
+use App\Client;
 use Faker\Generator as Faker;
 
-$factory->define(Oras::class, function (Faker $faker) {
+$factory->define(Client::class, function (Faker $faker) {
     return [
         //
     ];

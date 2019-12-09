@@ -59,11 +59,10 @@ Route::group(['scheme' => 'https'], function () {
 
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::redirect('/', 'rezervari');
+        Route::redirect('/', 'clienti');
 
-        Route::resource('rezervari', 'RezervareController')->only([
-                'index', 'show'
-            ]);
+        Route::resource('clienti', 'ClientController');
+        Route::resource('contracte', 'ContractController');
 
         Route::resource('colete', 'ColetController')->only([
                 'index', 'show'

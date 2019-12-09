@@ -3,24 +3,29 @@
 @section('content')   
 <div class="container card">
         <div class="row card-header align-items-center">
-            <div class="col-lg-4">
-                <h4 class=" mb-0"><a href="{{ route('colete.index') }}"><i class="fas fa-list-ul mr-1"></i>Colete</a></h4>
+            <div class="col-lg-3">
+                <h4 class=" mb-0"><a href="{{ route('clienti.index') }}"><i class="fas fa-building"></i>Clienți</a></h4>
             </div> 
-            <div class="col-lg-8">
-                <form class="needs-validation" novalidate method="GET" action="{{ route('rezervari.index') }}">
+            <div class="col-lg-6">
+                <form class="needs-validation" novalidate method="GET" action="{{ route('clienti.index') }}">
                     @csrf                    
                     <div class=" row input-group custom-search-form">
-                        <input type="text" class="form-control form-control-sm col-md-3 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                 value="{{ $search_nume }}">
-                        <button class="btn btn-sm btn-primary col-md-3 mr-4 border border-dark rounded-pill" type="submit">
+                        <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
                             <i class="fas fa-search text-white mr-1"></i>Caută
                         </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-3 border border-dark rounded-pill" href="{{ route('rezervari.index') }}" role="button">
+                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-pill" href="{{ route('clienti.index') }}" role="button">
                             <i class="far fa-trash-alt text-white mr-1"></i>Resetează căutarea
                         </a>
                     </div>
                 </form>
             </div>
+            <div class="col-lg-3 text-right">
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('clienti.create') }}" role="button">
+                    <i class="fas fa-plus-square text-white mr-1"></i>Adaugă client
+                </a>
+            </div> 
         </div>
 
         <div class="card-body px-0 py-3">
@@ -37,34 +42,30 @@
                         <tr class="">
                             <th>Nr. Crt.</th>
                             <th>Nume</th>
+                            <th>Reprezentant</th>
                             <th>Telefon</th>
-                            <th>Nr. colete.</th>
-                            <th>Oraș plecare</th>
-                            <th>Oraș sosire</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>               
-                        @forelse ($colete as $colet) 
+                        @forelse ($clienti as $client) 
                             <tr>                  
                                 <td align="">
-                                    {{ ($colete ->currentpage()-1) * $colete ->perpage() + $loop->index + 1 }}
+                                    {{ ($clienti ->currentpage()-1) * $clienti ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    <a href="{{ $colet->path() }}">  
-                                        <b>{{ $colet->nume }}</b>
+                                    <a href="{{ $client->path() }}">  
+                                        <b>{{ $client->nume }}</b>
                                     </a>
                                 </td>
                                 <td>
-                                    {{ $colet->telefon }}
+                                    {{ $client->reprezentant }}
                                 </td>
                                 <td>
-                                    {{ $colet->numar_colete }}
+                                    {{ $client->telefon }}
                                 </td>
                                 <td>
-                                    {{ $colet->oras_plecare_nume->nume }}
-                                </td>
-                                <td>
-                                    {{ $colet->oras_sosire_nume->nume }}
+                                    {{ $client->email }}
                                 </td>
                             </tr>                                          
                         @empty
@@ -76,7 +77,7 @@
 
                 <nav>
                     <ul class="pagination justify-content-center">
-                        {{$colete->links()}}
+                        {{$clienti->links()}}
                     </ul>
                 </nav>
 

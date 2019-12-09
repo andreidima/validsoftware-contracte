@@ -27,11 +27,11 @@
 <body>
     <div id="app">
         @auth
-            <nav class="navbar navbar-expand-md navbar-dark shadow-sm py-0" style="background-color:brown">
+            <nav class="navbar navbar-expand-md navbar-dark shadow-sm py-0" style="background-color:darkcyan">
                 <div class="container">
                     <a class="navbar-brand mr-4" href="{{ url('/') }}">
-                        {{-- {{ config('app.name', 'Laravel') }} --}}
-                        <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="40" class="border border-dark rounded-pill mr-4">
+                        {{ config('app.name', 'Laravel') }}
+                        {{-- <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="40" class="border border-dark rounded-pill mr-4"> --}}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -43,11 +43,11 @@
                             @guest
                             @else
                                 <li class="nav-item active mr-4">
-                                    <a class="nav-link" href="{{ route('rezervari.index') }}">
-                                        <i class="fas fa-list-ul mr-1"></i>Rezervări
+                                    <a class="nav-link" href="{{ route('clienti.index') }}">
+                                        <i class="fas fa-building mr-1"></i>Clienți
                                     </a>
                                 </li>
-                                <li class="nav-item active mr-4">
+                                {{-- <li class="nav-item active mr-4">
                                     <a class="nav-link" href="{{ route('colete.index') }}">
                                         <i class="fas fa-box mr-1"></i>Colete
                                     </a>
@@ -56,7 +56,7 @@
                                     <a class="nav-link" href="{{ route('rezervari-aeroport.index') }}">
                                         <i class="fas fa-plane mr-1"></i>Rezervări Aeroport
                                     </a>
-                                </li>
+                                </li> --}}
                             @endguest
                         </ul>
 
