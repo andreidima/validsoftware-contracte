@@ -66,10 +66,10 @@
                                     {{ $rezervare->nr_adulti + $rezervare->nr_copii }}
                                 </td>
                                 <td>
-                                    {{ $rezervare->oras_plecare_nume->nume }}
+                                    {{ $rezervare->oras_plecare }}
                                 </td>
                                 <td>
-                                    {{ $rezervare->oras_sosire_nume->nume }}
+                                    {{ $rezervare->oras_sosire }}
                                 </td>
                                 <td>
                                     {{ $rezervare->tur_retur ? 'DA' : 'NU' }}

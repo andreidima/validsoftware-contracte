@@ -28,7 +28,7 @@ class RezervareAeroportController extends Controller
             ->latest()
             ->Paginate(25);
 
-        return view('rezervari.index', compact('rezervari', 'search_nume'));
+        return view('rezervari-aeroport.index', compact('rezervari', 'search_nume'));
     }
 
     /**
@@ -60,7 +60,7 @@ class RezervareAeroportController extends Controller
      */
     public function show(RezervareAeroport $rezervari)
     {
-        return view('rezervari.show', compact('rezervari'));
+        return view('rezervari-aeroport.show', compact('rezervari'));
     }
 
     /**

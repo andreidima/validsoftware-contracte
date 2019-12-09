@@ -52,6 +52,11 @@
                                         <i class="fas fa-box mr-1"></i>Colete
                                     </a>
                                 </li>
+                                <li class="nav-item active mr-4">
+                                    <a class="nav-link" href="{{ route('rezervari-aeroport.index') }}">
+                                        <i class="fas fa-plane mr-1"></i>Rezervări Aeroport
+                                    </a>
+                                </li>
                             @endguest
                         </ul>
 

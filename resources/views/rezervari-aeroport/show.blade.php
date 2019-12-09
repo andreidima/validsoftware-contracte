@@ -105,7 +105,7 @@
                             Oras plecare
                         </td>
                         <td>
-                            {{ $rezervari->oras_plecare_nume->nume }}
+                            {{ $rezervari->oras_plecare }}
                         </td>
                     </tr>
                     <tr>
@@ -113,7 +113,7 @@
                             Oras sosire
                         </td>
                         <td>
-                            {{ $rezervari->oras_sosire_nume->nume }}
+                            {{ $rezervari->oras_sosire }}
                         </td>
                     </tr>
                     <tr>
@@ -137,7 +137,7 @@
                             Data_intoarcere
                         </td>
                         <td>
-                            {{ \Carbon\Carbon::parse($rezervari->data_intoarcere)->isoFormat('D.MM.YYYY') }}
+                            {{ $rezervari->data_intoarcere ? \Carbon\Carbon::parse($rezervari->data_intoarcere)->isoFormat('D.MM.YYYY') : '-' }}
                         </td>
                     </tr>
                         <td>
