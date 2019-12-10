@@ -27,7 +27,7 @@
 <body>
     <div id="app">
         @auth
-            <nav class="navbar navbar-expand-md navbar-dark shadow-sm py-0" style="background-color:darkcyan">
+            <nav class="navbar navbar-expand-md navbar-dark shadow py-0" style="background-color:darkcyan">
                 <div class="container">
                     <a class="navbar-brand mr-4" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}

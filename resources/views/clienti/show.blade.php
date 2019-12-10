@@ -1,12 +1,18 @@
 @extends ('layouts.app')
 
 @section('content')   
-    <div class="container card">
-        <div class="row card-header">
-                <h4 class="mb-0"><a href="{{ route('colete.index') }}"><i class="fas fa-list-ul mr-1"></i>Colete</a> / {{ $colete->nume }}</h4>
-        </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
+                <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
+                    <h6 class="ml-4 my-0" style="color:white"><i class="fas fa-building mr-1"></i>Clienți / {{ $clienti->nume }}</h6>
+                </div>
 
-        <div class="card-body d-flex">
+                <div class="card-body py-2 border border-secondary" 
+                    style="border-radius: 0px 0px 40px 40px;"
+                    id="app1"
+                >
 
             @if (session()->has('status'))
             <div class="alert alert-success">
@@ -14,126 +20,102 @@
             </div>
             @endif
 
-            <div class="table-responsive col-md-5 mx-auto">
-                <table class="table table-striped table-hover table-dark table-sm" style="background-color:#008282"> 
-                    <tr>
-                        <td>
-                            Nume
-                        </td>
-                        <td>
-                            {{ $colete->nume }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            Telefon
-                        </td>
-                        <td>
-                            {{ $colete->telefon }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            Email
-                        </td>
-                        <td>
-                            {{ $colete->email }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            Adresa
-                        </td>
-                        <td>
-                            {{ $colete->adresa }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            Observatii
-                        </td>
-                        <td>
-                            {{ $colete->observatii }}
-                        </td>
-                    </tr>
-                    {{-- </tr>
-                        <td>
-                            Document de călătorie
-                        </td>
-                        <td>
-                            {{ $colete->document_de_calatorie }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            <small> Data expirării documentului</small>
-                        </td>
-                        <td>
-                            {{ \Carbon\Carbon::parse($colete->expirare_document)->isoFormat('D.MM.YYYY') }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            Seria buletin / pașaport
-                        </td>
-                        <td>
-                            {{ $colete->serie_document }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            Cnp
-                        </td>
-                        <td>
-                            {{ $colete->cnp }}
-                        </td>
-                    </tr> --}}
-                    </tr>
-                        <td>
-                            Data rezervarii
-                        </td>
-                        <td>
-                            {{ \Carbon\Carbon::parse($colete->created_at)->isoFormat('D.MM.YYYY') }}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="table-responsive col-md-3 mx-auto">
-                <table class="table table-striped table-hover table-dark table-sm" style="background-color:#008282"> 
-                    <tr>
-                        <td>
-                            Oras plecare
-                        </td>
-                        <td>
-                            {{ $colete->oras_plecare_nume->nume }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Oras sosire
-                        </td>
-                        <td>
-                            {{ $colete->oras_sosire_nume->nume }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            Nr. colete
-                        </td>
-                        <td>
-                            {{ $colete->numar_colete }}
-                        </td>
-                    </tr>
-                    </tr>
-                        <td>
-                            Detalii colete
-                        </td>
-                        <td>
-                            {{ $colete->detalii_colete }}
-                        </td>
-                    </tr>
-                </table>
+                    <div class="table-responsive col-md-12 mx-auto">
+                        <table class="table table-sm table-striped table-hover"
+                                {{-- style="background-color:#008282" --}}
+                        > 
+                            <tr>
+                                <td>
+                                    Nume
+                                </td>
+                                <td>
+                                    {{ $clienti->nume }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Nr. ord. reg. com.
+                                </td>
+                                <td>
+                                    {{ $clienti->nr_ord_reg_com }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cui
+                                </td>
+                                <td>
+                                    {{ $clienti->cui }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Adresa
+                                </td>
+                                <td>
+                                    {{ $clienti->adresa }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Iban
+                                </td>
+                                <td>
+                                    {{ $clienti->iban }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Banca
+                                </td>
+                                <td>
+                                    {{ $clienti->banca }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Reprezentant
+                                </td>
+                                <td>
+                                    {{ $clienti->reprezentant }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Functie
+                                </td>
+                                <td>
+                                    {{ $clienti->reprezentant_functie }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Telefon
+                                </td>
+                                <td>
+                                    {{ $clienti->telefon }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Email
+                                </td>
+                                <td>
+                                    {{ $clienti->email }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                                       
+                    <div class="form-row mb-2 px-2">                                    
+                        <div class="col-lg-12 d-flex justify-content-center">  
+                            <a class="btn btn-primary btn-sm rounded-pill" href="/clienti">Pagină Clienți</a> 
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

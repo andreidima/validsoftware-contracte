@@ -54,9 +54,9 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show(Client $clienti)
     {
-        //
+        return view('clienti.show', compact('clienti'));
     }
 
     /**
@@ -65,9 +65,9 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Client $clienti)
     {
-        //
+        return view('clienti.edit', compact('clienti'));
     }
 
     /**
@@ -77,9 +77,12 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Client $clienti)
     {
-        //
+        $this->validateRequest($request, $clienti);
+        $clienti->update($request->all());
+
+        return redirect($clienti->path())->with('status', 'Clientul "' . $clienti->nume . '" a fost modificat cu succes!');
     }
 
     /**
@@ -88,9 +91,10 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Client $clienti)
     {
-        //
+        $clienti->delete();
+        return redirect('/clienti')->with('status', 'Clientul "' . $clienti->nume . '" a fost șters cu succes!');
     }
 
     /**
@@ -102,8 +106,15 @@ class ClientController extends Controller
     {
         return request()->validate([
             'nume' => ['required', 'max:100'],
-            // 'telefon' => ['required', 'max:100'],            
-            // 'observatii' => ['required', 'max:500']
+            'nr_ord_reg_com' => ['max:50'],
+            'cui' => ['max:50'],
+            'adresa' => ['max:180'],
+            'iban' => ['max:100'],
+            'banca' => ['max:100'],
+            'reprezentant' => ['max:100'],
+            'reprezentant_functie' => ['max:100'],
+            'telefon' => ['max:100'],
+            'email' => ['nullable', 'email', 'max:100']
         ]);
     }
 }

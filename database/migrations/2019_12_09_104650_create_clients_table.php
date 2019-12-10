@@ -21,13 +21,13 @@ class CreateClientsTable extends Migration
             $table->string('adresa')->nullable();
             $table->string('iban')->nullable();
             $table->string('banca')->nullable();
-            $table->unsignedInteger('contract_nr')->nullable();
-            $table->date('contract_data')->nullable();
-            $table->date('data_incepere')->nullable();
+            // $table->unsignedInteger('contract_nr')->nullable();
+            // $table->date('contract_data')->nullable();
+            // $table->date('data_incepere')->nullable();
             $table->string('reprezentant')->nullable();
             $table->string('reprezentant_functie')->nullable();
-            $table->string('email')->nullable();
             $table->string('telefon')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

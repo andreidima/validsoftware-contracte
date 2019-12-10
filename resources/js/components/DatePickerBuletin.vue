@@ -82,7 +82,7 @@ export default {
       value-type="YYYY-MM-DD"
       format="DD-MM-YYYY"
       :editable="false"
-      :style="{ width: '170px' }"
+      :style="{ width: '150px' }"
       :disabled-date="notBeforeToday"
     >      
     </date-picker>
