@@ -40,12 +40,12 @@
                 <table class="table table-striped table-hover table-sm rounded"> 
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th style="padding-left:1rem">Nr. Crt.</th>
+                            <th>Nr. Crt.</th>
                             <th>Nume</th>
                             <th>Reprezentant</th>
                             <th>Telefon</th>
                             <th>Email</th>
-                            <th>Acțiuni</th>
+                            <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
                     <tbody>               
@@ -55,7 +55,11 @@
                                     {{ ($clienti ->currentpage()-1) * $clienti ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    <a href="{{ $client->path() }}">  
+                                    {{-- <a href="{{ $client->path() }}">  
+                                        <b>{{ $client->nume }}</b>
+                                    </a> --}}
+                                    <a class="" data-toggle="collapse" href="#collapse{{ $client->id }}" role="button" 
+                                        aria-expanded="false" aria-controls="collapse{{ $client->id }}">
                                         <b>{{ $client->nume }}</b>
                                     </a>
                                 </td>
@@ -68,12 +72,173 @@
                                 <td>
                                     {{ $client->email }}
                                 </td>
-                                <td>
-                                    <a href="{{ $client->path() }}/modifica">
+                                <td class="d-flex justify-content-end">
+                                    <a href="{{ $client->path() }}/modifica"
+                                        class="flex"    
+                                    >
                                         <span class="badge badge-primary">Modifică</span>
-                                    </a>
+                                    </a>                                   
+                                    <div style="flex" class="">
+                                        <a 
+                                            {{-- class="btn btn-danger btn-sm"  --}}
+                                            href="#" 
+                                            {{-- role="button" --}}
+                                            data-toggle="modal" 
+                                            data-target="#stergeClient{{ $client->id }}"
+                                            title="Șterge Client"
+                                            >
+                                            {{-- <i class="far fa-trash-alt"></i> --}}
+                                            <span class="badge badge-danger">Șterge</span>
+                                        </a>
+                                            <div class="modal fade text-dark" id="stergeClient{{ $client->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title text-white" id="exampleModalLabel">Client: <b>{{ $client->nume }}</b></h5>
+                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align:left;">
+                                                        Ești sigur ca vrei să ștergi Clientul?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                        
+                                                        <form method="POST" action="{{ $client->path() }}">
+                                                            @method('DELETE')  
+                                                            @csrf   
+                                                            <button 
+                                                                type="submit" 
+                                                                class="btn btn-danger"  
+                                                                >
+                                                                Șterge Client
+                                                            </button>                    
+                                                        </form>
+                                                    
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div> 
                                 </td>
-                            </tr>                                          
+                            </tr>  
+                            <tr class="collapse bg-white" id="collapse{{ $client->id }}" 
+                                {{-- style="background-color:cornsilk" --}}
+                            >
+                                <td colspan="6">
+                                    <table class="table table-sm table-striped table-hover col-lg-6 mx-auto border"
+                                {{-- style="background-color:#008282" --}}
+                                    > 
+                                        <tr>
+                                            <td class="py-0">
+                                                Nume
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->nume }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Nr. ord. reg. com.
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->nr_ord_reg_com }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Cui
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->cui }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Adresa
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->adresa }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Iban
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->iban }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Banca
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->banca }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Reprezentant
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->reprezentant }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Functie
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->reprezentant_functie }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Telefon
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->telefon }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Email
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->email }}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    {{-- <div class="row">
+                                        <div class="col-lg-3">
+                                            Adresa: 
+                                            <br>
+                                            {{ $client->adresa }}
+                                        </div>
+                                        <div class="col-lg-3">
+                                            Funcție reprezentant: 
+                                            {{ $client->reprezentant_functie }}
+                                        </div>
+                                        <div class="col-lg-3">
+                                            Nr.ord.reg.com.: {{ $client->nr_ord_reg_com }}
+                                            <br>
+                                            Cui: {{ $client->cui }}
+                                        </div>
+                                        <div class="col-lg-3">
+                                            Banca: {{ $client->banca }}
+                                            <br>
+                                            Iban: {{ $client->iban }}                                            
+                                        </div>
+                                    </div> --}}
+                                </td>
+                            </tr> 
+                            <tr class="collapse">
+                                <td colspan="6">
+
+                                </td>                                       
+                            </tr>
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                         @endforelse
