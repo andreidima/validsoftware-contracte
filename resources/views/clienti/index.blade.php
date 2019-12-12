@@ -247,7 +247,7 @@
             </div>
 
                 <nav>
-                    <ul class="pagination justify-content-center">
+                    <ul class="pagination pagination-sm justify-content-center">
                         {{$clienti->links()}}
                     </ul>
                 </nav>
