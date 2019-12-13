@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contract;
+use App\Client;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
@@ -22,9 +23,9 @@ class ContractController extends Controller
         //     ->Paginate(25);
         // return view('contracte.index', compact('contracte', 'search_nume'));
 
-        $contracte = Client::all()
-            ->latest()
+        $contracte = Contract::latest()
             ->Paginate(25);
+
 
         return view('contracte.index', compact('contracte'));
     }
@@ -36,7 +37,10 @@ class ContractController extends Controller
      */
     public function create()
     {
-        return view('contracte.create');
+        $clienti = Client::select('id', 'nume')->get();
+        $urmatorul_contract_nr = Contract::max('contract_nr') + 1;
+
+        return view('contracte.create', compact('clienti', 'urmatorul_contract_nr'));
     }
 
     /**
@@ -47,9 +51,10 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        $client = Client::create($this->validateRequest($request));
+        $contract = Contract::create($this->validateRequest($request));
 
-        return redirect($client->path())->with('status', 'Clientul "' . $client->nume . '" a fost adăugat cu succes!');
+        return redirect($contract->path())->with('status', 
+            'Contractul "' . $contract->contract_nr . '", pentru clientul "' . $contract->client . '", a fost adăugat cu succes!');
     }
 
     /**
@@ -109,16 +114,11 @@ class ContractController extends Controller
     protected function validateRequest(Request $request)
     {
         return request()->validate([
-            'nume' => ['required', 'max:100'],
-            'nr_ord_reg_com' => ['max:50'],
-            'cui' => ['max:50'],
-            'adresa' => ['max:180'],
-            'iban' => ['max:100'],
-            'banca' => ['max:100'],
-            'reprezentant' => ['max:100'],
-            'reprezentant_functie' => ['max:100'],
-            'telefon' => ['max:100'],
-            'email' => ['nullable', 'email', 'max:100']
+            'client_id' => ['required'],
+            'contract_nr' => ['numeric'],
+            'contract_data' => [''],
+            'data_incepere' => [''],
+            'anexa' => ['']
         ]);
     }
 }

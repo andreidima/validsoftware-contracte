@@ -4,7 +4,7 @@
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
-                <h4 class=" mb-0"><a href="{{ route('clienti.index') }}"><i class="fas fa-building"></i>Contracte</a></h4>
+                <h4 class=" mb-0"><a href="{{ route('clienti.index') }}"><i class="fas fa-handshake"></i>Contracte</a></h4>
             </div> 
             <div class="col-lg-6">
                 {{-- <form class="needs-validation" novalidate method="GET" action="{{ route('clienti.index') }}">
@@ -40,11 +40,11 @@
                 <table class="table table-striped table-hover table-sm rounded"> 
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th>Nr. Crt.</th>
-                            <th>Nume</th>
-                            <th>Reprezentant</th>
-                            <th>Telefon</th>
-                            <th>Email</th>
+                            <th>Nr. Contract.</th>
+                            <th>Client</th>
+                            <th>Data</th>
+                            <th>Data începere</th>
+                            <th>Anexa</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -52,25 +52,25 @@
                         @forelse ($contracte as $contract) 
                             <tr>                  
                                 <td align="">
-                                    {{ ($contracte ->currentpage()-1) * $contracte ->perpage() + $loop->index + 1 }}
+                                    {{ $contract->contract_nr }}
+                                </td>             
+                                <td>
+                                    {{ $contract->client->nume ?? '' }}
                                 </td>
                                 <td>
-                                    {{-- <a href="{{ $contract->path() }}">  
-                                        <b>{{ $contract->nume }}</b>
-                                    </a> --}}
-                                    <a class="" data-toggle="collapse" href="#collapse{{ $contract->id }}" role="button" 
+                                    <a href="{{ $contract->path() }}">  
+                                        <b>{{ $contract->contract_data }}</b>
+                                    </a>
+                                    {{-- <a class="" data-toggle="collapse" href="#collapse{{ $contract->id }}" role="button" 
                                         aria-expanded="false" aria-controls="collapse{{ $contract->id }}">
                                         <b>{{ $contract->nume }}</b>
-                                    </a>
+                                    </a> --}}
                                 </td>
                                 <td>
-                                    {{ $contract->reprezentant }}
+                                    {{ $contract->data_incepere }}
                                 </td>
                                 <td>
-                                    {{ $contract->telefon }}
-                                </td>
-                                <td>
-                                    {{ $client->email }}
+                                    {{ $contract->anexa }}
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $contract->path() }}/modifica"
@@ -132,7 +132,7 @@
 
                 <nav>
                     <ul class="pagination pagination-sm justify-content-center">
-                        {{$clienti->links()}}
+                        {{$contracte->links()}}
                     </ul>
                 </nav>
 

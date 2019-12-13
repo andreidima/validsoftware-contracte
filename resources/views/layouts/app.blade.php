@@ -47,6 +47,11 @@
                                         <i class="fas fa-building mr-1"></i>Clienți
                                     </a>
                                 </li>
+                                <li class="nav-item active mr-4">
+                                    <a class="nav-link" href="{{ route('contracte.index') }}">
+                                        <i class="fas fa-handshake mr-1"></i>Contracte
+                                    </a>
+                                </li>
                                 {{-- <li class="nav-item active mr-4">
                                     <a class="nav-link" href="{{ route('colete.index') }}">
                                         <i class="fas fa-box mr-1"></i>Colete

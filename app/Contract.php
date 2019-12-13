@@ -13,4 +13,9 @@ class Contract extends Model
     {
         return "/contracte/{$this->id}";
     }
+
+    public function client()
+    {
+        return $this->belongsTo('App\Client', 'client_id');
+    }
 }

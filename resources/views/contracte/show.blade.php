@@ -6,7 +6,7 @@
         <div class="col-md-7">
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
-                    <h6 class="ml-4 my-0" style="color:white"><i class="fas fa-building mr-1"></i>Clienți / {{ $clienti->nume }}</h6>
+                    <h6 class="ml-4 my-0" style="color:white"><i class="fas fa-handshake mr-1"></i>Contracte / {{ $contracte->contract_nr }} - {{ $contracte->client }}</h6>
                 </div>
 
                 <div class="card-body py-2 border border-secondary" 
@@ -26,82 +26,18 @@
                         > 
                             <tr>
                                 <td>
-                                    Nume
+                                    Număr contract
                                 </td>
                                 <td>
-                                    {{ $clienti->nume }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Nr. ord. reg. com.
-                                </td>
-                                <td>
-                                    {{ $clienti->nr_ord_reg_com }}
+                                    {{ $contracte->contract_nr }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Cui
+                                    Client
                                 </td>
                                 <td>
-                                    {{ $clienti->cui }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Adresa
-                                </td>
-                                <td>
-                                    {{ $clienti->adresa }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Iban
-                                </td>
-                                <td>
-                                    {{ $clienti->iban }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Banca
-                                </td>
-                                <td>
-                                    {{ $clienti->banca }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Reprezentant
-                                </td>
-                                <td>
-                                    {{ $clienti->reprezentant }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Functie
-                                </td>
-                                <td>
-                                    {{ $clienti->reprezentant_functie }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Telefon
-                                </td>
-                                <td>
-                                    {{ $clienti->telefon }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Email
-                                </td>
-                                <td>
-                                    {{ $clienti->email }}
+                                    {{ $contracte->client()->nume }}
                                 </td>
                             </tr>
                         </table>
@@ -109,7 +45,7 @@
                                        
                     <div class="form-row mb-2 px-2">                                    
                         <div class="col-lg-12 d-flex justify-content-center">  
-                            <a class="btn btn-primary btn-sm rounded-pill" href="/clienti">Pagină Clienți</a> 
+                            <a class="btn btn-primary btn-sm rounded-pill" href="/contracte">Pagină Contracte</a> 
                         </div>
                     </div>
 
