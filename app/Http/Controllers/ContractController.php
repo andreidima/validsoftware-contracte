@@ -54,16 +54,16 @@ class ContractController extends Controller
         $contract = Contract::create($this->validateRequest($request));
 
         return redirect($contract->path())->with('status', 
-            'Contractul "' . $contract->contract_nr . '", pentru clientul "' . $contract->client . '", a fost adăugat cu succes!');
+            'Contractul Nr."' . $contract->contract_nr . '", pentru clientul "' . ($contract->client->nume ?? '') . '", a fost adăugat cu succes!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $contracte)
+    public function show(Contract $contracte)
     {
         return view('contracte.show', compact('contracte'));
     }
@@ -71,39 +71,43 @@ class ContractController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $contracte)
+    public function edit(Contract $contracte)
     {
-        return view('contracte.edit', compact('contracte'));
+        $clienti = Client::select('id', 'nume')->get();
+
+        return view('contracte.edit', compact('contracte', 'clienti'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Client  $client
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $contracte)
+    public function update(Request $request, Contract $contracte)
     {
         $this->validateRequest($request, $contracte);
-        $contracte->update($request->all());
+        $contracte->update($request->except(['date']));
 
-        return redirect($contracte->path())->with('status', 'Clientul "' . $contracte->nume . '" a fost modificat cu succes!');
+        return redirect($contracte->path())->with('status', 
+            'Contractul Nr."' . $contracte->contract_nr . '", pentru clientul "' . ($contracte->client->nume ?? '') . '", a fost modificat cu succes!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $contracte)
+    public function destroy(Contract $contracte)
     {
         $contracte->delete();
-        return redirect('/contracte')->with('status', 'Clientul "' . $contracte->nume . '" a fost șters cu succes!');
+        return redirect('/contracte')->with('status', 
+            'Contractul Nr."' . $contracte->contract_nr . '", pentru clientul "' . ($contracte->client->nume ?? '') . '", a fost șters cu succes!');
     }
 
     /**
@@ -115,7 +119,7 @@ class ContractController extends Controller
     {
         return request()->validate([
             'client_id' => ['required'],
-            'contract_nr' => ['numeric'],
+            'contract_nr' => ['required', 'numeric'],
             'contract_data' => [''],
             'data_incepere' => [''],
             'anexa' => ['']

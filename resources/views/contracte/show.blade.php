@@ -6,7 +6,7 @@
         <div class="col-md-7">
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
-                    <h6 class="ml-4 my-0" style="color:white"><i class="fas fa-handshake mr-1"></i>Contracte / {{ $contracte->contract_nr }} - {{ $contracte->client }}</h6>
+                    <h6 class="ml-4 my-0" style="color:white"><i class="fas fa-handshake mr-1"></i>Contracte / Nr. {{ $contracte->contract_nr }} - {{ $contracte->client->nume ?? '' }}</h6>
                 </div>
 
                 <div class="card-body py-2 border border-secondary" 
@@ -37,7 +37,27 @@
                                     Client
                                 </td>
                                 <td>
-                                    {{ $contracte->client()->nume }}
+                                    {{ $contracte->client->nume ?? '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Data contract
+                                </td>
+                                <td>
+                                    @isset($contracte->contract_data)
+                                        {{ \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY') }}
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Data începere
+                                </td>
+                                <td>
+                                    @isset($contracte->data_incepere)
+                                        {{ \Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('D.MM.YYYY') }}
+                                    @endisset
                                 </td>
                             </tr>
                         </table>

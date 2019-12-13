@@ -58,16 +58,18 @@
                                     {{ $contract->client->nume ?? '' }}
                                 </td>
                                 <td>
-                                    <a href="{{ $contract->path() }}">  
-                                        <b>{{ $contract->contract_data }}</b>
-                                    </a>
+                                    @isset($contract->contract_data)
+                                        {{ \Carbon\Carbon::parse($contract->contract_data)->isoFormat('D.MM.YYYY') }}
+                                    @endisset
                                     {{-- <a class="" data-toggle="collapse" href="#collapse{{ $contract->id }}" role="button" 
                                         aria-expanded="false" aria-controls="collapse{{ $contract->id }}">
                                         <b>{{ $contract->nume }}</b>
                                     </a> --}}
                                 </td>
                                 <td>
-                                    {{ $contract->data_incepere }}
+                                    @isset($contract->data_incepere)
+                                        {{ \Carbon\Carbon::parse($contract->data_incepere)->isoFormat('D.MM.YYYY') }}
+                                    @endisset
                                 </td>
                                 <td>
                                     {{ $contract->anexa }}
