@@ -60,6 +60,23 @@
                                     @endisset
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Anexa
+                                </td>
+                                <td>
+                                    @isset($contracte->anexa)
+                                        <span class="badge badge-success">DA</span>
+                                    @else
+                                        <span class="badge badge-secondary">NU</span>
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    {!! $contracte->anexa !!}
+                                </td>
+                            </tr>
                         </table>
                     </div>
                                        

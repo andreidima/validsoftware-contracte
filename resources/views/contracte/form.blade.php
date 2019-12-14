@@ -37,8 +37,8 @@
                 </select> 
             </div> 
         </div>
-        <div class="form-row px-2 py-2 mb-0">                              
-            <div class="form-group col-lg-6 mb-0">  
+        <div class="form-row px-2 py-2 mb-0 justify-content-center">                              
+            <div class="form-group col-lg-4 mb-0">  
                 <label for="contract_data" class="mb-0 pl-1">Data contract:</label>
                 <vue2-datepicker-buletin
                     data-veche="{{ old('contract_data') == '' ? $contracte->contract_data : old('contract_data') }}"
@@ -48,7 +48,7 @@
                     not-before="{{ \Carbon\Carbon::today() }}"
                 ></vue2-datepicker-buletin>
             </div>                           
-            <div class="form-group col-lg-6 mb-0">  
+            <div class="form-group col-lg-4 mb-0">  
                 <label for="data_incepere" class="mb-0 pl-1">Data începere:</label>  
                 <vue2-datepicker-buletin
                     data-veche="{{ old('data_incepere') == '' ? $contracte->data_incepere : old('data_incepere') }}"
@@ -58,6 +58,18 @@
                     not-before="{{ \Carbon\Carbon::today() }}"
                 ></vue2-datepicker-buletin> 
             </div>  
+        </div>
+        <div class="form-row px-2 py-2 mb-0">                              
+            <div class="form-group col-lg-12 mb-0">  
+                <label for="anexa" class="mb-0 pl-1">Anexa:</label>
+                <vue2-editor
+                    anexa-veche="{{ old('anexa') == '' ? $contracte->anexa : old('anexa') }}"
+                    nume-camp-db="anexa"
+                    {{-- tip="date"
+                    latime="150"
+                    not-before="{{ \Carbon\Carbon::today() }}" --}}
+                ></vue2-editor>
+            </div>   
         </div>
         
                                 

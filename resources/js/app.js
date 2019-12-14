@@ -25,6 +25,8 @@ Vue.component('vue2-datepicker-duminica', require('./components/DatePickerDumini
 Vue.component('vue2-datepicker-buletin', require('./components/DatePickerBuletin.vue').default);
 Vue.component('vuejs-datepicker', require('./components/Vuejs-datepicker.vue').default);
 
+Vue.component('vue2-editor', require('./components/Vue2Editor.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

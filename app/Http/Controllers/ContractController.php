@@ -37,7 +37,9 @@ class ContractController extends Controller
      */
     public function create()
     {
-        $clienti = Client::select('id', 'nume')->get();
+        $clienti = Client::select('id', 'nume')
+            ->orderBy('nume')
+            ->get();
         $urmatorul_contract_nr = Contract::max('contract_nr') + 1;
 
         return view('contracte.create', compact('clienti', 'urmatorul_contract_nr'));
@@ -51,6 +53,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $contract = Contract::create($this->validateRequest($request));
 
         return redirect($contract->path())->with('status', 
@@ -76,7 +79,9 @@ class ContractController extends Controller
      */
     public function edit(Contract $contracte)
     {
-        $clienti = Client::select('id', 'nume')->get();
+        $clienti = Client::select('id', 'nume')
+            ->orderBy('nume')
+            ->get();
 
         return view('contracte.edit', compact('contracte', 'clienti'));
     }

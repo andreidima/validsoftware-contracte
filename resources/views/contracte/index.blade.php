@@ -72,7 +72,11 @@
                                     @endisset
                                 </td>
                                 <td>
-                                    {{ $contract->anexa }}
+                                    @isset($contract->anexa)
+                                        <span class="badge badge-success">DA</span>
+                                    @else
+                                        <span class="badge badge-secondary">NU</span>
+                                    @endisset
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $contract->path() }}/modifica"

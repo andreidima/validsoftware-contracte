@@ -76,7 +76,7 @@ export default {
  
 <template>
   <div>
-    <input type="text" name=numeCampDb v-model="time2" v-show="false">
+    <input type="text" :name=numeCampDb v-model="time2" v-show="false">
     <date-picker 
       v-model="time2"  
       value-type="YYYY-MM-DD"
