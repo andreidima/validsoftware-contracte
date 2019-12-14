@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['scheme' => 'https'], function () {
+// Route::group(['scheme' => 'https'], function () {
     Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
     Route::get('/rezervare-client', function () {
@@ -72,4 +72,4 @@ Route::group(['scheme' => 'https'], function () {
             'index', 'show'
         ]);
     });
-});
+// });
