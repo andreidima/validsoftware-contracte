@@ -62,6 +62,8 @@
         Route::redirect('/', 'clienti');
 
         Route::resource('clienti', 'ClientController');
+
+        Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
         Route::resource('contracte', 'ContractController');
 
         Route::resource('colete', 'ColetController')->only([

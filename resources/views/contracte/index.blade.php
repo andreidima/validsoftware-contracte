@@ -45,6 +45,7 @@
                             <th>Data</th>
                             <th>Data începere</th>
                             <th>Anexa</th>
+                            <th>Descarcă</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -77,6 +78,13 @@
                                     @else
                                         <span class="badge badge-secondary">NU</span>
                                     @endisset
+                                </td>
+                                <td>                                    
+                                    <a href="{{ $contract->path() }}/export/contract-word"
+                                        class="flex"    
+                                    >
+                                        <span class="badge badge-primary">Word</span>
+                                    </a> 
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $contract->path() }}/modifica"

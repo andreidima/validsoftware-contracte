@@ -288,7 +288,7 @@ class ColetController extends Controller
         //     new CreareTransportColet($colet)
         // );
         \Mail::to('alsimy_mond_travel@yahoo.com')->send(
-            new CreareRezervare($rezervare, $tarife)
+            new CreareTransportColet($colet)
         );
 
         return redirect('/adauga-colet-pasul-3');
@@ -307,7 +307,7 @@ class ColetController extends Controller
         
     }
 
-    public function pdfExportGuest(Request $request)
+    public function pdfExportGuest(Request $request, Contract $contracte)
     {
         $colet = $request->session()->get('colet');
 

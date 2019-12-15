@@ -130,4 +130,186 @@ class ContractController extends Controller
             'anexa' => ['']
         ]);
     }
+
+    public function wordExport(Request $request, Contract $contracte)
+    {
+        if ($request->view_type === 'contract-html') {
+            return view('rezervari.export.rezervare-pdf', compact('rezervari'));
+        } elseif ($request->view_type === 'contract-word') {
+            $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+            $phpWord->setDefaultFontName('Times New Roman');
+            $phpWord->setDefaultFontSize(12);
+
+            $phpWord->setDefaultParagraphStyle(
+                array(
+                    'align'      => 'both',
+                    // 'spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(12),
+                    // 'spacing'    => 120,
+                )
+            );
+
+            $section = $phpWord->addSection(
+                array(
+                    'marginLeft'   => 1200,
+                    'marginRight'  => 1200,
+                    'marginTop'    => 0,
+                    'marginBottom' => 700,
+                    'headerHeight' => 1700,
+                    'footerHeight' => 0,
+                )
+            );
+
+            $header = $section->addHeader();
+            // $header->addImage('images/contract-header.jpg', array('width' => 80, 'height' => 80));
+            // $header->addImage('images/contract-header.jpg');
+            $header->addImage(
+                'images/contract-header.jpg', 
+                array(
+                    'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
+                    // 'height'           => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
+                    'positioning'      => \PhpOffice\PhpWord\Style\Image::POSITION_ABSOLUTE,
+                    'posHorizontal'    => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_CENTER,
+                    'posHorizontalRel' => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
+                    'posVerticalRel'   => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
+                    'marginLeft'       => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
+                    'marginTop'        => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
+                    // 'marginBottom'     => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
+                )
+            );
+            
+            // $section->
+            //     addText('CONTRACT DE FURNIZARE SERVICII INFORMATICE', 
+            //         array('size' => 14, 'bold' => true),
+            //         array('align' => 'center')
+            //     );
+            // $section->
+            //     addText('Nr. '. $contracte->contract_nr .
+            //         (isset($contracte->contract_data) ? 
+            //             (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : ''),
+            //         array('bold' => true),
+            //         array('align' => 'center')
+            //     );
+            // $section->addTextBreak(1);
+            // $section->addText(
+            //     'Prezentul contract intră în vigoare începând cu data de ' . 
+            //     (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('D.MM.YYYY')) : '..........') .
+            //     ' între ' . $contracte->client->nume .
+            //     ', cu sediul în ' . $contracte->client->adresa .
+            //     ', Cod Unic de Înregistrare CUI ' . $contracte->client->cui .
+            //     ', reprezentată de ' . $contracte->client->reprezentant .
+            //     ', având funcţia de ' . $contracte->client->reprezentant_functie .
+            //     ' și'
+            //     );
+
+            // $textrun = $section->addTextRun();
+            // $textrun->addText('Dima P. Valentin P.F.A.', array('bold' => true));
+            // $textrun->addText(', Nr. Reg. Comerțului F39/811/28.05.2012, CIF 30249594, cont IBAN RO 52BTRL RONC RT02 8243 7501, deschis la Banca Transilvania.');
+
+            // $section->addTextBreak(1);
+
+            // $predefinedMultilevelStyle = array('listType' => \PhpOffice\PhpWord\Style\ListItem::TYPE_NUMBER_NESTED);
+            // $section->addListItem('Termeni generali', 0, array('bold' => true), $predefinedMultilevelStyle);
+            // $section->addListItem('Termeni generali', 0, array('bold' => true), $predefinedMultilevelStyle);
+            // $listItemRun = $section->addListItemRun(1, $predefinedMultilevelStyle);
+            // $listItemRun->addListItem('Contractul se referă la prestarea de servicii informatice de către', 1, null, $predefinedMultilevelStyle);
+
+            // $section = $phpWord->addSection();
+
+            $html = '<p style="text-align: center; font-weight: bold; font-size: 21px;">CONTRACT DE FURNIZARE SERVICII INFORMATICE</p>';
+            $html .= '<p style="text-align: center; font-weight: bold;">Nr. ' . $contracte->contract_nr . 
+                (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : '') .
+                '</p>';
+            $html .= '<br />';
+            $html .= '<p style="text-align:justify;">' .
+                'Prezentul contract intră în vigoare începând cu data de' . 
+                (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('D.MM.YYYY')) : '..........') .
+                ' între <b>' . $contracte->client->nume . '</b>' .
+                ', cu sediul în ' . $contracte->client->adresa .
+                ', Cod Unic de Înregistrare CUI ' . $contracte->client->cui .
+                ', reprezentată de ' . $contracte->client->reprezentant .
+                ', având funcţia de ' . $contracte->client->reprezentant_functie .
+                ' și' .
+                '</p><p>' .
+                '<b>Dima P. Valentin P.F.A.</b>, ' .
+                'Nr. Reg. Comerțului F39/811/28.05.2012, CIF 30249594, cont IBAN RO 52BTRL RONC RT02 8243 7501, deschis la Banca Transilvania.' .
+                '</p>';
+            $html .= '<br />';
+            $html .= '<ol>
+                        <li><p style="font-weight: bold;">Termeni generali</p></li>
+                            <ol>
+                                <li>Contractul se referă la prestarea de servicii informatice de către <b>Dima P. Valentin PFA</b> în beneficiul <b>'. $contracte->client->nume . '</b>.</li>
+                                <li>Contractul este valabil până la terminarea sa în conformitate cu condiţiile incluse mai jos în prezentul document.</li>
+                            </ol>
+                            <br/>
+                        <li><p style="font-weight: bold;">Relaţie contractuală</p></li>
+                            <ol>
+                                <li><b>Dima P. Valentin PFA</b> va desfăşura activităţile aferente prezentului contract la sediul <b>' . $contracte->client->nume . '</b> sau la sediul propriu.</li>
+                                <li><b>Dima P. Valentin PFA</b> nu are autoritatea de a-şi asuma responsabilităţi sau obligaţii în locul <b>' . $contracte->client->nume . '</b> şi nu poate reprezenta <b>' . $contracte->client->nume . '</b> în nici un fel de situaţii.</li>
+                            </ol>
+                            <br/>
+                        <li><p style="font-weight: bold;">Relaţie contractuală</p></li>
+                            <ol>
+                                <li>Serviciile pe care <b>Dima P. Valentin PFA</b> se angajează să le efectueze în beneficiul <b>' . $contracte->client->nume . '</b> sunt specificate în “Planul de lucru – Anexa”, dar nu se limitează numai la acestea.</li>
+                                <li><b>' . $contracte->client->nume . '</b> şi <b>Dima P. Valentin PFA</b> vor cădea de acord asupra serviciilor suplimentare care trebuie efectuate sau asupra celor care nu mai sunt necesare.</li>
+                                <li>Calitatea serviciilor furnizate de <b>Dima P. Valentin PFA</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b></li>
+                                <li><b>Dima P. Valentin PFA</b> are obligaţia de a livra produsele şi de a presta serviciile prevăzute în contract cu profesionalismul şi promptitudinea cuvenite angajamentului asumat şi în conformitate cu propunerea sa tehnică.</li>
+                                <li><b>Dima P. Valentin PFA</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>
+                                <li><b>Dima P. Valentin PFA</b> va emite lunar o factură, în valoare de 150 RON (TVA 0), pentru serviciile prestate. </li>
+                            </ol>
+                            <br/>
+                        <li><p style="font-weight: bold;">Responsabilităţile <b>' . $contracte->client->nume . '</b></p></li>
+                            <ol>
+                                <li><b>' . $contracte->client->nume . '</b> are obligaţia de a pune la dispoziţia <b>Dima P. Valentin PFA</b> toate informaţiile pe care <b>Dima P. Valentin PFA</b> le consideră necesare în mod rezonabil pentru îndeplinirea contractului.</li>
+                                <li><b>' . $contracte->client->nume . '</b> are obligaţia de a efectua plata către <b>Dima P. Valentin PFA</b> în termen de 30 zile de la emiterea facturii de către acesta.</li>
+                                <li>În cazul în care <b>' . $contracte->client->nume . '</b> nu onorează facturile în termen de 30 zile de la expirarea perioadei prevăzute la clauza 4.2, <b>Dima P. Valentin PFA</b> are dreptul de a sista prestarea serviciilor sau de a diminua ritmul prestării. Imediat ce <b>' . $contracte->client->nume . '</b> onorează factura, <b>Dima P. Valentin PFA</b> va relua prestarea serviciilor în cel mai scurt timp posibil.</li>
+                            </ol>
+                            <br/>
+                        <li><p style="font-weight: bold;">Recepţie şi verificări</p></li>
+                            <ol>
+                                <li><b>' . $contracte->client->nume . '</b> are dreptul de a verifica modul de prestare şi calitatea serviciilor.</li>
+                                <li>Dima P. Valentin va genera lunar un raport de activitate, care va fi inaintat beneficiarului. </li>
+                            </ol>
+                            <br/>
+                        <li><p style="font-weight: bold;">Forţa majoră</p></li>
+                            <ol>
+                                <li>Forţa majoră este constatată de o autoritate competentă.</li>
+                                <li>Forţa majoră exonerează părţile contractante de îndeplinirea obligaţiilor asumate prin prezentul contract, pe toată perioada în care aceasta acţionează.</li>
+                                <li>Îndeplinirea contractului va fi suspendată în perioada de acţiune a forţei majore, dar fără a prejudicia drepturile ce li se cuveneau părţilor până la apariţia acesteia.</li>
+                                <li>Partea contractantă care invocă forţa majoră are obligaţia de a notifica celeilalte părţi, imediat şi în mod complet, producerea acesteia şi de a lua orice măsuri care îi stau la dispoziţie în vederea limitării consecinţelor.</li>
+                                <li>Dacă forţa majoră acţionează sau se estimează că va acţiona o perioadă mai mare de 6 luni, fiecare parte va avea dreptul să notifice celeilalte părţi încetarea de plin drept a prezentului contract, fără ca vreuna dintre părţi să poată pretinde celeilalte daune-interese.</li>
+                            </ol>
+                            <br/><br/><br/>
+                        <li><p style="font-weight: bold;">Soluţionarea litigiilor</p></li>
+                            <ol>
+                                <li><b>' . $contracte->client->nume . '</b> şi <b>Dima P. Valentin PFA</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
+                                <li>Dacă după 15 zile de la începerea acestor tratative <b>' . $contracte->client->nume . '</b> şi <b>Dima P. Valentin PFA</b> nu reuşesc să rezolve în mod amiabil o divergenţă contractuală, fiecare parte poate solicita ca disputa să se soluționeze de către instanțele judecătorești.</li>
+                            </ol>
+                            <br/>
+                        <li><p style="font-weight: bold;">Modificări</p></li>
+                            <ol>
+                                <li>Orice modificare a prezentului contract trebuie să fie făcută în scris, sub formă de act adiţional.</li>
+                            </ol>
+                            <br/>
+                        <li><p style="font-weight: bold;">Legea aplicabilă contractului</p></li>
+                            <ol>
+                                <li>Contractul va fi interpretat conform legilor din România.</li>
+                            </ol>
+                    </ol>
+                ';
+
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+            
+            $footer = $section->addFooter();
+            $footer->addPreserveText('Pagina {PAGE} din {NUMPAGES}', null, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER));
+
+            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+            try {
+                $objWriter->save(storage_path('Contract.docx'));
+            } catch (Exception $e) { }
+
+
+            return response()->download(storage_path('Contract.docx'));
+        }
+    }
 }
