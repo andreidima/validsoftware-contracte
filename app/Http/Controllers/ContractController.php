@@ -127,6 +127,7 @@ class ContractController extends Controller
             'contract_nr' => ['required', 'numeric'],
             'contract_data' => [''],
             'data_incepere' => [''],
+            'pret' => ['nullable', 'numeric', 'max:99999'],
             'anexa' => ['']
         ]);
     }
@@ -255,7 +256,7 @@ class ContractController extends Controller
                                 <li>Calitatea serviciilor furnizate de <b>Dima P. Valentin PFA</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b></li>
                                 <li><b>Dima P. Valentin PFA</b> are obligaţia de a livra produsele şi de a presta serviciile prevăzute în contract cu profesionalismul şi promptitudinea cuvenite angajamentului asumat şi în conformitate cu propunerea sa tehnică.</li>
                                 <li><b>Dima P. Valentin PFA</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>
-                                <li><b>Dima P. Valentin PFA</b> va emite lunar o factură, în valoare de 150 RON (TVA 0), pentru serviciile prestate. </li>
+                                <li><b>Dima P. Valentin PFA</b> va emite lunar o factură, în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Responsabilităţile <b>' . $contracte->client->nume . '</b></p></li>
@@ -299,7 +300,10 @@ class ContractController extends Controller
                 ';
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+            // \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, true);
             
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $contracte->anexa, false, false);                 
+
             $footer = $section->addFooter();
             $footer->addPreserveText('Pagina {PAGE} din {NUMPAGES}', null, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER));
 

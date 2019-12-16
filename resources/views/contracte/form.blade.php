@@ -57,7 +57,17 @@
                     latime="150"
                     not-before="{{ \Carbon\Carbon::today() }}"
                 ></vue2-datepicker-buletin> 
-            </div>  
+            </div>                           
+            <div class="form-group col-lg-4 mb-0">  
+                <label for="pret" class="mb-0 pl-1">Preț:</label>                               
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('pret') ? 'is-invalid' : '' }}" 
+                    name="pret" 
+                    placeholder="" 
+                    value="{{ old('pret') == '' ? $contracte->pret : old('pret') }}"
+                    required> 
+            </div> 
         </div>
         <div class="form-row px-2 py-2 mb-0">                              
             <div class="form-group col-lg-12 mb-0">  
