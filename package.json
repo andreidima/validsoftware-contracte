@@ -26,6 +26,8 @@
     },
     "dependencies": {
         "moment": "^2.24.0",
+        "tiptap": "^1.26.6",
+        "tiptap-extensions": "^1.28.6",
         "vue2-datepicker": "^3.0.2",
         "vue2-editor": "^2.10.2",
         "vuejs-datepicker": "^1.6.2"

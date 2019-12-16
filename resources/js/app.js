@@ -26,6 +26,7 @@ Vue.component('vue2-datepicker-buletin', require('./components/DatePickerBuletin
 Vue.component('vuejs-datepicker', require('./components/Vuejs-datepicker.vue').default);
 
 Vue.component('vue2-editor', require('./components/Vue2Editor.vue').default);
+Vue.component('tiptap-editor', require('./components/TipTapEditor.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

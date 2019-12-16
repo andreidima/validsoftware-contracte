@@ -302,7 +302,9 @@ class ContractController extends Controller
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
             // \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, true);
             
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $contracte->anexa, false, false);                 
+            $anexa = str_replace('<br>', '<br/>', $contracte->anexa);
+            // dd($contracte->anexa, $anexa);
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $anexa, false, false);                 
 
             $footer = $section->addFooter();
             $footer->addPreserveText('Pagina {PAGE} din {NUMPAGES}', null, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER));
