@@ -1,5 +1,6 @@
 <template>
   <div class="editor">
+    <input type="text" :name=numeCampDb v-model="editor.content" v-show="false">
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="menubar">
 
@@ -9,6 +10,7 @@
           @click="commands.bold"
         >
           <!-- <icon name="bold" /> -->
+          Bold
         </button>
 
         <button
@@ -17,6 +19,7 @@
           @click="commands.italic"
         >
           <!-- <icon name="italic" /> -->
+          Italic
         </button>
 
         <button
@@ -25,6 +28,7 @@
           @click="commands.strike"
         >
           <!-- <icon name="strike" /> -->
+          Strike
         </button>
 
         <!-- <button
@@ -163,6 +167,7 @@ export default {
     EditorMenuBar,
     // Icon,
   },
+  props: ['anexaVeche', 'numeCampDb'],
   data() {
     return {
       editor: new Editor({

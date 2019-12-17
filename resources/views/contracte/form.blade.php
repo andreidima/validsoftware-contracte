@@ -87,6 +87,15 @@
                 ></tiptap-editor>
             </div>   
         </div>
+        {{-- <div class="form-row px-2 py-2 mb-0">                              
+            <div class="form-group col-lg-12 mb-0">  
+                <label for="anexa" class="mb-0 pl-1">Anexa:</label>
+                <ck-editor
+                    anexa-veche="{{ old('anexa') == '' ? $contracte->anexa : old('anexa') }}"
+                    nume-camp-db="anexa"
+                ></ck-editor>
+            </div>   
+        </div> --}}
         
                                 
         <div class="form-row mb-3 px-2 justify-content-center">                                    
