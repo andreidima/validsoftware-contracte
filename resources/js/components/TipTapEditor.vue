@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <input type="text" :name=numeCampDb v-model="editor.content" v-show="false">
+    <input type="text" :name=numeCampDb v-model="content" v-show="false">
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="menubar">
 
@@ -31,7 +31,7 @@
           Strike
         </button>
 
-        <!-- <button
+        <button
           class="menubar__button"
           :class="{ 'is-active': isActive.underline() }"
           @click="commands.underline"
@@ -130,7 +130,7 @@
           @click="commands.redo"
         >
           <icon name="redo" />
-        </button> -->
+        </button>
 
       </div>
     </editor-menu-bar>
@@ -170,6 +170,9 @@ export default {
   props: ['anexaVeche', 'numeCampDb'],
   data() {
     return {
+        content:'',
+				html: '',
+				title: '',
       editor: new Editor({
         extensions: [
           new Blockquote(),
@@ -190,31 +193,24 @@ export default {
           new Underline(),
           new History(),
         ],
-        content: `
-          <h2>
-            Hi there,
-          </h2>
-          <p>
-            this is a very <em>basic</em> example of tiptap.
-          </p>
-          <pre><code>body { display: none; }</code></pre>
-          <ul>
-            <li>
-              A regular list
-            </li>
-            <li>
-              With regular items
-            </li>
-          </ul>
-          <blockquote>
-            It's amazing 👏
-            <br />
-            – mom
-          </blockquote>
-        `,
-      }),
+				onUpdate: ({ getHTML }) => {
+						this.html=getHTML();
+						if (this.html === '<p></p>')this.content = '';
+						else this.content = this.html;
+					}
+				}),
     }
   },
+    created() {
+        if (this.anexaVeche == "") {
+        }
+        else {
+            this.content = this.anexaVeche
+            this.editor.setContent(this.anexaVeche),
+            // this.content = this.anexaVeche
+            this.editor.onUpdate()
+        }
+    },
   beforeDestroy() {
     this.editor.destroy()
   },
