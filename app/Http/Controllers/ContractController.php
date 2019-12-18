@@ -301,9 +301,22 @@ class ContractController extends Controller
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
             // \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, true);
-            
+                        
+            $section->addPageBreak();
+
             $anexa = str_replace('<br>', '<br/>', $contracte->anexa);
+
+            $anexa = str_replace('<p class="ql-align-justify">', '<p style="text-align:justify">', $anexa);            
+            $anexa = str_replace('<p class="ql-align-center">', '<p style="text-align:center">', $anexa);
+            $anexa = str_replace('<p class="ql-align-right">', '<p style="text-align:right">', $anexa);
+
+            $anexa = str_replace('color: rgb(230, 0, 0);', 'color: #ff0000;', $anexa);
+            $anexa = str_replace('background-color: rgb(230, 0, 0);', 'bgcolor: #ff0000;', $anexa);
+            $anexa = str_replace('color: rgb(0, 0, 0);', 'color: #000000;', $anexa);
+            $anexa = str_replace('background-color: rgb(0, 0, 0);', 'bgcolor: #000000;', $anexa);
+
             // dd($contracte->anexa, $anexa);
+
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $anexa, false, false);                 
 
             $footer = $section->addFooter();
@@ -314,8 +327,15 @@ class ContractController extends Controller
                 $objWriter->save(storage_path('Contract.docx'));
             } catch (Exception $e) { }
 
-
             return response()->download(storage_path('Contract.docx'));
+            
+            // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
+            // try {
+            //     $objWriter->save(storage_path('Contract.html'));
+            // } catch (Exception $e) { }
+
+            // return response()->download(storage_path('Contract.html'));
+            
         }
     }
 }

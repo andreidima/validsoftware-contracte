@@ -69,7 +69,7 @@
                     required> 
             </div> 
         </div>
-        {{-- <div class="form-row px-2 py-2 mb-0">                              
+        <div class="form-row px-2 py-2 mb-0">                              
             <div class="form-group col-lg-12 mb-0">  
                 <label for="anexa" class="mb-0 pl-1">Anexa:</label>
                 <vue2-editor
@@ -77,8 +77,8 @@
                     nume-camp-db="anexa"
                 ></vue2-editor>
             </div>   
-        </div> --}}
-        <div class="form-row px-2 py-2 mb-0">                              
+        </div>
+        {{-- <div class="form-row px-2 py-2 mb-0">                              
             <div class="form-group col-lg-12 mb-0">  
                 <label for="anexa" class="mb-0 pl-1">Anexa:</label>
                 <tiptap-editor
@@ -86,7 +86,7 @@
                     nume-camp-db="anexa"
                 ></tiptap-editor>
             </div>   
-        </div>
+        </div> --}}
         {{-- <div class="form-row px-2 py-2 mb-0">                              
             <div class="form-group col-lg-12 mb-0">  
                 <label for="anexa" class="mb-0 pl-1">Anexa:</label>
