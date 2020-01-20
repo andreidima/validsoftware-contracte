@@ -20,7 +20,7 @@
         Route::resource('clienti', 'ClientController');
 
         Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
-        Route::post('/contracte/file-upload', 'ContractController@fileUploadPost')->name('file.upload.post');
+        Route::post('/contracte/file-upload/{contracte}', 'ContractController@fileUploadPost')->name('file.upload.post');
 
         Route::resource('contracte', 'ContractController');
 

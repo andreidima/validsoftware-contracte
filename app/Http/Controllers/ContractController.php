@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Contract;
 use App\Client;
+use App\Fisier;
+
+use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
@@ -24,6 +28,7 @@ class ContractController extends Controller
         // return view('contracte.index', compact('contracte', 'search_nume'));
 
         $contracte = Contract::latest()
+            ->withCount('fisiere')
             ->Paginate(25);
 
 
@@ -423,7 +428,7 @@ class ContractController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function fileUploadPost(Request $request)
+    public function fileUploadPost(Request $request, Contract $contracte)
     {
         $request->validate([
             'fisier' => 'required|mimes:pdf,xlx,csv|max:2048',
@@ -432,11 +437,20 @@ class ContractController extends Controller
         $fisier = request()->file('fisier');
         $fileName = pathinfo($fisier->getClientOriginalName(), PATHINFO_FILENAME) . ' ' .
             \Carbon\Carbon::now()->isoFormat('HHMMSSDDMMYY') . '.' . 
-            $fisier->extension();        
-        $filePath = "uploads/contracte/" . date("Y") . '/' . date("m") . "/";
+            $fisier->extension();
+        // $filePath = "contracte/" . date("Y") . '/' . date("m");
+        $filePath = "contracte/" . $contracte->contract_nr;
         // dd($fisier, $fileName, $filePath);
-        // $fisier->storeAs($filePath, $fileName);
-        $request->fisier->move(public_path($filePath), $fileName);
+        $fisier->storeAs($filePath, $fileName);
+        // $request->fisier->move(public_path($filePath), $fileName);
+
+        // Storage::disk('local')->put($filePath, $fileName);
+
+        $fisier_database = new Fisier;
+        $fisier_database->contract_id = $contracte->id;
+        $fisier_database->path = $filePath;
+        $fisier_database->nume = $fileName;
+        $fisier_database->save();
 
         return back()->with('success', 'Fișierul "' . $fileName . '" a fost încărcat cu succes');
     }

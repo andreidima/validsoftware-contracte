@@ -38,10 +38,6 @@
                         <tr class="small" style="padding:2rem">
                             <th>Nr. Contract.</th>
                             <th>Client</th>
-                            <th>Data</th>
-                            <th>Data începere</th>
-                            <th>Anexa</th>
-                            <th>Descarcă</th>
                             <th class="text-center">Dată contract</th>
                             <th class="text-center">Dată începere</th>
                             <th class="text-center">Anexa</th>
@@ -87,8 +83,16 @@
                                         <span class="badge badge-primary">Word</span>
                                     </a> 
                                 </td>
-                                <td class="text-center">                                  
+                                <td class="text-center">                              
                                     <div style="flex" class="">
+                                        @if ($contract->fisiere_count > 0)    
+                                            <a class="" data-toggle="collapse" href="#collapseFisiere{{ $contract->id }}" role="button" 
+                                                aria-expanded="false" aria-controls="collapseFisiere{{ $contract->id }}">
+                                                <span class="badge badge-primary">{{ $contract->fisiere_count }}</span>
+                                            </a>
+                                        @else
+                                            <span class="badge badge-secondary">0</span>
+                                        @endif  
                                         <a 
                                             {{-- class="btn btn-danger btn-sm"  --}}
                                             href="#" 
@@ -112,7 +116,7 @@
                                                     <div class="modal-body" style="text-align:left;">
                                                         Adaugă un fișier la contract
 
-                                                        <form action="{{ route('file.upload.post') }}" method="POST" enctype="multipart/form-data">
+                                                        <form action="{{ route('file.upload.post', $contract->id) }}" method="POST" enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="row">                                                
                                                                 <div class="col-md-6">
@@ -185,6 +189,88 @@
                                     </div> 
                                 </td>
                             </tr>  
+                            <tr class="collapse bg-white" id="collapseFisiere{{ $contract->id }}" 
+                            >
+                                <td colspan="8">
+                                    <table class="table table-sm table-striped table-hover col-lg-6 mx-auto border">
+                                        <thead class="text-white rounded" style="background-color:#e66800;">
+                                            <tr class="" style="padding:2rem">
+                                                <td>
+                                                    Nr. Crt.
+                                                </td>
+                                                <td>
+                                                    Nume fișier
+                                                </td>
+                                                <td class="text-center">
+                                                    Acțiuni
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @forelse ($contract->fisiere as $fisier)
+                                            <tr>
+                                                <td class="py-0">
+                                                    {{ $loop->iteration }}
+                                                </td>
+                                                <td class="py-0">
+                                                    {{ $fisier->nume }}
+                                                </td>
+                                                <td class="py-0 text-center">
+                                                    <a 
+                                                        {{-- class="btn btn-danger btn-sm"  --}}
+                                                        href="#" 
+                                                        {{-- role="button" --}}
+                                                        data-toggle="modal" 
+                                                        data-target="#stergeContract{{ $contract->id }}"
+                                                        title="Șterge Contract"
+                                                        >
+                                                        {{-- <i class="far fa-trash-alt"></i> --}}
+                                                        <span class="badge badge-danger">Șterge</span>
+                                                    </a>
+                                                        <div class="modal fade text-dark" id="stergeContract{{ $contract->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                <div class="modal-header bg-danger">
+                                                                    <h5 class="modal-title text-white" id="exampleModalLabel">Contract: <b>{{ $contract->contract_nr }}</b></h5>
+                                                                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body" style="text-align:left;">
+                                                                    Ești sigur ca vrei să ștergi Contractul?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                                    
+                                                                    <form method="POST" action="{{ $contract->path() }}">
+                                                                        @method('DELETE')  
+                                                                        @csrf   
+                                                                        <button 
+                                                                            type="submit" 
+                                                                            class="btn btn-danger"  
+                                                                            >
+                                                                            Șterge Contract
+                                                                        </button>                    
+                                                                    </form>
+                                                                
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </td>
+                                            </tr>                                            
+                                        @empty
+                                            
+                                        @endforelse
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr> 
+                            <tr class="collapse">
+                                <td colspan="8">
+
+                                </td>                                       
+                            </tr> 
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                         @endforelse
