@@ -18,4 +18,9 @@ class Contract extends Model
     {
         return $this->belongsTo('App\Client', 'client_id');
     }
+
+    public function fisiere()
+    {
+        return $this->hasMany('App\Fisier', 'contract_id');
+    }
 }

@@ -4,7 +4,7 @@
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
-                <h4 class=" mb-0"><a href="{{ route('clienti.index') }}"><i class="fas fa-handshake"></i>Contracte</a></h4>
+                <h4 class=" mb-0"><a href="{{ route('contracte.index') }}"><i class="fas fa-handshake"></i>Contracte</a></h4>
             </div> 
             <div class="col-lg-6">
                 {{-- <form class="needs-validation" novalidate method="GET" action="{{ route('clienti.index') }}">
@@ -30,22 +30,23 @@
 
         <div class="card-body px-0 py-3">
 
-            @if (session()->has('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-            @endif
+            @include('errors')
 
             <div class="table-responsive rounded">
                 <table class="table table-striped table-hover table-sm rounded"> 
                     <thead class="text-white rounded" style="background-color:#e66800;">
-                        <tr class="" style="padding:2rem">
+                        <tr class="small" style="padding:2rem">
                             <th>Nr. Contract.</th>
                             <th>Client</th>
                             <th>Data</th>
                             <th>Data începere</th>
                             <th>Anexa</th>
                             <th>Descarcă</th>
+                            <th class="text-center">Dată contract</th>
+                            <th class="text-center">Dată începere</th>
+                            <th class="text-center">Anexa</th>
+                            <th class="text-center">Descarcă Contract</th>
+                            <th class="text-center">Fișiere atașate</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -58,7 +59,7 @@
                                 <td>
                                     {{ $contract->client->nume ?? '' }}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @isset($contract->contract_data)
                                         {{ \Carbon\Carbon::parse($contract->contract_data)->isoFormat('D.MM.YYYY') }}
                                     @endisset
@@ -67,24 +68,71 @@
                                         <b>{{ $contract->nume }}</b>
                                     </a> --}}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @isset($contract->data_incepere)
                                         {{ \Carbon\Carbon::parse($contract->data_incepere)->isoFormat('D.MM.YYYY') }}
                                     @endisset
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @isset($contract->anexa)
                                         <span class="badge badge-success">DA</span>
                                     @else
                                         <span class="badge badge-secondary">NU</span>
                                     @endisset
                                 </td>
-                                <td>                                    
+                                <td class="text-center">                                    
                                     <a href="{{ $contract->path() }}/export/contract-word"
                                         class="flex"    
                                     >
                                         <span class="badge badge-primary">Word</span>
                                     </a> 
+                                </td>
+                                <td class="text-center">                                  
+                                    <div style="flex" class="">
+                                        <a 
+                                            {{-- class="btn btn-danger btn-sm"  --}}
+                                            href="#" 
+                                            {{-- role="button" --}}
+                                            data-toggle="modal" 
+                                            data-target="#incarcaFisier{{ $contract->id }}"
+                                            title="incarca Fisier"
+                                            >
+                                            {{-- <i class="far fa-trash-alt"></i> --}}
+                                            <span class="badge badge-success"><i class="fas fa-plus-square"></i></span>
+                                        </a>
+                                            <div class="modal fade text-dark" id="incarcaFisier{{ $contract->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-white" id="exampleModalLabel">Adaugă un fișier la Contract: <b>{{ $contract->contract_nr }}</b></h5>
+                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align:left;">
+                                                        Adaugă un fișier la contract
+
+                                                        <form action="{{ route('file.upload.post') }}" method="POST" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="row">                                                
+                                                                <div class="col-md-6">
+                                                                    <input type="file" name="fisier" class="form-control">
+                                                                </div>                                                
+                                                                <div class="col-md-6">
+                                                                    <button type="submit" class="btn btn-success">Upload</button>
+                                                                </div>                                                
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+
+
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div> 
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $contract->path() }}/modifica"

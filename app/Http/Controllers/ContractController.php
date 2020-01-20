@@ -417,4 +417,27 @@ class ContractController extends Controller
             
         }
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fileUploadPost(Request $request)
+    {
+        $request->validate([
+            'fisier' => 'required|mimes:pdf,xlx,csv|max:2048',
+        ]);
+
+        $fisier = request()->file('fisier');
+        $fileName = pathinfo($fisier->getClientOriginalName(), PATHINFO_FILENAME) . ' ' .
+            \Carbon\Carbon::now()->isoFormat('HHMMSSDDMMYY') . '.' . 
+            $fisier->extension();        
+        $filePath = "uploads/contracte/" . date("Y") . '/' . date("m") . "/";
+        // dd($fisier, $fileName, $filePath);
+        // $fisier->storeAs($filePath, $fileName);
+        $request->fisier->move(public_path($filePath), $fileName);
+
+        return back()->with('success', 'Fișierul "' . $fileName . '" a fost încărcat cu succes');
+    }
 }
