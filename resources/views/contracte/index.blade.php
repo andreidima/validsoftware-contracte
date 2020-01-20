@@ -192,7 +192,7 @@
                             <tr class="collapse bg-white" id="collapseFisiere{{ $contract->id }}" 
                             >
                                 <td colspan="8">
-                                    <table class="table table-sm table-striped table-hover col-lg-6 mx-auto border">
+                                    <table class="table table-sm table-striped table-hover col-lg-8 mx-auto border">
                                         <thead class="text-white rounded" style="background-color:#e66800;">
                                             <tr class="" style="padding:2rem">
                                                 <td>
@@ -215,41 +215,54 @@
                                                 <td class="py-0">
                                                     {{ $fisier->nume }}
                                                 </td>
-                                                <td class="py-0 text-center">
+                                                <td class="py-0 text-center d-flex">
+                                                    {{-- <a href="/contracte/file-download/{{ $fisier->id }}" class="mr-4">
+                                                        <span class="badge badge-success">Descarcă</span>
+                                                    </a> --}}
+                                                                    <form method="POST" action="{{ route('file.download', $fisier->id) }}">
+                                                                        {{-- @method('DELETE')   --}}
+                                                                        @csrf   
+                                                                        <button 
+                                                                            type="submit" 
+                                                                            class="btn btn-link py-0"  
+                                                                            >
+                                                                            <span class="badge badge-success">Descarcă</span>
+                                                                        </button>                    
+                                                                    </form>
                                                     <a 
                                                         {{-- class="btn btn-danger btn-sm"  --}}
                                                         href="#" 
                                                         {{-- role="button" --}}
                                                         data-toggle="modal" 
-                                                        data-target="#stergeContract{{ $contract->id }}"
-                                                        title="Șterge Contract"
+                                                        data-target="#stergeFisier{{ $fisier->id }}"
+                                                        title="Șterge Fisier"
                                                         >
                                                         {{-- <i class="far fa-trash-alt"></i> --}}
                                                         <span class="badge badge-danger">Șterge</span>
                                                     </a>
-                                                        <div class="modal fade text-dark" id="stergeContract{{ $contract->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade text-dark" id="stergeFisier{{ $fisier->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                 <div class="modal-header bg-danger">
-                                                                    <h5 class="modal-title text-white" id="exampleModalLabel">Contract: <b>{{ $contract->contract_nr }}</b></h5>
+                                                                    <h5 class="modal-title text-white" id="exampleModalLabel">Fisier: <b>{{ $fisier->nume }}</b></h5>
                                                                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body" style="text-align:left;">
-                                                                    Ești sigur ca vrei să ștergi Contractul?
+                                                                    Ești sigur ca vrei să ștergi Fișierul?
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
                                                                     
-                                                                    <form method="POST" action="{{ $contract->path() }}">
+                                                                    <form method="POST" action="{{ $fisier->path() }}">
                                                                         @method('DELETE')  
                                                                         @csrf   
                                                                         <button 
                                                                             type="submit" 
                                                                             class="btn btn-danger"  
                                                                             >
-                                                                            Șterge Contract
+                                                                            Șterge Fișier
                                                                         </button>                    
                                                                     </form>
                                                                 

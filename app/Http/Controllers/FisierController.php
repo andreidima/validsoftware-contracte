@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Fisier;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 class FisierController extends Controller
 {
     /**
@@ -78,8 +80,15 @@ class FisierController extends Controller
      * @param  \App\Fisier  $fisier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fisier $fisier)
+    public function destroy(Fisier $fisiere)
     {
-        //
+        // dd($fisiere);
+        $fisiere->delete();
+
+        $cale_si_fisier = $fisiere->path . $fisiere->nume;
+        Storage::delete($cale_si_fisier);
+
+        // return redirect('/contracte')->with('status', 'Fișierul "' . $fisiere->nume . '" a fost șters cu succes!');
+        return back()->with('status', 'Fișierul "' . $fisiere->nume . '" a fost șters cu succes!');
     }
 }

@@ -424,7 +424,7 @@ class ContractController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Upload files.
      *
      * @return \Illuminate\Http\Response
      */
@@ -439,7 +439,7 @@ class ContractController extends Controller
             \Carbon\Carbon::now()->isoFormat('HHMMSSDDMMYY') . '.' . 
             $fisier->extension();
         // $filePath = "contracte/" . date("Y") . '/' . date("m");
-        $filePath = "contracte/" . $contracte->contract_nr;
+        $filePath = "contracte/" . $contracte->contract_nr . '/';
         // dd($fisier, $fileName, $filePath);
         $fisier->storeAs($filePath, $fileName);
         // $request->fisier->move(public_path($filePath), $fileName);
@@ -453,5 +453,39 @@ class ContractController extends Controller
         $fisier_database->save();
 
         return back()->with('success', 'Fișierul "' . $fileName . '" a fost încărcat cu succes');
+    }
+
+    /**
+     * Download files.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fileDownload(Request $request, Fisier $fisier)
+    {
+        // dd($fisier);
+        $cale_si_fisier = $fisier->path . $fisier->nume;
+
+        // $headers = array(
+        //     'Content-Type: application/pdf',
+        // );
+
+        return Storage::download($cale_si_fisier);
+    }
+
+    /**
+     * Delete files.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fileDelete(Request $request, Fisier $fisier)
+    {
+        // dd($fisier);
+        $cale_si_fisier = $fisier->path . $fisier->nume;
+
+        // $headers = array(
+        //     'Content-Type: application/pdf',
+        // );
+
+        return Storage::delete($cale_si_fisier);
     }
 }
