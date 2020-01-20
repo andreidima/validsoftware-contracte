@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Vali Dima',
                 'provider' => 'Site',
                 'email' => 'contact@validsoftware.ro',
-                'password' => bcrypt('39143914'),
+                'password' => bcrypt('65urt67ityj'),
             ]
         ]);
 
