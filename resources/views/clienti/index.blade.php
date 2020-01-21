@@ -29,6 +29,10 @@
         </div>
 
         <div class="card-body px-0 py-3">
+                    <div>
+                        <div style="padding-left:50px; float:left;">LORENA COM S.R.L.</div>
+                        <div style="padding-right:50px; float:right;">Dima P. Valentin PFA</div>
+                    </div>
 
             @if (session()->has('status'))
             <div class="alert alert-success">

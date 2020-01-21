@@ -107,7 +107,7 @@
                                             <div class="modal fade text-dark" id="incarcaFisier{{ $contract->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
-                                                    <div class="modal-header">
+                                                    <div class="modal-header bg-success">
                                                         <h5 class="modal-title text-white" id="exampleModalLabel">Adaugă un fișier la Contract: <b>{{ $contract->contract_nr }}</b></h5>
                                                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -118,11 +118,10 @@
 
                                                         <form action="{{ route('file.upload.post', $contract->id) }}" method="POST" enctype="multipart/form-data">
                                                             @csrf
+
                                                             <div class="row">                                                
-                                                                <div class="col-md-6">
-                                                                    <input type="file" name="fisier" class="form-control">
-                                                                </div>                                                
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-12 d-flex">
+                                                                    <input type="file" name="fisier" class="form-control py-1">
                                                                     <button type="submit" class="btn btn-success">Upload</button>
                                                                 </div>                                                
                                                             </div>
@@ -130,7 +129,6 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-
 
                                                     </div>
                                                     </div>
@@ -215,7 +213,7 @@
                                                 <td class="py-0">
                                                     {{ $fisier->nume }}
                                                 </td>
-                                                <td class="py-0 text-center d-flex">
+                                                <td class="py-0 d-flex justify-content-end">
                                                     {{-- <a href="/contracte/file-download/{{ $fisier->id }}" class="mr-4">
                                                         <span class="badge badge-success">Descarcă</span>
                                                     </a> --}}

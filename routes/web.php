@@ -20,9 +20,10 @@
         Route::resource('clienti', 'ClientController');
 
         Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
-        Route::post('/contracte/{contracte}/file-upload', 'ContractController@fileUploadPost')->name('file.upload.post');
-        Route::post('/contracte/file-download/{fisier}', 'ContractController@fileDownload')->name('file.download');
-        Route::post('/contracte/file-delete/{fisier}', 'ContractController@fileDelete')->name('file.delete');
+        
+        Route::post('/fisiere/{contracte}/file-upload', 'FisierController@store')->name('file.upload.post');
+        Route::post('/fisiere/file-download/{fisier}', 'FisierController@fileDownload')->name('file.download');
+        Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
 
         Route::resource('contracte', 'ContractController');
         Route::resource('fisiere', 'FisierController');

@@ -115,9 +115,14 @@ class ContractController extends Controller
      */
     public function destroy(Contract $contracte)
     {
-        $contracte->delete();
-        return redirect('/contracte')->with('status', 
-            'Contractul Nr."' . $contracte->contract_nr . '", pentru clientul "' . ($contracte->client->nume ?? '') . '", a fost șters cu succes!');
+        if ($contracte->fisiere()->exists()){
+            return back()->with('error', 'Contractul are fișiere atașate. Pentru a putea șterge contractul nr. "' . $contracte->contract_nr . '", ștergeți mai întâi fișierele atașate acestuia.');
+        }else{
+            $contracte->delete();
+            return redirect('/contracte')->with('status', 
+                'Contractul Nr."' . $contracte->contract_nr . '", pentru clientul "' . ($contracte->client->nume ?? '') . '", a fost șters cu succes!');
+        }               
+
     }
 
     /**
@@ -303,11 +308,23 @@ class ContractController extends Controller
                             </ol>
                     </ol>
                 ';
+            $html .= '<p style="width:400px;">Dima P. Valentin PFA</p><p style="width:400px;">Dima P. Valentin PFA</p>
+                    <table>
+                        <tr>
+                            <td style="width:400px">
+                                <div style="width:400px;">LORENA COM S.R.L.</div>
+                            </td>
+                            <td>
+                                <div style="width:400px;">Dima P. Valentin PFA</div>
+                            </td>
+                        </tr>
+                    </table>
+                ';
+
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
             // \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, true);
-                        
-            $section->addPageBreak();
+
 
             $anexa = str_replace('<br>', '<br/>', $contracte->anexa);
             
@@ -399,9 +416,13 @@ class ContractController extends Controller
             $anexa = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $anexa);
             $anexa = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $anexa);
 
-            // dd($contracte->anexa, $anexa);
+            
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $anexa, false, false);                 
+            if($anexa){
+                $section->addPageBreak();
+
+                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $anexa, false, false); 
+            }                
 
             $footer = $section->addFooter();
             $footer->addPreserveText('Pagina {PAGE} din {NUMPAGES}', null, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER));
