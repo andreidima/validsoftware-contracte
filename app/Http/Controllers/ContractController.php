@@ -27,7 +27,8 @@ class ContractController extends Controller
         //     ->Paginate(25);
         // return view('contracte.index', compact('contracte', 'search_nume'));
 
-        $contracte = Contract::latest()
+        $contracte = Contract::with('client', 'fisiere')
+            ->latest()
             ->withCount('fisiere')
             ->Paginate(25);
 
@@ -242,7 +243,7 @@ class ContractController extends Controller
                 ', având funcţia de ' . $contracte->client->reprezentant_functie .
                 ' și' .
                 '</p><p>' .
-                '<b>Dima P. Valentin P.F.A.</b>, ' .
+                '<b>Dima P. Valentin PFA</b>, ' .
                 'Nr. Reg. Comerțului F39/811/28.05.2012, CIF 30249594, cont IBAN RO 52BTRL RONC RT02 8243 7501, deschis la Banca Transilvania.' .
                 '</p>';
             $html .= '<br />';
@@ -308,15 +309,18 @@ class ContractController extends Controller
                             </ol>
                     </ol>
                 ';
-            $html .= '<p style="width:400px;">Dima P. Valentin PFA</p><p style="width:400px;">Dima P. Valentin PFA</p>
-                    <table>
+            $html .= '<br /><br />';
+            $html .= '
+                    <table align="center" style="width: 100%">
                         <tr>
-                            <td style="width:400px">
-                                <div style="width:400px;">LORENA COM S.R.L.</div>
-                            </td>
-                            <td>
-                                <div style="width:400px;">Dima P. Valentin PFA</div>
-                            </td>
+                            <td style="width:50%" align="center"><b>Achizitor,</b>
+                                <br/>' . $contracte->client->nume .
+                                '<br /><br />' . $contracte->client->reprezentant_functie .
+                                '<br />' . $contracte->client->reprezentant . '</td>                            
+                            <td style="width:50%" align="center"><b>Prestator,</b>
+                                <br/>Dima P. Valentin PFA
+                                <br/>
+                                <img src="images/semnatura si stampila.png" width="100"/></td>
                         </tr>
                     </table>
                 ';
@@ -324,6 +328,46 @@ class ContractController extends Controller
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
             // \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, true);
+
+            $section->addPageBreak();
+
+            $html = '<p style="text-align: center; font-weight: bold; font-size: 21px;">Plan de lucru</p>
+                    <br />
+                    <p style="font-weight: bold;">Anexa nr. 01 ' . 
+                        (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : '') .
+                        ' la CONTRACTUL DE PRESTARE DE SERVICII INFORMATICE Nr. ' .
+                        $contracte->contract_nr . 
+                        (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : '') .
+                    '</p>
+                    <br /><br />
+                <ol>
+                        <li><b>Durata</b>: prezentul Plan de lucru acoperă o perioadă nelimitată de la data semnării contractului.</li>
+                        <li>Următoarele servicii vor fi acoperite de Planuri de lucru - Anexă ulterioare – ' . $contracte->client->nume . '</li>
+                            <ol>
+                                <li>Analiză specificații tehnice și implementare soluții informatice;</li>
+                                <li>Integrare servicii ale unor terți;</li>
+                                <li>suport și consultanță prin email/ telefon.</li>
+                            </ol>
+                        <li><b>Locaţia proiectului</b>: la sediul <b>Dima P. Valentin PFA</b> sau la sediul <b>' . $contracte->client->nume . '</b></li>
+                </ol>
+            ';
+            $html .= '<br /><br />';
+            $html .= '
+                    <table align="center" style="width: 100%">
+                        <tr>
+                            <td style="width:50%" align="center"><b>Achizitor,</b>
+                                <br/>' . $contracte->client->nume .
+                '<br /><br />' . $contracte->client->reprezentant_functie .
+                '<br />' . $contracte->client->reprezentant . '</td>                            
+                            <td style="width:50%" align="center"><b>Prestator,</b>
+                                <br/>Dima P. Valentin PFA
+                                <br/>
+                                <img src="images/semnatura si stampila.png" width="100"/></td>
+                        </tr>
+                    </table>
+                ';
+
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
 
             $anexa = str_replace('<br>', '<br/>', $contracte->anexa);
