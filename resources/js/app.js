@@ -23,6 +23,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('vue2-datepicker-miercuri', require('./components/DatePickerMiercuri.vue').default);
 Vue.component('vue2-datepicker-duminica', require('./components/DatePickerDuminica.vue').default);
 Vue.component('vue2-datepicker-buletin', require('./components/DatePickerBuletin.vue').default);
+Vue.component('vue2-datepicker', require('./components/DatePicker.vue').default);
 Vue.component('vuejs-datepicker', require('./components/Vuejs-datepicker.vue').default);
 
 Vue.component('vue2-editor', require('./components/Vue2Editor.vue').default);

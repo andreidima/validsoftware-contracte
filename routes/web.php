@@ -27,9 +27,8 @@
 
         Route::resource('contracte', 'ContractController');
         Route::resource('fisiere', 'FisierController');
+        Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
 
-        Route::resource('colete', 'ColetController')->only([
-                'index', 'show'
-            ]);
+        Route::any('/trimitere-raport-activitate', 'TrimiteRaportActivitateController@trimiteRaportCronJob')->name('trimitere.raport.activitate');
     });
 // });

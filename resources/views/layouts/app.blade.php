@@ -52,16 +52,11 @@
                                         <i class="fas fa-handshake mr-1"></i>Contracte
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item active mr-4">
-                                    <a class="nav-link" href="{{ route('colete.index') }}">
-                                        <i class="fas fa-box mr-1"></i>Colete
+                                <li class="nav-item active mr-4">
+                                    <a class="nav-link" href="{{ route('rapoarte_activitate_trimise.index') }}">
+                                        <i class="fas fa-file-import mr-1"></i>Rapoarte trimise
                                     </a>
                                 </li>
-                                <li class="nav-item active mr-4">
-                                    <a class="nav-link" href="{{ route('rezervari-aeroport.index') }}">
-                                        <i class="fas fa-plane mr-1"></i>Rezervări Aeroport
-                                    </a>
-                                </li> --}}
                             @endguest
                         </ul>
 
