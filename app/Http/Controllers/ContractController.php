@@ -351,21 +351,7 @@ class ContractController extends Controller
                         <li><b>Locaţia proiectului</b>: la sediul <b>Dima P. Valentin PFA</b> sau la sediul <b>' . $contracte->client->nume . '</b></li>
                 </ol>
             ';
-            $html .= '<br /><br />';
-            $html .= '
-                    <table align="center" style="width: 100%">
-                        <tr>
-                            <td style="width:50%" align="center"><b>Achizitor,</b>
-                                <br/>' . $contracte->client->nume .
-                '<br /><br />' . $contracte->client->reprezentant_functie .
-                '<br />' . $contracte->client->reprezentant . '</td>                            
-                            <td style="width:50%" align="center"><b>Prestator,</b>
-                                <br/>Dima P. Valentin PFA
-                                <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/></td>
-                        </tr>
-                    </table>
-                ';
+            $html .= '<br />';
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
@@ -460,13 +446,29 @@ class ContractController extends Controller
             $anexa = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $anexa);
             $anexa = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $anexa);
 
-            
-
-            if($anexa){
-                $section->addPageBreak();
-
+            // if($anexa){
+            //     $section->addPageBreak();
                 \PhpOffice\PhpWord\Shared\Html::addHtml($section, $anexa, false, false); 
-            }                
+            // }      
+            
+            
+            $html = '<br /><br />';
+            $html .= '
+                    <table align="center" style="width: 100%">
+                        <tr>
+                            <td style="width:50%" align="center"><b>Achizitor,</b>
+                                <br/>' . $contracte->client->nume .
+                '<br /><br />' . $contracte->client->reprezentant_functie .
+                '<br />' . $contracte->client->reprezentant . '</td>                            
+                            <td style="width:50%" align="center"><b>Prestator,</b>
+                                <br/>Dima P. Valentin PFA
+                                <br/>
+                                <img src="images/semnatura si stampila.png" width="100"/></td>
+                        </tr>
+                    </table>
+                ';
+
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
             $footer = $section->addFooter();
             $footer->addPreserveText('Pagina {PAGE} din {NUMPAGES}', null, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER));
