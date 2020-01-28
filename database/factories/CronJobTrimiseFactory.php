@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\RaportActivitateTrimis;
+use App\CronJobTrimise;
 use Faker\Generator as Faker;
 
-$factory->define(RaportActivitateTrimis::class, function (Faker $faker) {
+$factory->define(CronJobTrimise::class, function (Faker $faker) {
     return [
         //
     ];

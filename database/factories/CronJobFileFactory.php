@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\RaportActivitate;
+use App\CronJobFile;
 use Faker\Generator as Faker;
 
-$factory->define(RaportActivitate::class, function (Faker $faker) {
+$factory->define(CronJobFile::class, function (Faker $faker) {
     return [
         //
     ];

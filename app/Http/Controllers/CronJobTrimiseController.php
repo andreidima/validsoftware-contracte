@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\RaportActivitate;
+use App\CronJobTrimise;
 use Illuminate\Http\Request;
 
-class RaportActivitateController extends Controller
+class CronJobTrimiseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class RaportActivitateController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\RaportActivitate  $raportActivitate
+     * @param  \App\CronJobTrimise  $cronJobTrimise
      * @return \Illuminate\Http\Response
      */
-    public function show(RaportActivitate $raportActivitate)
+    public function show(CronJobTrimise $cronJobTrimise)
     {
         //
     }
@@ -52,10 +52,10 @@ class RaportActivitateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\RaportActivitate  $raportActivitate
+     * @param  \App\CronJobTrimise  $cronJobTrimise
      * @return \Illuminate\Http\Response
      */
-    public function edit(RaportActivitate $raportActivitate)
+    public function edit(CronJobTrimise $cronJobTrimise)
     {
         //
     }
@@ -64,10 +64,10 @@ class RaportActivitateController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RaportActivitate  $raportActivitate
+     * @param  \App\CronJobTrimise  $cronJobTrimise
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RaportActivitate $raportActivitate)
+    public function update(Request $request, CronJobTrimise $cronJobTrimise)
     {
         //
     }
@@ -75,10 +75,10 @@ class RaportActivitateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\RaportActivitate  $raportActivitate
+     * @param  \App\CronJobTrimise  $cronJobTrimise
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RaportActivitate $raportActivitate)
+    public function destroy(CronJobTrimise $cronJobTrimise)
     {
         //
     }

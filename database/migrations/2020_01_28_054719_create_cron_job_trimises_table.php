@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRaportActivitatesTable extends Migration
+class CreateCronJobTrimisesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateRaportActivitatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rapoarte_activitate', function (Blueprint $table) {
+        Schema::create('cron_jobs_trimise', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('contract_id');
-            $table->string('nume');
+            $table->unsignedBigInteger('cronjob_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('cronjob_id')->references('id')->on('cron_jobs')->onDelete('cascade');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateRaportActivitatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rapoarte_activitate');
+        Schema::dropIfExists('cron_jobs_trimise');
     }
 }

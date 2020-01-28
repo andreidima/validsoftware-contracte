@@ -14,7 +14,7 @@
                     value="{{ old('contract_nr') == '' ? ($contracte->contract_nr ?? $urmatorul_contract_nr) : old('contract_nr') }}"
                     required> 
             </div>                               
-            <div class="form-group col-lg-9 mb-0">  
+            <div class="form-group col-lg-7 mb-0">  
                 <label for="client_id" class="mb-0 pl-3">Client:</label>                                      
                 <select name="client_id" 
                     class="custom-select-sm custom-select rounded-pill {{ $errors->has('client_id') ? 'is-invalid' : '' }}"
@@ -35,30 +35,8 @@
                         >{{ $client->nume }} </option>                                                
                     @endforeach
                 </select> 
-            </div> 
-        </div>
-        <div class="form-row px-2 py-2 mb-0 justify-content-center">                              
-            <div class="form-group col-lg-4 mb-0">  
-                <label for="contract_data" class="mb-0 pl-1">Data contract:</label>
-                <vue2-datepicker-buletin
-                    data-veche="{{ old('contract_data') == '' ? $contracte->contract_data : old('contract_data') }}"
-                    nume-camp-db="contract_data"
-                    tip="date"
-                    latime="150"
-                    not-before="{{ \Carbon\Carbon::today() }}"
-                ></vue2-datepicker-buletin>
-            </div>                           
-            <div class="form-group col-lg-4 mb-0">  
-                <label for="data_incepere" class="mb-0 pl-1">Data începere:</label>  
-                <vue2-datepicker-buletin
-                    data-veche="{{ old('data_incepere') == '' ? $contracte->data_incepere : old('data_incepere') }}"
-                    nume-camp-db="data_incepere"
-                    tip="date"
-                    latime="150"
-                    not-before="{{ \Carbon\Carbon::today() }}"
-                ></vue2-datepicker-buletin> 
-            </div>                           
-            <div class="form-group col-lg-4 mb-0">  
+            </div>                        
+            <div class="form-group col-lg-2 mb-0">  
                 <label for="pret" class="mb-0 pl-1">Preț:</label>                               
                 <input 
                     type="text" 
@@ -68,6 +46,38 @@
                     value="{{ old('pret') == '' ? $contracte->pret : old('pret') }}"
                     required> 
             </div> 
+        </div>
+        <div class="form-row px-2 py-2 mb-0 justify-content-center">                              
+            <div class="form-group col-lg-4 mb-0">  
+                <label for="contract_data" class="mb-0 pl-1">Data contract:</label>
+                <vue2-datepicker
+                    data-veche="{{ old('contract_data') == '' ? $contracte->contract_data : old('contract_data') }}"
+                    nume-camp-db="contract_data"
+                    tip="date"
+                    latime="150"
+                    not-before="{{ \Carbon\Carbon::today() }}"
+                ></vue2-datepicker>
+            </div>                           
+            <div class="form-group col-lg-4 mb-0">  
+                <label for="data_incepere" class="mb-0 pl-1">Data începere:</label>  
+                <vue2-datepicker
+                    data-veche="{{ old('data_incepere') == '' ? $contracte->data_incepere : old('data_incepere') }}"
+                    nume-camp-db="data_incepere"
+                    tip="date"
+                    latime="150"
+                    not-before="{{ \Carbon\Carbon::today() }}"
+                ></vue2-datepicker> 
+            </div>                        
+            <div class="form-group col-lg-4 mb-0">  
+                <label for="data_terminare" class="mb-0 pl-1">Data terminare:</label>  
+                <vue2-datepicker
+                    data-veche="{{ old('data_terminare') == '' ? $contracte->data_terminare : old('data_terminare') }}"
+                    nume-camp-db="data_terminare"
+                    tip="date"
+                    latime="150"
+                    not-before="{{ \Carbon\Carbon::today() }}"
+                ></vue2-datepicker> 
+            </div>   
         </div>
         <div class="form-row px-2 py-2 mb-0">                              
             <div class="form-group col-lg-12 mb-0">  

@@ -62,6 +62,14 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Data terminare
+                                </td>
+                                <td>
+                                    {{ $contracte->data_terminare ? \Carbon\Carbon::parse($contracte->data_terminare)->isoFormat('D.MM.YYYY') : '' }}                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Anexa
                                 </td>
                                 <td>

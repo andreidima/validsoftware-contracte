@@ -19,6 +19,7 @@ class CreateContractsTable extends Migration
             $table->unsignedInteger('contract_nr')->nullable();
             $table->date('contract_data')->nullable();
             $table->date('data_incepere')->nullable();
+            $table->date('data_terminare')->nullable();
             $table->unsignedInteger('pret')->nullable();
             $table->text('anexa')->nullable();
             $table->timestamps();
