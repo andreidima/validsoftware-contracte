@@ -6,6 +6,8 @@ use App\Contract;
 use App\Client;
 use App\Fisier;
 
+use DB;
+
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
@@ -19,7 +21,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        // $search_nume = \Request::get('search_nume');
+        $search_nume = \Request::get('search_nume');
         // $contracte = Client::when($search_nume, function ($query, $search_nume) {
         //         return $query->where('nume', 'like', '%' . $search_nume . '%');
         //     })
@@ -28,12 +30,24 @@ class ContractController extends Controller
         // return view('contracte.index', compact('contracte', 'search_nume'));
 
         $contracte = Contract::with('client', 'fisiere')
+            ->whereHas('client', function ($query) use($search_nume){
+                $query->where('nume', 'like', '%' . str_replace(' ', '%', $search_nume) . '%');
+            })
             ->latest()
             ->withCount('fisiere')
             ->Paginate(25);
 
+        // $contracte = DB::table('contracte')
+        //     ->leftJoin('clienti', 'contracte.client_id', '=', 'clienti.id')
+        //     ->rightJoin('fisiere', 'contracte.id', '=', 'fisiere.contract_id')
+        //     ->select(DB::raw('
+        //                 contracte.*,
+        //                 clienti.nume as client_nume
+        //         '))
+        //     ->Paginate(25);
+        // dd($contracte);
 
-        return view('contracte.index', compact('contracte'));
+        return view('contracte.index', compact('contracte', 'search_nume'));
     }
 
     /**
@@ -498,7 +512,7 @@ class ContractController extends Controller
     public function fileUploadPost(Request $request, Contract $contracte)
     {
         $request->validate([
-            'fisier' => 'required|mimes:pdf,xlx,csv|max:2048',
+            'fisier' => 'required|mimes:pdf,xlx,csv,doc,docx|max:2048',
         ]);
 
         $fisier = request()->file('fisier');

@@ -14,7 +14,15 @@ class CronJobTrimiseController extends Controller
      */
     public function index()
     {
-        //
+        $search_nume = \Request::get('search_nume');
+        $cron_jobs_trimise = CronJobTrimise::with('cronjob')
+            ->whereHas('cronjob', function ($query) use ($search_nume) {
+                $query->where('nume', 'like', '%' . str_replace(' ', '%', $search_nume) . '%');
+            })
+            ->latest()
+            ->Paginate(25);
+
+        return view('cron-jobs-trimise.index', compact('cron_jobs_trimise', 'search_nume'));
     }
 
     /**

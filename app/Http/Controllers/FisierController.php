@@ -39,7 +39,7 @@ class FisierController extends Controller
     public function store(Request $request, Contract $contracte)
     {
         $request->validate([
-            'fisier' => 'required|mimes:pdf,xlx,csv|max:2048',
+            'fisier' => 'required|mimes:pdf,xlx,csv,doc,docx|max:2048',
         ]);
 
         $fisier = request()->file('fisier');

@@ -52,11 +52,22 @@
                                         <i class="fas fa-handshake mr-1"></i>Contracte
                                     </a>
                                 </li>
-                                <li class="nav-item active mr-4">
+                                <li class="nav-item active mr-4 btn-group">
+                                    <a class="nav-link" href="{{ route('cron-jobs.index') }}">
+                                        <i class="fas fa-calendar-check mr-1"></i>Cron Jobs
+                                    </a>
+                                    <button class="btn dropdown-toggle dropdown-toggle-split p-0 text-white" data-toggle="dropdown"></button>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-link text-dark" href="{{ route('cron-jobs-trimise.index') }}">
+                                            <i class="fas fa-calendar-check mr-1"></i>Cron Jobs trimise
+                                        </a>
+                                    </div>
+                                </li>
+                                {{-- <li class="nav-item active mr-4">
                                     <a class="nav-link" href="{{ route('rapoarte_activitate_trimise.index') }}">
                                         <i class="fas fa-file-import mr-1"></i>Rapoarte trimise
                                     </a>
-                                </li>
+                                </li> --}}
                             @endguest
                         </ul>
 

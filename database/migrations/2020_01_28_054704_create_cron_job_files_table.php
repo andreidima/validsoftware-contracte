@@ -13,7 +13,7 @@ class CreateCronJobFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cron_job_files', function (Blueprint $table) {
+        Schema::create('cron_jobs_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('cronjob_id')->nullable();
             $table->string('path')->nullable();
@@ -29,6 +29,6 @@ class CreateCronJobFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cron_job_files');
+        Schema::dropIfExists('cron_jobs_files');
     }
 }

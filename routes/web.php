@@ -20,15 +20,28 @@
         Route::resource('clienti', 'ClientController');
 
         Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
-        
+
+        // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
         Route::post('/fisiere/{contracte}/file-upload', 'FisierController@store')->name('file.upload.post');
         Route::post('/fisiere/file-download/{fisier}', 'FisierController@fileDownload')->name('file.download');
-        Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
+        // Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
+
+        // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
+        Route::post('/cron-jobs-files/{cron_job}/file-upload', 'CronJobFileController@store')->name('cronjob.file.upload.post');
+        Route::post('/cron-jobs-files/file-download/{file}', 'CronJobFileController@fileDownload')->name('cronjob.file.download');
+
+        // Activare/ dezactivare Cron Jobs
+        Route::patch('/cron-jobs/{cron_job}/activare-dezactivare', 'CronJobController@activareDezactivare')->name('cronjob.activare.dezactivare');
 
         Route::resource('contracte', 'ContractController');
         Route::resource('fisiere', 'FisierController');
-        Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
+        Route::resource('cron-jobs', 'CronJobController');
+        Route::resource('cron-jobs-files', 'CronJobFileController');
+        Route::resource('cron-jobs-trimise', 'CronJobTrimiseController');
+        // Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
 
-        Route::any('/trimitere-raport-activitate', 'TrimiteRaportActivitateController@trimiteRaportCronJob')->name('trimitere.raport.activitate');
+        Route::any('/cron-jobs/trimitere-automata/{key}', 'CronjobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
+
+        Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
     });
 // });

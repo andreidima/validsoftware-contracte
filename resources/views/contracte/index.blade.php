@@ -4,10 +4,10 @@
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
-                <h4 class=" mb-0"><a href="{{ route('contracte.index') }}"><i class="fas fa-handshake"></i>Contracte</a></h4>
+                <h4 class=" mb-0"><a href="{{ route('contracte.index') }}"><i class="fas fa-handshake mr-1"></i>Contracte</a></h4>
             </div> 
             <div class="col-lg-6">
-                {{-- <form class="needs-validation" novalidate method="GET" action="{{ route('clienti.index') }}">
+                <form class="needs-validation" novalidate method="GET" action="{{ route('contracte.index') }}">
                     @csrf                    
                     <div class="row input-group custom-search-form">
                         <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
@@ -15,11 +15,11 @@
                         <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
                             <i class="fas fa-search text-white mr-1"></i>Caută
                         </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-pill" href="{{ route('clienti.index') }}" role="button">
+                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-pill" href="{{ route('contracte.index') }}" role="button">
                             <i class="far fa-trash-alt text-white mr-1"></i>Resetează căutarea
                         </a>
                     </div>
-                </form> --}}
+                </form>
             </div>
             <div class="col-lg-3 text-right">
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('contracte.create') }}" role="button">
@@ -80,7 +80,7 @@
                                     <a href="{{ $contract->path() }}/export/contract-word"
                                         class="flex"    
                                     >
-                                        <span class="badge badge-primary">Word</span>
+                                        <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
                                     </a> 
                                 </td>
                                 <td class="text-center">                              
