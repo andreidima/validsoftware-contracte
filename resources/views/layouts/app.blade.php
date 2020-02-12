@@ -26,7 +26,7 @@
 </head>
 <body>
     <div id="app">
-        @auth
+        {{-- @auth --}}
             <nav class="navbar navbar-expand-md navbar-dark shadow py-0" style="background-color:darkcyan">
                 <div class="container">
                     <a class="navbar-brand mr-4" href="{{ url('/') }}">
@@ -113,7 +113,7 @@
             <main class="py-3">
                 @yield('content')
             </main>
-        @endauth
+        {{-- @endauth --}}
 
         @guest
             <main class="py-3">
