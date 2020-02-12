@@ -115,11 +115,11 @@
             </main>
         {{-- @endauth --}}
 
-        @guest
+        {{-- @guest
             <main class="py-3">
                 @yield('content')
             </main>
-        @endguest
+        @endguest --}}
     </div>
 </body>
 </html>
