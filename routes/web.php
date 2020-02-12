@@ -14,7 +14,7 @@
 // Route::group(['scheme' => 'https'], function () {
     Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
-    // Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'auth'], function () {
         Route::redirect('/', 'clienti');
 
         Route::resource('clienti', 'ClientController');
@@ -42,6 +42,8 @@
 
         Route::any('/cron-jobs/trimitere-automata/{key}', 'CronjobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
+        // Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
+    });
+
         Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
-    // });
 // });

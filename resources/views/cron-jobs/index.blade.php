@@ -40,6 +40,7 @@
                             <th>Cron job</th>
                             <th>Client</th>
                             <th class="text-center">Fișiere atașate</th>
+                            <th class="text-center">Fișiere generate</th>
                             <th class="text-center">Ziua/ora trimitere</th>
                             <th class="text-center">Stare</th>
                             <th class="text-right">Acțiuni</th>
@@ -109,6 +110,14 @@
                                             </div>
                                     </div> 
                                 </td>
+                                <td class="text-center">
+                                    @if ($cron_job->fisier_generat === 1)
+                                        <span class="badge badge-success">DA</span>
+                                    @else
+                                        <span class="badge badge-secondary">NU</span>
+                                    @endif
+                                </td>
+
                                 <td class="text-center">
                                     {{ $cron_job->ziua }}
                                     /

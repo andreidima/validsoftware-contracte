@@ -14,26 +14,27 @@ class CronJobTrimitereController extends Controller
     {
         $config_key = \Config::get('variabile.cron_job_key');
         // dd($key, $config_key);
-        // if ($key === $config_key){
-        //     dd(\Carbon\Carbon::now()->isoFormat('D'));
-        // }
 
-        $cron_jobs = CronJob::all()
-            ->where('ziua', \Carbon\Carbon::now()->isoFormat('D'))
-            ->where('stare', 1);
+        if ($key === $config_key){
+            $cron_jobs = CronJob::all()
+                ->where('ziua', \Carbon\Carbon::now()->isoFormat('D'))
+                ->where('stare', 1);
 
-        foreach ($cron_jobs as $cron_job) {
-            if(isset($cron_job->client->email)){
-                \Mail::to($cron_job->client->email)->send(
-                    new CronJobTrimitere($cron_job)
-                );
+            foreach ($cron_jobs as $cron_job) {
+                if(isset($cron_job->client->email)){
+                    \Mail::to($cron_job->client->email)->send(
+                        new CronJobTrimitere($cron_job)
+                    );
 
-                $cron_job_trimis = CronJobTrimise::make();
-                $cron_job_trimis->cronjob_id = $cron_job->id;
-                $cron_job_trimis->save();
+                    $cron_job_trimis = CronJobTrimise::make();
+                    $cron_job_trimis->cronjob_id = $cron_job->id;
+                    $cron_job_trimis->save();
+                }
             }
+            return back()->with('status', 'Cron Joburile de astăzi au fost trimise!');
+        } else {
+            return back()->with('error', 'Cron Joburile de astăzi nu fost trimise! Cheia ' . $key . ' nu este validă');
         }
         
-        return back()->with('status', 'Cron Joburile de astăzi au fost trimise!');
     }
 }

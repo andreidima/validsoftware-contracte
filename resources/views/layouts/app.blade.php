@@ -26,7 +26,7 @@
 </head>
 <body>
     <div id="app">
-        {{-- @auth --}}
+        @auth
             <nav class="navbar navbar-expand-md navbar-dark shadow py-0" style="background-color:darkcyan">
                 <div class="container">
                     <a class="navbar-brand mr-4" href="{{ url('/') }}">
@@ -40,8 +40,8 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-                            {{-- @guest
-                            @else --}}
+                            @guest
+                            @else
                                 <li class="nav-item active mr-4">
                                     <a class="nav-link" href="{{ route('clienti.index') }}">
                                         <i class="fas fa-building mr-1"></i>Clienți
@@ -68,7 +68,7 @@
                                         <i class="fas fa-file-import mr-1"></i>Rapoarte trimise
                                     </a>
                                 </li> --}}
-                            {{-- @endguest --}}
+                            @endguest
                         </ul>
 
                         <!-- Right Side Of Navbar -->
@@ -113,13 +113,13 @@
             <main class="py-3">
                 @yield('content')
             </main>
-        {{-- @endauth --}}
+        @endauth
 
-        {{-- @guest
+        @guest
             <main class="py-3">
                 @yield('content')
             </main>
-        @endguest --}}
+        @endguest
     </div>
 </body>
 </html>
