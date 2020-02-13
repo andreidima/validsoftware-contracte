@@ -21,8 +21,13 @@ class CronJobTrimitereController extends Controller
                 ->where('stare', 1);
 
             foreach ($cron_jobs as $cron_job) {
-                if(isset($cron_job->client->email)){
-                    \Mail::to($cron_job->client->email)
+                if(isset($cron_job->client->email)) {
+                    
+                    $cron_job->client->email = str_replace(' ', '', $cron_job->client->email);
+                    $to_email = explode(',', $cron_job->client->email);
+                    // dd($cron_job->client->email, $to_email);
+
+                    \Mail::to($to_email)
                         // ->bcc('contact@validsoftware.ro')
                         ->send(new CronJobTrimitere($cron_job)
                     );
