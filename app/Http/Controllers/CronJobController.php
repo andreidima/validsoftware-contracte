@@ -120,7 +120,7 @@ class CronJobController extends Controller
             return back()->with('error', 'Cron Jobul are fișiere atașate. Pentru a putea șterge Cron Jobul "' . $cron_job->nume . '", ștergeți mai întâi fișierele atașate acestuia.');
         } else {
             $cron_job->delete();
-            return redirect('/contracte')->with(
+            return back()->with(
                 'status',
                 'Cron Jobul "' . $cron_job->nume . '", pentru clientul "' . ($cron_job->client->nume ?? '') . '", a fost șters cu succes!'
             );
