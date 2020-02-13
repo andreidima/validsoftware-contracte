@@ -40,7 +40,7 @@
         Route::resource('cron-jobs-trimise', 'CronJobTrimiseController');
         // Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
 
-        Route::any('/cron-jobs/trimitere-automata/{key}', 'CronjobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
+        Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
         // Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
     });
