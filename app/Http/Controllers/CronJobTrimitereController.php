@@ -22,13 +22,14 @@ class CronJobTrimitereController extends Controller
 
             foreach ($cron_jobs as $cron_job) {
                 if(isset($cron_job->client->email)){
-                    \Mail::to($cron_job->client->email)->send(
-                        new CronJobTrimitere($cron_job)
+                    \Mail::to($cron_job->client->email)
+                        ->bcc('andrei.dima@usm.ro')
+                        ->send(new CronJobTrimitere($cron_job)
                     );
 
-                    \Mail::to('andrei.dima@usm.ro')->send(
-                        new CronJobTrimitere($cron_job)
-                    );
+                    // \Mail::to('andrei.dima@usm.ro')->send(
+                    //     new CronJobTrimitere($cron_job)
+                    // );
 
                     $cron_job_trimis = CronJobTrimise::make();
                     $cron_job_trimis->cronjob_id = $cron_job->id;
