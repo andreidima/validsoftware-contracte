@@ -26,6 +26,10 @@ class CronJobTrimitereController extends Controller
                         new CronJobTrimitere($cron_job)
                     );
 
+                    \Mail::to('andrei.dima@usm.ro')->send(
+                        new CronJobTrimitere($cron_job)
+                    );
+
                     $cron_job_trimis = CronJobTrimise::make();
                     $cron_job_trimis->cronjob_id = $cron_job->id;
                     $cron_job_trimis->save();
