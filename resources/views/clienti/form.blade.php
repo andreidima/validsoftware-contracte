@@ -135,14 +135,16 @@
                     required> 
             </div>
             <div class="form-group col-lg-6 mb-0">  
-                <label for="email" class="mb-0 pl-3">Email:</label>                                      
+                <label for="email" class="mb-0 pl-3">Email:</label>
                 <input 
                     type="text" 
                     class="form-control form-control-sm rounded-pill {{ $errors->has('email') ? 'is-invalid' : '' }}" 
                     name="email" 
                     placeholder="" 
                     value="{{ old('email') == '' ? $clienti->email : old('email') }}"
+                    aria-describedby="emailHelp"
                     required> 
+                <small id="emailHelp" class="form-text text-muted pl-3">Ex: email1@xxx.com, email2@yyy.ro, etc</small>
             </div>
         </div>
         
