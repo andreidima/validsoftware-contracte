@@ -17,7 +17,9 @@
         "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0",
-        "phpoffice/phpword": "^0.17.0"
+        "nao-pon/flysystem-google-drive": "~1.1",
+        "phpoffice/phpword": "^0.17.0",
+        "spatie/laravel-backup": "^6.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
