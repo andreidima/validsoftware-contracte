@@ -32,6 +32,6 @@ class DatabaseSeeder extends Seeder
         //     ); 
         // });
 
-        factory('App\Client', 50)->create();
+        factory('App\Client', 2)->create();
     }
 }

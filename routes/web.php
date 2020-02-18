@@ -46,4 +46,10 @@
         Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
 
         Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
+
+    Route::get('backup', function() {
+        Artisan::call('backup:run');
+        // Artisan::call('migrate:fresh --seed');
+        dd("Backup facut local");
+    });
 // });
