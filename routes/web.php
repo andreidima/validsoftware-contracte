@@ -49,7 +49,7 @@
 
     Route::get('backup', function() {
         Artisan::call('backup:run'
-            // , ['--only-db' => true]
+            , ['--only-db' => true]
         );
         // Artisan::call('migrate:fresh --seed');
         dd("Backup facut local");
