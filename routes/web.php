@@ -48,10 +48,14 @@
         Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
     Route::get('backup', function() {
-        Artisan::call('backup:run'
-            , ['--only-db' => true]
-        );
+        // Artisan::call('backup:run'
+        //     , ['--only-db' => true]
+        // );
         // Artisan::call('migrate:fresh --seed');
-        dd("Backup facut local");
-    });
+
+        // Artisan::call('inspire');
+        // dd("Backup facut local");
+        Artisan::call('inspire');
+        dd(Artisan::output());
+        });
 // });
