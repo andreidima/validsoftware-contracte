@@ -51,7 +51,7 @@
         // Artisan::call('backup:run'
         //     , ['--only-db' => true]
         // );
-        // Artisan::call('migrate:fresh --seed');
+        Artisan::call('db:seed');
 
         // Artisan::call('inspire');
         // dd("Backup facut local");

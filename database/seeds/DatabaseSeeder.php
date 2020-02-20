@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call([
             // RolesTableSeeder::class,
-            UsersTableSeeder::class,
+            // UsersTableSeeder::class,
             // OraseTableSeeder::class,
             // TarifeTableSeeder::class,
         ]);
@@ -32,6 +32,6 @@ class DatabaseSeeder extends Seeder
         //     ); 
         // });
 
-        factory('App\Client', 2)->create();
+        factory('App\Client', 1)->create();
     }
 }
