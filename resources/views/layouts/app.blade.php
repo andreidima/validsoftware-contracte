@@ -63,6 +63,14 @@
                                         </a>
                                     </div>
                                 </li>
+                                <li class="nav-item dropdown active mr-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-cog mr-1"></i>Setări
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('variabile.index') }}">
+                                            <i class="fas fa-book mr-1"></i>Variabile
+                                        </a>
                                 {{-- <li class="nav-item active mr-4">
                                     <a class="nav-link" href="{{ route('rapoarte_activitate_trimise.index') }}">
                                         <i class="fas fa-file-import mr-1"></i>Rapoarte trimise

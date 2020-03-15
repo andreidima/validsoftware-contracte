@@ -14,7 +14,11 @@ class VariabilaController extends Controller
      */
     public function index()
     {
-        //
+        $variabile = Variabila::
+            // select()
+            simplePaginate(25);
+
+        return view('variabile.index', compact('variabile'));
     }
 
     /**
@@ -55,9 +59,9 @@ class VariabilaController extends Controller
      * @param  \App\Variabila  $variabila
      * @return \Illuminate\Http\Response
      */
-    public function edit(Variabila $variabila)
+    public function edit(Variabila $variabile)
     {
-        //
+        return view('variabile.edit', compact('variabile'));
     }
 
     /**
@@ -67,9 +71,14 @@ class VariabilaController extends Controller
      * @param  \App\Variabila  $variabila
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Variabila $variabila)
+    public function update(Request $request, Variabila $variabile)
     {
-        //
+        $variabile->update($request->all());
+
+        return redirect('/variabile')->with(
+            'status',
+            'Variabila "' . $variabile->nume . '" a fost modificată cu succes!'
+        );
     }
 
     /**

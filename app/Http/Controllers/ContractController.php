@@ -60,7 +60,8 @@ class ContractController extends Controller
         $clienti = Client::select('id', 'nume')
             ->orderBy('nume')
             ->get();
-        $urmatorul_contract_nr = Contract::max('contract_nr') + 1;
+        // $urmatorul_contract_nr = Contract::max('contract_nr') + 1;
+        $urmatorul_contract_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
         return view('contracte.create', compact('clienti', 'urmatorul_contract_nr'));
     }
@@ -73,7 +74,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        \App\Variabila::Nr_document();
         $contract = Contract::create($this->validateRequest($request));
 
         return redirect($contract->path())->with('status', 

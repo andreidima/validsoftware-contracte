@@ -39,6 +39,7 @@
         Route::resource('cron-jobs-files', 'CronJobFileController');
         Route::resource('cron-jobs-trimise', 'CronJobTrimiseController');
         // Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
+        Route::resource('variabile', 'VariabilaController');
 
         // Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
     });
@@ -51,7 +52,7 @@
         // Artisan::call('backup:run'
         //     , ['--only-db' => true]
         // );
-        Artisan::call('db:seed');
+        // Artisan::call('db:seed');
 
         // Artisan::call('inspire');
         // dd("Backup facut local");
