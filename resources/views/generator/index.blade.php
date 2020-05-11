@@ -42,7 +42,7 @@
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Nume</th>
-                            <th class="text-center" colspan="3">Generare documente</th>
+                            <th class="text-center" colspan="4">Generare documente</th>
                         </tr>
                     </thead>
                     <tbody>               
@@ -58,24 +58,32 @@
                                 </td>
                                 <td>
                                     <a href="generator/{{$client->id}}/protectia-datelor-cu-caracter-personal">  
-                                        Protecția datelor cu caracter personal
-                                    </a>
-                                </td>
-                                {{-- <td>
-                                    <a href="{{ route('generator.termeni-si-conditii') }}">  
-                                        Termeni și condiții
+                                        <span class="badge badge-info">
+                                            Protecția datelor cu caracter personal
+                                        </span>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('generator.politica-de-confidentialitate') }}">  
-                                        Politica de Confidențialitate
+                                    <a href="generator/{{$client->id}}/termeni-si-conditii">  
+                                        <span class="badge badge-success">
+                                            Termeni și condiții
+                                        </span>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('generator.politica-cookies') }}">  
-                                        Politica Cookies
+                                    <a href="generator/{{$client->id}}/politica-de-confidentialitate">  
+                                        <span class="badge badge-warning">
+                                            Politica de Confidențialitate
+                                        </span>
                                     </a>
-                                </td> --}}
+                                </td>
+                                <td>
+                                    <a href="generator/{{$client->id}}/politica-cookies">  
+                                        <span class="badge badge-danger">
+                                            Politica Cookies
+                                        </span>
+                                    </a>
+                                </td>
                             </tr> 
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
