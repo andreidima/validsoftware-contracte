@@ -30,7 +30,7 @@
             <nav class="navbar navbar-expand-md navbar-dark shadow py-0" style="background-color:darkcyan">
                 <div class="container">
                     <a class="navbar-brand mr-4" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'Validsoftware') }}
                         {{-- <img src="{{ asset('images/Alsimy Mond Travel Galati - logo.png') }}" height="40" class="border border-dark rounded-pill mr-4"> --}}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -50,6 +50,11 @@
                                 <li class="nav-item active mr-4">
                                     <a class="nav-link" href="{{ route('contracte.index') }}">
                                         <i class="fas fa-handshake mr-1"></i>Contracte
+                                    </a>
+                                </li>
+                                <li class="nav-item active mr-4">
+                                    <a class="nav-link" href="{{ route('generator.index') }}">
+                                        <i class="fas fa-file mr-1"></i>Generator
                                     </a>
                                 </li>
                                 <li class="nav-item active mr-4 btn-group">

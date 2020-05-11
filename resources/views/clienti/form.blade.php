@@ -123,7 +123,7 @@
                     required> 
             </div>
         </div>
-        <div class="form-row px-2 py-2 mb-3">
+        <div class="form-row px-2 pt-2 mb-0">
             <div class="form-group col-lg-6 mb-0">  
                 <label for="telefon" class="mb-0 pl-3">Telefon:</label>                                      
                 <input 
@@ -145,6 +145,18 @@
                     aria-describedby="emailHelp"
                     required> 
                 <small id="emailHelp" class="form-text text-muted pl-3">Ex: email1@xxx.com, email2@yyy.ro, etc</small>
+            </div>
+        </div>
+        <div class="form-row px-2 pb-2 mb-3">
+            <div class="form-group col-lg-12 mb-0">  
+                <label for="site_web" class="mb-0 pl-3">Site web:</label>                                      
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('site_web') ? 'is-invalid' : '' }}" 
+                    name="site_web" 
+                    placeholder="" 
+                    value="{{ old('site_web') == '' ? $clienti->site_web : old('site_web') }}"
+                    required> 
             </div>
         </div>
         

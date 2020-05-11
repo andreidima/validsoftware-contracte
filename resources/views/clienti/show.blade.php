@@ -104,6 +104,14 @@
                                     {{ $clienti->email }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Site web
+                                </td>
+                                <td>
+                                    {{ $clienti->site_web }}
+                                </td>
+                            </tr>
                         </table>
                     </div>
                                        

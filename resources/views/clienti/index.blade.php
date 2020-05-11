@@ -210,6 +210,14 @@
                                                 {{ $client->email }}
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Site web
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->site_web }}
+                                            </td>
+                                        </tr>
                                     </table>
                                     {{-- <div class="row">
                                         <div class="col-lg-3">

@@ -41,6 +41,9 @@
         // Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
         Route::resource('variabile', 'VariabilaController');
 
+        Route::get('generator', 'GeneratorController@index')->name('generator.index');
+        Route::get('generator/{client}/{tip_fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
+
         // Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
     });
 
