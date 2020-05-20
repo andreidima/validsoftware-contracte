@@ -42,7 +42,8 @@
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Nume</th>
-                            <th class="text-center" colspan="4">Generare documente</th>
+                            <th class="text-center" colspan="1">Magazin online</th>
+                            <th class="text-center" colspan="1">Site de prezentare</th>
                         </tr>
                     </thead>
                     <tbody>               
@@ -56,31 +57,47 @@
                                         <b>{{ $client->nume }}</b>
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="generator/{{$client->id}}/protectia-datelor-cu-caracter-personal">  
-                                        <span class="badge badge-info">
-                                            Protecția datelor cu caracter personal
+                                <td class="text-center">
+                                    <a href="generator/{{$client->id}}/magazin-online/protectia-datelor-cu-caracter-personal">  
+                                        <span class="badge badge-info" title="Protecția datelor cu caracter personal">
+                                            PDCP
+                                        </span>
+                                    </a>
+                                    <a href="generator/{{$client->id}}/magazin-online/termeni-si-conditii">  
+                                        <span class="badge badge-success" title="Termeni și condiții">
+                                            TC
+                                        </span>
+                                    </a>
+                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-confidentialitate">  
+                                        <span class="badge badge-warning" title="Politica de Confidențialitate">
+                                            PC
+                                        </span>
+                                    </a>
+                                    <a href="generator/{{$client->id}}/magazin-online/politica-cookies">  
+                                        <span class="badge badge-danger" title="Politica Cookies">
+                                            PC
                                         </span>
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="generator/{{$client->id}}/termeni-si-conditii">  
-                                        <span class="badge badge-success">
-                                            Termeni și condiții
+                                <td class="text-center">
+                                    <a href="generator/{{$client->id}}/site-de-prezentare/protectia-datelor-cu-caracter-personal">  
+                                        <span class="badge badge-info" title="Protecția datelor cu caracter personal">
+                                            PDCP
                                         </span>
                                     </a>
-                                </td>
-                                <td>
-                                    <a href="generator/{{$client->id}}/politica-de-confidentialitate">  
-                                        <span class="badge badge-warning">
-                                            Politica de Confidențialitate
+                                    <a href="generator/{{$client->id}}/site-de-prezentare/termeni-si-conditii">  
+                                        <span class="badge badge-success" title="Termeni și condiții">
+                                            TC
                                         </span>
                                     </a>
-                                </td>
-                                <td>
-                                    <a href="generator/{{$client->id}}/politica-cookies">  
-                                        <span class="badge badge-danger">
-                                            Politica Cookies
+                                    <a href="generator/{{$client->id}}/site-de-prezentare/politica-de-confidentialitate">  
+                                        <span class="badge badge-warning" title="Politica de Confidențialitate">
+                                            PC
+                                        </span>
+                                    </a>
+                                    <a href="generator/{{$client->id}}/site-de-prezentare/politica-cookies">  
+                                        <span class="badge badge-danger" title="Politica Cookies">
+                                            PC
                                         </span>
                                     </a>
                                 </td>

@@ -34,6 +34,14 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Nume scurt
+                                </td>
+                                <td>
+                                    {{ $clienti->nume_scurt }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Nr. ord. reg. com.
                                 </td>
                                 <td>
@@ -102,6 +110,14 @@
                                 </td>
                                 <td>
                                     {{ $clienti->email }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Email DPO
+                                </td>
+                                <td>
+                                    {{ $clienti->email_dpo }}
                                 </td>
                             </tr>
                             <tr>

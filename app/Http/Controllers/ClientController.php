@@ -106,6 +106,7 @@ class ClientController extends Controller
     {
         return request()->validate([
             'nume' => ['required', 'max:100'],
+            'nume_scurt' => ['required', 'max:100'],
             'nr_ord_reg_com' => ['max:50'],
             'cui' => ['max:50'],
             'adresa' => ['max:180'],
@@ -115,6 +116,7 @@ class ClientController extends Controller
             'reprezentant_functie' => ['max:100'],
             'telefon' => ['max:100'],
             'email' => ['nullable', 'max:180'],
+            'email_dpo' => ['nullable', 'max:100'],
             'site_web' => ['nullable', 'max:180']
         ]);
     }

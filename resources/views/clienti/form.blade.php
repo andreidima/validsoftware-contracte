@@ -3,7 +3,7 @@
 <div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px">
     <div class="form-group col-lg-12 px-2 mb-0">
         <div class="form-row mb-0 px-2 py-2">                                    
-            <div class="form-group col-lg-12 mb-0">  
+            <div class="form-group col-lg-6 mb-0">  
                 <label for="nume" class="mb-0 pl-3">Nume Client:*</label>                                      
                 <input 
                     type="text" 
@@ -12,7 +12,17 @@
                     placeholder="" 
                     value="{{ old('nume') == '' ? $clienti->nume : old('nume') }}"
                     required> 
-            </div>             
+            </div>                                     
+            <div class="form-group col-lg-6 mb-0">  
+                <label for="nume_scurt" class="mb-0 pl-3">Nume Client scurt:</label>                                      
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('nume_scurt') ? 'is-invalid' : '' }}" 
+                    name="nume_scurt" 
+                    placeholder="" 
+                    value="{{ old('nume_scurt') == '' ? $clienti->nume_scurt : old('nume_scurt') }}"
+                    required> 
+            </div>         
         </div>
         <div class="form-row px-2 py-2 mb-0">    
             <div class="form-group col-lg-6 mb-0">  
@@ -148,7 +158,17 @@
             </div>
         </div>
         <div class="form-row px-2 pb-2 mb-3">
-            <div class="form-group col-lg-12 mb-0">  
+            <div class="form-group col-lg-6 mb-0">  
+                <label for="email_dpo" class="mb-0 pl-3">Email DPO:</label>                                      
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('email_dpo') ? 'is-invalid' : '' }}" 
+                    name="email_dpo" 
+                    placeholder="" 
+                    value="{{ old('email_dpo') == '' ? $clienti->email_dpo : old('email_dpo') }}"
+                    required> 
+            </div>
+            <div class="form-group col-lg-6 mb-0">  
                 <label for="site_web" class="mb-0 pl-3">Site web:</label>                                      
                 <input 
                     type="text" 
