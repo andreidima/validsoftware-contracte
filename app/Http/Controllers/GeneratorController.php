@@ -34,7 +34,6 @@ class GeneratorController extends Controller
      */
     public function genereaza(Client $client = null, $director = null, $fisier = null)
     {
-        // dd($fisier);
         return view('generator.fisiere.' . $director . '/' . $fisier , compact('client'));
         // switch ($tip_fisier) {
         //     case 'magazin-online/protectia-datelor-cu-caracter-personal':
