@@ -17,12 +17,10 @@ class CronJobTrimitereController extends Controller
 
         if ($key === $config_key){
             $cron_jobs = CronJob::all()
-                // ->where('ziua', \Carbon\Carbon::now()->isoFormat('D'))
+                ->where('ziua', \Carbon\Carbon::now()->isoFormat('D'))
                 ->where('stare', 1);
 
-                $numar = 0;
             foreach ($cron_jobs as $cron_job) {
-                $numar ++;
                 if(isset($cron_job->client->email)) {
                     
                     $cron_job->client->email = str_replace(' ', '', $cron_job->client->email);
@@ -30,8 +28,8 @@ class CronJobTrimitereController extends Controller
                     // dd($cron_job->client->email, $to_email);
 
                     \Mail::
-                        // to($to_email)
-                        bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])                        
+                        to($to_email)
+                        ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])                        
                         ->send(new CronJobTrimitere($cron_job)
                     );
 
@@ -44,7 +42,7 @@ class CronJobTrimitereController extends Controller
                     $cron_job_trimis->save();
                 }
             }
-            // return redirect('/clienti')->with('status', 'Cron Joburile de astăzi au fost trimise!' . $numar . ' ' . $cron_jobs->count());
+            // return redirect('/clienti')->with('status', 'Cron Joburile de astăzi au fost trimise!' . $cron_jobs->count());
         } else {
             // return redirect('/clienti')->with('error', 'Cron Joburile de astăzi nu fost trimise! Cheia ' . $key . ' nu este validă');
         }
