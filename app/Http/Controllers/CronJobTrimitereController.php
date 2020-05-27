@@ -28,9 +28,9 @@ class CronJobTrimitereController extends Controller
                     // dd($cron_job->client->email, $to_email);
 
                     \Mail::
-                        to('adima@validsoftware.ro')
+                        to('')
                         // to($to_email)
-                        // ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])                        
+                        ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])                        
                         ->send(new CronJobTrimitere($cron_job)
                     );
 
@@ -43,7 +43,6 @@ class CronJobTrimitereController extends Controller
                     $cron_job_trimis->save();
                 }
             }
-            // dd($cron_jobs);
             return back()->with('status', 'Cron Joburile de astăzi au fost trimise!' . $cron_jobs);
         } else {
             return back()->with('error', 'Cron Joburile de astăzi nu fost trimise! Cheia ' . $key . ' nu este validă');
