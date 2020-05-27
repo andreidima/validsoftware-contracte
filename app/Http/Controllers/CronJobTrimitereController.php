@@ -17,7 +17,7 @@ class CronJobTrimitereController extends Controller
 
         if ($key === $config_key){
             $cron_jobs = CronJob::all()
-                ->where('ziua', \Carbon\Carbon::now()->isoFormat('D'))
+                // ->where('ziua', \Carbon\Carbon::now()->isoFormat('D'))
                 ->where('stare', 1);
 
             foreach ($cron_jobs as $cron_job) {
