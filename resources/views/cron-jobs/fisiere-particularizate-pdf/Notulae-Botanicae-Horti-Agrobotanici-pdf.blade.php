@@ -81,7 +81,7 @@
             <div style="height: 50px;"></div>
             
             <p style="text-indent: 50px;">
-                În luna decembrie 2019, au fost efectuate următoarele activități, pentru a asigura buna funcționare a site-ului aferent „Notulae Botanicae Horti Agrobotanici Cluj-Napoca”:
+                În luna {{ \Carbon\Carbon::now()->subMonth()->isoFormat('MMMM YYYY') }}, au fost efectuate următoarele activități, pentru a asigura buna funcționare a site-ului aferent „Notulae Botanicae Horti Agrobotanici Cluj-Napoca”:
             </p>
 
             <ul>

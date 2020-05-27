@@ -49,6 +49,7 @@
 
         Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
 
+        // Trimitere Cron joburi din Cpanel
         Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
     Route::get('backup', function() {
