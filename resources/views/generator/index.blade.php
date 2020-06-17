@@ -78,6 +78,16 @@
                                             PC
                                         </span>
                                     </a>
+                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-livrare">  
+                                        <span class="badge text-white" title="Politica de livrare" style="background-color:teal">
+                                            PL
+                                        </span>
+                                    </a>
+                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-retur">  
+                                        <span class="badge text-white" title="Politica de retur" style="background-color:sienna">
+                                            PR
+                                        </span>
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     <a href="generator/{{$client->id}}/site-de-prezentare/protectia-datelor-cu-caracter-personal">  
