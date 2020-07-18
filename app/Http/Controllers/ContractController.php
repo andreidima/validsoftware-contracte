@@ -490,6 +490,7 @@ class ContractController extends Controller
 
             $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
             try {
+                Storage::makeDirectory('fisiere_temporare');
                 $objWriter->save(storage_path(
                     'app/fisiere_temporare/' .
                     'Contract nr. ' . $contracte->contract_nr . 
