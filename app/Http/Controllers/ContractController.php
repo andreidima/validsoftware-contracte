@@ -245,12 +245,12 @@ class ContractController extends Controller
 
             $html = '<p style="text-align: center; font-weight: bold; font-size: 21px;">CONTRACT DE FURNIZARE SERVICII INFORMATICE</p>';
             $html .= '<p style="text-align: center; font-weight: bold;">Nr. ' . $contracte->contract_nr . 
-                (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : '') .
+                (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
                 '</p>';
             $html .= '<br />';
             $html .= '<p style="text-align:justify;">' .
-                'Prezentul contract intră în vigoare începând cu data de' . 
-                (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('D.MM.YYYY')) : '..........') .
+                'Prezentul contract intră în vigoare începând cu data de ' . 
+                (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '..........') .
                 ' între <b>' . $contracte->client->nume . '</b>' .
                 ', cu sediul în ' . $contracte->client->adresa .
                 ', Cod Unic de Înregistrare CUI ' . $contracte->client->cui .
@@ -356,8 +356,8 @@ class ContractController extends Controller
                     '</p>
                     <br /><br />
                 <ol>
-                        <li><b>Durata</b>: prezentul Plan de lucru acoperă o perioadă nelimitată de la data semnării contractului.</li>
-                        <li>Următoarele servicii vor fi acoperite de Planuri de lucru - Anexă ulterioare – ' . $contracte->client->nume . '</li>
+                        <li><b>Durata</b>: prezentul Plan de lucru acoperă toată perioada de valabilitate a prezentului contract.</li>
+                        <li>Următoarele servicii vor fi acoperite de Planul de lucru</li>
                             <ol>
                                 <li>Analiză specificații tehnice și implementare soluții informatice;</li>
                                 <li>Integrare servicii ale unor terți;</li>
@@ -490,10 +490,20 @@ class ContractController extends Controller
 
             $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
             try {
-                $objWriter->save(storage_path('Contract.docx'));
+                $objWriter->save(storage_path(
+                    'app/fisiere_temporare/' .
+                    'Contract nr. ' . $contracte->contract_nr . 
+                    ' din data de ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') . 
+                    ' - ' . ($contracte->client->nume ?? '') . '.docx'
+                ));
             } catch (Exception $e) { }
 
-            return response()->download(storage_path('Contract.docx'));
+            return response()->download(storage_path(
+                'app/fisiere_temporare/' .
+                'Contract nr. ' . $contracte->contract_nr .
+                ' din data de ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') .
+                ' - ' . ($contracte->client->nume ?? '') . '.docx'
+            ));
             
             // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
             // try {

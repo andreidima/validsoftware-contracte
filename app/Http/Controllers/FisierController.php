@@ -39,7 +39,7 @@ class FisierController extends Controller
     public function store(Request $request, Contract $contracte)
     {
         $request->validate([
-            'fisier' => 'required|mimes:pdf,xlx,csv,doc,docx|max:2048',
+            'fisier' => 'required|mimes:pdf,xlx,csv,doc,docx,xml|max:2048',
         ]);
 
         $fisier = request()->file('fisier');
@@ -105,11 +105,15 @@ class FisierController extends Controller
      */
     public function destroy(Fisier $fisiere)
     {
-        // dd($fisiere);
         $fisiere->delete();
 
         $cale_si_fisier = $fisiere->path . $fisiere->nume;
         Storage::delete($cale_si_fisier);
+
+        //stergere director daca acesta este gol
+        if (empty(Storage::allFiles($fisiere->path))) {
+            Storage::deleteDirectory($fisiere->path);
+        }
 
         // return redirect('/contracte')->with('status', 'Fișierul "' . $fisiere->nume . '" a fost șters cu succes!');
         return back()->with('status', 'Fișierul "' . $fisiere->nume . '" a fost șters cu succes!');

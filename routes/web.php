@@ -52,6 +52,10 @@
         // Trimitere Cron joburi din Cpanel
         Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
+        Route::get('teste', function() {
+            return 'hi';
+        });
+
     Route::get('backup', function() {
         // Artisan::call('backup:run'
         //     , ['--only-db' => true]

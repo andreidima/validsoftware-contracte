@@ -111,6 +111,11 @@ class CronJobFileController extends Controller
         $cale_si_fisier = $cron_jobs_file->path . $cron_jobs_file->nume;
         Storage::delete($cale_si_fisier);
 
+        //stergere director daca acesta este gol
+        if (empty(Storage::allFiles($cron_jobs_file->path))) {
+            Storage::deleteDirectory($cron_jobs_file->path);
+        }
+
         // return redirect('/contracte')->with('status', 'Fișierul "' . $fisiere->nume . '" a fost șters cu succes!');
         return back()->with('status', 'Fișierul "' . $cron_jobs_file->nume . '" a fost șters cu succes!');
     }
