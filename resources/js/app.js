@@ -43,276 +43,7 @@ if (document.querySelector('#app1')) {
     });
 }
 
-if (document.querySelector('#adauga-rezervare')) {
-    const app1 = new Vue({
-        el: '#adauga-rezervare',
-        data: {
-            traseu: traseuVechi,
-            active: "active",
-            oras_plecare: orasPlecareVechi,
-            orase_plecare: '',
-            oras_sosire: orasSosireVechi,
-            orase_sosire: '',
 
-            nr_adulti: nrAdultiVechi,
-            nr_copii: nrCopiiVechi,
-            nr_animale_mici: nrAnimaleMiciVechi,
-            nr_animale_mari: nrAnimaleMariVechi,
-
-            pret_adult: 0,
-            pret_copil: 0,
-            pret_animal_mic: 0,
-            pret_animal_mare: 0,
-
-            pret_total: pretTotal,
-
-            tur_retur: turReturVechi,
-        },
-
-        created: function () {
-            this.getOrasePlecareInitial()
-            this.getOraseSosireInitial()
-            this.getPreturi()
-        },
-        methods: {
-            getOrasePlecareInitial: function () {
-                axios.get('/orase_rezervari', {
-                    params: {
-                        request: 'orase_plecare',
-                        traseu: this.traseu,
-                    }
-                })
-                    .then(function (response) {
-                        app1.orase_plecare = response.data.raspuns;
-                    });
-            },
-            getOrasePlecare: function () {
-                axios.get('/orase_rezervari', {
-                    params: {
-                        request: 'orase_plecare',
-                        traseu: this.traseu,
-                    }
-                })
-                    .then(function (response) {
-                        app1.orase_plecare = '';
-                        // app1.orase_sosire = '';
-                        app1.oras_plecare = 0;
-                        // app1.oras_sosire = 0;
-                        app1.pret_adult = 0;
-                        app1.pret_copil = 0;
-                        app1.pret_animal_mic = 0,
-                        app1.pret_animal_mare = 0,
-
-                        app1.orase_plecare = response.data.raspuns;
-                    });
-            },
-            getOraseSosireInitial: function () {
-                axios.get('/orase_rezervari', {
-                    params: {
-                        request: 'orase_sosire',
-                        traseu: this.traseu,
-                    }
-                })
-                    .then(function (response) {
-                        app1.orase_sosire = response.data.raspuns;
-                    });
-            },            
-            getOraseSosire: function () {
-                axios.get('/orase_rezervari', {
-                    params: {
-                        request: 'orase_sosire',
-                        traseu: this.traseu,
-                    }
-                })
-                    .then(function (response) {
-                        app1.orase_sosire = '';
-                        app1.oras_sosire = 0;
-                        app1.pret_adult = 0;
-                        app1.pret_copil = 0;
-                        app1.pret_animal_mic = 0,
-                        app1.pret_animal_mare = 0,
-
-                        app1.orase_sosire = response.data.raspuns;
-                        // app1.getPretTotal();
-                    });
-                // app2.getPretTotal();
-            },
-            getPreturi: function () {
-                if ((typeof this.oras_sosire !== 'undefined') && (this.oras_sosire !== 0) && (typeof this.oras_plecare !== 'undefined') && (this.oras_plecare !== 0)) {
-                    if (this.traseu == 1){
-                        var oras = this.oras_sosire
-                    } else if (this.traseu == 2){
-                        var oras = this.oras_plecare
-                    }
-                    axios.get('/orase_rezervari', {
-                        params: {
-                            request: 'preturi',
-                            oras,
-                            // oras_plecare: this.oras_plecare,
-                            // oras_sosire: this.oras_sosire,
-                            tur_retur: this.tur_retur
-                        }
-                    })
-                        .then(function (response) {
-                            app1.pret_adult = response.data.pret_adult;
-                            app1.pret_copil = response.data.pret_copil;
-                            app1.pret_animal_mic = response.data.pret_animal_mic;
-                            app1.pret_animal_mare = response.data.pret_animal_mare;
-                            // Vue.set(app2.pret_adult);
-                            // Vue.set(app2.pret_copil = response.data.pret_copil);
-                            app1.getPretTotal();
-                        });
-                    // app2.getPretTotal();
-                }                
-            },
-            getPretTotal() {
-                this.pret_total = 0;
-                if (!isNaN(this.nr_adulti) && (this.nr_adulti > 0)) {
-                    this.pret_total = this.pret_total + this.pret_adult * this.nr_adulti
-                }
-                if (!isNaN(this.nr_copii) && (this.nr_copii > 0)) {
-                    this.pret_total = this.pret_total + this.pret_copil * this.nr_copii
-                }
-                if (!isNaN(this.nr_animale_mici) && (this.nr_animale_mici > 0)) {
-                    this.pret_total = this.pret_total + this.pret_animal_mic * this.nr_animale_mici
-                }
-                if (!isNaN(this.nr_animale_mari) && (this.nr_animale_mari > 0)) {
-                    this.pret_total = this.pret_total + this.pret_animal_mare * this.nr_animale_mari
-                }
-            },
-        }
-    });
-}
-
-if (document.querySelector('#transport-colete')) {
-    const app1 = new Vue({
-        el: '#transport-colete',
-        data: {
-            traseu: traseuVechi,
-            active: "active",
-            oras_plecare: orasPlecareVechi,
-            orase_plecare: '',
-            oras_sosire: orasSosireVechi,
-            orase_sosire: '',
-
-            numar_colete: numarColeteVechi,
-        },
-
-        created: function () {
-            this.getOrasePlecareInitial()
-            this.getOraseSosireInitial()
-        },
-        methods: {
-            getOrasePlecareInitial: function () {
-                axios.get('/orase_colete', {
-                    params: {
-                        request: 'orase_plecare',
-                        traseu: this.traseu,
-                    }
-                })
-                    .then(function (response) {
-                        app1.orase_plecare = response.data.raspuns;
-                    });
-            },
-            getOrasePlecare: function () {
-                axios.get('/orase_colete', {
-                    params: {
-                        request: 'orase_plecare',
-                        traseu: this.traseu,
-                    }
-                })
-                    .then(function (response) {
-                        app1.orase_plecare = '';
-                        app1.oras_plecare = 0;
-
-                        app1.orase_plecare = response.data.raspuns;
-                    });
-            },
-            getOraseSosireInitial: function () {
-                axios.get('/orase_colete', {
-                    params: {
-                        request: 'orase_sosire',
-                        traseu: this.traseu,
-                    }
-                })
-                    .then(function (response) {
-                        app1.orase_sosire = response.data.raspuns;
-                    });
-            },
-            getOraseSosire: function () {
-                axios.get('/orase_colete', {
-                    params: {
-                        request: 'orase_sosire',
-                        traseu: this.traseu,
-                    }
-                })
-                    .then(function (response) {
-                        app1.orase_sosire = '';
-                        app1.oras_sosire = 0;
-
-                        app1.orase_sosire = response.data.raspuns;
-                        
-                    });
-            },
-        }
-    });
-}
-
-if (document.querySelector('#adauga-rezervare-aeroport')) {
-    const app1 = new Vue({
-        el: '#adauga-rezervare-aeroport',
-        data: {
-            traseu: traseuVechi,
-            active: "active",
-
-            nr_adulti: nrAdultiVechi,
-            nr_copii: nrCopiiVechi,
-
-            pret_adult: 0,
-            pret_copil: 0,
-
-            pret_total: pretTotal,
-
-            tur_retur: turReturVechi,
-        },
-
-        created: function () {
-            this.getPreturi()
-            this.getPretTotal()
-        },
-        methods: {
-            getPreturi: function () {
-                if (this.tur_retur === false) {
-                    this.pret_adult = 70,
-                    this.pret_copil = 40
-                } else if (this.tur_retur === true) {
-                    if (this.nr_adulti < 5) {
-                        this.pret_adult = 120,
-                        this.pret_copil = 80                        
-                    } else if (this.nr_adulti > 4) {
-                        this.pret_adult = 100,
-                        this.pret_copil = 80 
-                    }
-                }
-            },
-            getPretTotal() {
-                this.pret_total = 0;
-                if (!isNaN(this.nr_adulti) && (this.nr_adulti > 0)) {
-                    this.pret_total = this.pret_total + this.pret_adult * this.nr_adulti
-                }
-                if (!isNaN(this.nr_copii) && (this.nr_copii > 0)) {
-                    this.pret_total = this.pret_total + this.pret_copil * this.nr_copii
-                }
-                if (!isNaN(this.nr_animale_mici) && (this.nr_animale_mici > 0)) {
-                    this.pret_total = this.pret_total + this.pret_animal_mic * this.nr_animale_mici
-                }
-                if (!isNaN(this.nr_animale_mari) && (this.nr_animale_mari > 0)) {
-                    this.pret_total = this.pret_total + this.pret_animal_mare * this.nr_animale_mari
-                }
-            },
-        }
-    });
-}
 
 if (document.querySelector('#produse')) {
     const app = new Vue({
@@ -328,16 +59,70 @@ if (document.querySelector('#produse')) {
     });
 }
 
-if (document.querySelector('#vanzari')) {
+if (document.querySelector('#fisa-service')) {
     const app = new Vue({
-        el: '#vanzari',
+        el: '#fisa-service',
+        data: {
+            client_deja_inregistrat: clientVechi,
+            clienti: clientiExistenti,
+            client_nume: clientVechi_nume,
+            client_nume_scurt: clientVechi_nume_scurt,
+            client_nr_ord_reg_com: clientVechi_nr_ord_reg_com,
+            client_cui: clientVechi_cui,
+            client_adresa: clientVechi_adresa,
+            client_iban: clientVechi_iban,
+            client_banca: clientVechi_banca,
+            client_reprezentant: clientVechi_reprezentant,
+            client_reprezentant_functie: clientVechi_reprezentant_functie,
+            client_telefon: clientVechi_telefon,
+            client_email: clientVechi_email,
+            client_email_dpo: clientVechi_email_dpo,
+            client_site_web: clientVechi_site_web,
+        },
+        // created: function () {
+        //     this.getPret()
+        // },
         methods: {
-            formfocus() {
-                document.getElementById("cod_de_bare").focus();
-            }
+            getDateClient: function () {
+                for (var i = 0; i < this.clienti.length; i++) {
+                    if (this.clienti[i].id == this.client_deja_inregistrat) {
+                        this.client_nume = this.clienti[i].nume;
+                        this.client_nume_scurt = this.clienti[i].nume_scurt;
+                        this.client_nr_ord_reg_com = this.clienti[i].nr_ord_reg_com;
+                        this.client_cui = this.clienti[i].cui;
+                        this.client_adresa = this.clienti[i].adresa;
+                        this.client_iban = this.clienti[i].iban;
+                        this.client_banca = this.clienti[i].banca;
+                        this.client_reprezentant = this.clienti[i].reprezentant;
+                        this.client_reprezentant_functie = this.clienti[i].reprezentant_functie;
+                        this.client_telefon = this.clienti[i].telefon;
+                        this.client_email = this.clienti[i].email;
+                        this.client_email_dpo = this.clienti[i].email_dpo;
+                        this.client_site_web = this.clienti[i].site_web;
+                        return true;
+                    }
+                }
+                this.client_nume = '';
+                this.client_nume_scurt = '';
+                this.client_nr_ord_reg_com = '';
+                this.client_cui = '';
+                this.client_adresa = '';
+                this.client_iban = '';
+                this.client_banca = '';
+                this.client_reprezentant = '';
+                this.client_reprezentant_functie = '';
+                this.client_telefon = '';
+                this.client_email = '';
+                this.client_email_dpo = '';
+                this.client_site_web = '';
+
+            },
+            // formfocus() {
+            //     document.getElementById("cod_de_bare").focus();
+            // }
         },
         mounted() {
-            this.formfocus()
+            // this.formfocus()
         }
     });
 }

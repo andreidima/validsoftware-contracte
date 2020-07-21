@@ -56,6 +56,8 @@
             return 'hi';
         });
 
+        Route::resource('fise-service', 'FisaServiceController');
+
     Route::get('backup', function() {
         // Artisan::call('backup:run'
         //     , ['--only-db' => true]
