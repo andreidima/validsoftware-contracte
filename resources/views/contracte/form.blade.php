@@ -2,8 +2,8 @@
 
 <div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px">
     <div class="form-group col-lg-12 px-2 mb-0">
-        <div class="form-row px-2 py-2 mb-0">    
-            <div class="form-group col-lg-3 mb-0">  
+        <div class="form-row px-2 py-2 mb-4">    
+            <div class="form-group col-lg-2 mb-0">  
                 <label for="contract_nr" class="mb-0 pl-3">Nr. contract:</label>                                      
                 <input 
                     type="text" 
@@ -14,7 +14,7 @@
                     value="{{ old('contract_nr') == '' ? ($contracte->contract_nr ?? $urmatorul_contract_nr) : old('contract_nr') }}"
                     required> 
             </div>                               
-            <div class="form-group col-lg-7 mb-0">  
+            <div class="form-group col-lg-5 mb-0">  
                 <label for="client_id" class="mb-0 pl-3">Client:</label>                                      
                 <select name="client_id" 
                     class="custom-select-sm custom-select rounded-pill {{ $errors->has('client_id') ? 'is-invalid' : '' }}"
@@ -35,7 +35,19 @@
                         >{{ $client->nume }} </option>                                                
                     @endforeach
                 </select> 
-            </div>                        
+            </div>   
+            <div class="form-check form-check-inline col-lg-3 justify-content-center align-self-end mr-0">
+                <input type="hidden" name="abonament_lunar" value=0>
+                <input type="checkbox" class="form-check-input" name="abonament_lunar" value="1"
+                    {{ 
+                        old('abonament_lunar') <> '' ? 
+                            (old('abonament_lunar') == '1' ? 'checked' : '')
+                            :
+                            ($contracte->abonament_lunar === 1 ? 'checked' : '')
+                    }}
+                >
+                <label class="form-check-label" for="abonament_lunar">Abonament lunar</label>
+            </div>                 
             <div class="form-group col-lg-2 mb-0">  
                 <label for="pret" class="mb-0 pl-1">Preț:</label>                               
                 <input 
@@ -47,8 +59,8 @@
                     required> 
             </div> 
         </div>
-        <div class="form-row px-2 py-2 mb-0 justify-content-center">                              
-            <div class="form-group col-lg-4 mb-0">  
+        <div class="form-row px-2 py-2 mb-4 justify-content-between">
+            <div class="form-group col-lg-3 mb-0 text-center">
                 <label for="contract_data" class="mb-0 pl-1">Data contract:</label>
                 <vue2-datepicker
                     data-veche="{{ old('contract_data') == '' ? $contracte->contract_data : old('contract_data') }}"
@@ -57,8 +69,8 @@
                     latime="150"
                     not-before="{{ \Carbon\Carbon::today() }}"
                 ></vue2-datepicker>
-            </div>                           
-            <div class="form-group col-lg-4 mb-0">  
+            </div>
+            <div class="form-group col-lg-3 mb-0 text-center">  
                 <label for="data_incepere" class="mb-0 pl-1">Data începere:</label>  
                 <vue2-datepicker
                     data-veche="{{ old('data_incepere') == '' ? $contracte->data_incepere : old('data_incepere') }}"
@@ -68,7 +80,7 @@
                     not-before="{{ \Carbon\Carbon::today() }}"
                 ></vue2-datepicker> 
             </div>                        
-            <div class="form-group col-lg-4 mb-0">  
+            <div class="form-group col-lg-3 mb-0 text-center">  
                 <label for="data_terminare" class="mb-0 pl-1">Data terminare:</label>  
                 <vue2-datepicker
                     data-veche="{{ old('data_terminare') == '' ? $contracte->data_terminare : old('data_terminare') }}"

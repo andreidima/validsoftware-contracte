@@ -153,6 +153,7 @@ class ContractController extends Controller
             'contract_nr' => ['required', 'numeric'],
             'contract_data' => [''],
             'data_incepere' => [''],
+            'abonament_lunar' => [''],
             'pret' => ['nullable', 'numeric', 'max:99999'],
             'anexa' => ['']
         ]);
@@ -279,24 +280,32 @@ class ContractController extends Controller
                             <ol>
                                 <li>Serviciile pe care <b>Dima P. Valentin PFA</b> se angajează să le efectueze în beneficiul <b>' . $contracte->client->nume . '</b> sunt specificate în “Planul de lucru – Anexa”, dar nu se limitează numai la acestea.</li>
                                 <li><b>' . $contracte->client->nume . '</b> şi <b>Dima P. Valentin PFA</b> vor cădea de acord asupra serviciilor suplimentare care trebuie efectuate sau asupra celor care nu mai sunt necesare.</li>
-                                <li>Calitatea serviciilor furnizate de <b>Dima P. Valentin PFA</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b></li>
+                                <li>Calitatea serviciilor furnizate de <b>Dima P. Valentin PFA</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b>.</li>
                                 <li><b>Dima P. Valentin PFA</b> are obligaţia de a livra produsele şi de a presta serviciile prevăzute în contract cu profesionalismul şi promptitudinea cuvenite angajamentului asumat şi în conformitate cu propunerea sa tehnică.</li>
-                                <li><b>Dima P. Valentin PFA</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>
-                                <li><b>Dima P. Valentin PFA</b> va emite lunar o factură, în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>
-                            </ol>
+                                <li><b>Dima P. Valentin PFA</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>';
+                
+                    if (($contracte->abonament_lunar === 1) && ($contracte->pret != null)){
+                        $html .= '<li><b>Dima P. Valentin PFA</b> va emite lunar o factură, în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>';
+                    }
+
+                $html .= '</ol>
                             <br/>
                         <li><p style="font-weight: bold;">Responsabilităţile <b>' . $contracte->client->nume . '</b></p></li>
                             <ol>
                                 <li><b>' . $contracte->client->nume . '</b> are obligaţia de a pune la dispoziţia <b>Dima P. Valentin PFA</b> toate informaţiile pe care <b>Dima P. Valentin PFA</b> le consideră necesare în mod rezonabil pentru îndeplinirea contractului.</li>
                                 <li><b>' . $contracte->client->nume . '</b> are obligaţia de a efectua plata către <b>Dima P. Valentin PFA</b> în termen de 30 zile de la emiterea facturii de către acesta.</li>
-                                <li>În cazul în care <b>' . $contracte->client->nume . '</b> nu onorează facturile în termen de 30 zile de la expirarea perioadei prevăzute la clauza 4.2, <b>Dima P. Valentin PFA</b> are dreptul de a sista prestarea serviciilor sau de a diminua ritmul prestării. Imediat ce <b>' . $contracte->client->nume . '</b> onorează factura, <b>Dima P. Valentin PFA</b> va relua prestarea serviciilor în cel mai scurt timp posibil.</li>
+                                <li>În cazul în care <b>' . $contracte->client->nume . '</b> nu onorează facturile în termen de 30 zile de la expirarea perioadei prevăzute la clauza 4.b, <b>Dima P. Valentin PFA</b> are dreptul de a sista prestarea serviciilor sau de a diminua ritmul prestării. Imediat ce <b>' . $contracte->client->nume . '</b> onorează factura, <b>Dima P. Valentin PFA</b> va relua prestarea serviciilor în cel mai scurt timp posibil.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Recepţie şi verificări</p></li>
                             <ol>
-                                <li><b>' . $contracte->client->nume . '</b> are dreptul de a verifica modul de prestare şi calitatea serviciilor.</li>
-                                <li>Dima P. Valentin va genera lunar un raport de activitate, care va fi inaintat beneficiarului. </li>
-                            </ol>
+                                <li><b>' . $contracte->client->nume . '</b> are dreptul de a verifica modul de prestare şi calitatea serviciilor.</li>';  
+
+                    if ($contracte->abonament_lunar === 1){
+                        $html .= '<li><b>Dima P. Valentin</b> va genera lunar un raport de activitate, care va fi inaintat beneficiarului. </li>';
+                    }
+                
+                $html .= '</ol>
                             <br/>
                         <li><p style="font-weight: bold;">Forţa majoră</p></li>
                             <ol>
@@ -306,7 +315,7 @@ class ContractController extends Controller
                                 <li>Partea contractantă care invocă forţa majoră are obligaţia de a notifica celeilalte părţi, imediat şi în mod complet, producerea acesteia şi de a lua orice măsuri care îi stau la dispoziţie în vederea limitării consecinţelor.</li>
                                 <li>Dacă forţa majoră acţionează sau se estimează că va acţiona o perioadă mai mare de 6 luni, fiecare parte va avea dreptul să notifice celeilalte părţi încetarea de plin drept a prezentului contract, fără ca vreuna dintre părţi să poată pretinde celeilalte daune-interese.</li>
                             </ol>
-                            <br/><br/><br/>
+                            <br/>
                         <li><p style="font-weight: bold;">Soluţionarea litigiilor</p></li>
                             <ol>
                                 <li><b>' . $contracte->client->nume . '</b> şi <b>Dima P. Valentin PFA</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
@@ -363,7 +372,6 @@ class ContractController extends Controller
                                 <li>Integrare servicii ale unor terți;</li>
                                 <li>suport și consultanță prin email/ telefon.</li>
                             </ol>
-                        <li><b>Locaţia proiectului</b>: la sediul <b>Dima P. Valentin PFA</b> sau la sediul <b>' . $contracte->client->nume . '</b></li>
                 </ol>
             ';
             $html .= '<br />';
