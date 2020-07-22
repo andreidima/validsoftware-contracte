@@ -2,7 +2,39 @@
 
 <div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px">
     <div class="form-group col-lg-12 px-2 mb-0">
-        <div class="form-row px-2 py-2 mb-0" style="background-color:#ddffff; border-left:6px solid; border-color:#2196F3">    
+        <div class="form-row px-2 py-2 mb-0"
+            {{-- style="background-color:#ddffff; border-left:6px solid; border-color:#2196F3" --}}
+        >   
+            <div class="form-group col-lg-9 mb-4">
+            </div>
+            <div class="d-flex col-lg-3 mb-4 justify-content-end align-items-center">
+                <label for="fisa_nr" class="mb-0 mr-2">Nr. fișă service:</label>                                      
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm col-4 rounded-pill {{ $errors->has('fisa_nr') ? 'is-invalid' : '' }}" 
+                    name="fisa_nr" 
+                    placeholder="" 
+                    {{-- value="{{ old('fisa_nr') == '' ? ($contracte->fisa_nr == '' ? $urmatorul_fisa_nr : '') : old('fisa_nr') }}" --}}
+                    value="{{ old('fisa_nr') == '' ? ($fisa_service->fisa_nr ?? $urmatorul_document_nr) : old('fisa_nr') }}"
+                    required> 
+            </div>
+            {{-- <div class="form-group col-lg-10 mb-4">
+            </div>
+            <div class="form-group col-lg-2 mb-4">
+                <label for="data_terminare" class="mb-0 pl-1">Data:</label>  
+                <vue2-datepicker
+                    data-veche="{{ old('data_terminare') == '' ? $contracte->data_terminare : old('data_terminare') }}"
+                    nume-camp-db="data_terminare"
+                    tip="date"
+                    latime="150"
+                    not-before="{{ \Carbon\Carbon::today() }}"
+                ></vue2-datepicker> 
+            </div> --}}
+
+        </div>
+        <div class="form-row px-2 py-2 mb-0"
+            style="background-color:#ddffff; border-left:6px solid; border-color:#2196F3; border-radius: 40px 40px 0px 0px"
+        >    
             <div class="form-group col-lg-4 mb-2"> 
                     <label for="client_deja_inregistrat" class="mb-0 pl-3">Selectează clientul dacă este deja înregistrat:</label>
                     <div class="">    
@@ -25,7 +57,9 @@
                     </div>
             </div>
         </div>
-        <div class="form-row px-2 py-2 mb-0" style="background-color:#ddffff; border-left:6px solid; border-color:#2196F3">  
+        <div class="form-row px-2 py-2 mb-4"
+            style="background-color:#ddffff; border-left:6px solid; border-color:#2196F3; border-radius: 0px 0px 40px 40px"
+        >  
             <div class="form-group col-lg-4 mb-4"> 
                 <script type="application/javascript"> 
                     clientVechi_nume={!! json_encode(old('nume', $fisa_service->nume)) !!}
@@ -207,6 +241,38 @@
                     v-model="client_site_web" 
                     value="{{ old('site_web') == '' ? $fisa_service->site_web : old('site_web') }}"
                     required> 
+            </div>
+        </div>
+        <div class="form-row px-2 py-2 mb-0"
+            style="background-color:honeydew; border-left:6px solid; border-color:mediumseagreen; border-radius: 40px 40px 40px 40px"
+            >  
+            <div class="form-group col-lg-6">
+                <label for="descriere_echipament" class="mb-0 pl-3">Descriere echipament:</label>                                  
+                <textarea class="form-control {{ $errors->has('descriere_echipament') ? 'is-invalid' : '' }}" 
+                    name="descriere_echipament"
+                    placeholder="Descriere echipament"
+                    >{{ old('descriere_echipament') == '' ? $fisa_service->descriere_echipament : old('descriere_echipament') }}</textarea>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="descriere_defect" class="mb-0 pl-3">Descriere defect:</label>                                  
+                <textarea class="form-control {{ $errors->has('descriere_defect') ? 'is-invalid' : '' }}" 
+                    name="descriere_defect"
+                    placeholder="Descriere defect"
+                    >{{ old('descriere_defect') == '' ? $fisa_service->descriere_defect : old('descriere_defect') }}</textarea>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="rezultat_service" class="mb-0 pl-3">Rezultat service:</label>                                  
+                <textarea class="form-control {{ $errors->has('rezultat_service') ? 'is-invalid' : '' }}" 
+                    name="rezultat_service"
+                    placeholder="Rezultat service"
+                    >{{ old('rezultat_service') == '' ? $fisa_service->rezultat_service : old('rezultat_service') }}</textarea>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="observatii" class="mb-0 pl-3">Observații:</label>                                  
+                <textarea class="form-control {{ $errors->has('observatii') ? 'is-invalid' : '' }}" 
+                    name="observatii"
+                    placeholder="Observații"
+                    >{{ old('observatii') == '' ? $fisa_service->observatii : old('observatii') }}</textarea>
             </div>
         </div>
         
