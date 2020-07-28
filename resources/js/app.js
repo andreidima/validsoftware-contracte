@@ -66,7 +66,7 @@ if (document.querySelector('#fisa-service')) {
             client_deja_inregistrat: clientVechi,
             clienti: clientiExistenti,
             client_nume: clientVechi_nume,
-            client_nume_scurt: clientVechi_nume_scurt,
+            // client_nume_scurt: clientVechi_nume_scurt,
             client_nr_ord_reg_com: clientVechi_nr_ord_reg_com,
             client_cui: clientVechi_cui,
             client_adresa: clientVechi_adresa,
@@ -76,7 +76,7 @@ if (document.querySelector('#fisa-service')) {
             client_reprezentant_functie: clientVechi_reprezentant_functie,
             client_telefon: clientVechi_telefon,
             client_email: clientVechi_email,
-            client_email_dpo: clientVechi_email_dpo,
+            // client_email_dpo: clientVechi_email_dpo,
             client_site_web: clientVechi_site_web,
         },
         // created: function () {
@@ -87,7 +87,7 @@ if (document.querySelector('#fisa-service')) {
                 for (var i = 0; i < this.clienti.length; i++) {
                     if (this.clienti[i].id == this.client_deja_inregistrat) {
                         this.client_nume = this.clienti[i].nume;
-                        this.client_nume_scurt = this.clienti[i].nume_scurt;
+                        // this.client_nume_scurt = this.clienti[i].nume_scurt;
                         this.client_nr_ord_reg_com = this.clienti[i].nr_ord_reg_com;
                         this.client_cui = this.clienti[i].cui;
                         this.client_adresa = this.clienti[i].adresa;
@@ -97,13 +97,13 @@ if (document.querySelector('#fisa-service')) {
                         this.client_reprezentant_functie = this.clienti[i].reprezentant_functie;
                         this.client_telefon = this.clienti[i].telefon;
                         this.client_email = this.clienti[i].email;
-                        this.client_email_dpo = this.clienti[i].email_dpo;
+                        // this.client_email_dpo = this.clienti[i].email_dpo;
                         this.client_site_web = this.clienti[i].site_web;
                         return true;
                     }
                 }
                 this.client_nume = '';
-                this.client_nume_scurt = '';
+                // this.client_nume_scurt = '';
                 this.client_nr_ord_reg_com = '';
                 this.client_cui = '';
                 this.client_adresa = '';
@@ -113,7 +113,7 @@ if (document.querySelector('#fisa-service')) {
                 this.client_reprezentant_functie = '';
                 this.client_telefon = '';
                 this.client_email = '';
-                this.client_email_dpo = '';
+                // this.client_email_dpo = '';
                 this.client_site_web = '';
 
             },

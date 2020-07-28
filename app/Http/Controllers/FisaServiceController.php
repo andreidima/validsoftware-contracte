@@ -25,7 +25,7 @@ class FisaServiceController extends Controller
     public function create()
     {
         $clienti = \App\Client::all();
-        $clienti = $clienti->sortBy('nume')->values();
+        $clienti = $clienti->where('tip', 'service')->sortBy('nume')->values();
 
         $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
