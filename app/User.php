@@ -37,31 +37,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles()
+    public function isAdmin()
     {
-        return $this->belongsToMany('App\Role');
-    }
-
-    public function hasAnyRole($roles)
-    {
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($this->hasRole($role)) {
-                    return true;
-                }
-            }
-        } else {
-            if ($this->hasRole($role)) {
+        if ((auth()->user()->role === 'superadmin') || (auth()->user()->role === 'admin')){
                 return true;
-            }
-        }
-        return false;
-    }
-
-    public function hasRole($role)
-    {
-        if ($this->roles()->where('nume', $role)->first()) {
-            return true;
         }
         return false;
     }

@@ -11,10 +11,14 @@
 |
 */
 
-// Route::group(['scheme' => 'https'], function () {
-    Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
+Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
-    Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
+    Route::redirect('/', 'service/clienti');
+
+    Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
+    
+    Route::group(['middleware' => 'admin'], function () {
         Route::redirect('/', 'clienti');
 
         Route::resource('clienti', 'ClientController');
@@ -46,27 +50,27 @@
 
         // Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
     });
+});
 
-        Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
+    Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
 
-        // Trimitere Cron joburi din Cpanel
-        Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
+    // Trimitere Cron joburi din Cpanel
+    Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
-        Route::get('teste', function() {
-            return 'hi';
-        });
+    Route::get('teste', function() {
+        return 'hi';
+    });
 
-        Route::resource('fise-service', 'FisaServiceController');
+    Route::resource('fise-service', 'FisaServiceController');
 
-    Route::get('backup', function() {
-        // Artisan::call('backup:run'
-        //     , ['--only-db' => true]
-        // );
-        // Artisan::call('db:seed');
+Route::get('backup', function() {
+    // Artisan::call('backup:run'
+    //     , ['--only-db' => true]
+    // );
+    // Artisan::call('db:seed');
 
-        // Artisan::call('inspire');
-        // dd("Backup facut local");
-        Artisan::call('inspire');
-        dd(Artisan::output());
-        });
-// });
+    // Artisan::call('inspire');
+    // dd("Backup facut local");
+    Artisan::call('inspire');
+    dd(Artisan::output());
+    });

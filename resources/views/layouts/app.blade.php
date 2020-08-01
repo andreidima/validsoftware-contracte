@@ -40,8 +40,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-                            @guest
-                            @else
+                            @if (auth()->user()->isAdmin())
                                 <li class="nav-item active mr-4">
                                     <a class="nav-link" href="{{ route('clienti.index') }}">
                                         <i class="fas fa-building mr-1"></i>Clienți
@@ -70,17 +69,30 @@
                                 </li>
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-tools mr-1"></i>Service
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link" href="{{ route('service.clienti.index') }}">
+                                            <i class="fas fa-building mr-1"></i>Clienți
+                                        </a>
+                                        <a class="nav-link" href="">
+                                            <i class="fas fa-building mr-1"></i>Fișe
+                                        </a>
+                                        <a class="nav-link" href="">
+                                            <i class="fas fa-building mr-1"></i>Servicii
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown active mr-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-cog mr-1"></i>Setări
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('variabile.index') }}">
                                             <i class="fas fa-book mr-1"></i>Variabile
                                         </a>
-                                {{-- <li class="nav-item active mr-4">
-                                    <a class="nav-link" href="{{ route('rapoarte_activitate_trimise.index') }}">
-                                        <i class="fas fa-file-import mr-1"></i>Rapoarte trimise
-                                    </a>
-                                </li> --}}
+                                    </div>
+                                </li>
                             @endguest
                         </ul>
 

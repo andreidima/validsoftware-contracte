@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class ServiceClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +19,11 @@ class ClientController extends Controller
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
-            ->where('tip', '!=', 'service')
+            ->where('tip', 'service')
             ->latest()
             ->Paginate(25);
             
-        return view('clienti.index', compact('clienti', 'search_nume'));
+        return view('service.clienti.index', compact('clienti', 'search_nume'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('clienti.create');
+        return view('service.clienti.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $client = Client::create($this->validateRequest($request));
+        $client = Client::create(array_merge($this->validateRequest($request),['tip' => 'service']));
 
         return redirect($client->path())->with('status', 'Clientul "' . $client->nume . '" a fost adăugat cu succes!');
     }
@@ -57,7 +57,7 @@ class ClientController extends Controller
      */
     public function show(Client $clienti)
     {
-        return view('clienti.show', compact('clienti'));
+        return view('service.clienti.show', compact('clienti'));
     }
 
     /**
@@ -92,7 +92,7 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $clienti)
+    public function destroy(Client $client)
     {
         $clienti->delete();
         return redirect('/clienti')->with('status', 'Clientul "' . $clienti->nume . '" a fost șters cu succes!');
@@ -107,7 +107,6 @@ class ClientController extends Controller
     {
         return request()->validate([
             'nume' => ['required', 'max:100'],
-            'nume_scurt' => ['required', 'max:100'],
             'nr_ord_reg_com' => ['max:50'],
             'cui' => ['max:50'],
             'adresa' => ['max:180'],
@@ -117,8 +116,8 @@ class ClientController extends Controller
             'reprezentant_functie' => ['max:100'],
             'telefon' => ['max:100'],
             'email' => ['nullable', 'max:180'],
-            'email_dpo' => ['nullable', 'max:100'],
-            'site_web' => ['nullable', 'max:180']
+            'site_web' => ['nullable', 'max:180'],
+            'tip' => ['nullable', 'max:45']
         ]);
     }
 }
