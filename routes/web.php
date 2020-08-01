@@ -16,6 +16,7 @@ Auth::routes(['register' => false, 'password.request' => false, 'reset' => false
 Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/', 'service/clienti');
 
+    // comment
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
     
     Route::group(['middleware' => 'admin'], function () {
