@@ -32,14 +32,14 @@
                                     {{ $clienti->nume }}
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td>
                                     Nume scurt
                                 </td>
                                 <td>
                                     {{ $clienti->nume_scurt }}
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td>
                                     Nr. ord. reg. com.
@@ -112,14 +112,14 @@
                                     {{ $clienti->email }}
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td>
                                     Email DPO
                                 </td>
                                 <td>
                                     {{ $clienti->email_dpo }}
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td>
                                     Site web
@@ -133,7 +133,7 @@
                                        
                     <div class="form-row mb-2 px-2">                                    
                         <div class="col-lg-12 d-flex justify-content-center">  
-                            <a class="btn btn-primary btn-sm rounded-pill" href="/clienti">Pagină Clienți</a> 
+                            <a class="btn btn-primary btn-sm rounded-pill" href="/service/clienti">Pagină Clienți</a> 
                         </div>
                     </div>
 

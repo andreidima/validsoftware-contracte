@@ -13,44 +13,44 @@
 
 Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::redirect('/', 'service/clienti');
+Route::middleware(['auth'])->group(function () {
+    Route::view('/', 'home');
+    // Route::redirect('/', 'service/clienti');
 
-    // comment
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
-    
-    Route::group(['middleware' => 'admin'], function () {
-        Route::redirect('/', 'clienti');
+});
 
-        Route::resource('clienti', 'ClientController');
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Route::redirect('/', 'clienti');
 
-        Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
+    Route::resource('clienti', 'ClientController');
 
-        // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
-        Route::post('/fisiere/{contracte}/file-upload', 'FisierController@store')->name('file.upload.post');
-        Route::post('/fisiere/file-download/{fisier}', 'FisierController@fileDownload')->name('file.download');
-        // Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
+    Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
 
-        // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
-        Route::post('/cron-jobs-files/{cron_job}/file-upload', 'CronJobFileController@store')->name('cronjob.file.upload.post');
-        Route::post('/cron-jobs-files/file-download/{file}', 'CronJobFileController@fileDownload')->name('cronjob.file.download');
+    // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
+    Route::post('/fisiere/{contracte}/file-upload', 'FisierController@store')->name('file.upload.post');
+    Route::post('/fisiere/file-download/{fisier}', 'FisierController@fileDownload')->name('file.download');
+    // Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
 
-        // Activare/ dezactivare Cron Jobs
-        Route::patch('/cron-jobs/{cron_job}/activare-dezactivare', 'CronJobController@activareDezactivare')->name('cronjob.activare.dezactivare');
+    // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
+    Route::post('/cron-jobs-files/{cron_job}/file-upload', 'CronJobFileController@store')->name('cronjob.file.upload.post');
+    Route::post('/cron-jobs-files/file-download/{file}', 'CronJobFileController@fileDownload')->name('cronjob.file.download');
 
-        Route::resource('contracte', 'ContractController');
-        Route::resource('fisiere', 'FisierController');
-        Route::resource('cron-jobs', 'CronJobController');
-        Route::resource('cron-jobs-files', 'CronJobFileController');
-        Route::resource('cron-jobs-trimise', 'CronJobTrimiseController');
-        // Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
-        Route::resource('variabile', 'VariabilaController');
+    // Activare/ dezactivare Cron Jobs
+    Route::patch('/cron-jobs/{cron_job}/activare-dezactivare', 'CronJobController@activareDezactivare')->name('cronjob.activare.dezactivare');
 
-        Route::get('generator', 'GeneratorController@index')->name('generator.index');
-        Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
+    Route::resource('contracte', 'ContractController');
+    Route::resource('fisiere', 'FisierController');
+    Route::resource('cron-jobs', 'CronJobController');
+    Route::resource('cron-jobs-files', 'CronJobFileController');
+    Route::resource('cron-jobs-trimise', 'CronJobTrimiseController');
+    // Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
+    Route::resource('variabile', 'VariabilaController');
 
-        // Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
-    });
+    Route::get('generator', 'GeneratorController@index')->name('generator.index');
+    Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
+
+    // Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
 });
 
     Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');

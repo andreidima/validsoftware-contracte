@@ -72,14 +72,14 @@
                                         <i class="fas fa-tools mr-1"></i>Service
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="nav-link" href="{{ route('service.clienti.index') }}">
-                                            <i class="fas fa-building mr-1"></i>Clienți
+                                        <a class="nav-link text-dark" href="{{ route('service.clienti.index') }}">
+                                            <i class="fas fa-users mr-1"></i>Clienți
                                         </a>
-                                        <a class="nav-link" href="">
-                                            <i class="fas fa-building mr-1"></i>Fișe
+                                        <a class="nav-link text-dark" href="">
+                                            <i class="fas fa-file mr-1"></i>Fișe
                                         </a>
-                                        <a class="nav-link" href="">
-                                            <i class="fas fa-building mr-1"></i>Servicii
+                                        <a class="nav-link text-dark" href="">
+                                            <i class="fas fa-tasks mr-1"></i>Servicii
                                         </a>
                                     </div>
                                 </li>
@@ -93,7 +93,7 @@
                                         </a>
                                     </div>
                                 </li>
-                            @endguest
+                            @endif
                         </ul>
 
                         <!-- Right Side Of Navbar -->

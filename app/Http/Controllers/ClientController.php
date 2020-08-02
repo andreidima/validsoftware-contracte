@@ -19,7 +19,7 @@ class ClientController extends Controller
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
-            ->where('tip', '!=', 'service')
+            // ->where('tip', '!=', 'service')
             ->latest()
             ->Paginate(25);
             

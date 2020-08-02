@@ -28,7 +28,30 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    // protected $redirectTo = '/';
+
+    public function redirectTo()
+    {
+        // User role
+        $role = auth()->user()->role;
+        // dd($role);
+
+        // Check user role
+        switch ($role) {
+            case 'superadmin':
+                return '/clienti';
+                break;
+            case 'admin':
+                return '/clienti';
+                break;
+            case 'service':
+                return '/service/clienti';
+                break;
+            default:
+                return '/login';
+                break;
+        }
+    }
 
     /**
      * Create a new controller instance.

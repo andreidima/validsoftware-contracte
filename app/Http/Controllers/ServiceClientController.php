@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
+use App\ServiceClient;
 use Illuminate\Http\Request;
 
 class ServiceClientController extends Controller
@@ -15,11 +15,11 @@ class ServiceClientController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
-        $clienti = Client::
+        $clienti = ServiceClient::
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
-            ->where('tip', 'service')
+            // ->where('tip', 'service')
             ->latest()
             ->Paginate(25);
             
@@ -44,7 +44,8 @@ class ServiceClientController extends Controller
      */
     public function store(Request $request)
     {
-        $client = Client::create(array_merge($this->validateRequest($request),['tip' => 'service']));
+        // $client = ServiceClient::create(array_merge($this->validateRequest($request),['tip' => 'service']));
+        $client = ServiceClient::create($this->validateRequest($request));
 
         return redirect($client->path())->with('status', 'Clientul "' . $client->nume . '" a fost adăugat cu succes!');
     }
@@ -52,10 +53,10 @@ class ServiceClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\ServiceClient  $client
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $clienti)
+    public function show(ServiceClient $clienti)
     {
         return view('service.clienti.show', compact('clienti'));
     }
@@ -63,22 +64,22 @@ class ServiceClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\ServiceClient  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $clienti)
+    public function edit(ServiceClient $clienti)
     {
-        return view('clienti.edit', compact('clienti'));
+        return view('service.clienti.edit', compact('clienti'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Client  $client
+     * @param  \App\ServiceClient  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $clienti)
+    public function update(Request $request, ServiceClient $clienti)
     {
         $this->validateRequest($request, $clienti);
         $clienti->update($request->all());
@@ -89,10 +90,10 @@ class ServiceClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Client  $client
+     * @param  \App\ServiceClient  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(ServiceClient $clienti)
     {
         $clienti->delete();
         return redirect('/clienti')->with('status', 'Clientul "' . $clienti->nume . '" a fost șters cu succes!');
@@ -116,8 +117,7 @@ class ServiceClientController extends Controller
             'reprezentant_functie' => ['max:100'],
             'telefon' => ['max:100'],
             'email' => ['nullable', 'max:180'],
-            'site_web' => ['nullable', 'max:180'],
-            'tip' => ['nullable', 'max:45']
+            'site_web' => ['nullable', 'max:180']
         ]);
     }
 }
