@@ -95,7 +95,7 @@
             <div class="form-group col-lg-12 mb-0">  
                 <label for="anexa" class="mb-0 pl-1">Anexa:</label>
                 <vue2-editor
-                    anexa-veche="{{ old('anexa') == '' ? $contracte->anexa : old('anexa') }}"
+                    text-vechi="{{ old('anexa') == '' ? $contracte->anexa : old('anexa') }}"
                     nume-camp-db="anexa"
                 ></vue2-editor>
             </div>   

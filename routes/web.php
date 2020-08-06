@@ -26,6 +26,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('clienti', 'ClientController');
 
     Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
+    Route::get('/ofertari/{ofertari}/export/{view_type}', 'OfertareController@wordExport');
 
     // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
     Route::post('/fisiere/{contracte}/file-upload', 'FisierController@store')->name('file.upload.post');
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('cron-jobs-trimise', 'CronJobTrimiseController');
     // Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
     Route::resource('variabile', 'VariabilaController');
+    Route::resource('ofertari', 'OfertareController');
 
     Route::get('generator', 'GeneratorController@index')->name('generator.index');
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');

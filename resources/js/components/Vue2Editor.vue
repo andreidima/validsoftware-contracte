@@ -16,7 +16,7 @@ export default {
   components: {
     VueEditor
   },
-  props: ['anexaVeche', 'numeCampDb'],
+  props: ['textVechi', 'numeCampDb'],
 
   data() {
     return {
@@ -44,10 +44,8 @@ export default {
     };
   },  
     created() {
-        if (this.anexaVeche == "") {
-        }
-        else {
-            this.content = this.anexaVeche
+        if (this.textVechi != ""){
+          this.content = this.textVechi
         }
     },
 

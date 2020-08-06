@@ -46,17 +46,39 @@
                                         <i class="fas fa-building mr-1"></i>Clienți
                                     </a>
                                 </li>
-                                <li class="nav-item active mr-4">
-                                    <a class="nav-link" href="{{ route('contracte.index') }}">
-                                        <i class="fas fa-handshake mr-1"></i>Contracte
+                                <li class="nav-item dropdown active mr-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-file mr-1"></i>Documente
                                     </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link text-dark" href="{{ route('contracte.index') }}">
+                                            <i class="fas fa-handshake mr-1"></i>Contracte
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('generator.index') }}">
+                                            <i class="fas fa-file mr-1"></i>Generator
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('ofertari.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Ofertări
+                                        </a>
+                                    </div>
                                 </li>
-                                <li class="nav-item active mr-4">
-                                    <a class="nav-link" href="{{ route('generator.index') }}">
-                                        <i class="fas fa-file mr-1"></i>Generator
+                                <li class="nav-item dropdown active mr-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-file mr-1"></i>Cron Jobs
                                     </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link text-dark" href="{{ route('cron-jobs.index') }}">
+                                            <i class="fas fa-calendar-check mr-1"></i>Cron Jobs
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('cron-jobs-trimise.index') }}">
+                                            <i class="fas fa-calendar-check mr-1"></i>Cron Jobs trimise
+                                        </a>
+                                    </div>
                                 </li>
-                                <li class="nav-item active mr-4 btn-group">
+                                {{-- <li class="nav-item active mr-4 btn-group">
                                     <a class="nav-link" href="{{ route('cron-jobs.index') }}">
                                         <i class="fas fa-calendar-check mr-1"></i>Cron Jobs
                                     </a>
@@ -66,7 +88,7 @@
                                             <i class="fas fa-calendar-check mr-1"></i>Cron Jobs trimise
                                         </a>
                                     </div>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-tools mr-1"></i>Service
@@ -75,9 +97,11 @@
                                         <a class="nav-link text-dark" href="{{ route('service.clienti.index') }}">
                                             <i class="fas fa-users mr-1"></i>Clienți
                                         </a>
+                                        <div class="dropdown-divider"></div>
                                         <a class="nav-link text-dark" href="">
                                             <i class="fas fa-file mr-1"></i>Fișe
                                         </a>
+                                        <div class="dropdown-divider"></div>
                                         <a class="nav-link text-dark" href="">
                                             <i class="fas fa-tasks mr-1"></i>Servicii
                                         </a>
