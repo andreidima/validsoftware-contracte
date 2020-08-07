@@ -17,7 +17,7 @@
             <div class="form-group col-lg-3 mb-0 text-center">
                 <label for="data_emitere" class="mb-0 pl-1">Data emitere:</label>
                 <vue2-datepicker
-                    data-veche="{{ old('data_emitere') == '' ? $ofertari->data_emitere : old('data_emitere') }}"
+                    data-veche="{{ old('data_emitere') ?? $ofertari->data_emitere ?? \Carbon\Carbon::today() }}"
                     nume-camp-db="data_emitere"
                     tip="date"
                     latime="150"
@@ -51,7 +51,7 @@
             <div class="form-group col-lg-3 mb-0 text-center">
                 <label for="data_cerere" class="mb-0 pl-1">Data cerere:</label>
                 <vue2-datepicker
-                    data-veche="{{ old('data_cerere') == '' ? $ofertari->data_cerere : old('data_cerere') }}"
+                    data-veche="{{ old('data_cerere') ?? $ofertari->data_cerere ?? \Carbon\Carbon::today() }}"
                     nume-camp-db="data_cerere"
                     tip="date"
                     latime="150"

@@ -185,22 +185,18 @@ class OfertareController extends Controller
 
             $html = '<p style="text-align: center;">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' . 
                     (isset($ofertari->data_emitere) ? (' din <b>' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
-                '</p><br /><br />';
+                '</p><br />';
 
-            $html .= '<p style="text-align: left;">' .
-                        '<b>Introducere</b>' .
-                    '</p>';
+            $html .= '<b>Introducere</b>';
 
             $html .= '<p style="text-align: justify;">' .
                         '          Documentul curent reprezintă răspunsul <b>Dima P. Valentin PFA</b> la cererea de servicii primită de la <b>' . 
-                        $ofertari->client->nume . '</b> , în data de <b>' . 
-                        (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>' .
+                        $ofertari->client->nume . '</b>, în data de <b>' . 
+                        (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
                     '</p>' .
                 '<br />';
 
-            $html .= '<p style="text-align: left;">' .
-                        '<b>Despre noi</b>' .                    
-                    '</p>';
+            $html .= '<b>Despre noi</b>';
 
             $html .= '<p style="text-align: justify;">' .
                     '          Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. ' .
@@ -209,9 +205,7 @@ class OfertareController extends Controller
                 '</p>' .
                 '<br />';
 
-            $html .= '<p style="text-align: left;">' .
-                        '<b>Echipă și scop</b>' .                    
-                    '</p>';
+            $html .= '<b>Echipă și scop</b>';
 
             $html .= '<p style="text-align: justify;">' .
                     '          Echipa noastră este formată din specialiști, absolvenți de studii superioare în domeniul IT, dar și în domenii conexe. Scopul nostru este furnizarea de servicii integrate, pentru a oferi clienților noștri creșterea competitivității și performanței activităților pe care le desfășoară.' .
@@ -253,8 +247,12 @@ class OfertareController extends Controller
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
-            $section->addPageBreak();
+            $section->addPageBreak();            
 
+            $html = '<p style="text-align: left;">' .
+                        '<b>Descriere solicitare</b>' .                    
+                    '</p>';
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
             $descriere_solicitare = str_replace('<br>', '<br/>', $ofertari->descriere_solicitare);
             
@@ -346,8 +344,13 @@ class OfertareController extends Controller
             $descriere_solicitare = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $descriere_solicitare);
             $descriere_solicitare = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $descriere_solicitare);
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);     
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);   
 
+
+            $html = '<p style="text-align: left;">' .
+                        '<b>Propunere tehnică și comercială</b>' .                    
+                    '</p>';
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
             $propunere_tehnica_si_comerciala = str_replace('<br>', '<br/>', $ofertari->propunere_tehnica_si_comerciala);
             
