@@ -249,7 +249,8 @@ class OfertareController extends Controller
 
             $section->addPageBreak();            
 
-            $html = '<p style="text-align: left;">' .
+            $html = '<br />' .
+                    '<p style="text-align: left;">' .
                         '<b>Descriere solicitare</b>' .                    
                     '</p>';
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
@@ -347,7 +348,8 @@ class OfertareController extends Controller
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);   
 
 
-            $html = '<p style="text-align: left;">' .
+            $html = '<br />' .
+                    '<p style="text-align: left;">' .
                         '<b>Propunere tehnică și comercială</b>' .                    
                     '</p>';
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
