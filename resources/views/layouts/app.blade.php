@@ -62,6 +62,9 @@
                                         <a class="nav-link text-dark" href="{{ route('ofertari.index') }}">
                                             <i class="fas fa-file-alt mr-1"></i>Ofertări
                                         </a>
+                                        <a class="nav-link text-dark" href="{{ route('ofertari-servicii.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Ofertări - servicii
+                                        </a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown active mr-4">

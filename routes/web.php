@@ -48,6 +48,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::resource('rapoarte_activitate_trimise', 'RaportActivitateTrimisController');
     Route::resource('variabile', 'VariabilaController');
     Route::resource('ofertari', 'OfertareController');
+    Route::resource('ofertari-servicii', 'OfertareServiciuController');
 
     Route::get('generator', 'GeneratorController@index')->name('generator.index');
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
