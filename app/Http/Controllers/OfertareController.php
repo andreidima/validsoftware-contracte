@@ -31,6 +31,16 @@ class OfertareController extends Controller
             ->latest('ofertari.created_at')
             ->simplePaginate(25);
 
+
+        // $ofertari = Ofertare::first();
+        // $html = '';
+        // foreach ($ofertari as $ofertare){
+        //     foreach ($ofertare->servicii as $serviciu) {
+        //         $html .= $serviciu->nume;
+        //     } 
+        // }
+        // dd($html);
+
         return view('ofertari.index', compact('ofertari', 'search_nume'));
     }
 
@@ -463,8 +473,16 @@ class OfertareController extends Controller
             $propunere_tehnica_si_comerciala = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $propunere_tehnica_si_comerciala);
             $propunere_tehnica_si_comerciala = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $propunere_tehnica_si_comerciala);
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $propunere_tehnica_si_comerciala, false, false);   
-            
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $propunere_tehnica_si_comerciala, false, false);
+
+
+            $html ='<ul>';
+            foreach ($ofertari->servicii as $serviciu) {
+                $html .= '<li>' . $serviciu->nume . '</li>';
+            }
+            $html .='</ul>';
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+
                 
             $html = '
                 <br /><br />

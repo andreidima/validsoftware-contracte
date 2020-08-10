@@ -77,9 +77,10 @@
                 ></vue2-editor>
             </div>   
         </div>
-        <div class="form-row px-2 py-2 mb-0">                              
+        <div class="form-row px-2 py-2 mb-4">                              
             <div class="form-group col-lg-12 mb-0">  
                 <label for="propunere_servicii" class="mb-0 pl-1">Propunere servicii:</label>
+                    <div class="form-row">
                             @foreach ($servicii as $serviciu)
                                 <div class="col-lg-6 mb-2 rounded-pill">
                                     <div class="custom-control custom-checkbox border border-4 border-primary" style="padding-left:30px; display: inline-block;">
@@ -97,7 +98,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                
+                    </div>
             </div>   
         </div>
         
