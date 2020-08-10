@@ -200,7 +200,7 @@ class OfertareController extends Controller
 
             $html .= '<p style="text-align: justify;">' .
                     '          Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. ' .
-                    'Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională (SUA, Franța, Belgia)' .
+                    'Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională (SUA, Franța, Belgia). ' .
                     'Pentru mai multe detalii legate de activitatea noastră, vă invităm să accesați secțiunea <i>Portofoliu</i> de la adresa https://validsoftware.ro' .
                 '</p>' .
                 '<br />';
