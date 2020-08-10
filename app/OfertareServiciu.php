@@ -13,9 +13,4 @@ class OfertareServiciu extends Model
     {
         return "/ofertari-servicii/{$this->id}";
     }
-
-    public function client()
-    {
-        return $this->belongsTo('App\Client', 'client_id');
-    }
 }

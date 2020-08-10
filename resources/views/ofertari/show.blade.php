@@ -74,6 +74,18 @@
                                     {!! $ofertari->propunere_tehnica_si_comerciala !!}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Servicii
+                                </td>
+                                <td>
+                                    @foreach ($ofertari->servicii as $serviciu)
+                                        {{ $serviciu->nume }}
+                                        <br />
+                                    @endforeach
+                                </td>
+                            </tr>
+
                         </table>
                     </div>
                                        

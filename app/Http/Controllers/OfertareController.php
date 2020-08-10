@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ofertare;
+use App\OfertareServiciu;
 use App\Client;
 use DB;
 use Illuminate\Http\Request;
@@ -44,9 +45,13 @@ class OfertareController extends Controller
             ->orderBy('nume')
             ->get();
 
+        $servicii = OfertareServiciu::select('id', 'nume')
+            ->orderBy('nume')
+            ->get();
+
         $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
-        return view('ofertari.create', compact('clienti', 'urmatorul_document_nr'));
+        return view('ofertari.create', compact('clienti', 'servicii', 'urmatorul_document_nr'));
     }
 
     /**
@@ -57,8 +62,15 @@ class OfertareController extends Controller
      */
     public function store(Request $request)
     {
+        $array = $request->input('servicii_selectate');
+        // dd($array, $array->toArray());
+        // dd($array->pluck('key'), array_values($array));
+
+
         \App\Variabila::Nr_document();
         $ofertare = Ofertare::create($this->validateRequest($request));
+        $ofertare->servicii()->attach($request->input('servicii_selectate'));
+        // $ofertare->servicii()->attach([1, 2]);
 
         return redirect($ofertare->path())->with('status', 
             'Ofertarea Nr."' . $ofertare->nr_document . '", pentru clientul "' . ($ofertare->client->nume ?? '') . '", a fost adăugată cu succes!');
@@ -87,7 +99,11 @@ class OfertareController extends Controller
             ->orderBy('nume')
             ->get();
 
-        return view('ofertari.edit', compact('ofertari', 'clienti'));
+        $servicii = OfertareServiciu::select('id', 'nume')
+            ->orderBy('nume')
+            ->get();
+
+        return view('ofertari.edit', compact('ofertari', 'clienti', 'servicii'));
     }
 
     /**
@@ -99,8 +115,11 @@ class OfertareController extends Controller
      */
     public function update(Request $request, Ofertare $ofertari)
     {
-        $this->validateRequest($request, $ofertari);
-        $ofertari->update($request->except(['date']));
+        // dd($request);
+        // $this->validateRequest($request, $ofertari);
+        // $ofertari->update($request->except(['date']));
+        $ofertari->update($this->validateRequest($request, $ofertari));
+        $ofertari->servicii()->sync($request->input('servicii_selectate'));
 
         return redirect($ofertari->path())->with('status', 
             'Ofertarea Nr."' . $ofertari->nr_document . '", pentru clientul "' . ($ofertari->client->nume ?? '') . '", a fost modificată cu succes!');

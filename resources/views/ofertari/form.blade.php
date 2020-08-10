@@ -77,6 +77,29 @@
                 ></vue2-editor>
             </div>   
         </div>
+        <div class="form-row px-2 py-2 mb-0">                              
+            <div class="form-group col-lg-12 mb-0">  
+                <label for="propunere_servicii" class="mb-0 pl-1">Propunere servicii:</label>
+                            @foreach ($servicii as $serviciu)
+                                <div class="col-lg-6 mb-2 rounded-pill">
+                                    <div class="custom-control custom-checkbox border border-4 border-primary" style="padding-left:30px; display: inline-block;">
+                                        <input type="checkbox" class="custom-control-input" 
+                                            name="servicii_selectate[]" 
+                                            value="{{ $serviciu->id }}"
+                                            style="padding:20px" id="{{ $serviciu->id }}"
+                                            @if (old("servicii_selectate"))
+                                                {{ in_array($serviciu->id, old("servicii_selectate")) ? "checked":"" }}
+                                            @else
+                                                {{ in_array($serviciu->id, $ofertari->servicii->pluck('id')->toArray()) ? "checked":"" }}
+                                            @endif
+                                            >
+                                        <label class="custom-control-label bg-primary text-white px-1" for="{{ $serviciu->id }}">{{ $serviciu->nume }}</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                
+            </div>   
+        </div>
         
                                 
         <div class="form-row mb-3 px-2 justify-content-center">                                    

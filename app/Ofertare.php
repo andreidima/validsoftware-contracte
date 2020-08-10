@@ -18,4 +18,9 @@ class Ofertare extends Model
     {
         return $this->belongsTo('App\Client', 'client_id');
     }
+
+    public function servicii()
+    {
+        return $this->belongsToMany('App\OfertareServiciu', 'ofertari_ofertari_servicii', 'ofertare_id', 'ofertare_serviciu_id');
+    }
 }
