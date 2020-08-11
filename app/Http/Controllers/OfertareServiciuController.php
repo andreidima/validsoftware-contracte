@@ -109,7 +109,9 @@ class OfertareServiciuController extends Controller
     protected function validateRequest(Request $request)
     {
         return request()->validate([
-            'nume' => ['required', 'max:250']
+            'nume' => ['required', 'max:250'],
+            'pret' => ['nullable', 'between:0.01,99999.99'],
+            'recurenta' => ['nullable', 'max:100']
         ]);
     }
 }

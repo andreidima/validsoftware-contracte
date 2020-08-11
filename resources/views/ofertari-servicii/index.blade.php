@@ -38,6 +38,8 @@
                         <tr class="small" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Serviciu ofertare</th>
+                            <th>Preț</th>
+                            <th>Recurență</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -49,6 +51,12 @@
                                 </td>          
                                 <td align="">
                                     {{ $ofertare_serviciu->nume }}
+                                </td>        
+                                <td align="">
+                                    {{ $ofertare_serviciu->pret }}
+                                </td>        
+                                <td align="">
+                                    {{ $ofertare_serviciu->recurenta }}
                                 </td>
                                 
                                 <td class="d-flex justify-content-end">

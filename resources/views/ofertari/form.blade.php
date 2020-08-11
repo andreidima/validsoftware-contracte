@@ -82,7 +82,7 @@
                 <label for="propunere_servicii" class="mb-0 pl-1">Propunere servicii:</label>
                     <div class="form-row">
                             @foreach ($servicii as $serviciu)
-                                <div class="col-lg-6 mb-2 rounded-pill">
+                                <div class="col-lg-12 mb-2 rounded-pill">
                                     <div class="custom-control custom-checkbox border border-4 border-primary" style="padding-left:30px; display: inline-block;">
                                         <input type="checkbox" class="custom-control-input" 
                                             name="servicii_selectate[]" 
@@ -94,7 +94,10 @@
                                                 {{ in_array($serviciu->id, $ofertari->servicii->pluck('id')->toArray()) ? "checked":"" }}
                                             @endif
                                             >
-                                        <label class="custom-control-label bg-primary text-white px-1" for="{{ $serviciu->id }}">{{ $serviciu->nume }}</label>
+                                        <label class="custom-control-label bg-primary text-white px-1" for="{{ $serviciu->id }}">
+                                            {{ $serviciu->nume }}
+                                            {{ $serviciu->pret ? ' - ' . $serviciu->pret . ' RON' : ''}}{{ $serviciu->recurenta ? '/ ' . $serviciu->recurenta : '' }}
+                                        </label>
                                     </div>
                                 </div>
                             @endforeach

@@ -55,8 +55,8 @@ class OfertareController extends Controller
             ->orderBy('nume')
             ->get();
 
-        $servicii = OfertareServiciu::select('id', 'nume')
-            ->orderBy('nume')
+        $servicii = OfertareServiciu::
+            orderBy('nume')
             ->get();
 
         $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
@@ -109,8 +109,8 @@ class OfertareController extends Controller
             ->orderBy('nume')
             ->get();
 
-        $servicii = OfertareServiciu::select('id', 'nume')
-            ->orderBy('nume')
+        $servicii = OfertareServiciu::
+            orderBy('nume')
             ->get();
 
         return view('ofertari.edit', compact('ofertari', 'clienti', 'servicii'));
@@ -478,7 +478,14 @@ class OfertareController extends Controller
 
             $html ='<ul>';
             foreach ($ofertari->servicii as $serviciu) {
-                $html .= '<li>' . $serviciu->nume . '</li>';
+                $html .= '<li>' . $serviciu->nume;
+                    if ($serviciu->pret){
+                        $html .= ' - ' . $serviciu->pret . ' RON';
+                    }
+                    if ($serviciu->recurenta){
+                        $html .= '/ ' . $serviciu->recurenta;
+                    }
+                $html .= '</li>';
             }
             $html .='</ul>';
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);

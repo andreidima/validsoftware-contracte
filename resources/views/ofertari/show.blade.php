@@ -81,6 +81,7 @@
                                 <td>
                                     @foreach ($ofertari->servicii as $serviciu)
                                         {{ $serviciu->nume }}
+                                        {{ $serviciu->pret ? ' - ' . $serviciu->pret . ' RON' : ''}}{{ $serviciu->recurenta ? '/ ' . $serviciu->recurenta : '' }}
                                         <br />
                                     @endforeach
                                 </td>
