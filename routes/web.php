@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::redirect('/', 'service/clienti');
 
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
+    Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -65,7 +66,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         return 'hi';
     });
 
-    Route::resource('fise-service', 'FisaServiceController');
 
 Route::get('backup', function() {
     // Artisan::call('backup:run'

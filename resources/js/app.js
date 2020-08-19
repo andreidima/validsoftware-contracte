@@ -79,9 +79,9 @@ if (document.querySelector('#fisa-service')) {
             // client_email_dpo: clientVechi_email_dpo,
             client_site_web: clientVechi_site_web,
         },
-        // created: function () {
-        //     this.getPret()
-        // },
+        created: function () {
+            this.getDateClient()
+        },
         methods: {
             getDateClient: function () {
                 for (var i = 0; i < this.clienti.length; i++) {

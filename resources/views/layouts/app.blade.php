@@ -101,13 +101,13 @@
                                             <i class="fas fa-users mr-1"></i>Clienți
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="nav-link text-dark" href="">
+                                        <a class="nav-link text-dark" href="{{ route('service.fise.index') }}">
                                             <i class="fas fa-file mr-1"></i>Fișe
                                         </a>
-                                        <div class="dropdown-divider"></div>
+                                        {{-- <div class="dropdown-divider"></div>
                                         <a class="nav-link text-dark" href="">
                                             <i class="fas fa-tasks mr-1"></i>Servicii
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown active mr-4">
