@@ -18,6 +18,8 @@ Route::middleware(['auth'])->group(function () {
     // Route::redirect('/', 'service/clienti');
 
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
+
+    Route::get('/service/fise/{fise}/export/{view_type}', 'ServiceFisaController@wordExport');
     Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
 });
 

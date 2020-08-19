@@ -55,6 +55,7 @@
                             <th>Client</th>
                             <th class="text-right">Data recepție</th>
                             <th class="text-right">Data ridicare</th>
+                            <th class="text-center">Descarcă</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -79,9 +80,16 @@
                                 <td class="text-right">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_ridicare)->isoFormat('DD.MM.YYYY') ?? '' }}
                                 </td>
-                                <td class="text-right"> 
-                                    <a href="{{ $service_fisa->path() }}/modifica"
+                                <td class="text-center">                                    
+                                    <a href="{{ $service_fisa->path() }}/export/fisa-word"
                                         class="flex"    
+                                    >
+                                        <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
+                                    </a> 
+                                </td>
+                                <td class="d-flex justify-content-end"> 
+                                    <a href="{{ $service_fisa->path() }}/modifica"
+                                        class="flex mr-1"    
                                     >
                                         <span class="badge badge-primary">Modifică</span>
                                     </a>                                   
@@ -91,48 +99,46 @@
                                             <i class="fas fa-file-pdf mr-1"></i>PDF
                                         </span>
                                     </a>                                     --}}
-                                    {{-- @if($factura->numar === $ultima_factura)
-                                        <div style="" class="">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
-                                                data-target="#stergeFactura{{ $factura->id }}"
-                                                title="Șterge Factura"
-                                                >
-                                                <span class="badge badge-danger">Șterge</span>
-                                            </a>
-                                                <div class="modal fade text-dark" id="stergeFactura{{ $factura->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                        <div class="modal-header bg-danger">
-                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Factura: <b>{{ $factura->seria }} {{ $factura->numar }}</b></h5>
-                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body" style="text-align:left;">
-                                                            Ești sigur ca vrei să ștergi Factura?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                            
-                                                            <form method="POST" action="{{ $factura->path() }}">
-                                                                @method('DELETE')  
-                                                                @csrf   
-                                                                <button 
-                                                                    type="submit" 
-                                                                    class="btn btn-danger"  
-                                                                    >
-                                                                    Șterge Factura
-                                                                </button>                    
-                                                            </form>
+                                    <div style="" class="">
+                                        <a 
+                                            href="#" 
+                                            data-toggle="modal" 
+                                            data-target="#stergeFișa{{ $service_fisa->id }}"
+                                            title="Șterge Fișa"
+                                            >
+                                            <span class="badge badge-danger">Șterge</span>
+                                        </a>
+                                            <div class="modal fade text-dark" id="stergeFișa{{ $service_fisa->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title text-white" id="exampleModalLabel">Fișa: <b>{{ $service_fisa->nr_fisa }}</b></h5>
+                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align:left;">
+                                                        Ești sigur ca vrei să ștergi Fișa?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
                                                         
-                                                        </div>
-                                                        </div>
+                                                        <form method="POST" action="{{ $service_fisa->path() }}">
+                                                            @method('DELETE')  
+                                                            @csrf   
+                                                            <button 
+                                                                type="submit" 
+                                                                class="btn btn-danger"  
+                                                                >
+                                                                Șterge Fișa
+                                                            </button>                    
+                                                        </form>
+                                                    
+                                                    </div>
                                                     </div>
                                                 </div>
-                                        </div> 
-                                    @endif --}}
+                                            </div>
+                                    </div> 
                                 </td>
                             </tr>  
                         @empty

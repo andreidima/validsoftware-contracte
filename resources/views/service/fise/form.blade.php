@@ -241,7 +241,7 @@
                     value="{{ old('email_dpo') == '' ? $fise->email_dpo : old('email_dpo') }}"
                     required> 
             </div> --}}
-            <div class="form-group col-lg-2 mb-0">  
+            <div class="form-group col-lg-2 mb-1">  
                 <script type="application/javascript"> 
                     clientVechi_site_web={!! json_encode(old('site_web', $fise->site_web)) !!}
                 </script>  
@@ -254,6 +254,13 @@
                     v-model="client_site_web" 
                     value="{{ old('site_web') == '' ? $fise->site_web : old('site_web') }}"
                     required> 
+            </div>
+            <div class="form-group col-lg-12 mb-0"> 
+                <small>
+                    * Dacă adaugi un client nou, acesta se va salva automat și în tabela de clienți.
+                    <br />
+                    ** Dacă selectezi un client deja înregistrat, și modifici din datele acestuia, clientul va fi actualizat și în tabela de clienți.
+                </small>
             </div>
         </div>
         <div class="form-row px-2 py-2 mb-4"
