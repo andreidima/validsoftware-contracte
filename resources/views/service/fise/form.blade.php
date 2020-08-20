@@ -8,14 +8,25 @@
             {{-- <div class="form-group col-lg-9 mb-0">
             </div> --}}
             <div class="form-group col-lg-1 mb-0">
-                <label for="nr_fisa" class="mb-0 pl-2">Nr. fișă:</label>                                      
+                <label for="nr_intrare" class="mb-0 pl-0">Nr. intrare:</label>                                      
                 <input 
                     type="text" 
-                    class="form-control form-control-sm rounded-pill {{ $errors->has('nr_fisa') ? 'is-invalid' : '' }}" 
-                    name="nr_fisa" 
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('nr_intrare') ? 'is-invalid' : '' }}" 
+                    name="nr_intrare" 
                     placeholder="" 
-                    {{-- value="{{ old('nr_fisa') == '' ? ($contracte->nr_fisa == '' ? $urmatorul_nr_fisa : '') : old('nr_fisa') }}" --}}
-                    value="{{ old('nr_fisa') == '' ? ($fise->nr_fisa ?? $urmatorul_document_nr) : old('nr_fisa') }}"
+                    {{-- value="{{ old('nr_intrare') == '' ? ($contracte->nr_intrare == '' ? $urmatorul_nr_intrare : '') : old('nr_intrare') }}" --}}
+                    value="{{ old('nr_intrare') == '' ? ($fise->nr_intrare ?? $urmatorul_document_nr) : old('nr_intrare') }}"
+                    required> 
+            </div>
+            <div class="form-group col-lg-1 mb-0">
+                <label for="nr_iesire" class="mb-0 pl-2">Nr. ieșire:</label>                                      
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('nr_iesire') ? 'is-invalid' : '' }}" 
+                    name="nr_iesire" 
+                    placeholder="" 
+                    {{-- value="{{ old('nr_iesire') == '' ? ($contracte->nr_iesire == '' ? $urmatorul_nr_iesire : '') : old('nr_iesire') }}" --}}
+                    value="{{ old('nr_iesire') == '' ? ($fise->nr_iesire ?? ++$urmatorul_document_nr) : old('nr_iesire') }}"
                     required> 
             </div>
             <div class="form-group col-lg-2 mb-0">  

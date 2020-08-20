@@ -26,10 +26,18 @@
                         > 
                             <tr>
                                 <td>
-                                    Număr fișă
+                                    Număr intrare
                                 </td>
                                 <td>
-                                    {{ $fise->nr_fisa }}
+                                    {{ $fise->nr_intrare }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Număr ieșire
+                                </td>
+                                <td>
+                                    {{ $fise->nr_iesire }}
                                 </td>
                             </tr>
                             <tr>

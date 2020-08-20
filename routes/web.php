@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/service/fise/{fise}/export/{view_type}', 'ServiceFisaController@wordExport');
     Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
+    Route::resource('service/servicii', 'ServiceServiciuController', ['names' => 'service.servicii']);
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

@@ -18,4 +18,9 @@ class ServiceFisa extends Model
     {
         return $this->belongsTo('App\ServiceClient', 'client_id');
     }
+
+    public function servicii()
+    {
+        return $this->belongsToMany('App\ServiceServiciu', 'service_fise_servicii', 'service_fisa_id', 'service_serviciu_id');
+    }
 }

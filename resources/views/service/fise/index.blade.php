@@ -51,7 +51,8 @@
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
-                            <th>Nr. Fișă</th>
+                            <th>Nr. Intrare</th>
+                            <th>Nr. Ieșire</th>
                             <th>Client</th>
                             <th class="text-right">Data recepție</th>
                             <th class="text-right">Data ridicare</th>
@@ -66,9 +67,10 @@
                                     {{ ($service_fise ->currentpage()-1) * $service_fise ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    <a href="{{ $service_fisa->path() }}">
-                                        {{ $service_fisa->nr_fisa }}
-                                    </a>
+                                    {{ $service_fisa->nr_intrare }}
+                                </td>
+                                <td>
+                                    {{ $service_fisa->nr_iesire }}
                                 </td>
                                 <td>
                                     {{ $service_fisa->client->nume ?? '' }}
@@ -81,13 +83,23 @@
                                     {{ \Carbon\Carbon::parse($service_fisa->data_ridicare)->isoFormat('DD.MM.YYYY') ?? '' }}
                                 </td>
                                 <td class="text-center">                                    
-                                    <a href="{{ $service_fisa->path() }}/export/fisa-word"
-                                        class="flex"    
+                                    <a href="{{ $service_fisa->path() }}/export/fisa-word-intrare"
+                                        class="flex mr-1"    
                                     >
-                                        <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
-                                    </a> 
+                                        <span class="badge badge-success"><i class="fas fa-sign-in-alt mr-1"></i>Intrare</span>
+                                    </a>                                  
+                                    <a href="{{ $service_fisa->path() }}/export/fisa-word-iesire"
+                                        class="flex mr-1"    
+                                    >
+                                        <span class="badge badge-success"><i class="fas fa-sign-out-alt mr-1"></i>Ieșire</span>
+                                    </a>
                                 </td>
                                 <td class="d-flex justify-content-end"> 
+                                    <a href="{{ $service_fisa->path() }}"
+                                        class="flex mr-1"    
+                                    >
+                                        <span class="badge badge-success">Vizualizează</span>
+                                    </a> 
                                     <a href="{{ $service_fisa->path() }}/modifica"
                                         class="flex mr-1"    
                                     >
