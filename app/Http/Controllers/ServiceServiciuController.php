@@ -14,7 +14,13 @@ class ServiceServiciuController extends Controller
      */
     public function index()
     {
-        //
+        $search_nume = \Request::get('search_nume');
+
+        $servicii = ServiceServiciu::
+            orderBy('nume')
+            ->simplePaginate(25);
+
+        return view('service.servicii.index', compact('servicii', 'search_nume'));
     }
 
     /**
@@ -24,7 +30,7 @@ class ServiceServiciuController extends Controller
      */
     public function create()
     {
-        //
+        return view('service.servicii.create');
     }
 
     /**
@@ -35,7 +41,10 @@ class ServiceServiciuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $serviciu = ServiceServiciu::create($this->validateRequest($request));
+
+        return redirect('/service/servicii')->with('status', 
+            'Serviciul "' . $serviciu->nume . '", pentru service, a fost adăugat cu succes!');
     }
 
     /**
@@ -55,9 +64,9 @@ class ServiceServiciuController extends Controller
      * @param  \App\ServiceServiciu  $serviceServiciu
      * @return \Illuminate\Http\Response
      */
-    public function edit(ServiceServiciu $serviceServiciu)
+    public function edit(ServiceServiciu $servicii)
     {
-        //
+        return view('service.servicii.edit', compact('servicii'));
     }
 
     /**
@@ -67,9 +76,12 @@ class ServiceServiciuController extends Controller
      * @param  \App\ServiceServiciu  $serviceServiciu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ServiceServiciu $serviceServiciu)
+    public function update(Request $request, ServiceServiciu $servicii)
     {
-        //
+        $servicii->update($this->validateRequest());
+
+        return redirect('service/servicii')->with('status', 
+            'Serviciul "' . $servicii->nume . '" a fost modificat cu succes!');
     }
 
     /**
@@ -78,8 +90,24 @@ class ServiceServiciuController extends Controller
      * @param  \App\ServiceServiciu  $serviceServiciu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ServiceServiciu $serviceServiciu)
+    public function destroy(ServiceServiciu $servicii)
     {
-        //
+        $servicii->delete();
+
+        return redirect('/service/servicii')->with('status', 
+            'Serviciul "' . $servicii->nume . '" a fost șters cu succes!'); 
+    }
+
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function validateRequest(Request $request = null)
+    {
+        return request()->validate([
+            'nume' => ['required', 'max:250'],
+            'pret' => ['nullable', 'between:0.01,99999.99']
+        ]);
     }
 }

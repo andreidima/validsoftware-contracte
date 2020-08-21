@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ServiceFisa;
 use App\ServiceClient;
+use App\ServiceServiciu;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
@@ -58,9 +59,13 @@ class ServiceFisaController extends Controller
         $clienti = ServiceClient::all();
         $clienti = $clienti->sortBy('nume')->values();
 
+        $servicii = ServiceServiciu::
+            orderBy('nume')
+            ->get();
+
         $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
-        return view('service.fise.create', compact('clienti', 'urmatorul_document_nr'));
+        return view('service.fise.create', compact('clienti', 'servicii',  'urmatorul_document_nr'));
     }
 
     /**
@@ -82,6 +87,8 @@ class ServiceFisaController extends Controller
         $service_fisa = ServiceFisa::make($this->validateRequestFisa($request));
         $service_fisa->client_id = $client->id;
         $service_fisa->save();
+        
+        $service_fisa->servicii()->attach($request->input('servicii_selectate'));
         
         // Dubla Incrementare nr_document
         \App\Variabila::Nr_document();
@@ -113,7 +120,11 @@ class ServiceFisaController extends Controller
         $clienti = ServiceClient::all();
         $clienti = $clienti->sortBy('nume')->values();
 
-        return view('service.fise.edit', compact('fise', 'clienti'));
+        $servicii = ServiceServiciu::
+            orderBy('nume')
+            ->get();
+
+        return view('service.fise.edit', compact('fise', 'clienti', 'servicii'));
     }
 
     /**
@@ -134,6 +145,8 @@ class ServiceFisaController extends Controller
         }
 
         $fise->update($this->validateRequestFisa($request, $fise));
+        
+        $fise->servicii()->sync($request->input('servicii_selectate'));
 
         return redirect($fise->path())->with('status', 
             'Fișa de service Nr."' . $fise->nr_fisa . '", pentru clientul "' . ($fise->client->nume ?? '') . '", a fost modificată cu succes!');
@@ -401,8 +414,24 @@ class ServiceFisaController extends Controller
                     <p style="text-align:left; font-weight: bold;">Rezultat service</p>
                     <p style="text-align:justify;">' .
                         $fise->rezultat_service .
-                    '</p>
-                    <br />
+                    '</p>';  
+
+
+                $html .='<ul><b>Servicii efectuate:</b>';
+                foreach ($fise->servicii as $serviciu) {
+                    $html .= '<li>' . $serviciu->nume;
+                        if ($serviciu->pret){
+                            $html .= ' - ' . $serviciu->pret . ' RON';
+                        }
+                        if ($serviciu->recurenta){
+                            $html .= '/ ' . $serviciu->recurenta;
+                        }
+                    $html .= '</li>';
+                }
+                $html .='</ul>';
+
+                    
+                $html .= '<br />
 
                     <p style="text-align:left; font-weight: bold;">Observatii</p>
                     <p style="text-align:justify;">' .

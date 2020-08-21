@@ -104,10 +104,10 @@
                                         <a class="nav-link text-dark" href="{{ route('service.fise.index') }}">
                                             <i class="fas fa-file mr-1"></i>Fișe
                                         </a>
-                                        {{-- <div class="dropdown-divider"></div>
-                                        <a class="nav-link text-dark" href="">
-                                            <i class="fas fa-tasks mr-1"></i>Servicii
-                                        </a> --}}
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Servicii
+                                        </a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown active mr-4">

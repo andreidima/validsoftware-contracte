@@ -112,6 +112,18 @@
                                     {{ \Carbon\Carbon::parse($fise->data_ridicare)->isoFormat('DD.MM.YYYY') }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Servicii
+                                </td>
+                                <td>
+                                    @foreach ($fise->servicii as $serviciu)
+                                        {{ $serviciu->nume }}
+                                        {{ $serviciu->pret ? ' - ' . $serviciu->pret . ' RON' : ''}}
+                                        <br />
+                                    @endforeach
+                                </td>
+                            </tr>
                         </table>
                     </div>                   
                                         
