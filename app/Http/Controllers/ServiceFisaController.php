@@ -295,12 +295,19 @@ class ServiceFisaController extends Controller
                         <tr>
                             <td style="width:50%" align="center"><b>Beneficiar,</b>
                                 <br/>' . $fise->client->nume .
-                '<br /><br />' . $fise->client->reprezentant_functie .
-                '<br />' . $fise->client->reprezentant . '</td>                            
-                            <td style="width:50%" align="center"><b>Prestator,</b>
+                                '<br /><br />' . $fise->client->reprezentant_functie .
+                                '<br />' . $fise->client->reprezentant . '</td>                            
+                            <td style="width:30%" align="center"><b>Prestator,</b>
                                 <br/>Dima P. Valentin PFA
                                 <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/></td>
+                                <br/>
+                                <b>Tehnician service</b>
+                                <br/>' .
+                                $fise->tehnician_service .
+                                '
+                                <br/>
+                                <img src="images/semnatura si stampila.png" width="100"/>
+                            </td>
                         </tr>
                     </table>
                 ';
@@ -414,7 +421,8 @@ class ServiceFisaController extends Controller
                     <p style="text-align:left; font-weight: bold;">Rezultat service</p>
                     <p style="text-align:justify;">' .
                         $fise->rezultat_service .
-                    '</p>';  
+                    '</p>
+                    <br />';  
 
 
                 $html .='<ul><b>Servicii efectuate:</b>';
@@ -437,12 +445,7 @@ class ServiceFisaController extends Controller
                     <p style="text-align:justify;">' .
                         $fise->observatii .
                     '</p>
-                    <br />
-
-                    <p style="text-align:left; font-weight: bold;">Tehnician service: ' .
-                        $fise->tehnician_service .
-                    '</p>
-                    <br />
+                    <br />                    
                     ';
 
             $html .= '<br /><br />';
@@ -451,12 +454,19 @@ class ServiceFisaController extends Controller
                         <tr>
                             <td style="width:50%" align="center"><b>Beneficiar,</b>
                                 <br/>' . $fise->client->nume .
-                '<br /><br />' . $fise->client->reprezentant_functie .
-                '<br />' . $fise->client->reprezentant . '</td>                            
-                            <td style="width:50%" align="center"><b>Prestator,</b>
+                                '<br /><br />' . $fise->client->reprezentant_functie .
+                                '<br />' . $fise->client->reprezentant . '</td>                            
+                            <td style="width:30%" align="center"><b>Prestator,</b>
                                 <br/>Dima P. Valentin PFA
                                 <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/></td>
+                                <br/>
+                                <b>Tehnician service</b>
+                                <br/>' .
+                                $fise->tehnician_service .
+                                '
+                                <br/>
+                                <img src="images/semnatura si stampila.png" width="100"/>
+                            </td>
                         </tr>
                     </table>
                 ';
