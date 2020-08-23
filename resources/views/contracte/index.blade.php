@@ -77,7 +77,7 @@
                                     @endisset
                                 </td>
                                 <td class="text-center">                                    
-                                    <a href="{{ $contract->path() }}/export/fisa-word"
+                                    <a href="{{ $contract->path() }}/export/contract-word"
                                         class="flex"    
                                     >
                                         <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>

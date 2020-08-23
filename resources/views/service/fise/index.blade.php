@@ -57,6 +57,7 @@
                             <th class="text-right">Data recepție</th>
                             <th class="text-right">Data ridicare</th>
                             <th class="text-center">Descarcă</th>
+                            <th class="text-center">Email</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -93,6 +94,48 @@
                                     >
                                         <span class="badge badge-success"><i class="fas fa-sign-out-alt mr-1"></i>Ieșire</span>
                                     </a>
+                                </td>
+                                <td>                                    
+                                    <div style="" class="text-center">
+                                        <a 
+                                            href="#" 
+                                            data-toggle="modal" 
+                                            data-target="#trimiteEmail{{ $service_fisa->id }}"
+                                            title="trimite email"
+                                            >
+                                            <span class="badge badge-primary">Trimite email</span>
+                                        </a>
+                                            <div class="modal fade text-dark" id="trimiteEmail{{ $service_fisa->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title text-white" id="exampleModalLabel">Fișa: <b>{{ $service_fisa->nr_fisa }}</b></h5>
+                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align:left;">
+                                                        Ești sigur ca vrei să trimiți emailul?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                        
+                                                        <form method="POST" action="{{ $service_fisa->path() }}/trimite-email">
+                                                            {{-- @method('DELETE')   --}}
+                                                            @csrf   
+                                                            <button 
+                                                                type="submit" 
+                                                                class="btn btn-primary"  
+                                                                >
+                                                                Trimite email
+                                                            </button>                    
+                                                        </form>
+                                                    
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div> 
                                 </td>
                                 <td class="d-flex justify-content-end"> 
                                     <a href="{{ $service_fisa->path() }}"

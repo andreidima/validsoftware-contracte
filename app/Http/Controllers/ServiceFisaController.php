@@ -6,6 +6,7 @@ use App\ServiceFisa;
 use App\ServiceClient;
 use App\ServiceServiciu;
 use Illuminate\Http\Request;
+use App\Mail\FisaService;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -206,6 +207,22 @@ class ServiceFisaController extends Controller
             'observatii' => [''],
             'data_ridicare' => ['']
         ]);
+    }
+
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function trimiteEmail(Request $request, ServiceFisa $fisa)
+    {
+        dd($fisa);
+        \Mail::to($fisa->email)
+            ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])
+            // ->bcc(['adima@validsoftware.ro'])                       
+            ->send(
+                new FisaService($fisa)
+            );
     }
 
     public function wordExport(Request $request, ServiceFisa $fise)
