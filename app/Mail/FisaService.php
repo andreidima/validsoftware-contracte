@@ -31,11 +31,14 @@ class FisaService extends Mailable
     {
         $fisa = $this->fisa;
 
+
         $message = $this->markdown('emails.fisa-service');
-        $message->subject($cron_job->subiect);
-        foreach ($cron_job->fisiere as $fisier) {
-            $message->attachFromStorage($fisier->path . $fisier->nume);
-        }
+        $message->subject('Fișă intrare service');      
+
+        $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
+            ->setPaper('a4', 'portrait');
+        $message->attachData($pdf->output(), 
+            'Fisa intrare service nr. ' . $fisa->nr_intrare . '.pdf');
 
         return $message;
     }

@@ -95,7 +95,7 @@
                                         <span class="badge badge-success"><i class="fas fa-sign-out-alt mr-1"></i>Ieșire</span>
                                     </a>
                                 </td>
-                                <td>                                    
+                                <td>
                                     <div style="" class="text-center">
                                         <a 
                                             href="#" 

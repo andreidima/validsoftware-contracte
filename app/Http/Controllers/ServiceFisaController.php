@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Mail\FisaService;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ServiceFisaController extends Controller
 {
@@ -215,14 +216,41 @@ class ServiceFisaController extends Controller
      * @return array
      */
     protected function trimiteEmail(Request $request, ServiceFisa $fisa)
-    {
-        dd($fisa);
-        \Mail::to($fisa->email)
-            ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])
+    {   
+        // $mail = \Mail::mailer('service')
+        //     ->to($fisa->email)
+        //     ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro']);
+
+        // dd($fisa, $fisa->client->email, $fisa->toArray());
+
+        // Verificare daca exista email corect catre care sa se trimita mesajul
+        $validator = Validator::make($fisa->client->toArray(), [
+            'email' => ['email:rfc,dns']
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
+        $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
+        $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
+        $emailuri_bcc = explode(',', $emailuri_bcc);
+
+        // Trimiterea mesajului
+        \Mail::mailer('service')
+            ->to($fisa->client->email)
+            // ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])
             // ->bcc(['adima@validsoftware.ro'])                       
+            ->bcc($emailuri_bcc)
             ->send(
                 new FisaService($fisa)
             );
+        
+        return back()->with('status', 'Emailul a fost trimis către „' . $fisa->client->email . '” cu succes!');
+
     }
 
     public function wordExport(Request $request, ServiceFisa $fise)
