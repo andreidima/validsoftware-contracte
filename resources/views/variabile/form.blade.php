@@ -30,7 +30,7 @@
             <div class="col-lg-8 d-flex justify-content-center">  
                 <button type="submit" class="btn btn-primary btn-sm mr-2 rounded-pill">{{ $buttonText }}</button> 
                 {{-- <a class="btn btn-secondary btn-sm mr-4 rounded-pill" href="{{ $clienti->path() }}">Renunță</a>  --}}
-                <a class="btn btn-secondary btn-sm mr-4 rounded-pill" href="/cron-jobs">Renunță</a> 
+                <a class="btn btn-secondary btn-sm mr-4 rounded-pill" href="/variabile">Renunță</a> 
             </div>
         </div>
     </div>

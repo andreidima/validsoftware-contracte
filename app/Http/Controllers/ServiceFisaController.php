@@ -240,7 +240,7 @@ class ServiceFisaController extends Controller
         $emailuri_bcc = explode(',', $emailuri_bcc);
 
         // Trimiterea mesajului
-        \Mail::mailer('service')
+        \Mail::mailer('comunicare')
             ->to($fisa->client->email)
             // ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])
             // ->bcc(['adima@validsoftware.ro'])                       
