@@ -56,8 +56,8 @@
                             <th>Client</th>
                             <th class="text-right">Data recepție</th>
                             <th class="text-right">Data ridicare</th>
-                            <th class="text-center">Descarcă</th>
-                            <th class="text-center">Email</th>
+                            <th class="text-center">Fișă intrare</th>
+                            <th class="text-center">Fișă ieșire</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -84,58 +84,110 @@
                                     {{ \Carbon\Carbon::parse($service_fisa->data_ridicare)->isoFormat('DD.MM.YYYY') ?? '' }}
                                 </td>
                                 <td class="text-center">                                    
-                                    <a href="{{ $service_fisa->path() }}/export/fisa-word-intrare"
-                                        class="flex mr-1"    
-                                    >
-                                        <span class="badge badge-success"><i class="fas fa-sign-in-alt mr-1"></i>Intrare</span>
-                                    </a>                                  
-                                    <a href="{{ $service_fisa->path() }}/export/fisa-word-iesire"
-                                        class="flex mr-1"    
-                                    >
-                                        <span class="badge badge-success"><i class="fas fa-sign-out-alt mr-1"></i>Ieșire</span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <div style="" class="text-center">
-                                        <a 
-                                            href="#" 
-                                            data-toggle="modal" 
-                                            data-target="#trimiteEmail{{ $service_fisa->id }}"
-                                            title="trimite email"
-                                            >
-                                            <span class="badge badge-primary">Trimite email</span>
-                                        </a>
-                                            <div class="modal fade text-dark" id="trimiteEmail{{ $service_fisa->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header bg-danger">
-                                                        <h5 class="modal-title text-white" id="exampleModalLabel">Fișa: <b>{{ $service_fisa->nr_fisa }}</b></h5>
-                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body" style="text-align:left;">
-                                                        Ești sigur ca vrei să trimiți emailul?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="{{ $service_fisa->path() }}/export/fisa-word-intrare"
+                                            class="flex mr-1"    
+                                        >
+                                            <span class="badge badge-success">Word</span>
+                                        </a> 
+                                        <div style="" class="text-center">
+                                            <a 
+                                                href="#" 
+                                                data-toggle="modal" 
+                                                data-target="#trimiteEmail{{ $service_fisa->nr_intrare }}"
+                                                title="trimite email"
+                                                >
+                                                <span class="badge badge-primary">Email
+                                                    <span class="badge badge-light" title="Mesaje trimise până acum">
+                                                        {{ $service_fisa->mesaje_trimise_fisa_intrare()->count() }}
+                                                    </span>
+                                                </span>
+                                            </a>
+                                                <div class="modal fade text-dark" id="trimiteEmail{{ $service_fisa->nr_intrare }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Fișa de intrare: <b>{{ $service_fisa->nr_intrare }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            Ești sigur ca vrei să trimiți emailul?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                            
+                                                            <form method="POST" action="{{ $service_fisa->path() }}/fisa-intrare/trimite-email">
+                                                                {{-- @method('DELETE')   --}}
+                                                                @csrf   
+                                                                <button 
+                                                                    type="submit" 
+                                                                    class="btn btn-primary"  
+                                                                    >
+                                                                    Trimite email
+                                                                </button>                    
+                                                            </form>
                                                         
-                                                        <form method="POST" action="{{ $service_fisa->path() }}/trimite-email">
-                                                            {{-- @method('DELETE')   --}}
-                                                            @csrf   
-                                                            <button 
-                                                                type="submit" 
-                                                                class="btn btn-primary"  
-                                                                >
-                                                                Trimite email
-                                                            </button>                    
-                                                        </form>
-                                                    
-                                                    </div>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                    </div> 
+                                        </div>  
+                                    </div>
+                                </td>
+                                <td class="text-center">             
+                                    <div class="d-flex justify-content-center">                             
+                                        <a href="{{ $service_fisa->path() }}/export/fisa-word-iesire"
+                                            class="flex mr-1"    
+                                        >
+                                            <span class="badge badge-success">Word</span>
+                                        </a>
+                                        <div style="" class="text-center">
+                                            <a 
+                                                href="#" 
+                                                data-toggle="modal" 
+                                                data-target="#trimiteEmail{{ $service_fisa->nr_iesire }}"
+                                                title="trimite email"
+                                                >
+                                                <span class="badge badge-primary">Email
+                                                    <span class="badge badge-light" title="Mesaje trimise până acum">
+                                                        {{ $service_fisa->mesaje_trimise_fisa_iesire()->count() }}
+                                                    </span>
+                                                </span>
+                                            </a>
+                                                <div class="modal fade text-dark" id="trimiteEmail{{ $service_fisa->nr_iesire }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Fișa de ieșire: <b>{{ $service_fisa->nr_iesire }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            Ești sigur ca vrei să trimiți emailul?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                            
+                                                            <form method="POST" action="{{ $service_fisa->path() }}/fisa-iesire/trimite-email">
+                                                                {{-- @method('DELETE')   --}}
+                                                                @csrf   
+                                                                <button 
+                                                                    type="submit" 
+                                                                    class="btn btn-primary"  
+                                                                    >
+                                                                    Trimite email
+                                                                </button>                    
+                                                            </form>
+                                                        
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>  
+                                    </div>
                                 </td>
                                 <td class="d-flex justify-content-end"> 
                                     <a href="{{ $service_fisa->path() }}"

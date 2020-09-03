@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
 
     Route::get('/service/fise/{fise}/export/{view_type}', 'ServiceFisaController@wordExport');
-    Route::post('service/fise/{fisa}/trimite-email', 'ServiceFisaController@trimiteEmail');
+    Route::post('service/fise/{fisa}/{tip_fisa}/trimite-email', 'ServiceFisaController@trimiteEmail');
     Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
     Route::resource('service/servicii', 'ServiceServiciuController', ['names' => 'service.servicii']);
 });
@@ -67,7 +67,18 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
     Route::get('teste', function() {
-        return 'hi';
+            $fisa = \App\ServiceFisa::latest()->first();
+            $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
+                ->setPaper('a4');
+                    return $pdf->stream('Fisa ' . $fisa->nr_intrare . '.pdf');
+                    // return $pdf->download('Rezervare ' . $rezervari->nume . '.pdf');
+    });
+    Route::get('teste1', function() {
+            $fise = \App\ServiceFisa::latest()->first();
+            $pdf = \PDF::loadView('service.fise.export.fisa-iesire-service-pdf', compact('fise'))
+                ->setPaper('a4');
+                    return $pdf->stream('Fisa ' . $fise->nr_iesire . '.pdf');
+                    // return $pdf->download('Rezervare ' . $rezervari->nume . '.pdf');
     });
 
     Route::get('teste2', function () {

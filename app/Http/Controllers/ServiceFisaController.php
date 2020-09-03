@@ -6,7 +6,8 @@ use App\ServiceFisa;
 use App\ServiceClient;
 use App\ServiceServiciu;
 use Illuminate\Http\Request;
-use App\Mail\FisaService;
+use App\Mail\FisaIntrareService;
+use App\Mail\FisaIesireService;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -45,6 +46,7 @@ class ServiceFisaController extends Controller
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('service_clienti.nume', 'like', '%' . $search_nume . '%');
             })
+            // ->withCount(['mesaje_trimise_fisa_intrare', 'mesaje_trimise_fisa_iesire'])
             ->latest('service_fise.created_at')
             ->simplePaginate(25);
 
@@ -217,12 +219,6 @@ class ServiceFisaController extends Controller
      */
     protected function trimiteEmail(Request $request, ServiceFisa $fisa)
     {   
-        // $mail = \Mail::mailer('service')
-        //     ->to($fisa->email)
-        //     ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro']);
-
-        // dd($fisa, $fisa->client->email, $fisa->toArray());
-
         // Verificare daca exista email corect catre care sa se trimita mesajul
         $validator = Validator::make($fisa->client->toArray(), [
             'email' => ['email:rfc,dns']
@@ -240,16 +236,33 @@ class ServiceFisaController extends Controller
         $emailuri_bcc = explode(',', $emailuri_bcc);
 
         // Trimiterea mesajului
-        \Mail::mailer('service')
-            ->to($fisa->client->email)
-            // ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])
-            // ->bcc(['adima@validsoftware.ro'])                       
-            ->bcc($emailuri_bcc)
-            ->send(
-                new FisaService($fisa)
-            );
-        
-        return back()->with('status', 'Emailul a fost trimis către „' . $fisa->client->email . '” cu succes!');
+        if ($request->tip_fisa === 'fisa-intrare'){
+            \Mail::mailer('service')
+                ->to($fisa->client->email)                       
+                ->bcc($emailuri_bcc)
+                ->send(
+                    new FisaIntrareService($fisa)
+                );              
+            $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->categorie = 'Fise';
+            $mesaj_trimis->subcategorie = 'Intrare';
+            $mesaj_trimis->id_inregistrare = $fisa->id;
+            $mesaj_trimis->save();
+            return back()->with('status', 'Emailul cu „Fișa de intrare nr. ' . $fisa->nr_intrare . '” a fost trimis către „' . $fisa->client->email . '” cu succes!');
+        } elseif ($request->tip_fisa === 'fisa-iesire'){
+            \Mail::mailer('service')
+                ->to($fisa->client->email)                       
+                ->bcc($emailuri_bcc)
+                ->send(
+                    new FisaIesireService($fisa)
+                ); 
+            $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->categorie = 'Fise';
+            $mesaj_trimis->subcategorie = 'Iesire';
+            $mesaj_trimis->id_inregistrare = $fisa->id;
+            $mesaj_trimis->save();       
+            return back()->with('status', 'Emailul cu „Fișa de ieșire nr. ' . $fisa->nr_iesire . '” a fost trimis către „' . $fisa->client->email . '” cu succes!');
+        }
 
     }
 

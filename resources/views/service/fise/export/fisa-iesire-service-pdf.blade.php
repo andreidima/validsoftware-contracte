@@ -70,31 +70,29 @@
             border-radius: 10px;">
 
 
-            <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE INTRARE IN SERVICE</p>
+            <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE IEȘIRE DIN SERVICE</p>
             <p style="text-align: center; font-weight: bold;">
+                Nr. {{ $fisa->nr_iesire . (isset($fisa->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fisa->data_receptie)->isoFormat('DD.MM.YYYY')) : '') }}
+            </p>
+            <br />
+
+            <p style="text-align:justify;">
                 {{
-                    'Nr. ' . $fisa->nr_intrare . (isset($fisa->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fisa->data_receptie)->isoFormat('DD.MM.YYYY')) : '')
+                    'Beneficiar ' . ($fisa->client->nume ?? '') .
+                    (isset($fisa->client->adresa) ? ', din ' . ($fisa->client->adresa) : '') .
+                    (isset($fisa->client->nr_ord_reg_com) ? ', Nr. Reg. Comerțului: ' . ($fisa->client->nr_ord_reg_com) : '') .
+                    (isset($fisa->client->cui) ? ', CUI: ' . ($fisa->client->cui) : '') .
+                    (isset($fisa->client->iban) ? ', IBAN: ' . ($fisa->client->iban) : '') .
+                    (isset($fisa->client->banca) ? ', Banca ' . ($fisa->client->banca) : '') .
+                    (isset($fisa->client->reprezentant) ? ', Reprezentant ' . ($fisa->client->reprezentant) : '') .
+                    (isset($fisa->client->reprezentant_functie) ? ', în funcția de ' . ($fisa->client->reprezentant_functie) : '') .
+                    (isset($fisa->client->telefon) ? ', telefon: ' . ($fisa->client->telefon) : '') .
+                    (isset($fisa->client->email) ? ', email: ' . ($fisa->client->email) : '') . 
+                    (isset($fisa->client->site_web) ? ', site web: ' . ($fisa->client->site_web) : '')
                 }}
             </p>
             <br />
-            
-            <p style="text-align:justify;">
-            {{
-                'Beneficiar ' . ($fisa->client->nume ?? '') .
-                (isset($fisa->client->adresa) ? ', din ' . ($fisa->client->adresa) : '') .
-                (isset($fisa->client->nr_ord_reg_com) ? ', Nr. Reg. Comerțului: ' . ($fisa->client->nr_ord_reg_com) : '') .
-                (isset($fisa->client->cui) ? ', CUI: ' . ($fisa->client->cui) : '') .
-                (isset($fisa->client->iban) ? ', IBAN: ' . ($fisa->client->iban) : '') .
-                (isset($fisa->client->banca) ? ', Banca ' . ($fisa->client->banca) : '') .
-                (isset($fisa->client->reprezentant) ? ', Reprezentant ' . ($fisa->client->reprezentant) : '') .
-                (isset($fisa->client->reprezentant_functie) ? ', în funcția de ' . ($fisa->client->reprezentant_functie) : '') .
-                (isset($fisa->client->telefon) ? ', telefon: ' . ($fisa->client->telefon) : '') .
-                (isset($fisa->client->email) ? ', email: ' . ($fisa->client->email) : '') . 
-                (isset($fisa->client->site_web) ? ', site web: ' . ($fisa->client->site_web) : '')
-            }}
-            </p>
 
-            <br />
             <p style="text-align:left; font-weight: bold;">Descriere echipament</p>
             <p style="text-align:justify;">
                 {{ $fisa->descriere_echipament }}
@@ -106,6 +104,48 @@
                 {{ $fisa->defect_reclamat }}
             </p>
             <br />
+
+            <p style="text-align:left; font-weight: bold;">Defect constatat</p>
+            <p style="text-align:justify;">
+                {{ $fisa->defect_constatat }}
+            </p>
+            <br />
+
+            <p style="text-align:left; font-weight: bold;">Rezultat service</p>
+            <p style="text-align:justify;">
+                {{ $fisa->rezultat_service }}
+            </p>
+            <br />
+
+            @php
+                $html ='<b>Servicii efectuate:</b>';
+                $html .='<ul>';
+                foreach ($fisa->servicii as $serviciu) {
+                    $html .= '<li>' . $serviciu->nume;
+                        if ($serviciu->pret){
+                            $html .= ' - ' . $serviciu->pret . ' RON';
+                        }
+                        if ($serviciu->recurenta){
+                            $html .= '/ ' . $serviciu->recurenta;
+                        }
+                    $html .= '</li>';
+                }
+                $html .='</ul>';
+
+                    
+                $html .= '<br />
+
+                    <p style="text-align:left; font-weight: bold;">Observatii</p>
+                    <p style="text-align:justify;">' .
+                        $fisa->observatii .
+                    '</p>
+                    <br />                    
+                    ';
+
+            $html .= '<br /><br />';
+            @endphp
+
+            {!! $html !!}
 
             <br /><br />
             <table align="center" style="width: 100%">

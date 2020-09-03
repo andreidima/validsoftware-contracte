@@ -7,11 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class FisaService extends Mailable
+class FisaIntrareService extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $fisa;
+
     /**
      * Create a new message instance.
      *
@@ -31,8 +32,7 @@ class FisaService extends Mailable
     {
         $fisa = $this->fisa;
 
-
-        $message = $this->markdown('emails.fisa-service');
+        $message = $this->markdown('emails.fisa-intrare-service');
         $message->subject('Fișă intrare service');      
 
         $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
