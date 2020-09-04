@@ -98,7 +98,7 @@
                                                 title="trimite email"
                                                 >
                                                 <span class="badge badge-primary">Email
-                                                    <span class="badge badge-light" title="Mesaje trimise până acum">
+                                                    <span class="badge badge-light" title="Emailuri trimise până acum">
                                                         {{ $service_fisa->mesaje_trimise_fisa_intrare()->count() }}
                                                     </span>
                                                 </span>
@@ -134,6 +134,16 @@
                                                     </div>
                                                 </div>
                                         </div>  
+                                        <div style="" class="text-center">
+                                            <a class="" data-toggle="collapse" href="#collapseSMS{{ $service_fisa->id }}" role="button" 
+                                                aria-expanded="false" aria-controls="collapseSMS{{ $service_fisa->id }}">
+                                                    <span class="badge badge-primary">SMS
+                                                        <span class="badge badge-light" title="SMS-uri trimise până acum">
+                                                            {{ $service_fisa->sms_trimise_fisa_intrare_cu_succes()->count() }}
+                                                        </span>
+                                                    </span>
+                                            </a>
+                                        </div> 
                                     </div>
                                 </td>
                                 <td class="text-center">             
@@ -247,7 +257,123 @@
                                             </div>
                                     </div> 
                                 </td>
-                            </tr>  
+                            </tr> 
+                            <tr class="collapse bg-white" id="collapseSMS{{ $service_fisa->id }}" 
+                                {{-- style="background-color:cornsilk" --}}
+                            >
+                                <td colspan="9">
+                                    <table class="table table-sm table-striped table-hover col-lg-9 mx-auto border"
+                                {{-- style="background-color:#008282" --}}
+                                    > 
+                                        <tr>
+                                            <th colspan="4" class="text-center"> 
+                                                SMS-uri Fișă Intrare
+                                            </th>
+                                        </tr>
+                                        <tr class="collapse">
+                                            <td colspan="4"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Telefon SMS
+                                            </th>
+                                            <th class="text-center">
+                                                Mesaj
+                                            </th>
+                                            <th class="text-center">
+                                                Trimis
+                                            </th>
+                                            <th class="text-center">
+                                                Data trimitere
+                                            </th>
+                                        </tr>
+                                        @forelse ($service_fisa->sms_trimise_fisa_intrare as $sms)
+                                            <tr>
+                                                <td class="py-0">
+                                                    {{ $sms->telefon }}
+                                                </td>
+                                                <td class="py-0">
+                                                    {{ $sms->mesaj }}
+                                                </td>
+                                                <td class="py-0 text-center">                                                    
+                                                    @if ($sms->trimis === 1)
+                                                        <span class="text-success">DA</span>
+                                                    @else
+                                                        <span class="text-danger">NU</span>
+                                                    @endif
+                                                </td>
+                                                <td class="py-0 text-center">
+                                                    {{ \Carbon\Carbon::parse($sms->created_at)->isoFormat('HH:mm DD.MM.YYYY') ?? '' }}
+                                                </td>
+                                            </tr>
+                                        @empty                                            
+                                            <tr>
+                                                <td colspan="4" class="py-0">
+                                                    Nu au fost trimise SMS-uri pentru Fișa service cu Nr. Intrare {{ $service_fisa->nr_intrare }}
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </table>
+                                        <div style="" class="text-center mb-4">
+                                            <a 
+                                                href="#" 
+                                                data-toggle="modal" 
+                                                data-target="#trimiteSMS{{ $service_fisa->nr_intrare }}"
+                                                title="trimite sms"
+                                                >
+                                                <span class="badge badge-primary">Trimite SMS pentru Fișa service cu Nr. Intrare {{ $service_fisa->nr_intrare }}
+                                                </span>
+                                            </a>
+                                                <div class="modal fade text-dark" id="trimiteSMS{{ $service_fisa->nr_intrare }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Fișa de intrare: <b>{{ $service_fisa->nr_intrare }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            Ești sigur ca vrei să trimiți sms-ul?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                            
+                                                            <form method="POST" 
+                                                                action="/trimite-sms/{{
+                                                                        'Fise'
+                                                                    }}/{{ 
+                                                                        'Intrare'
+                                                                    }}/{{ 
+                                                                        $service_fisa->id
+                                                                    }}/{{ 
+                                                                        $service_fisa->client->telefon ?? '0'
+                                                                    }}/{{
+                                                                        'Buna ziua ' . ($service_fisa->client->nume ?? '') . '. ' .
+                                                                        'Echipamentul dumneavoastra a intrat în service si a fost preluat de tehnicianul nostru ' . $service_fisa->tehnician_service . '. ' .
+                                                                        'O zi placuta!'
+                                                                    }}">
+                                                                
+                                                                @csrf   
+                                                                <button 
+                                                                    type="submit" 
+                                                                    class="btn btn-primary"  
+                                                                    >
+                                                                    Trimite sms
+                                                                </button>                    
+                                                            </form>
+                                                        
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div> 
+                                </td>
+                            </tr>
+                            <tr class="collapse">
+                                <td colspan="9">  
+                                </td>
+                            </tr>
                         @empty
                             {{--  --}}
                         @endforelse

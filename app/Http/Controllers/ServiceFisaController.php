@@ -244,9 +244,9 @@ class ServiceFisaController extends Controller
                     new FisaIntrareService($fisa)
                 );              
             $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->inregistrare_id = $fisa->id;
             $mesaj_trimis->categorie = 'Fise';
             $mesaj_trimis->subcategorie = 'Intrare';
-            $mesaj_trimis->id_inregistrare = $fisa->id;
             $mesaj_trimis->save();
             return back()->with('status', 'Emailul cu „Fișa de intrare nr. ' . $fisa->nr_intrare . '” a fost trimis către „' . $fisa->client->email . '” cu succes!');
         } elseif ($request->tip_fisa === 'fisa-iesire'){
@@ -257,9 +257,9 @@ class ServiceFisaController extends Controller
                     new FisaIesireService($fisa)
                 ); 
             $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->inregistrare_id = $fisa->id;
             $mesaj_trimis->categorie = 'Fise';
             $mesaj_trimis->subcategorie = 'Iesire';
-            $mesaj_trimis->id_inregistrare = $fisa->id;
             $mesaj_trimis->save();       
             return back()->with('status', 'Emailul cu „Fișa de ieșire nr. ' . $fisa->nr_iesire . '” a fost trimis către „' . $fisa->client->email . '” cu succes!');
         }

@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MesajTrimis extends Model
+class SmSTrimis extends Model
 {
-    protected $table = 'mesaje_trimise_email';
+    protected $table = 'mesaje_trimise_sms';
     protected $guarded = [];
 }

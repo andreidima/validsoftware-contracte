@@ -16,7 +16,6 @@ class MesajTrimisController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
-        // $search_nume = 'a';
 
         $ofertari = Ofertare::
             leftJoin('clienti', 'ofertari.client_id', '=', 'clienti.id')
