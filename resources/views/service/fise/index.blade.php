@@ -309,7 +309,7 @@
                                         @empty                                            
                                             <tr>
                                                 <td colspan="4" class="py-0">
-                                                    Nu au fost trimise SMS-uri pentru Fișa service cu Nr. Intrare {{ $service_fisa->nr_intrare }}.
+                                                    Nu au fost trimise SMS-uri pentru Fișa service cu Nr. Intrare {{ $service_fisa->nr_intrare }}
                                                 </td>
                                             </tr>
                                         @endforelse
