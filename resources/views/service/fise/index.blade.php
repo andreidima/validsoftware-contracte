@@ -96,6 +96,7 @@
                                                 data-toggle="modal" 
                                                 data-target="#trimiteEmail{{ $service_fisa->nr_intrare }}"
                                                 title="trimite email"
+                                                class="mr-1"
                                                 >
                                                 <span class="badge badge-primary">Email
                                                     <span class="badge badge-light" title="Emailuri trimise până acum">
@@ -159,6 +160,7 @@
                                                 data-toggle="modal" 
                                                 data-target="#trimiteEmail{{ $service_fisa->nr_iesire }}"
                                                 title="trimite email"
+                                                class="mr-1"
                                                 >
                                                 <span class="badge badge-primary">Email
                                                     <span class="badge badge-light" title="Mesaje trimise până acum">

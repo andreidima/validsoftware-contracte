@@ -92,6 +92,7 @@
                                         </a>
                                     </div>
                                 </li> --}}
+                            @endif
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-tools mr-1"></i>Service
@@ -110,6 +111,7 @@
                                         </a>
                                     </div>
                                 </li>
+                            @if (auth()->user()->isAdmin())
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-cog mr-1"></i>Setări
