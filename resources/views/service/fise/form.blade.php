@@ -274,8 +274,8 @@
                 </small>
             </div>
         </div>
-        <div class="form-row px-2 py-2 mb-4"
-            style="background-color:honeydew; border-left:6px solid; border-color:mediumseagreen; border-radius: 0px 0px 0px 0px"
+        <div class="form-row px-2 py-2"
+            style="background-color:#FFE8E8; border-left:6px solid; border-color:#801515; border-radius: 0px 0px 0px 0px"
             >  
             <div class="form-group col-lg-6">
                 <label for="descriere_echipament" class="mb-0 pl-3">Descriere echipament:</label>                                  
@@ -291,6 +291,10 @@
                     {{-- placeholder="Descriere defect" --}}
                     >{{ old('defect_reclamat') == '' ? $fise->defect_reclamat : old('defect_reclamat') }}</textarea>
             </div>
+        </div>
+        <div class="form-row px-2 py-2 mb-4"
+            style="background-color:#B8FFB8; border-left:6px solid; border-color:mediumseagreen; border-radius: 0px 0px 0px 0px"
+            >  
             <div class="form-group col-lg-6">
                 <label for="defect_constatat" class="mb-0 pl-3">Defect constatat:</label>                                  
                 <textarea class="form-control {{ $errors->has('defect_constatat') ? 'is-invalid' : '' }}" 
