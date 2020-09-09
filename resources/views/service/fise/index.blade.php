@@ -373,7 +373,7 @@
                                                                         $service_fisa->client->telefon ?? '0'
                                                                     }}/{{
                                                                         'Buna ziua ' . ($service_fisa->client->nume ?? '') . '. ' .
-                                                                        'Echipamentul dumneavoastra a intrat în service si a fost preluat de tehnicianul nostru ' . $service_fisa->tehnician_service . '. ' .
+                                                                        'Echipamentul dumneavoastra a intrat in service si a fost preluat de tehnicianul nostru ' . $service_fisa->tehnician_service . '. ' .
                                                                         'O zi placuta!'
                                                                     }}">
                                                                 

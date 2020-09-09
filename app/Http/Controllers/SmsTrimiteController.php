@@ -18,8 +18,8 @@ class SmsTrimiteController extends Controller
         //     $test = 0; // sms-ul se trimite
         // }
 
-        $test = 1; // sms-ul nu se trimite
-        // $test = 0; // sms-ul se trimite        
+        // $test = 1; // sms-ul nu se trimite
+        $test = 0; // sms-ul se trimite        
 
         // ----------------------------------------------------------------------------
         // 
