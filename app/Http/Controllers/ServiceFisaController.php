@@ -266,6 +266,25 @@ class ServiceFisaController extends Controller
 
     }
 
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function pdfExport(Request $request, ServiceFisa $fise)
+    {   
+        $fisa = $fise;
+        if ($request->view_type === 'fisa-pdf-intrare') {
+            $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
+                ->setPaper('a4', 'portrait');
+                return $pdf->download('Fisa intrare service nr. ' . $fisa->nr_intrare . '.pdf');        
+        }elseif ($request->view_type === 'fisa-pdf-iesire') {
+            $pdf = \PDF::loadView('service.fise.export.fisa-iesire-service-pdf', compact('fisa'))
+                ->setPaper('a4', 'portrait');
+                return $pdf->download('Fisa iesire service nr. ' . $fisa->nr_iesire . '.pdf');
+        }
+    }
+
     public function wordExport(Request $request, ServiceFisa $fise)
     {
         if ($request->view_type === 'fisa-html') {
@@ -348,29 +367,47 @@ class ServiceFisaController extends Controller
                     ';
 
             $html .= '<br /><br />';
-            $html .= '
+            // $html .= '
+            //         <table align="center" style="width: 100%">
+            //             <tr>
+            //                 <td style="width:50%" align="center"><b>Beneficiar,</b>
+            //                     <br/>' . $fise->client->nume .
+            //                     '<br /><br />' . $fise->client->reprezentant_functie .
+            //                     '<br />' . $fise->client->reprezentant . '</td>                            
+            //                 <td style="width:30%" align="center"><b>Prestator,</b>
+            //                     <br/>Dima P. Valentin PFA
+            //                     <br/>
+            //                     <br/>
+            //                     <b>Tehnician service</b>
+            //                     <br/>' .
+            //                     $fise->tehnician_service .
+            //                     '
+            //                     <br/>
+            //                     <img src="images/semnatura si stampila.png" width="100"/>
+            //                 </td>
+            //             </tr>
+            //         </table>
+            //     ';
+
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+
+            $table = $section->addTable();
+            $table->addRow(null, array('tblHeader' => true, 'cantSplit' => true));
+            $cell = $table->addCell(10000);
+            $html = '
                     <table align="center" style="width: 100%">
-                        <tr>
-                            <td style="width:50%" align="center"><b>Beneficiar,</b>
+                        <tr style="page-break-inside: avoid;">
+                            <td style="width:50%; page-break-inside: avoid;" align="center"><b>Beneficiar,</b>
                                 <br/>' . $fise->client->nume .
                                 '<br /><br />' . $fise->client->reprezentant_functie .
                                 '<br />' . $fise->client->reprezentant . '</td>                            
-                            <td style="width:30%" align="center"><b>Prestator,</b>
-                                <br/>Dima P. Valentin PFA
-                                <br/>
-                                <br/>
-                                <b>Tehnician service</b>
-                                <br/>' .
-                                $fise->tehnician_service .
-                                '
-                                <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/>
+                            <td style="width:30%; page-break-inside: avoid;" align="center"><b>Prestator,</b>
+                                <br/>Validsoftware - Servicii Informatice
                             </td>
                         </tr>
                     </table>
-                ';
-
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+                ';  
+            \PhpOffice\PhpWord\Shared\Html::addHtml($cell, $html, false, false);
 
 
             $footer = $section->addFooter();
@@ -507,29 +544,47 @@ class ServiceFisaController extends Controller
                     ';
 
             $html .= '<br /><br />';
-            $html .= '
+            // $html .= '
+            //         <table align="center" style="width: 100%">
+            //             <tr style="page-break-inside: avoid;">
+            //                 <td style="width:50%; page-break-inside: avoid;" align="center"><b>Beneficiar,</b>
+            //                     <br/>' . $fise->client->nume .
+            //                     '<br /><br />' . $fise->client->reprezentant_functie .
+            //                     '<br />' . $fise->client->reprezentant . 'dd</td>                            
+            //                 <td style="width:30%; page-break-inside: avoid;" align="center"><b>Prestator,</b>
+            //                     <br/>Dima P. Valentin PFA
+            //                     <br/>
+            //                     <br/>
+            //                     <b>Tehnician service</b>
+            //                     <br/>' .
+            //                     $fise->tehnician_service .
+            //                     '
+            //                     <br/>
+            //                     <img src="images/semnatura si stampila.png" width="100"/>
+            //                 </td>
+            //             </tr>
+            //         </table>
+            //     ';            
+
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+
+            $table = $section->addTable();
+            $table->addRow(null, array('tblHeader' => true, 'cantSplit' => true));
+            $cell = $table->addCell(10000);
+            $html = '
                     <table align="center" style="width: 100%">
-                        <tr>
-                            <td style="width:50%" align="center"><b>Beneficiar,</b>
+                        <tr style="page-break-inside: avoid;">
+                            <td style="width:50%; page-break-inside: avoid;" align="center"><b>Beneficiar,</b>
                                 <br/>' . $fise->client->nume .
                                 '<br /><br />' . $fise->client->reprezentant_functie .
                                 '<br />' . $fise->client->reprezentant . '</td>                            
-                            <td style="width:30%" align="center"><b>Prestator,</b>
-                                <br/>Dima P. Valentin PFA
-                                <br/>
-                                <br/>
-                                <b>Tehnician service</b>
-                                <br/>' .
-                                $fise->tehnician_service .
-                                '
-                                <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/>
+                            <td style="width:30%; page-break-inside: avoid;" align="center"><b>Prestator,</b>
+                                <br/>Validsoftware - Servicii Informatice
                             </td>
                         </tr>
                     </table>
-                ';
-
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+                ';  
+            \PhpOffice\PhpWord\Shared\Html::addHtml($cell, $html, false, false);
 
 
             $footer = $section->addFooter();

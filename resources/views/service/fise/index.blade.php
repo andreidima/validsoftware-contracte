@@ -84,11 +84,16 @@
                                     {{ \Carbon\Carbon::parse($service_fisa->data_ridicare)->isoFormat('DD.MM.YYYY') ?? '' }}
                                 </td>
                                 <td class="text-center">                                    
-                                    <div class="d-flex justify-content-center">
+                                    <div class="d-flex justify-content-center mr-2">
                                         <a href="{{ $service_fisa->path() }}/export/fisa-word-intrare"
                                             class="flex mr-1"    
                                         >
                                             <span class="badge badge-success">Word</span>
+                                        </a> 
+                                        <a href="{{ $service_fisa->path() }}/export/fisa-pdf-intrare"
+                                            class="flex mr-1"    
+                                        >
+                                            <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a> 
                                         <div style="" class="text-center">
                                             <a 
@@ -148,11 +153,17 @@
                                     </div>
                                 </td>
                                 <td class="text-center">             
-                                    <div class="d-flex justify-content-center">                             
+                                    {{-- <div class="d-flex justify-content-center align-items-end">    --}}
+                                    <div class="d-flex align-self-center align-items-start mr-2">                     
                                         <a href="{{ $service_fisa->path() }}/export/fisa-word-iesire"
-                                            class="flex mr-1"    
+                                            class="mr-1"    
                                         >
                                             <span class="badge badge-success">Word</span>
+                                        </a>                                        
+                                        <a href="{{ $service_fisa->path() }}/export/fisa-pdf-iesire"
+                                            class="mr-1"    
+                                        >
+                                            <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a>
                                         <div style="" class="text-center">
                                             <a 
