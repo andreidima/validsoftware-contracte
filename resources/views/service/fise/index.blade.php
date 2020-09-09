@@ -489,7 +489,7 @@
                                                                         $service_fisa->client->telefon ?? '0'
                                                                     }}/{{
                                                                         'Buna ziua ' . ($service_fisa->client->nume ?? '') . '. ' .
-                                                                        'Serviceul pentru echipamentul dumneavoastra a fost finalizat.' .
+                                                                        'Serviceul pentru echipamentul dumneavoastra a fost finalizat. ' .
                                                                         'Va asteptam la Validsoftware.' .
                                                                         'O zi placuta!'
                                                                     }}">
