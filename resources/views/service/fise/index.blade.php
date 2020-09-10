@@ -50,17 +50,17 @@
                 <table class="table table-striped table-hover table-sm rounded"> 
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th>Nr. Crt.</th>
-                            <th>Nr. Intrare</th>
-                            <th>Nr. Ieșire</th>
+                            <th>Nr.<br>Crt.</th>
+                            <th>Nr.<br>Intrare</th>
+                            <th>Nr.<br>Ieșire</th>
                             <th>Client</th>
-                            <th class="text-right">Data recepție</th>
-                            <th class="text-right">Data ridicare</th>
+                            <th class="text-center">Data<br>recepție</th>
+                            <th class="text-center">Data<br>ridicare</th>
                             <th class="text-center p-2">Fișă intrare</th>
                             <th class="text-center p-2">Fișă ieșire</th>
                             <th class="text-center p-2">Sms 
                                 <br>
-                                <small>personalizat</small>
+                                personalizat
                             </th>                            
                             <th class="text-center">Acțiuni</th>
                         </tr>
@@ -81,10 +81,10 @@
                                     {{ $service_fisa->client->nume ?? '' }}
                                 </td>
                                 </td>
-                                <td class="text-right">
+                                <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_receptie)->isoFormat('DD.MM.YYYY') ?? '' }}
                                 </td>
-                                <td class="text-right">
+                                <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_ridicare)->isoFormat('DD.MM.YYYY') ?? '' }}
                                 </td>
                                 <td class="text-center">                                    
