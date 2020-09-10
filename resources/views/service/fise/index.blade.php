@@ -641,7 +641,7 @@
                                                                             name="sms_personalizat"
                                                                             rows="4"
                                                                             {{-- placeholder="Observații" --}}
-                                                                            >{{ old('sms_personalizat') == '' }}</textarea>
+                                                                            ></textarea>
                                                                     </div> 
                                                                 </div>
                                                                 <div class="modal-footer">
