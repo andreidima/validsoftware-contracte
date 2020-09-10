@@ -115,7 +115,7 @@ class ServiceClientController extends Controller
             'banca' => ['max:100'],
             'reprezentant' => ['max:100'],
             'reprezentant_functie' => ['max:100'],
-            'telefon' => ['max:100'],
+            'telefon' => ['numeric', 'digits:10'],
             'email' => ['nullable', 'max:180'],
             'site_web' => ['nullable', 'max:180']
         ]);

@@ -69,7 +69,7 @@
                         <select name="client_deja_inregistrat" 
                             class="custom-select custom-select-sm rounded-pill {{ $errors->has('client_deja_inregistrat') ? 'is-invalid' : '' }}" 
                             v-model="client_deja_inregistrat"  
-                            @change="getDateClient()"
+                            @change="changeDateClient()"
                         >
                                 <option value='' selected>Selectează client</option>
                             @foreach ($clienti as $client)                           
@@ -223,6 +223,7 @@
                     v-model="client_telefon" 
                     value="{{ old('telefon') == '' ? $fise->telefon : old('telefon') }}"
                     required> 
+                {{ old('telefon') }}
             </div>
             <div class="form-group col-lg-2 mb-0">  
                 <script type="application/javascript"> 

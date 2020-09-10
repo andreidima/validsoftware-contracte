@@ -102,8 +102,39 @@ if (document.querySelector('#fisa-service')) {
                         return true;
                     }
                 }
+                // this.client_nume = '';
+                // this.client_nr_ord_reg_com = '';
+                // this.client_cui = '';
+                // this.client_adresa = '';
+                // this.client_iban = '';
+                // this.client_banca = '';
+                // this.client_reprezentant = '';
+                // this.client_reprezentant_functie = '';
+                // this.client_telefon = '';
+                // this.client_email = '';
+                // this.client_site_web = '';
+
+            },
+            changeDateClient: function () {
+                for (var i = 0; i < this.clienti.length; i++) {
+                    if (this.clienti[i].id == this.client_deja_inregistrat) {
+                        this.client_nume = this.clienti[i].nume;
+                        // this.client_nume_scurt = this.clienti[i].nume_scurt;
+                        this.client_nr_ord_reg_com = this.clienti[i].nr_ord_reg_com;
+                        this.client_cui = this.clienti[i].cui;
+                        this.client_adresa = this.clienti[i].adresa;
+                        this.client_iban = this.clienti[i].iban;
+                        this.client_banca = this.clienti[i].banca;
+                        this.client_reprezentant = this.clienti[i].reprezentant;
+                        this.client_reprezentant_functie = this.clienti[i].reprezentant_functie;
+                        this.client_telefon = this.clienti[i].telefon;
+                        this.client_email = this.clienti[i].email;
+                        // this.client_email_dpo = this.clienti[i].email_dpo;
+                        this.client_site_web = this.clienti[i].site_web;
+                        return true;
+                    }
+                }
                 this.client_nume = '';
-                // this.client_nume_scurt = '';
                 this.client_nr_ord_reg_com = '';
                 this.client_cui = '';
                 this.client_adresa = '';
@@ -113,7 +144,6 @@ if (document.querySelector('#fisa-service')) {
                 this.client_reprezentant_functie = '';
                 this.client_telefon = '';
                 this.client_email = '';
-                // this.client_email_dpo = '';
                 this.client_site_web = '';
 
             },

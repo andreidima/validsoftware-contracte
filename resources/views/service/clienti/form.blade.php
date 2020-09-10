@@ -130,7 +130,7 @@
                     type="text" 
                     class="form-control form-control-sm rounded-pill {{ $errors->has('telefon') ? 'is-invalid' : '' }}" 
                     name="telefon" 
-                    placeholder="" 
+                    placeholder="Ex: 07xyzzzzzz" 
                     value="{{ old('telefon') == '' ? $clienti->telefon : old('telefon') }}"
                     required> 
             </div>
