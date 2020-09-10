@@ -219,7 +219,7 @@
                     type="text" 
                     class="form-control form-control-sm rounded-pill {{ $errors->has('telefon') ? 'is-invalid' : '' }}" 
                     name="telefon" 
-                    placeholder=""
+                    placeholder="Ex: 07xyzzzzzz" 
                     v-model="client_telefon" 
                     value="{{ old('telefon') == '' ? $fise->telefon : old('telefon') }}"
                     required> 
