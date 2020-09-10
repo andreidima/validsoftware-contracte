@@ -8,18 +8,14 @@ use App\SmsTrimis;
 
 class SmsTrimiteController extends Controller
 {
-    public function trimite_sms($categorie = null, $subcategorie = null, $inregistrare_id = null, $telefon = null, $mesaj = null)
+    public function trimite_sms(Request $request, $categorie = null, $subcategorie = null, $inregistrare_id = null, $telefon = null, $mesaj = null)
     {       
-        // dd($inregistrare_id, $categorie, $subcategorie, $telefon, $mesaj);
-        // Setare variabila test pentru ANDREI DIMA TESTȘ
-        // if (($rezervare->nume == "ANDREI DIMA TESTȘ") || ($rezervare->nume == "ANDREI DIMA TESTș")){
-        //     $test = 1; // sms-ul nu se trimite
-        // } else {
-        //     $test = 0; // sms-ul se trimite
-        // }
+        if ($mesaj == 'sms_personalizat'){
+            $mesaj = $request->sms_personalizat;
+        }
 
-        // $test = 1; // sms-ul nu se trimite
-        $test = 0; // sms-ul se trimite        
+        $test = 1; // sms-ul nu se trimite
+        // $test = 0; // sms-ul se trimite        
 
         // ----------------------------------------------------------------------------
         // 

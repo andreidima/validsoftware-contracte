@@ -11,18 +11,18 @@ Multumim,<br>
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            validsoftware.ro - Servicii Informatice Focșani
+            ValidSoftware.ro - Servicii Informatice Focșani
         @endcomponent
     @endslot
 
 {{-- Body --}}
 # Bună {{ $fisa->client->nume }},
 <br>
-Iți trimitem atasat Fișa nr. {{ $fisa->nr_intrare }} de intrare în service a echipamentului tău.
+Iți trimitem atașat Fișa nr. {{ $fisa->nr_intrare }} de intrare în service a echipamentului tău.
 <br><br>
 Multumim,
 <br>
-Echipa validsoftware.ro
+Echipa ValidSoftware.ro
 
 {{-- Subcopy --}}
     @isset($subcopy)
@@ -36,7 +36,7 @@ Echipa validsoftware.ro
 {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} validsoftware.ro
+            © {{ date('Y') }} ValidSoftware.ro
         @endcomponent
     @endslot
 @endcomponent
