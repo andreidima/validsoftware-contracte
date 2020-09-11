@@ -8,26 +8,26 @@
                     <a href="{{ route('service.fise.index') }}"><i class="fas fa-file-invoice mr-1"></i></i>Fișe service</a>
                 </h4>
             </div> 
-            <div class="col-lg-5" id="">
+            <div class="col-lg-6" id="">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.fise.index') }}">
                     @csrf                    
                     <div class="row input-group custom-search-form justify-content-center">
-                        <div class="col-md-4 px-1">
+                        {{-- <div class="col-md-4 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
                             id="search_numar" name="search_numar" placeholder="Număr fișă" autofocus
                                     value="{{ $search_numar }}">
-                        </div>
-                        <div class="col-md-8 px-1">
+                        </div> --}}
+                        <div class="col-md-4 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
                             id="search_nume" name="search_nume" placeholder="Firma"
                                     value="{{ $search_nume }}">
                         </div>
-                        <div class="col-md-6 px-1">
+                        <div class="col-md-4 px-1">
                             <button class="btn btn-sm btn-primary col-md-12 border border-dark rounded-pill" type="submit">
                                 <i class="fas fa-search text-white mr-1"></i>Caută
                             </button>
                         </div>
-                        <div class="col-md-6 px-1">
+                        <div class="col-md-4 px-1">
                             <a class="btn btn-sm bg-secondary text-white col-md-12 border border-dark rounded-pill" href="{{ route('service.fise.index') }}" role="button">
                                 <i class="far fa-trash-alt text-white mr-1"></i>Resetează căutarea
                             </a>
@@ -91,7 +91,7 @@
                                             <span class="badge badge-success">Word</span>
                                         </a> 
                                         <a href="{{ $service_fisa->path() }}/export/fisa-pdf-intrare"
-                                            class="flex"    
+                                            class="flex mr-1"    
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a> 
@@ -161,7 +161,7 @@
                                             <span class="badge badge-success">Word</span>
                                         </a>                                        
                                         <a href="{{ $service_fisa->path() }}/export/fisa-pdf-iesire"
-                                            class=""    
+                                            class="mr-1"    
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a>
