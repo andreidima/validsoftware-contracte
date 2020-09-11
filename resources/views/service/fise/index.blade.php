@@ -19,7 +19,7 @@
                         </div> --}}
                         <div class="col-md-4 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
-                            id="search_nume" name="search_nume" placeholder="Firma"
+                            id="search_nume" name="search_nume" placeholder="Client"
                                     value="{{ $search_nume }}">
                         </div>
                         <div class="col-md-4 px-1">
