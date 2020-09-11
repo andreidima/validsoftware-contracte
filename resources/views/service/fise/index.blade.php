@@ -50,45 +50,41 @@
                 <table class="table table-striped table-hover table-sm rounded"> 
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th>Nr.<br>Crt.</th>
-                            <th>Nr.<br>Intrare</th>
-                            <th>Nr.<br>Ieșire</th>
+                            {{-- <th>Nr.<br>Crt.</th> --}}
+                            {{-- <th>Nr.<br>Intrare</th> --}}
+                            {{-- <th>Nr.<br>Ieșire</th> --}}
                             <th>Client</th>
-                            <th class="text-center">Data<br>recepție</th>
-                            <th class="text-center">Data<br>ridicare</th>
+                            {{-- <th class="text-center">Data<br>recepție</th> --}}
+                            {{-- <th class="text-center">Data<br>ridicare</th> --}}
                             <th class="text-center p-2">Fișă intrare</th>
                             <th class="text-center p-2">Fișă ieșire</th>
-                            <th class="text-center p-2">Sms 
-                                <br>
-                                personalizat
-                            </th>                            
+                            <th class="text-center p-2">Sms personalizat</th>                            
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
                     <tbody>               
                         @forelse ($service_fise as $service_fisa) 
                             <tr>                  
-                                <td align="">
+                                {{-- <td align="">
                                     {{ ($service_fise ->currentpage()-1) * $service_fise ->perpage() + $loop->index + 1 }}
-                                </td>
-                                <td>
+                                </td> --}}
+                                {{-- <td>
                                     {{ $service_fisa->nr_intrare }}
-                                </td>
-                                <td>
+                                </td> --}}
+                                {{-- <td>
                                     {{ $service_fisa->nr_iesire }}
-                                </td>
+                                </td> --}}
                                 <td>
                                     {{ $service_fisa->client->nume ?? '' }}
                                 </td>
-                                </td>
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_receptie)->isoFormat('DD.MM.YYYY') ?? '' }}
-                                </td>
-                                <td class="text-center">
+                                </td> --}}
+                                {{-- <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_ridicare)->isoFormat('DD.MM.YYYY') ?? '' }}
-                                </td>
+                                </td> --}}
                                 <td class="text-center">                                    
-                                    <div class="d-flex justify-content-end">
+                                    <div class="d-flex justify-content-center">
                                         <a href="{{ $service_fisa->path() }}/export/fisa-word-intrare"
                                             class="flex mr-1"    
                                         >
@@ -99,8 +95,6 @@
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a> 
-                                    </div>     
-                                    <div class="d-flex justify-content-end">
                                         <div style="" class="text-center">
                                             <a 
                                                 href="#" 
@@ -160,7 +154,7 @@
                                 </td>
                                 <td class="text-center">             
                                     {{-- <div class="d-flex justify-content-center align-items-end">    --}}
-                                    <div class="d-flex justify-content-end">                     
+                                    <div class="d-flex justify-content-center">                     
                                         <a href="{{ $service_fisa->path() }}/export/fisa-word-iesire"
                                             class="mr-1"    
                                         >
@@ -171,8 +165,6 @@
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a>
-                                    </div>     
-                                    <div class="d-flex justify-content-end">
                                         <div style="" class="text-center">
                                             <a 
                                                 href="#" 
@@ -230,8 +222,7 @@
                                         </div> 
                                     </div>
                                 </td>
-                                <td class="text-center">          
-                                        <br>                        
+                                <td class="text-center">                       
                                             <a class="" data-toggle="collapse" href="#collapseSMSFisaPersonalizat{{ $service_fisa->id }}" role="button" 
                                                 aria-expanded="false" aria-controls="collapseSMSFisaPersonalizat{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
@@ -241,15 +232,13 @@
                                                     </span>
                                             </a>
                                 </td>
-                                <td class="justify-content-end"> 
-                                    <div class="d-flex flex-row-reverse">
+                                <td class="text-right"> 
+                                    <div class="d-flex justify-content-end">
                                         <a href="{{ $service_fisa->path() }}"
-                                            class=""    
+                                            class="flex mr-1"    
                                         >
                                             <span class="badge badge-success">Vizualizează</span>
                                         </a> 
-                                    </div>
-                                    <div class="d-flex justify-content-end">
                                         <a href="{{ $service_fisa->path() }}/modifica"
                                             class="flex mr-1"    
                                         >
