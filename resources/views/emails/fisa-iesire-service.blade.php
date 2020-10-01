@@ -17,11 +17,11 @@ Multumim,<br>
     @endslot
 
 {{-- Body --}}
-# Bună {{ $fisa->client->nume }},
+# Bună, {{ $fisa->client->nume }},
 <br>
 Iți trimitem atașat Fișa nr. {{ $fisa->nr_iesire }} de ieșire din service a echipamentului tău.
 <br><br>
-Multumim,
+Mulțumim,
 <br>
 Echipa ValidSoftware.ro
 

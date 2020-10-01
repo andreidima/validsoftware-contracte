@@ -16,11 +16,11 @@ Multumim,<br>
     @endslot
 
 {{-- Body --}}
-# Bună {{ $fisa->client->nume }},
+# Bună, {{ $fisa->client->nume }},
 <br>
 Iți trimitem atașat Fișa nr. {{ $fisa->nr_intrare }} de intrare în service a echipamentului tău.
 <br><br>
-Multumim,
+Mulțumim,
 <br>
 Echipa ValidSoftware.ro
 
