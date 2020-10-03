@@ -58,7 +58,7 @@
                             {{-- <th class="text-center">Data<br>ridicare</th> --}}
                             <th class="text-center p-2">Fișă intrare</th>
                             <th class="text-center p-2">Fișă ieșire</th>
-                            <th class="text-center p-2">Sms personalizat</th>                            
+                            <th class="text-center p-2">Mesaje personalizate</th>                            
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -222,7 +222,15 @@
                                         </div> 
                                     </div>
                                 </td>
-                                <td class="text-center">                       
+                                <td class="text-center">   
+                                            <a class="mr-1" data-toggle="collapse" href="#collapseEmailFisaPersonalizat{{ $service_fisa->id }}" role="button" 
+                                                aria-expanded="false" aria-controls="collapseEmailFisaPersonalizat{{ $service_fisa->id }}">
+                                                    <span class="badge badge-primary">Email
+                                                        <span class="badge badge-light" title="Email-uri trimise până acum">
+                                                            {{ $service_fisa->emailuri_trimise_fisa_personalizat()->count() }}
+                                                        </span>
+                                                    </span>
+                                            </a>                    
                                             <a class="" data-toggle="collapse" href="#collapseSMSFisaPersonalizat{{ $service_fisa->id }}" role="button" 
                                                 aria-expanded="false" aria-controls="collapseSMSFisaPersonalizat{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
@@ -501,8 +509,8 @@
                                                                         $service_fisa->client->telefon ?? '0'
                                                                     }}/{{
                                                                         'Buna ziua ' . ($service_fisa->client->nume ?? '') . '. ' .
-                                                                        'Serviceul pentru echipamentul dumneavoastra a fost finalizat. ' .
-                                                                        'Va asteptam la Validsoftware.' .
+                                                                        'Service-ul pentru echipamentul dumneavoastra a fost finalizat. ' .
+                                                                        'Va asteptam la Validsoftware. ' .
                                                                         'O zi placuta!'
                                                                     }}">
                                                                 
@@ -513,6 +521,110 @@
                                                                     >
                                                                     Trimite sms
                                                                 </button>                    
+                                                            </form>
+                                                        
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div> 
+                                </td>
+                            </tr>
+                            <tr class="collapse">
+                                <td colspan="10">  
+                                </td>
+                            </tr>
+                            <tr class="collapse bg-white" id="collapseEmailFisaPersonalizat{{ $service_fisa->id }}" 
+                                {{-- style="background-color:cornsilk" --}}
+                            >
+                                <td colspan="10">
+                                    <table class="table table-sm table-striped table-hover col-lg-9 mx-auto border"
+                                {{-- style="background-color:#008282" --}}
+                                    > 
+                                        <tr>
+                                            <th colspan="2" class="text-center"> 
+                                                Email-uri Fișă Personalizate
+                                            </th>
+                                        </tr>
+                                        <tr class="collapse">
+                                            <td colspan="4"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                Mesaj
+                                            </th>
+                                            <th class="text-center">
+                                                Data trimitere
+                                            </th>
+                                        </tr>
+                                        @forelse ($service_fisa->emailuri_trimise_fisa_personalizat as $email)
+                                            <tr>
+                                                <td class="py-0">
+                                                    {!! $email->text !!}
+                                                </td>
+                                                <td class="py-0 text-center">
+                                                    {{ \Carbon\Carbon::parse($email->created_at)->isoFormat('HH:mm DD.MM.YYYY') ?? '' }}
+                                                </td>
+                                            </tr>
+                                        @empty                                            
+                                            <tr>
+                                                <td colspan="4" class="py-0">
+                                                    Nu au fost trimise Email-uri personalizate pentru această Fișă pentru clientul {{ $service_fisa->client->nume ?? '' }}
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </table>
+                                        <div style="" class="text-center mb-4">
+                                            <a 
+                                                href="#" 
+                                                data-toggle="modal" 
+                                                data-target="#trimiteEmailPersonalizat{{ $service_fisa->id }}"
+                                                title="trimite email"
+                                                >
+                                                <span class="badge badge-primary">Trimite Email personalizat pentru această Fișă pentru clientul {{ $service_fisa->client->nume ?? '' }}
+                                                </span>
+                                            </a>
+                                                <div class="modal fade text-dark" id="trimiteEmailPersonalizat{{ $service_fisa->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Fișă pentru clientul {{ $service_fisa->client->nume ?? '' }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        
+                                                            <form method="POST" 
+                                                                action="{{ $service_fisa->path() 
+                                                                    }}/{{ 
+                                                                        'email-personalizat'
+                                                                    }}/{{
+                                                                        'trimite-email'
+                                                                    }}">
+
+                                                                <div class="modal-body" style="text-align:left;">
+                                                                    <div class="form-group col-lg-12 mb-4">  
+                                                                        <label for="sms_personalizat" class="mb-0 pl-3">Text Email:</label>
+                                                                        <textarea class="form-control {{ $errors->has('email_personalizat') ? 'is-invalid' : '' }}" 
+                                                                            name="email_personalizat"
+                                                                            rows="8"
+                                                                            ></textarea>
+                                                                    </div> 
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                                
+                                                                        
+                                                                        @csrf  
+
+                                                                        <button 
+                                                                            type="submit" 
+                                                                            class="btn btn-primary"  
+                                                                            >
+                                                                            Trimite email
+                                                                        </button>      
+                                                                </div>              
                                                             </form>
                                                         
                                                         </div>

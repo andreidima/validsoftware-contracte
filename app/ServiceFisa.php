@@ -63,4 +63,9 @@ class ServiceFisa extends Model
     {
         return $this->hasMany('App\SmsTrimis', 'inregistrare_id')->where('categorie', 'Fise')->where('subcategorie', 'Personalizat')->where('trimis', 1);
     }
+
+    public function emailuri_trimise_fisa_personalizat()
+    {
+        return $this->hasMany('App\EmailTrimis', 'inregistrare_id')->where('categorie', 'Fise')->where('subcategorie', 'Personalizat');
+    }
 }

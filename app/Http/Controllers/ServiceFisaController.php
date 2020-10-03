@@ -8,6 +8,7 @@ use App\ServiceServiciu;
 use Illuminate\Http\Request;
 use App\Mail\FisaIntrareService;
 use App\Mail\FisaIesireService;
+use App\Mail\EmailPersonalizat;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -262,6 +263,21 @@ class ServiceFisaController extends Controller
             $mesaj_trimis->subcategorie = 'Iesire';
             $mesaj_trimis->save();       
             return back()->with('status', 'Emailul cu „Fișa de ieșire nr. ' . $fisa->nr_iesire . '” a fost trimis către „' . $fisa->client->email . '” cu succes!');
+        } elseif ($request->tip_fisa === 'email-personalizat') {
+            $email_text = $request->email_personalizat;
+            \Mail::mailer('service')
+                ->to($fisa->client->email)
+                ->bcc($emailuri_bcc)
+                ->send(
+                    new EmailPersonalizat($fisa, $email_text)
+                );
+            $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->inregistrare_id = $fisa->id;
+            $mesaj_trimis->categorie = 'Fise';
+            $mesaj_trimis->subcategorie = 'Personalizat';
+            $mesaj_trimis->text = $email_text;
+            $mesaj_trimis->save();
+            return back()->with('status', 'Emailul personalizat a fost trimis către „' . $fisa->client->email . '” cu succes!');
         }
 
     }
