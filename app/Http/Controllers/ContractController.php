@@ -162,7 +162,7 @@ class ContractController extends Controller
     public function wordExport(Request $request, Contract $contracte)
     {
         if ($request->view_type === 'contract-html') {
-            return view('rezervari.export.rezervare-pdf', compact('rezervari'));
+            // return back();
         } elseif ($request->view_type === 'contract-word') {
             $phpWord = new \PhpOffice\PhpWord\PhpWord();
 
