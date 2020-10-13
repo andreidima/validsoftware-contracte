@@ -95,16 +95,20 @@
             </p>
 
             <br />
-            <p style="text-align:left; font-weight: bold;">Descriere echipament</p>
-            <p style="text-align:justify;">
-                {{ $fisa->descriere_echipament }}
-            </p>
+            @if ($fisa->descriere_echipament)
+                <p style="text-align:left; font-weight: bold;">Descriere echipament</p>
+                <p style="text-align:justify;">
+                    {{ $fisa->descriere_echipament }}
+                </p>
+            @endif
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
-            <p style="text-align:justify;">
-                {{ $fisa->defect_reclamat }}
-            </p>
+            @if ($fisa->descriere_echipament)
+                <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
+                <p style="text-align:justify;">
+                    {{ $fisa->defect_reclamat }}
+                </p>
+            @endif
             <br />
 
             <br /><br />

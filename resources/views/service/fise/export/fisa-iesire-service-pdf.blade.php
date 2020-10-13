@@ -93,59 +93,68 @@
             </p>
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Descriere echipament</p>
-            <p style="text-align:justify;">
-                {{ $fisa->descriere_echipament }}
-            </p>
-            <br />
+            @if ($fisa->descriere_echipament)
+                <p style="text-align:left; font-weight: bold;">Descriere echipament</p>
+                <p style="text-align:justify;">
+                    {{ $fisa->descriere_echipament }}
+                </p>
+                <br />
+            @endif
 
-            <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
-            <p style="text-align:justify;">
-                {{ $fisa->defect_reclamat }}
-            </p>
-            <br />
+            @if ($fisa->defect_reclamat)
+                <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
+                <p style="text-align:justify;">
+                    {{ $fisa->defect_reclamat }}
+                </p>
+                <br />
+            @endif
 
-            <p style="text-align:left; font-weight: bold;">Defect constatat</p>
-            <p style="text-align:justify;">
-                {{ $fisa->defect_constatat }}
-            </p>
-            <br />
+            @if ($fisa->defect_constatat)
+                <p style="text-align:left; font-weight: bold;">Defect constatat</p>
+                <p style="text-align:justify;">
+                    {{ $fisa->defect_constatat }}
+                </p>
+                <br />
+            @endif
 
-            <p style="text-align:left; font-weight: bold;">Rezultat service</p>
-            <p style="text-align:justify;">
-                {{ $fisa->rezultat_service }}
-            </p>
-            <br />
+            @if ($fisa->rezultat_service)
+                <p style="text-align:left; font-weight: bold;">Rezultat service</p>
+                <p style="text-align:justify;">
+                    {{ $fisa->rezultat_service }}
+                </p>
+                <br />
+            @endif
 
-            @php
-                $html ='<b>Servicii efectuate:</b>';
-                $html .='<ul>';
-                foreach ($fisa->servicii as $serviciu) {
-                    $html .= '<li>' . $serviciu->nume;
-                        if ($serviciu->pret){
-                            $html .= ' - ' . $serviciu->pret . ' RON';
-                        }
-                        if ($serviciu->recurenta){
-                            $html .= '/ ' . $serviciu->recurenta;
-                        }
-                    $html .= '</li>';
-                }
-                $html .='</ul>';
+            @if ($fisa->servicii)
+                @php
+                    $html ='<b>Servicii efectuate:</b>';
+                    $html .='<ul>';
+                    foreach ($fisa->servicii as $serviciu) {
+                        $html .= '<li>' . $serviciu->nume;
+                            if ($serviciu->pret){
+                                $html .= ' - ' . $serviciu->pret . ' RON';
+                            }
+                            if ($serviciu->recurenta){
+                                $html .= '/ ' . $serviciu->recurenta;
+                            }
+                        $html .= '</li>';
+                    }
+                    $html .='</ul>';
+                        
+                    $html .= '<br />';
 
-                    
-                $html .= '<br />
+                @endphp
 
-                    <p style="text-align:left; font-weight: bold;">Observatii</p>
-                    <p style="text-align:justify;">' .
-                        $fisa->observatii .
-                    '</p>
-                    <br />                    
-                    ';
+                {!! $html !!}
+            @endif
 
-            $html .= '<br /><br />';
-            @endphp
-
-            {!! $html !!}
+            @if ($fisa->observatii)
+                <p style="text-align:left; font-weight: bold;">Obervații</p>
+                <p style="text-align:justify;">
+                    {{ $fisa->observatii }}
+                </p>
+                <br />
+            @endif
 
             <br /><br />
             <table align="center" style="width: 100%">
