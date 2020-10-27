@@ -89,7 +89,7 @@
                     (isset($fisa->client->telefon) ? ', telefon: ' . ($fisa->client->telefon) : '') .
                     (isset($fisa->client->email) ? ', email: ' . ($fisa->client->email) : '') . 
                     (isset($fisa->client->site_web) ? ', site web: ' . ($fisa->client->site_web) : '')
-                }}
+                }}.
             </p>
             <br />
 

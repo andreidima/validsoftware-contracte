@@ -508,7 +508,7 @@ class ServiceFisaController extends Controller
                 (isset($fise->client->telefon) ? ', telefon: ' . ($fise->client->telefon) : '') .
                 (isset($fise->client->email) ? ', email: ' . ($fise->client->email) : '') . 
                 (isset($fise->client->site_web) ? ', site web: ' . ($fise->client->site_web) : '') .
-                '</p>';
+                '.</p>';
             $html .= '<br />';
 
             $html .= '<p style="text-align:left; font-weight: bold;">Descriere echipament</p>
