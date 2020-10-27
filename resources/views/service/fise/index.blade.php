@@ -85,7 +85,7 @@
                                 </td> --}}
                                 <td class="text-center">                                    
                                     <div class="d-flex justify-content-center">
-                                        <a href="{{ $service_fisa->path() }}/export/fisa-word-intrare"
+                                        <a href="{{ $service_fisa->path() }}/export/word/fisa-word-intrare"
                                             class="flex mr-1"    
                                         >
                                             <span class="badge badge-success">Word</span>
@@ -155,7 +155,7 @@
                                 <td class="text-center">             
                                     {{-- <div class="d-flex justify-content-center align-items-end">    --}}
                                     <div class="d-flex justify-content-center">                     
-                                        <a href="{{ $service_fisa->path() }}/export/fisa-word-iesire"
+                                        <a href="{{ $service_fisa->path() }}/export/word/fisa-word-iesire"
                                             class="mr-1"    
                                         >
                                             <span class="badge badge-success">Word</span>

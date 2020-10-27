@@ -19,7 +19,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
 
-    Route::get('/service/fise/{fise}/export/{view_type}', 'ServiceFisaController@wordExport');
+    Route::get('/service/fise/{fise}/export/word/{view_type}', 'ServiceFisaController@wordExport');
     Route::get('/service/fise/{fise}/export/{view_type}', 'ServiceFisaController@pdfExport');
     Route::post('service/fise/{fisa}/{tip_fisa}/trimite-email', 'ServiceFisaController@trimiteEmail');
     Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
