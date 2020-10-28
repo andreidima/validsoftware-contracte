@@ -38,8 +38,6 @@ Echipa ValidSoftware.ro
 {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} ValidSoftware.ro
-            <br>
             Creare și mentenanță site-uri de prezentare sau magazine online
             <br>
             Dezvoltare aplicații web personalizate
@@ -49,6 +47,9 @@ Echipa ValidSoftware.ro
             Service software calculatoare
             <br>
             Consultanță IT
+            <br>
+            <br>
+            © {{ date('Y') }} ValidSoftware.ro
         @endcomponent
     @endslot
 @endcomponent
