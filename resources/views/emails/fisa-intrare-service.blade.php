@@ -23,6 +23,8 @@ Iți trimitem atașat Fișa nr. {{ $fisa->nr_intrare }} de intrare în service a
 Mulțumim,
 <br>
 Echipa ValidSoftware.ro
+<br>
+0744.761.451
 
 {{-- Subcopy --}}
     @isset($subcopy)
