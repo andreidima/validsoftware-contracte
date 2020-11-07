@@ -117,7 +117,8 @@ class ServiceClientController extends Controller
             'reprezentant_functie' => ['max:100'],
             'telefon' => ['numeric', 'digits:10'],
             'email' => ['nullable', 'max:180'],
-            'site_web' => ['nullable', 'max:180']
+            'site_web' => ['nullable', 'max:180'],
+            'review_google' => ['']
         ]);
     }
 }

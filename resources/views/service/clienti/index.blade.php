@@ -4,7 +4,7 @@
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
-                <h4 class=" mb-0"><a href="{{ route('clienti.index') }}"><i class="fas fa-building mr-1"></i>Clienți</a></h4>
+                <h4 class=" mb-0"><a href="{{ route('service.clienti.index') }}"><i class="fas fa-building mr-1"></i>Clienți</a></h4>
             </div> 
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('clienti.index') }}">
@@ -216,6 +216,14 @@
                                             </td>
                                             <td class="py-0">
                                                 {{ $client->site_web }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-0">
+                                                Review Google
+                                            </td>
+                                            <td class="py-0">
+                                                {{ $client->review_google === 1 ? 'DA' : 'NU' }}
                                             </td>
                                         </tr>
                                     </table>

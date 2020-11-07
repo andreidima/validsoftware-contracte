@@ -128,6 +128,14 @@
                                     {{ $clienti->site_web }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="py-0">
+                                    Review Google
+                                </td>
+                                <td class="py-0">
+                                    {{ $clienti->review_google === 1 ? 'DA' : 'NU' }}
+                                </td>
+                            </tr>
                         </table>
                     </div>
                                        

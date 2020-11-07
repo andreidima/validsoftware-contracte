@@ -147,7 +147,7 @@
                 <small id="emailHelp" class="form-text text-muted pl-3">Ex: email1@xxx.com, email2@yyy.ro, etc</small>
             </div>
         </div>
-        <div class="form-row px-2 pb-2 mb-3">
+        <div class="form-row px-2 pb-2 mb-0">
             <div class="form-group col-lg-12 mb-0">  
                 <label for="site_web" class="mb-0 pl-3">Site web:</label>                                      
                 <input 
@@ -159,13 +159,22 @@
                     required> 
             </div>
         </div>
+        <div class="form-row px-2 py-2">
+            <div class="form-group col-lg-12 mb-0 pl-5"> 
+                <input type="hidden" name="review_google" value=0>
+                <input type="checkbox" class="form-check-input" name="review_google" value="1"
+                    {{ old('review_google', $clienti->review_google) == '1' ? 'checked' : '' }}
+                >
+                <label class="form-check-label" for="review_google">Review acordat prin Google</label>
+            </div>
+        </div>
         
                                 
-        <div class="form-row mb-3 px-2 justify-content-center">                                    
+        <div class="form-row px-2 py-3 justify-content-center">                                    
             <div class="col-lg-8 d-flex justify-content-center">  
                 <button type="submit" class="btn btn-primary btn-sm mr-2 rounded-pill">{{ $buttonText }}</button> 
                 {{-- <a class="btn btn-secondary btn-sm mr-4 rounded-pill" href="{{ $clienti->path() }}">Renunță</a>  --}}
-                <a class="btn btn-secondary btn-sm mr-4 rounded-pill" href="/clienti">Renunță</a> 
+                <a class="btn btn-secondary btn-sm mr-4 rounded-pill" href="/service/clienti">Renunță</a> 
             </div>
         </div>
     </div>

@@ -70,27 +70,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
     Route::get('teste', function() {
-            $fisa = \App\ServiceFisa::latest()->first();
-            $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
-                ->setPaper('a4');
-                    return $pdf->stream('Fisa ' . $fisa->nr_intrare . '.pdf');
-                    // return $pdf->download('Rezervare ' . $rezervari->nume . '.pdf');
-    });
-    Route::get('teste1', function() {
-            $fise = \App\ServiceFisa::latest()->first();
-            $pdf = \PDF::loadView('service.fise.export.fisa-iesire-service-pdf', compact('fise'))
-                ->setPaper('a4');
-                    return $pdf->stream('Fisa ' . $fise->nr_iesire . '.pdf');
-                    // return $pdf->download('Rezervare ' . $rezervari->nume . '.pdf');
-    });
-
-    Route::get('teste2', function () {
-        
-        dd(
-            \Mail::mailer('service')->to('asd'),
-            \Mail::to('asd')
+        echo \Carbon\Carbon::now()->hour;
+        echo (\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9) ? 'da' : 'nu' ;
+        echo (
+            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ? 
+                'Buna dimineata ' 
+                : 
+                (
+                    ((\Carbon\Carbon::now()->hour >= 9) && (\Carbon\Carbon::now()->hour < 18)) ?
+                        'Buna ziua '
+                        :
+                        'Buna seara '
+                )
         );
-
     });
 
 

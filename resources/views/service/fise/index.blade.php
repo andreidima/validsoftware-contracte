@@ -392,8 +392,28 @@
                                                                     }}/{{ 
                                                                         $service_fisa->client->telefon ?? '0'
                                                                     }}/{{
-                                                                        'Buna ziua ' . ($service_fisa->client->nume ?? '') . '. ' .
-                                                                        'Echipamentul dumneavoastra a intrat in service si a fost preluat de tehnicianul nostru ' . $service_fisa->tehnician_service . '. ' .
+                                                                        (
+                                                                            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ? 
+                                                                                'Buna dimineata ' 
+                                                                                : 
+                                                                                (
+                                                                                    ((\Carbon\Carbon::now()->hour >= 9) && (\Carbon\Carbon::now()->hour < 18)) ?
+                                                                                        'Buna ziua '
+                                                                                        :
+                                                                                        'Buna seara '
+                                                                                )
+                                                                        ) .
+                                                                        ($service_fisa->client->nume ?? '') . '. ' .
+                                                                        (
+                                                                            ($service_fisa->consultanta_it === 1) ?
+                                                                                (
+                                                                                    'Solicitarea dvs. de Consultanta IT a fost preluata si este in analiza. '
+                                                                                )
+                                                                                :
+                                                                                (
+                                                                                    'Echipamentul dumneavoastra a intrat in service si a fost preluat de tehnicianul nostru ' . $service_fisa->tehnician_service . '. '
+                                                                                )
+                                                                        ) .
                                                                         'O zi placuta!'
                                                                     }}">
                                                                 
@@ -508,9 +528,25 @@
                                                                     }}/{{ 
                                                                         $service_fisa->client->telefon ?? '0'
                                                                     }}/{{
-                                                                        'Buna ziua ' . ($service_fisa->client->nume ?? '') . '. ' .
-                                                                        'Service-ul pentru echipamentul dumneavoastra a fost finalizat. ' .
-                                                                        'Va asteptam la Validsoftware. ' .
+                                                                        (
+                                                                            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ? 
+                                                                                'Buna dimineata ' 
+                                                                                : 
+                                                                                (
+                                                                                    ((\Carbon\Carbon::now()->hour >= 9) && (\Carbon\Carbon::now()->hour < 18)) ?
+                                                                                        'Buna ziua '
+                                                                                        :
+                                                                                        'Buna seara '
+                                                                                )
+                                                                        ) .
+                                                                        ($service_fisa->client->nume ?? '') . '. ' .
+                                                                        (
+                                                                            ($service_fisa->consultanta_it === 1) ?
+                                                                                'Solicitarea dvs. fost finalizata - aveti detalii suplimentare in email. '
+                                                                                :
+                                                                                'Service-ul pentru echipamentul dumneavoastra a fost finalizat. ' .
+                                                                                'Va asteptam la Validsoftware. '
+                                                                        ) .
                                                                         'O zi placuta!'
                                                                     }}">
                                                                 

@@ -70,7 +70,12 @@
             border-radius: 10px;">
 
 
-            <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE IEȘIRE DIN SERVICE</p>
+            @if ($fisa->consultanta_it === 1) 
+                <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE IEȘIRE CONSULTANȚĂ IT</p>
+            @else
+                <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE IEȘIRE DIN SERVICE</p>
+            @endif
+
             <p style="text-align: center; font-weight: bold;">
                 Nr. {{ $fisa->nr_iesire . (isset($fisa->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fisa->data_receptie)->isoFormat('DD.MM.YYYY')) : '') }}
             </p>

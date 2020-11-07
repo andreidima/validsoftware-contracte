@@ -18,7 +18,11 @@ Multumim,<br>
 {{-- Body --}}
 # Bună, {{ $fisa->client->nume }},
 <br>
-Iți trimitem atașat Fișa nr. {{ $fisa->nr_intrare }} de intrare în service a echipamentului tău.
+@if ($fisa->consultanta_it === 1)
+    Îți trimitem atașat Ticketul de Intrare nr. {{ $fisa->nr_intrare }}, pentru Consultanță IT.
+@else
+    Iți trimitem atașat Fișa nr. {{ $fisa->nr_intrare }} de intrare în service a echipamentului tău.
+@endif
 <br><br>
 Mulțumim,
 <br>

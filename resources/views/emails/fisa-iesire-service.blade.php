@@ -19,12 +19,18 @@ Multumim,<br>
 {{-- Body --}}
 # Bună, {{ $fisa->client->nume }},
 <br>
-Iți trimitem atașat Fișa nr. {{ $fisa->nr_iesire }} de ieșire din service a echipamentului tău.
+@if ($fisa->consultanta_it === 1)
+    Îți trimitem atașat Ticketul de Ieșire nr. {{ $fisa->nr_iesire }}, pentru Consultanță IT.
+@else
+    Iți trimitem atașat Fișa nr. {{ $fisa->nr_iesire }} de ieșire din service a echipamentului tău.
+@endif
 <br><br>
-Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să ne oferi o recenzie.
-@component('mail::button', ['url' => 'http://search.google.com/local/writereview?placeid=ChIJoX8PeK8YtEARgtFebuluoUo', 'color' => 'success'])
-    Recenzia ta
-@endcomponent
+@if ($fisa->client->review_google !== 1)
+    Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să ne oferi o recenzie.
+    @component('mail::button', ['url' => 'http://search.google.com/local/writereview?placeid=ChIJoX8PeK8YtEARgtFebuluoUo', 'color' => 'success'])
+        Recenzia ta
+    @endcomponent
+@endif
 
 Mulțumim,
 <br>

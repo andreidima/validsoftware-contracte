@@ -204,6 +204,7 @@ class ServiceFisaController extends Controller
             'nr_iesire' => ['required', 'numeric'],
             'tehnician_service' => ['max:90'],
             'data_receptie' => [''],
+            'consultanta_it' => [''],
             'descriere_echipament' => [''],
             'defect_reclamat' => [''],
             'defect_constatat' => [''],
@@ -293,11 +294,19 @@ class ServiceFisaController extends Controller
         if ($request->view_type === 'fisa-pdf-intrare') {
             $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
                 ->setPaper('a4', 'portrait');
-                return $pdf->download('Fisa intrare service nr. ' . $fisa->nr_intrare . '.pdf');        
+            if ($fisa->consultanta_it === 1) {
+                return $pdf->download('Fisa intrare consultanta nr. ' . $fisa->nr_intrare . '.pdf');  
+            } else {
+                return $pdf->download('Fisa intrare service nr. ' . $fisa->nr_intrare . '.pdf');
+            }      
         }elseif ($request->view_type === 'fisa-pdf-iesire') {
             $pdf = \PDF::loadView('service.fise.export.fisa-iesire-service-pdf', compact('fisa'))
                 ->setPaper('a4', 'portrait');
-                return $pdf->download('Fisa iesire service nr. ' . $fisa->nr_iesire . '.pdf');
+            if ($fisa->consultanta_it === 1) {
+                return $pdf->download('Fisa iesire consultanta nr. ' . $fisa->nr_intrare . '.pdf');
+            } else {
+                return $pdf->download('Fisa iesire service nr. ' . $fisa->nr_intrare . '.pdf');
+            }   
         }
     }
 
@@ -349,7 +358,14 @@ class ServiceFisaController extends Controller
             );
 
             $html = '<br />';
-            $html .= '<p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE INTRARE IN SERVICE</p>';
+
+            if ($fise->consultanta_it === 1){
+                $html .= '<p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE INTRARE CONSULTANȚĂ IT</p>';
+            }
+            else {
+                $html .= '<p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE INTRARE ÎN SERVICE</p>';
+            }
+
             $html .= '<p style="text-align: center; font-weight: bold;">Nr. ' . $fise->nr_intrare . (isset($fise->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fise->data_receptie)->isoFormat('DD.MM.YYYY')) : '') .
                 '</p>';
             $html .= '<br />';
@@ -434,7 +450,7 @@ class ServiceFisaController extends Controller
                 Storage::makeDirectory('fisiere_temporare');
                 $objWriter->save(storage_path(
                     'app/fisiere_temporare/' .
-                        'Fisa service de intrare nr. ' . $fise->nr_intrare .
+                        (($fise->consultanta_it === 1) ? 'Fisa de intrare consultanta nr. ' : 'Fisa service de intrare nr. ') . $fise->nr_intrare .
                         ' din data de ' . \Carbon\Carbon::parse($fise->data_receptie)->isoFormat('DD.MM.YYYY') .
                         ' - ' . ($fise->client->nume ?? '') . '.docx'
                 ));
@@ -442,7 +458,7 @@ class ServiceFisaController extends Controller
 
             return response()->download(storage_path(
                 'app/fisiere_temporare/' .
-                    'Fisa service de intrare nr. ' . $fise->nr_intrare .
+                    (($fise->consultanta_it === 1) ? 'Fisa de intrare consultanta nr. ' : 'Fisa service de intrare nr. ') . $fise->nr_intrare .
                     ' din data de ' . \Carbon\Carbon::parse($fise->data_receptie)->isoFormat('DD.MM.YYYY') .
                     ' - ' . ($fise->client->nume ?? '') . '.docx'
             ));
@@ -492,7 +508,13 @@ class ServiceFisaController extends Controller
             );
 
             $html = '<br />';
-            $html .= '<p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE IEȘIRE DIN SERVICE</p>';
+
+            if ($fise->consultanta_it === 1) {
+                $html .= '<p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE IEȘIRE CONSULTANȚĂ IT</p>';
+            } else {
+                $html .= '<p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE IEȘIRE DIN SERVICE</p>';
+            }
+
             $html .= '<p style="text-align: center; font-weight: bold;">Nr. ' . $fise->nr_iesire . (isset($fise->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fise->data_receptie)->isoFormat('DD.MM.YYYY')) : '') .
                 '</p>';
             $html .= '<br />';
@@ -612,7 +634,7 @@ class ServiceFisaController extends Controller
                 Storage::makeDirectory('fisiere_temporare');
                 $objWriter->save(storage_path(
                     'app/fisiere_temporare/' .
-                        'Fisa service de iesire nr. ' . $fise->nr_iesire .
+                        (($fise->consultanta_it === 1) ? 'Fisa de iesire consultanta nr. ' : 'Fisa service de iesire nr. ') . $fise->nr_iesire .
                         ' din data de ' . \Carbon\Carbon::parse($fise->data_receptie)->isoFormat('DD.MM.YYYY') .
                         ' - ' . ($fise->client->nume ?? '') . '.docx'
                 ));
@@ -620,7 +642,7 @@ class ServiceFisaController extends Controller
 
             return response()->download(storage_path(
                 'app/fisiere_temporare/' .
-                    'Fisa service de iesire nr. ' . $fise->nr_iesire .
+                    (($fise->consultanta_it === 1) ? 'Fisa de iesire consultanta nr. ' : 'Fisa service de iesire nr. ') . $fise->nr_iesire .
                     ' din data de ' . \Carbon\Carbon::parse($fise->data_receptie)->isoFormat('DD.MM.YYYY') .
                     ' - ' . ($fise->client->nume ?? '') . '.docx'
             ));

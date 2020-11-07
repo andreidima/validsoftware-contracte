@@ -33,12 +33,24 @@ class FisaIntrareService extends Mailable
         $fisa = $this->fisa;
 
         $message = $this->markdown('emails.fisa-intrare-service');
-        $message->subject('Fișă intrare service');      
 
         $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
             ->setPaper('a4', 'portrait');
-        $message->attachData($pdf->output(), 
-            'Fisa intrare service nr. ' . $fisa->nr_intrare . '.pdf');
+
+        if ($fisa->consultanta_it === 1) {
+            $message->subject('Fișă Intrare Consultanță IT');
+            $message->attachData(
+                $pdf->output(),
+                'Fisa intrare Consultanta IT nr. ' . $fisa->nr_intrare . '.pdf'
+            );
+        } else {
+            $message->subject('Fișă intrare service');
+            $message->attachData(
+                $pdf->output(),
+                'Fisa intrare service nr. ' . $fisa->nr_intrare . '.pdf'
+            );
+        }
+
 
         return $message;
     }

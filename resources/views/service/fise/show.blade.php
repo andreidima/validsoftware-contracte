@@ -74,7 +74,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Defet reclamat
+                                    Defect reclamat
                                 </td>
                                 <td>
                                     {{ $fise->defect_reclamat }}

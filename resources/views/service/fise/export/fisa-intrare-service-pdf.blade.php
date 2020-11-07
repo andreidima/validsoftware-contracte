@@ -69,8 +69,12 @@
             -webkit-border-radius: 10px;
             border-radius: 10px;">
 
+            @if ($fisa->consultanta_it === 1) 
+                <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE INTRARE CONSULTANȚĂ IT</p>
+            @else
+                <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE INTRARE ÎN SERVICE</p>
+            @endif
 
-            <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ DE INTRARE IN SERVICE</p>
             <p style="text-align: center; font-weight: bold;">
                 {{
                     'Nr. ' . $fisa->nr_intrare . (isset($fisa->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fisa->data_receptie)->isoFormat('DD.MM.YYYY')) : '')
@@ -91,7 +95,7 @@
                 (isset($fisa->client->telefon) ? ', telefon: ' . ($fisa->client->telefon) : '') .
                 (isset($fisa->client->email) ? ', email: ' . ($fisa->client->email) : '') . 
                 (isset($fisa->client->site_web) ? ', site web: ' . ($fisa->client->site_web) : '')
-            }}
+            }}.
             </p>
 
             <br />

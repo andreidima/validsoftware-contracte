@@ -54,6 +54,15 @@
                     {{-- not-before="{{ \Carbon\Carbon::today() }}" --}}
                 ></vue2-datepicker> 
             </div>
+            <div class="form-group col-lg-2 mb-0 pl-4 d-flex align-items-center">
+                <div>
+                    <input type="hidden" name="consultanta_it" value=0>
+                    <input type="checkbox" class="form-check-input" name="consultanta_it" value="1"
+                        {{ old('consultanta_it', $fise->consultanta_it) == '1' ? 'checked' : '' }}
+                    >
+                    <label class="form-check-label" for="consultanta_it">Consultanță IT</label>
+                </div>
+            </div>
 
         </div>
         <div class="form-row px-2 py-2 mb-0"

@@ -32,13 +32,24 @@ class FisaIesireService extends Mailable
     {
         $fisa = $this->fisa;
 
-        $message = $this->markdown('emails.fisa-iesire-service');
-        $message->subject('Fișă ieșire service');      
+        $message = $this->markdown('emails.fisa-iesire-service');    
 
         $pdf = \PDF::loadView('service.fise.export.fisa-iesire-service-pdf', compact('fisa'))
             ->setPaper('a4', 'portrait');
-        $message->attachData($pdf->output(), 
-            'Fisa iesire service nr. ' . $fisa->nr_iesire . '.pdf');
+
+        if ($fisa->consultanta_it === 1) {
+            $message->subject('Fișă Ieșire Consultanță IT');
+            $message->attachData(
+                $pdf->output(),
+                'Fisa iesire Consultanta IT nr. ' . $fisa->nr_iesire . '.pdf'
+            );
+        } else {
+            $message->subject('Fișă ieșire service');
+            $message->attachData(
+                $pdf->output(),
+                'Fisa iesire service nr. ' . $fisa->nr_iesire . '.pdf'
+            );
+        }
 
         return $message;
     }
