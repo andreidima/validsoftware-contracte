@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('service/fise/{fisa}/{tip_fisa}/trimite-email', 'ServiceFisaController@trimiteEmail');
     Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
     Route::resource('service/servicii', 'ServiceServiciuController', ['names' => 'service.servicii']);
+    Route::resource('service/anydeskuri', 'ServiceAnydeskController', ['names' => 'service.anydeskuri', 'parameters' => ['anydeskuri' => 'anydesk']]);
 
     Route::post('trimite-sms/{categorie}/{subcategorie}/{inregistrare_id}/{telefon}/{mesaj}', 'SmsTrimiteController@trimite_sms');
 });

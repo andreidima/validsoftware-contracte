@@ -92,7 +92,6 @@
                                         </a>
                                     </div>
                                 </li> --}}
-                            @endif
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-tools mr-1"></i>Service
@@ -109,9 +108,12 @@
                                         <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
                                             <i class="fas fa-file-alt mr-1"></i>Servicii
                                         </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('service.anydeskuri.index') }}">
+                                            <i class="fas fa-network-wired mr-1"></i>AnyDesk
+                                        </a>
                                     </div>
                                 </li>
-                            @if (auth()->user()->isAdmin())
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-cog mr-1"></i>Setări
@@ -121,6 +123,27 @@
                                             <i class="fas fa-book mr-1"></i>Variabile
                                         </a>
                                     </div>
+                                </li>
+                            @else                                
+                                <li class="nav-item active mr-4">
+                                        <a class="nav-link text-dark" href="{{ route('service.clienti.index') }}">
+                                            <i class="fas fa-users mr-1"></i>Clienți
+                                        </a>
+                                </li>
+                                <li class="nav-item active mr-4">
+                                        <a class="nav-link text-dark" href="{{ route('service.fise.index') }}">
+                                            <i class="fas fa-file mr-1"></i>Fișe
+                                        </a>
+                                </li>
+                                <li class="nav-item active mr-4">
+                                        <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Servicii
+                                        </a>
+                                </li>
+                                <li class="nav-item active mr-4">
+                                        <a class="nav-link text-dark" href="{{ route('service.anydeskuri.index') }}">
+                                            <i class="fas fa-network-wired mr-1"></i>AnyDesk
+                                        </a>
                                 </li>
                             @endif
                         </ul>

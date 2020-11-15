@@ -302,7 +302,7 @@
                     >{{ old('defect_reclamat') == '' ? $fise->defect_reclamat : old('defect_reclamat') }}</textarea>
             </div>
         </div>
-        <div class="form-row px-2 py-2 mb-4"
+        <div class="form-row px-2 py-2"
             style="background-color:#B8FFB8; border-left:6px solid; border-color:mediumseagreen; border-radius: 0px 0px 0px 0px"
             >  
             <div class="form-group col-lg-6">
@@ -323,7 +323,7 @@
                 <label for="servicii_efectuate" class="mb-0 pl-1">Servicii efectuate:</label>
                     <div class="form-row">
                             @foreach ($servicii as $serviciu)
-                                <div class="col-lg-12 mb-2 rounded-pill">
+                                <div class="col-lg-6 mb-2 rounded-pill">
                                     <div class="custom-control custom-checkbox border border-4" style="padding-left:30px; display: inline-block; border-color:mediumseagreen;">
                                         <input type="checkbox" class="custom-control-input" 
                                             name="servicii_selectate[]" 
@@ -364,12 +364,45 @@
                 </div>
             </div>
         </div>
+        <div class="form-row px-2 py-2 mb-4"
+            style="background-color:rgb(255, 219, 172); border-left:6px solid; border-color:rgb(143, 81, 20); border-radius: 0px 0px 0px 0px"
+            > 
+             <div class="col-lg-4 d-flex align-items-center">
+                Deschidere fișă: 
+                    @isset ($fise->created_at)
+                        {{ \Carbon\Carbon::parse($fise->created_at)->isoFormat('HH:mm - DD.MM.YYYY') }}
+                    @else
+                        nu este salvată încă
+                    @endisset
+             </div>
+             <div class="col-lg-4 justify-content-center d-flex align-items-center">
+                <span for="durata_interventie" class="d-flex align-items-center mr-2">
+                    Durata intervenție:
+                </span>
+                <vue2-datepicker-time
+                    data-veche="{{ old('durata_interventie') == '' ? ($fise->durata_interventie ?? \Carbon\Carbon::today() ) : old('durata_interventie') }}"
+                    nume-camp-db="durata_interventie"
+                    tip="time"
+                    latime="150"
+                    {{-- not-before="{{ \Carbon\Carbon::today() }}" --}}
+                ></vue2-datepicker-time> 
+             </div>
+             <div class="col-lg-4 d-flex justify-content-center align-items-center">
+                <div>
+                    <input type="hidden" name="gratuit" value=0>
+                    <input type="checkbox" class="form-check-input" name="gratuit" value="1"
+                        {{ old('gratuit', $fise->gratuit) == '1' ? 'checked' : '' }}
+                    >
+                    <label class="form-check-label" for="gratuit">Gratuit</label>
+                </div>
+             </div>
+        </div>
         
                                 
         <div class="form-row mb-1 px-2 justify-content-center">                                    
             <div class="col-lg-8 d-flex justify-content-center">  
                 <button type="submit" class="btn btn-primary btn-sm mr-2 border border-dark rounded-pill">{{ $buttonText }}</button> 
-                <a class="btn btn-secondary btn-sm mr-4 border border-dark rounded-pill" href="/service/fise">Renunță</a> 
+                <a class="btn btn-secondary btn-sm border border-dark rounded-pill" href="/service/fise">Renunță</a> 
                 {{-- <a class="btn btn-primary btn-sm mr-2 border border-dark rounded-pill" href="#">{{ $buttonText }}</a>  --}}
                 {{-- <a class="btn btn-secondary btn-sm mr-4 border border-dark rounded-pill" href="#">Renunță</a>  --}}
             </div>

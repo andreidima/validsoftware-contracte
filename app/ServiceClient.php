@@ -13,4 +13,9 @@ class ServiceClient extends Model
     {
         return "/service/clienti/{$this->id}";
     }
+
+    public function anydeskuri()
+    {
+        return $this->hasMany('App\ServiceAnydesk', 'client_id');
+    }
 }

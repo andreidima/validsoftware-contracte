@@ -59,12 +59,17 @@
                             <th class="text-center p-2">Fișă intrare</th>
                             <th class="text-center p-2">Fișă ieșire</th>
                             <th class="text-center p-2">Mesaje personalizate</th>                            
-                            <th class="text-center">Acțiuni</th>
+                            <th class="text-center">Acțiuni</th>                          
+                            <th class="text-center">Deschidere fișă</th>
                         </tr>
                     </thead>
                     <tbody>               
                         @forelse ($service_fise as $service_fisa) 
-                            <tr>                  
+                            @if ($service_fisa->mesaje_trimise_fisa_iesire->count() == 0)
+                            <tr style="background-color:rgb(0, 82, 82); color:white">                  
+                            @else
+                            <tr>
+                            @endif
                                 {{-- <td align="">
                                     {{ ($service_fise ->currentpage()-1) * $service_fise ->perpage() + $loop->index + 1 }}
                                 </td> --}}
@@ -299,6 +304,13 @@
                                                 </div>
                                         </div> 
                                     </div>
+                                </td>
+                                <td class="text-right align-center">
+                                    <small>
+                                        @isset ($service_fisa->created_at)
+                                            {{ \Carbon\Carbon::parse($service_fisa->created_at)->isoFormat('HH:mm - DD.MM.YYYY') }}
+                                        @endisset
+                                    </small>
                                 </td>
                             </tr> 
                             <tr class="collapse bg-white" id="collapseSMSFisaIntrare{{ $service_fisa->id }}" 

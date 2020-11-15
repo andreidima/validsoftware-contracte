@@ -25,8 +25,8 @@ class ServiceFisaController extends Controller
         $search_numar = \Request::get('search_numar');
         $search_nume = \Request::get('search_nume');
             
-        $service_fise = ServiceFisa::
-            leftJoin('service_clienti', 'service_fise.client_id', '=', 'service_clienti.id')
+        $service_fise = ServiceFisa::with('mesaje_trimise_fisa_iesire')
+            ->leftJoin('service_clienti', 'service_fise.client_id', '=', 'service_clienti.id')
             ->select(
                 'service_fise.*', 
                 'service_clienti.nume',                
@@ -49,7 +49,7 @@ class ServiceFisaController extends Controller
             })
             // ->withCount(['mesaje_trimise_fisa_intrare', 'mesaje_trimise_fisa_iesire'])
             ->latest('service_fise.created_at')
-            ->simplePaginate(25);
+            ->simplePaginate(15);
 
         return view('service.fise.index', compact('service_fise', 'search_numar', 'search_nume'));
     }
@@ -210,7 +210,9 @@ class ServiceFisaController extends Controller
             'defect_constatat' => [''],
             'rezultat_service' => [''],
             'observatii' => [''],
-            'data_ridicare' => ['']
+            'data_ridicare' => [''],
+            'durata_interventie' => [''],
+            'gratuit' => ['']
         ]);
     }
 
