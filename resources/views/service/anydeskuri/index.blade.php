@@ -10,7 +10,7 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.anydeskuri.index') }}">
                     @csrf                    
                     <div class="row input-group custom-search-form">
-                        <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Serviciu" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="AnyDesk" autofocus
                                 value="{{ $search_nume }}">
                         <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
                             <i class="fas fa-search text-white mr-1"></i>Caută

@@ -50,15 +50,14 @@
                 <table class="table table-striped table-hover table-sm rounded"> 
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            {{-- <th>Nr.<br>Crt.</th> --}}
-                            {{-- <th>Nr.<br>Intrare</th> --}}
-                            {{-- <th>Nr.<br>Ieșire</th> --}}
+                            <th>Nr.</th>
                             <th>Client</th>
                             {{-- <th class="text-center">Data<br>recepție</th> --}}
                             {{-- <th class="text-center">Data<br>ridicare</th> --}}
-                            <th class="text-center p-2">Fișă intrare</th>
-                            <th class="text-center p-2">Fișă ieșire</th>
-                            <th class="text-center p-2">Mesaje personalizate</th>                            
+                            <th class="text-center">Fișă intrare</th>
+                            <th class="text-center">Fișă ieșire</th>
+                            <th class="text-center">Mesaje personalizate</th>
+                            <th class="text-center">Fișiere</th>
                             <th class="text-center">Acțiuni</th>                          
                             <th class="text-center">Deschidere fișă</th>
                         </tr>
@@ -69,16 +68,13 @@
                             <tr style="background-color:rgb(0, 82, 82); color:white">                  
                             @else
                             <tr>
-                            @endif
+                            @endif                            
                                 {{-- <td align="">
                                     {{ ($service_fise ->currentpage()-1) * $service_fise ->perpage() + $loop->index + 1 }}
                                 </td> --}}
-                                {{-- <td>
-                                    {{ $service_fisa->nr_intrare }}
-                                </td> --}}
-                                {{-- <td>
-                                    {{ $service_fisa->nr_iesire }}
-                                </td> --}}
+                                <td>
+                                    {{ $service_fisa->nr_intrare }}/{{ $service_fisa->nr_iesire }}
+                                </td>
                                 <td>
                                     {{ $service_fisa->client->nume ?? '' }}
                                 </td>
@@ -244,6 +240,64 @@
                                                         </span>
                                                     </span>
                                             </a>
+                                </td>
+                                <td class="text-center">                              
+                                    <div style="flex" class="">
+                                        @if ($service_fisa->fisiere_count > 0)    
+                                            <a class="" data-toggle="collapse" href="#collapseFisiere{{ $service_fisa->id }}" role="button" 
+                                                aria-expanded="false" aria-controls="collapseFisiere{{ $service_fisa->id }}">
+                                                <span class="badge badge-primary">{{ $service_fisa->fisiere_count }}</span>
+                                            </a>
+                                        @else
+                                            <span class="badge badge-secondary">0</span>
+                                        @endif  
+                                        <a 
+                                            {{-- class="btn btn-danger btn-sm"  --}}
+                                            href="#" 
+                                            {{-- role="button" --}}
+                                            data-toggle="modal" 
+                                            data-target="#incarcaFisier{{ $service_fisa->id }}"
+                                            title="incarca Fisier"
+                                            >
+                                            {{-- <i class="far fa-trash-alt"></i> --}}
+                                            <span class="badge badge-success"><i class="fas fa-plus-square"></i></span>
+                                        </a>
+                                            <div class="modal fade text-dark" id="incarcaFisier{{ $service_fisa->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header bg-success">
+                                                        <h5 class="modal-title text-white" id="exampleModalLabel">
+                                                            Adaugă un fișier la Fișa de service: 
+                                                            <b>{{ $service_fisa->nr_intrare }}</b>
+                                                            -
+                                                            <b>{{ $service_fisa->nr_iesire }}</b>
+                                                        </h5>
+                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align:left;">
+                                                        Adaugă un fișier la Fișă
+
+                                                        <form action="{{ route('service.file.upload.post', $service_fisa->id) }}" method="POST" enctype="multipart/form-data">
+                                                            @csrf
+
+                                                            <div class="row">                                                
+                                                                <div class="col-md-12 d-flex">
+                                                                    <input type="file" name="fisier" class="form-control py-1">
+                                                                    <button type="submit" class="btn btn-success">Upload</button>
+                                                                </div>                                                
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div> 
                                 </td>
                                 <td class="text-right"> 
                                     <div class="d-flex justify-content-end">
@@ -814,7 +868,94 @@
                                                 </div>
                                         </div> 
                                 </td>
+                            </tr> 
+                            <tr class="collapse">
+                                <td colspan="10">  
+                                </td>
                             </tr>
+                            <tr class="collapse bg-white" id="collapseFisiere{{ $service_fisa->id }}" 
+                            >
+                                <td colspan="8">
+                                    <table class="table table-sm table-striped table-hover col-lg-8 mx-auto border">
+                                        <thead class="text-white rounded" style="background-color:#e66800;">
+                                            <tr class="" style="padding:2rem">
+                                                <td>
+                                                    Nr. Crt.
+                                                </td>
+                                                <td>
+                                                    Nume fișier
+                                                </td>
+                                                <td class="text-center">
+                                                    Acțiuni
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @forelse ($service_fisa->fisiere as $fisier)
+                                            <tr>
+                                                <td class="py-0">
+                                                    {{ $loop->iteration }}
+                                                </td>
+                                                <td class="py-0">
+                                                    {{ $fisier->nume }}
+                                                </td>
+                                                <td class="py-0 d-flex justify-content-end">
+                                                                    <form method="POST" action="{{ route('service.file.download', $fisier->id) }}">
+                                                                        @csrf   
+                                                                        <button 
+                                                                            type="submit" 
+                                                                            class="btn btn-link py-0"  
+                                                                            >
+                                                                            <span class="badge badge-success">Descarcă</span>
+                                                                        </button>                    
+                                                                    </form>
+                                                    <a 
+                                                        href="#" 
+                                                        data-toggle="modal" 
+                                                        data-target="#stergeFisier{{ $fisier->id }}"
+                                                        title="Șterge Fisier"
+                                                        >
+                                                        <span class="badge badge-danger">Șterge</span>
+                                                    </a>
+                                                        <div class="modal fade text-dark" id="stergeFisier{{ $fisier->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                <div class="modal-header bg-danger">
+                                                                    <h5 class="modal-title text-white" id="exampleModalLabel">Fisier: <b>{{ $fisier->nume }}</b></h5>
+                                                                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body" style="text-align:left;">
+                                                                    Ești sigur ca vrei să ștergi Fișierul?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                                    
+                                                                    <form method="POST" action="{{ $fisier->path() }}">
+                                                                        @method('DELETE')  
+                                                                        @csrf   
+                                                                        <button 
+                                                                            type="submit" 
+                                                                            class="btn btn-danger"  
+                                                                            >
+                                                                            Șterge Fișier
+                                                                        </button>                    
+                                                                    </form>
+                                                                
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </td>
+                                            </tr>                                            
+                                        @empty
+                                            
+                                        @endforelse
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr> 
                             <tr class="collapse">
                                 <td colspan="10">  
                                 </td>

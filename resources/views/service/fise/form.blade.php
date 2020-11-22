@@ -387,7 +387,7 @@
                     {{-- not-before="{{ \Carbon\Carbon::today() }}" --}}
                 ></vue2-datepicker-time> 
              </div>
-             <div class="col-lg-4 d-flex justify-content-center align-items-center">
+             {{-- <div class="col-lg-4 d-flex justify-content-center align-items-center">
                 <div>
                     <input type="hidden" name="gratuit" value=0>
                     <input type="checkbox" class="form-check-input" name="gratuit" value="1"
@@ -395,7 +395,19 @@
                     >
                     <label class="form-check-label" for="gratuit">Gratuit</label>
                 </div>
-             </div>
+             </div> --}}
+            <div class="form-group col-lg-4 mb-0 d-flex justify-content-end">  
+                <div class="d-flex align-items-center" style="width:120px">
+                    <label for="cost" class="mb-0 pl-3 mr-1">Cost:</label>                                      
+                    <input 
+                        type="text" 
+                        class="form-control form-control-sm text-right rounded-pill {{ $errors->has('cost') ? 'is-invalid' : '' }}" 
+                        name="cost" 
+                        placeholder="" 
+                        value="{{ old('cost', $fise->cost) }}"
+                        required> 
+                </div>
+            </div>
         </div>
         
                                 

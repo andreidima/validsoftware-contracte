@@ -27,6 +27,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('service/anydeskuri', 'ServiceAnydeskController', ['names' => 'service.anydeskuri', 'parameters' => ['anydeskuri' => 'anydesk']]);
 
     Route::post('trimite-sms/{categorie}/{subcategorie}/{inregistrare_id}/{telefon}/{mesaj}', 'SmsTrimiteController@trimite_sms');
+
+    Route::resource('service/fisiere', 'ServiceFisierController', ['names' => 'service.fisiere']);
+    // Incarcare/ descarcare/ stergere - fisiere atasate la Fisele de service
+    Route::post('/service/fisiere/{fisa}/file-upload', 'ServiceFisierController@store')->name('service.file.upload.post');
+    Route::post('/service/fisiere/file-download/{fisier}', 'ServiceFisierController@fileDownload')->name('service.file.download');
+    // Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -42,7 +48,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/fisiere/file-download/{fisier}', 'FisierController@fileDownload')->name('file.download');
     // Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
 
-    // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
+    // Incarcare/ descarcare/ stergere - fisiere atasate la cron jobs
     Route::post('/cron-jobs-files/{cron_job}/file-upload', 'CronJobFileController@store')->name('cronjob.file.upload.post');
     Route::post('/cron-jobs-files/file-download/{file}', 'CronJobFileController@fileDownload')->name('cronjob.file.download');
 

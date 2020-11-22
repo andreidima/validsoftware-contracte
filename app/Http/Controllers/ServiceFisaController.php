@@ -49,6 +49,7 @@ class ServiceFisaController extends Controller
             })
             // ->withCount(['mesaje_trimise_fisa_intrare', 'mesaje_trimise_fisa_iesire'])
             ->latest('service_fise.created_at')
+            ->withCount('fisiere')
             ->simplePaginate(15);
 
         return view('service.fise.index', compact('service_fise', 'search_numar', 'search_nume'));
@@ -212,7 +213,7 @@ class ServiceFisaController extends Controller
             'observatii' => [''],
             'data_ridicare' => [''],
             'durata_interventie' => [''],
-            'gratuit' => ['']
+            'cost' => ['']
         ]);
     }
 

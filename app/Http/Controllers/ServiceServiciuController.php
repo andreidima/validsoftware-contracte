@@ -17,7 +17,10 @@ class ServiceServiciuController extends Controller
         $search_nume = \Request::get('search_nume');
 
         $servicii = ServiceServiciu::
-            orderBy('nume')
+            when($search_nume, function ($query, $search_nume) {
+                return $query->where('nume', 'like', '%' . $search_nume . '%');
+            })
+            ->orderBy('nume')
             ->simplePaginate(25);
 
         return view('service.servicii.index', compact('servicii', 'search_nume'));
