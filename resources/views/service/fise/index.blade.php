@@ -831,7 +831,7 @@
                                                                     }}">
 
                                                                 <div class="modal-body" style="text-align:left;">
-                                                                    <div class="form-group col-lg-12 mb-4">  
+                                                                    <div class="form-group col-lg-12 mb-2" id="sms-personalizat">  
                                                                         <label for="sms_personalizat" class="mb-0 pl-3">Text SMS:</label>                                      
                                                                         {{-- <input 
                                                                             type="text" 
@@ -840,11 +840,19 @@
                                                                             placeholder="" 
                                                                             value="{{ old('sms_personalizat') }}"
                                                                             required>            --}}
-                                                                        <textarea class="form-control {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}" 
+                                                                        <textarea class="form-control mb-1 {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}" 
                                                                             name="sms_personalizat"
                                                                             rows="4"
                                                                             {{-- placeholder="Observații" --}}
+                                                                            v-model="sms_personalizat"
                                                                             ></textarea>
+                                                                        <div class="text-right">
+                                                                            <label for="nr_caractere" class="mb-0 pl-3">Nr. caractere:</label>
+                                                                            <input class="text-right" 
+                                                                                style="width:40px"
+                                                                                v-model="caractere" 
+                                                                                readonly>
+                                                                        </div>
                                                                     </div> 
                                                                 </div>
                                                                 <div class="modal-footer">

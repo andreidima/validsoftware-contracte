@@ -156,3 +156,19 @@ if (document.querySelector('#fisa-service')) {
         }
     });
 }
+
+if (document.querySelector('#sms-personalizat')) {
+    const app = new Vue({
+        el: '#sms-personalizat',
+        data: {
+            sms_personalizat: '',
+            nr_caractere: 0
+        },
+        computed: {
+            caractere() {
+                var char = this.sms_personalizat.length;
+                return char;
+            }
+        }
+    });
+}
