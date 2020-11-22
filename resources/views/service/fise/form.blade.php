@@ -395,7 +395,7 @@
                         class="form-control form-control-sm mr-1 text-right rounded-pill {{ $errors->has('cost') ? 'is-invalid' : '' }}" 
                         name="cost" 
                         placeholder="" 
-                        value="{{ old('cost', $fise->cost) }}"
+                        value="{{ old('cost', $fise->cost) ?? 0 }}"
                         required> 
                     lei
                 </div>
