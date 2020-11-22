@@ -10,7 +10,7 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.anydeskuri.index') }}">
                     @csrf                    
                     <div class="row input-group custom-search-form">
-                        <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="AnyDesk" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Persoană sau Firmă" autofocus
                                 value="{{ $search_nume }}">
                         <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
                             <i class="fas fa-search text-white mr-1"></i>Caută
@@ -52,7 +52,7 @@
                                     {{ ($anydeskuri ->currentpage()-1) * $anydeskuri ->perpage() + $loop->index + 1 }}
                                 </td>          
                                 <td align="">
-                                    {{ $anydesk->nume }}
+                                    {{ $anydesk->nume ?? $anydesk->client->nume ?? ''}}
                                 </td>        
                                 <td align="">
                                     {{ $anydesk->cod_anydesk }}

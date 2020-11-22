@@ -19,13 +19,18 @@ class ServiceAnydeskController extends Controller
 
         $anydeskuri = ServiceAnydesk::with('client')
             ->when($search_nume, function ($query, $search_nume) {
-                return $query->where('nume', 'like', '%' . $search_nume . '%');
-            })
+                return $query->where('nume', 'like', '%' . $search_nume . '%')
+                            ->orWhereHas('client', function ($query) use ($search_nume) {
+                                $query->where('nume', 'like', '%' . str_replace(' ', '%', $search_nume) . '%');
+                            });
+                        })
             // ->whereHas('client', function ($query) use ($search_nume) {
             //     $query->where('nume', 'like', '%' . str_replace(' ', '%', $search_nume) . '%');
             // })
             ->latest()
             ->simplePaginate(25);
+
+        // dd($anydeskuri);
 
         return view('service.anydeskuri.index', compact('anydeskuri', 'search_nume'));
     }

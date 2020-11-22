@@ -64,7 +64,7 @@
                     </thead>
                     <tbody>               
                         @forelse ($service_fise as $service_fisa) 
-                            @if ($service_fisa->mesaje_trimise_fisa_iesire->count() == 0)
+                            @if (($service_fisa->mesaje_trimise_fisa_iesire->count() == 0) && ($service_fisa->sms_trimise_fisa_iesire->count() == 0))
                             <tr style="background-color:rgb(0, 82, 82); color:white">                  
                             @else
                             <tr>

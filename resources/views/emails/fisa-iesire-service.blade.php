@@ -25,6 +25,9 @@ Multumim,<br>
     Iți trimitem atașat Fișa nr. {{ $fisa->nr_iesire }} de ieșire din service a echipamentului tău.
 @endif
 <br><br>
+Te informăm că oferim și servicii de Asistență IT de la distanță. Mai multe detalii
+<a href="https://magic.validsoftware.ro/asistenta-it-la-distanta/">aici</a>.
+<br><br>
 @if ($fisa->client->review_google !== 1)
     Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să ne oferi o recenzie.
     @component('mail::button', ['url' => 'http://search.google.com/local/writereview?placeid=ChIJoX8PeK8YtEARgtFebuluoUo', 'color' => 'success'])
