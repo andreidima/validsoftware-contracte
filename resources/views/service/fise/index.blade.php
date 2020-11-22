@@ -12,15 +12,38 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.fise.index') }}">
                     @csrf                    
                     <div class="row input-group custom-search-form justify-content-center">
-                        {{-- <div class="col-md-4 px-1">
+                        <div class="col-md-2 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
-                            id="search_numar" name="search_numar" placeholder="Număr fișă" autofocus
-                                    value="{{ $search_numar }}">
-                        </div> --}}
-                        <div class="col-md-4 px-1">
+                            id="search_numar_intrare" name="search_numar_intrare" placeholder="Nr intrare" autofocus
+                                    value="{{ $search_numar_intrare }}">
+                        </div>
+                        <div class="col-md-3 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
                             id="search_nume" name="search_nume" placeholder="Client"
                                     value="{{ $search_nume }}">
+                        </div>
+                        <div class="col-md-7 px-1 d-flex align-items-center">
+                            <div class="px-3">
+                                {{-- <input type="hidden" name="search_cu_plata" value=0> --}}
+                                <input type="radio" class="form-check-input" name="search_cu_plata" value="1"
+                                    {{ $search_cu_plata == '1' ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="search_cu_plata">Cu plată</label>
+                            </div>
+                            <div class="px-3">
+                                {{-- <input type="hidden" name="search_cu_plata" value=0> --}}
+                                <input type="radio" class="form-check-input" name="search_cu_plata" value="0"
+                                    {{ $search_cu_plata == '0' ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="search_cu_plata">Gratuit</label>
+                            </div>
+                            <div class="px-3">
+                                <input type="hidden" name="search_donatie" value=0>
+                                <input type="checkbox" class="form-check-input" name="search_donatie" value="1" type="submit"
+                                    {{ $search_donatie == '1' ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="search_donatie">Donație</label>
+                            </div>
                         </div>
                         <div class="col-md-4 px-1">
                             <button class="btn btn-sm btn-primary col-md-12 border border-dark rounded-pill" type="submit">

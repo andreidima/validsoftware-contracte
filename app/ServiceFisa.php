@@ -73,9 +73,4 @@ class ServiceFisa extends Model
     {
         return $this->hasMany('App\EmailTrimis', 'inregistrare_id')->where('categorie', 'Fise')->where('subcategorie', 'Personalizat');
     }
-
-    public function deschisa()
-    {
-        return ($this->mesaje_trimise_fisa_iesire->count() == 0) && ($this->sms_trimise_fisa_iesire->count() == 0);
-    }
 }

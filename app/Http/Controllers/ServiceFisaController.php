@@ -22,9 +22,13 @@ class ServiceFisaController extends Controller
      */
     public function index()
     {
-        $search_numar = \Request::get('search_numar');
+        $search_numar_intrare = \Request::get('search_numar_intrare');
         $search_nume = \Request::get('search_nume');
-            
+        $search_cu_plata = \Request::get('search_cu_plata') ?? 1;
+        // $search_cu_plata = ($search_cu_plata == '0') ? null : $search_cu_plata;
+        // $search_gratuit = \Request::get('search_gratuit');
+        $search_donatie = \Request::get('search_donatie') ?? 0;
+            // dd($search_cu_plata);
         $service_fise = ServiceFisa::with('mesaje_trimise_fisa_iesire')
             ->leftJoin('service_clienti', 'service_fise.client_id', '=', 'service_clienti.id')
             ->select(
@@ -41,12 +45,17 @@ class ServiceFisaController extends Controller
                 'service_clienti.email',                
                 'service_clienti.site_web'
             )
-            ->when($search_numar, function ($query, $search_numar) {
-                return $query->where('service_fise.nr_fisa', $search_numar);
+            ->when($search_numar_intrare, function ($query, $search_numar_intrare) {
+                return $query->where('service_fise.nr_intrare', $search_numar_intrare);
             })
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('service_clienti.nume', 'like', '%' . $search_nume . '%');
             })
+            // ->where(function ($query, $search_cu_plata, $search_gratuit, $search_donatie) {
+            ->where(function ($query) use ($search_cu_plata) {
+                return ($search_cu_plata == '1') ? $query->where('service_fise.cost', '<>', 0) : $query->Where('cost', 0);
+            })
+            ->where('service_fise.donatie', $search_donatie)
             // ->withCount(['mesaje_trimise_fisa_intrare', 'mesaje_trimise_fisa_iesire'])
             ->latest('service_fise.created_at')
             ->withCount('fisiere')
@@ -62,7 +71,7 @@ class ServiceFisaController extends Controller
             ->where('cost', 0)
             ->count();
 
-        return view('service.fise.index', compact('service_fise', 'search_numar', 'search_nume', 'service_fise_cu_plata', 'service_fise_gratuite'));
+        return view('service.fise.index', compact('service_fise', 'search_numar_intrare', 'search_nume', 'search_cu_plata', 'search_donatie', 'service_fise_cu_plata', 'service_fise_gratuite'));
     }
 
     /**
@@ -223,7 +232,9 @@ class ServiceFisaController extends Controller
             'observatii' => [''],
             'data_ridicare' => [''],
             'durata_interventie' => [''],
-            'cost' => ['']
+            'cost' => [''],
+            'donatie' => [''],
+            'casare' => [''],
         ]);
     }
 
