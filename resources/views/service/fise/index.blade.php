@@ -40,6 +40,12 @@
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă fișă service
                 </a>
             </div> 
+
+            <div class="col-lg-12 py-1 text-center">
+                Fișe în lucru: cu plată = {{ $service_fise_cu_plata }}
+                |
+                gratuite = {{ $service_fise_gratuite }}
+            </div> 
         </div>
 
         <div class="card-body px-0 py-3">
