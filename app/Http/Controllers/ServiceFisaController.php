@@ -59,7 +59,7 @@ class ServiceFisaController extends Controller
 
         $service_fise_gratuite = ServiceFisa::whereDoesntHave('mesaje_trimise_fisa_iesire')
             ->whereDoesntHave('sms_trimise_fisa_iesire')
-            ->where('cost', '<>', 0)
+            ->where('cost', 0)
             ->count();
 
         return view('service.fise.index', compact('service_fise', 'search_numar', 'search_nume', 'service_fise_cu_plata', 'service_fise_gratuite'));
