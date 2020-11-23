@@ -26,8 +26,12 @@ class ServiceFisaController extends Controller
         $search_nume = \Request::get('search_nume');
         $search_cu_plata = \Request::get('search_cu_plata') ?? 1;
         // $search_cu_plata = ($search_cu_plata == '0') ? null : $search_cu_plata;
-        // $search_gratuit = \Request::get('search_gratuit');
-        $search_donatie = \Request::get('search_donatie') ?? 0;
+        $search_gratuit = \Request::get('search_gratuit') ?? 1;
+        $search_in_lucru = \Request::get('search_in_lucru') ?? 1;
+        $search_finalizate = \Request::get('search_finalizate') ?? 1;
+        $search_service = \Request::get('search_service') ?? 1;
+        $search_donatie = \Request::get('search_donatie') ?? 1;
+
             // dd($search_cu_plata);
         $service_fise = ServiceFisa::with('mesaje_trimise_fisa_iesire')
             ->leftJoin('service_clienti', 'service_fise.client_id', '=', 'service_clienti.id')
@@ -52,10 +56,61 @@ class ServiceFisaController extends Controller
                 return $query->where('service_clienti.nume', 'like', '%' . $search_nume . '%');
             })
             // ->where(function ($query, $search_cu_plata, $search_gratuit, $search_donatie) {
-            ->where(function ($query) use ($search_cu_plata) {
-                return ($search_cu_plata == '1') ? $query->where('service_fise.cost', '<>', 0) : $query->Where('cost', 0);
+            ->where(function ($query) use ($search_cu_plata, $search_gratuit) {
+                if ($search_cu_plata == '1'){
+                    if ($search_gratuit == '1'){
+                        $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile 
+                    } else if ($search_gratuit == '0'){
+                        $query->where('service_fise.cost', '<>', 0);   
+                    }            
+                } else if ($search_cu_plata == '0'){
+                    if ($search_gratuit == '1'){
+                        $query->where('cost', 0);
+                    } else if ($search_gratuit == '0'){
+                        $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
+                    }
+                }
+                return $query;
             })
-            ->where('service_fise.donatie', $search_donatie)
+            ->where(function ($query) use ($search_in_lucru, $search_finalizate) {
+                if ($search_in_lucru == '1'){
+                    if ($search_finalizate == '1'){
+                        $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
+                    } else if ($search_finalizate == '0'){
+                        $query->whereDoesntHave('mesaje_trimise_fisa_iesire')    
+                            ->whereDoesntHave('sms_trimise_fisa_iesire');
+                    }            
+                } else if ($search_in_lucru == '0'){
+                    if ($search_finalizate == '1'){
+                        $query->whereHas('mesaje_trimise_fisa_iesire')    
+                            ->orwhereHas('sms_trimise_fisa_iesire');
+                    } else if ($search_finalizate == '0'){
+                        $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
+                    }
+                }
+                return $query;
+            })
+            ->where(function ($query) use ($search_service, $search_donatie) {
+                if ($search_service == '1'){
+                    if ($search_donatie == '1'){
+                        $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
+                    } else if ($search_donatie == '0'){
+                        $query->where('service_fise.donatie', 0);
+                    }            
+                } else if ($search_service == '0'){
+                    if ($search_donatie == '1'){
+                        $query->where('service_fise.donatie', 1);
+                    } else if ($search_donatie == '0'){
+                        $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
+                    }
+                }
+                return $query;
+            })
+            // ->when($search_in_lucru, function ($query) {
+            //     return $query->whereDoesntHave('mesaje_trimise_fisa_iesire')
+            //                 ->whereDoesntHave('sms_trimise_fisa_iesire');
+            // })
+            // ->where('service_fise.donatie', $search_donatie)
             // ->withCount(['mesaje_trimise_fisa_intrare', 'mesaje_trimise_fisa_iesire'])
             ->latest('service_fise.created_at')
             ->withCount('fisiere')
@@ -71,7 +126,9 @@ class ServiceFisaController extends Controller
             ->where('cost', 0)
             ->count();
 
-        return view('service.fise.index', compact('service_fise', 'search_numar_intrare', 'search_nume', 'search_cu_plata', 'search_donatie', 'service_fise_cu_plata', 'service_fise_gratuite'));
+        return view('service.fise.index', compact('service_fise', 'search_numar_intrare', 
+            'search_nume', 'search_cu_plata', 'search_gratuit', 'search_in_lucru', 'search_finalizate', 'search_donatie', 'search_service',
+            'service_fise_cu_plata', 'service_fise_gratuite'));
     }
 
     /**

@@ -3,48 +3,73 @@
 @section('content')   
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header justify-content-between py-1" style="border-radius: 40px 40px 0px 0px;">
-            <div class="col-lg-3 align-self-center">
+            <div class="col-lg-2 align-self-center">
                 <h4 class=" mb-0">
                     <a href="{{ route('service.fise.index') }}"><i class="fas fa-file-invoice mr-1"></i></i>Fișe service</a>
                 </h4>
             </div> 
-            <div class="col-lg-6" id="">
+            <div class="col-lg-8 px-4" id="">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.fise.index') }}">
                     @csrf                    
                     <div class="row input-group custom-search-form justify-content-center">
-                        <div class="col-md-2 px-1">
+                        <div class="col-md-3 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
                             id="search_numar_intrare" name="search_numar_intrare" placeholder="Nr intrare" autofocus
                                     value="{{ $search_numar_intrare }}">
                         </div>
-                        <div class="col-md-3 px-1">
+                        <div class="col-md-5 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
                             id="search_nume" name="search_nume" placeholder="Client"
                                     value="{{ $search_nume }}">
                         </div>
-                        <div class="col-md-7 px-1 d-flex align-items-center">
-                            <div class="px-3">
-                                {{-- <input type="hidden" name="search_cu_plata" value=0> --}}
-                                <input type="radio" class="form-check-input" name="search_cu_plata" value="1"
+                    </div>
+                    <div class="row input-group custom-search-form justify-content-center">
+                        <div class="col-md-12 px-1 d-flex align-items-center justify-content-center">
+                            <div class="px-4">
+                                <input type="hidden" name="search_cu_plata" value=0>
+                                <input type="checkbox" class="form-check-input" name="search_cu_plata" value="1"
                                     {{ $search_cu_plata == '1' ? 'checked' : '' }}
                                 >
                                 <label class="form-check-label" for="search_cu_plata">Cu plată</label>
                             </div>
-                            <div class="px-3">
-                                {{-- <input type="hidden" name="search_cu_plata" value=0> --}}
-                                <input type="radio" class="form-check-input" name="search_cu_plata" value="0"
-                                    {{ $search_cu_plata == '0' ? 'checked' : '' }}
+                            <div class="px-4">
+                                <input type="hidden" name="search_gratuit" value=0>
+                                <input type="checkbox" class="form-check-input" name="search_gratuit" value="1"
+                                    {{ $search_gratuit == '1' ? 'checked' : '' }}
                                 >
-                                <label class="form-check-label" for="search_cu_plata">Gratuit</label>
+                                <label class="form-check-label" for="search_gratuit">Gratuit</label>
                             </div>
-                            <div class="px-3">
+                            <div class="px-4">
+                                <input type="hidden" name="search_in_lucru" value=0>
+                                <input type="checkbox" class="form-check-input" name="search_in_lucru" value="1"
+                                    {{ $search_in_lucru == '1' ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="search_in_lucru">În lucru</label>
+                            </div>
+                            <div class="px-4">
+                                <input type="hidden" name="search_finalizate" value=0>
+                                <input type="checkbox" class="form-check-input" name="search_finalizate" value="1"
+                                    {{ $search_finalizate == '1' ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="search_finalizate">Finalizate</label>
+                            </div>
+                            <div class="px-4">
+                                <input type="hidden" name="search_service" value=0>
+                                <input type="checkbox" class="form-check-input" name="search_service" value="1"
+                                    {{ $search_service == '1' ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="search_service">Service</label>
+                            </div>
+                            <div class="px-4">
                                 <input type="hidden" name="search_donatie" value=0>
-                                <input type="checkbox" class="form-check-input" name="search_donatie" value="1" type="submit"
+                                <input type="checkbox" class="form-check-input" name="search_donatie" value="1"
                                     {{ $search_donatie == '1' ? 'checked' : '' }}
                                 >
                                 <label class="form-check-label" for="search_donatie">Donație</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row input-group custom-search-form justify-content-center">
                         <div class="col-md-4 px-1">
                             <button class="btn btn-sm btn-primary col-md-12 border border-dark rounded-pill" type="submit">
                                 <i class="fas fa-search text-white mr-1"></i>Caută
@@ -58,9 +83,9 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-3 text-right align-self-center">
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('service.fise.create') }}" role="button">
-                    <i class="fas fa-plus-square text-white mr-1"></i>Adaugă fișă service
+            <div class="col-lg-2 text-right align-self-center">
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-12" href="{{ route('service.fise.create') }}" role="button">
+                    <i class="fas fa-plus-square text-white mr-1"></i>Adaugă fișă
                 </a>
             </div> 
 
