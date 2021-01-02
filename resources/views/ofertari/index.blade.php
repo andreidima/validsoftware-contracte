@@ -40,6 +40,7 @@
                             <th>Client</th>
                             <th class="text-center">Dată emitere</th>
                             <th class="text-center">Descarcă Ofertare</th>
+                            <th class="text-center">Trimite</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -57,12 +58,67 @@
                                         {{ \Carbon\Carbon::parse($ofertare->data_emitere)->isoFormat('DD.MM.YYYY') }}
                                     @endisset
                                 </td>
-                                <td class="text-center">                                    
-                                    <a href="{{ $ofertare->path() }}/export/ofertare-word"
-                                        class="flex"    
-                                    >
-                                        <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
-                                    </a> 
+                                <td class="text-center">               
+                                    <div class="d-flex justify-content-center">                                
+                                        <a href="{{ $ofertare->path() }}/export/ofertare-word"
+                                            class="flex mr-1"
+                                        >
+                                            <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
+                                        </a> 
+                                        <a href="{{ $ofertare->path() }}/export/pdf/ofertare-pdf"
+                                            class="flex"    
+                                        >
+                                            <span class="badge badge-light text-danger border border-danger">Pdf</span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="text-center">               
+                                    <div class="d-flex justify-content-center">  
+                                        <div style="" class="text-center">
+                                            <a 
+                                                href="#" 
+                                                data-toggle="modal" 
+                                                data-target="#trimiteEmail{{ $ofertare->id }}"
+                                                title="trimite email"
+                                                class="mr-1"
+                                                >
+                                                <span class="badge badge-primary">Email
+                                                    <span class="badge badge-light" title="Emailuri trimise până acum">
+                                                        {{ $ofertare->emailuri_trimise()->count() }}
+                                                    </span>
+                                                </span>
+                                            </a>
+                                                <div class="modal fade text-dark" id="trimiteEmail{{ $ofertare->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Oferta pentru: <b>{{ $ofertare->client->nume ?? '' }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            Ești sigur ca vrei să trimiți emailul?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                            
+                                                            <form method="POST" action="{{ $ofertare->path() }}/trimite-email">
+                                                                @csrf   
+                                                                <button 
+                                                                    type="submit" 
+                                                                    class="btn btn-primary"  
+                                                                    >
+                                                                    Trimite email
+                                                                </button>                    
+                                                            </form>
+                                                        
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div> 
+                                    </div>
                                 </td>
                                 
                                 <td class="d-flex justify-content-end">

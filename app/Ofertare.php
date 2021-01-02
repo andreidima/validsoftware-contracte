@@ -23,4 +23,9 @@ class Ofertare extends Model
     {
         return $this->belongsToMany('App\OfertareServiciu', 'ofertari_ofertari_servicii', 'ofertare_id', 'ofertare_serviciu_id');
     }
+
+    public function emailuri_trimise()
+    {
+        return $this->hasMany('App\MesajTrimis', 'inregistrare_id')->where('categorie', 'Ofertare');
+    }
 }

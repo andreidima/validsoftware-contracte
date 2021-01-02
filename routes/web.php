@@ -42,6 +42,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
     Route::get('/ofertari/{ofertari}/export/{view_type}', 'OfertareController@wordExport');
+    Route::get('/ofertari/{ofertari}/export/pdf/{view_type}', 'OfertareController@pdfExport');
 
     // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
     Route::post('/fisiere/{contracte}/file-upload', 'FisierController@store')->name('file.upload.post');

@@ -1,273 +1,76 @@
-<?php
+<!DOCTYPE  html>
+<html lang="ro">
 
-namespace App\Http\Controllers;
-
-use App\Ofertare;
-use App\OfertareServiciu;
-use App\Client;
-use DB;
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Storage;
-
-class OfertareController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $search_nume = \Request::get('search_nume');
-        // $search_nume = 'a';
-
-        $ofertari = Ofertare::
-            leftJoin('clienti', 'ofertari.client_id', '=', 'clienti.id')
-            ->select('ofertari.*', 'clienti.nume')
-            ->when($search_nume, function ($query, $search_nume) {
-                return $query->where('clienti.nume', 'like', '%' . $search_nume . '%');
-            })
-            ->latest('ofertari.created_at')
-            ->simplePaginate(25);
-
-
-        // $ofertari = Ofertare::first();
-        // $html = '';
-        // foreach ($ofertari as $ofertare){
-        //     foreach ($ofertare->servicii as $serviciu) {
-        //         $html .= $serviciu->nume;
-        //     } 
-        // }
-        // dd($html);
-
-        return view('ofertari.index', compact('ofertari', 'search_nume'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $clienti = Client::select('id', 'nume')
-            ->orderBy('nume')
-            ->get();
-
-        $servicii = OfertareServiciu::
-            orderBy('nume')
-            ->get();
-
-        $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
-
-        return view('ofertari.create', compact('clienti', 'servicii', 'urmatorul_document_nr'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $array = $request->input('servicii_selectate');
-        // dd($array, $array->toArray());
-        // dd($array->pluck('key'), array_values($array));
-
-
-        \App\Variabila::Nr_document();
-        $ofertare = Ofertare::create($this->validateRequest($request));
-        $ofertare->servicii()->attach($request->input('servicii_selectate'));
-        // $ofertare->servicii()->attach([1, 2]);
-
-        return redirect($ofertare->path())->with('status', 
-            'Ofertarea Nr."' . $ofertare->nr_document . '", pentru clientul "' . ($ofertare->client->nume ?? '') . '", a fost adăugată cu succes!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Ofertare  $ofertare
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ofertare $ofertari)
-    {
-        return view('ofertari.show', compact('ofertari'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Ofertare  $ofertare
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ofertare $ofertari)
-    {
-        $clienti = Client::select('id', 'nume')
-            ->orderBy('nume')
-            ->get();
-
-        $servicii = OfertareServiciu::
-            orderBy('nume')
-            ->get();
-
-        return view('ofertari.edit', compact('ofertari', 'clienti', 'servicii'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Ofertare  $ofertare
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Ofertare $ofertari)
-    {
-        // dd($request);
-        // $this->validateRequest($request, $ofertari);
-        // $ofertari->update($request->except(['date']));
-        $ofertari->update($this->validateRequest($request, $ofertari));
-        $ofertari->servicii()->sync($request->input('servicii_selectate'));
-
-        return redirect($ofertari->path())->with('status', 
-            'Ofertarea Nr."' . $ofertari->nr_document . '", pentru clientul "' . ($ofertari->client->nume ?? '') . '", a fost modificată cu succes!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Ofertare  $ofertare
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ofertare $ofertari)
-    {        
-        $ofertari->delete();
-        return redirect('/ofertari')->with('status', 
-            'Ofertarea Nr."' . $ofertari->nr_document . '", pentru clientul "' . ($ofertari->client->nume ?? '') . '", a fost ștearsă cu succes!');  
-    }
-
-    /**
-     * Validate the request attributes.
-     *
-     * @return array
-     */
-    protected function validateRequest(Request $request)
-    {
-        return request()->validate([
-            'nr_document' => ['required', 'numeric'],
-            'data_emitere' => [''],
-            'client_id' => ['required'],
-            'data_cerere' => [''],
-            'descriere_solicitare' => [''],
-            'propunere_tehnica_si_comerciala' => [''],
-            'pret' => ['nullable', 'numeric', 'max:99999']
-        ]);
-    }
-
-    /**
-     * Validate the request attributes.
-     *
-     * @return array
-     */
-    protected function trimiteEmail(Request $request, Ofertare $ofertari)
-    {
-        // Verificare daca exista email corect catre care sa se trimita mesajul
-        $validator = Validator::make($ofertari->client->toArray(), [
-            'email' => ['email:rfc,dns']
-        ]);
-
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Ofertare</title>
+    <style>
+        html { 
+            margin: 0px 0px;
         }
 
-        // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
-        $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
-        $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
-        $emailuri_bcc = explode(',', $emailuri_bcc);
-
-        // Trimiterea mesajului
-        \Mail::mailer('comunicare')
-            ->to($ofertari->client->email)
-            ->bcc($emailuri_bcc)
-            ->send(
-                new App\Mail\Ofertare($ofertari)
-            );
-        $mesaj_trimis = new \App\MesajTrimis;
-        $mesaj_trimis->inregistrare_id = $ofertari->id;
-        $mesaj_trimis->categorie = 'Ofertare';
-        // $mesaj_trimis->subcategorie = '';
-        $mesaj_trimis->save();
-        return back()->with('status', 'Emailul a fost trimis către „' . $ofertari->client->email . '” cu succes!');
-    }
-
-    /**
-     * Validate the request attributes.
-     *
-     * @return array
-     */
-    protected function pdfExport(Request $request, Ofertare $ofertari)
-    {
-        if ($request->view_type === 'ofertare-html') {
-            return view('ofertari.export.ofertare-pdf', compact('ofertari'));
-        } elseif ($request->view_type === 'ofertare-pdf') {
-            $pdf = \PDF::loadView('ofertari.export.ofertare-pdf', compact('ofertari'))
-                ->setPaper('a4', 'portrait');
-            return $pdf->download(
-                'Ofertarea nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din data de ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
-                    ' - ' . ($ofertari->client->nume ?? '') . '.pdf'
-            );
+        body { 
+            font-family: DejaVu Sans, sans-serif;
+            /* font-family: Arial, Helvetica, sans-serif; */
+            font-size: 14px;
+            margin: 0px;
         }
-    }
 
-    public function wordExport(Request $request, Ofertare $ofertari)
-    {
-            $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        * {
+            /* padding: 0; */
+            text-indent: 0;
+        }
 
-            $phpWord->setDefaultFontName('Times New Roman');
-            $phpWord->setDefaultFontSize(12);
-
-            $phpWord->setDefaultParagraphStyle(
-                array(
-                    'align'      => 'both',
-                    // 'spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(12),
-                    // 'spacing'    => 120,
-                )
-            );
-
-            $section = $phpWord->addSection(
-                array(
-                    'marginLeft'   => 1200,
-                    'marginRight'  => 1200,
-                    'marginTop'    => 0,
-                    'marginBottom' => 700,
-                    'headerHeight' => 1700,
-                    'footerHeight' => 0,
-                )
-            );
-
-            $header = $section->addHeader();
-            // $header->addImage('images/contract-header.jpg', array('width' => 80, 'height' => 80));
-            // $header->addImage('images/contract-header.jpg');
-            $header->addImage(
-                'images/contract-header.jpg', 
-                array(
-                    'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
-                    // 'height'           => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
-                    'positioning'      => \PhpOffice\PhpWord\Style\Image::POSITION_ABSOLUTE,
-                    'posHorizontal'    => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_CENTER,
-                    'posHorizontalRel' => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
-                    'posVerticalRel'   => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
-                    'marginLeft'       => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
-                    'marginTop'        => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
-                    // 'marginBottom'     => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
-                )
-            );
+        table{
+            border-collapse:collapse;
+            margin: 0px;
+            padding: 5px;
+            margin-top: 0px;
+            border-style: solid;
+            border-width: 0px;
+            width: 100%;
+            word-wrap:break-word;
+        }
+        
+        th, td {
+            padding: 1px 10px;
+            border-width: 0px;
+            border-style: solid;
             
-           
+        }
+        tr {
+            border-style: solid;
+            border-width: 0px;
+        }
+        hr { 
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 0.5px;
+        } 
+    </style>
+</head>
+
+<body>
+    {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}        
+    <img src="{{ asset('images/contract-header.jpg') }}" width="800px">
+
+    <div style="
+        /* border:dashed #999; */
+        width:710px; 
+        min-height:500px;            
+        padding: 0px 0px 0px 0px;
+        margin:20px 50px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;">
+
+
+            @php
 
             $html = '<p style="text-align: center;">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' . 
                     (isset($ofertari->data_emitere) ? (' din <b>' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
@@ -331,15 +134,14 @@ class OfertareController extends Controller
                     </table>
                 ';      
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+            $html .= '<div style="page-break-after: always;"></div>';
+            $html .= '<div style="height:20px"></div>';
+            // $html .= '<br /><br /><br /><br /><br /><br />';
 
-            $section->addPageBreak();            
-
-            $html = '<br />' .
+            $html .= '<br />' .
                     '<p style="text-align: left;">' .
                         '<b>Descriere solicitare</b>' .                    
                     '</p>';
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
             $descriere_solicitare = str_replace('<br>', '<br/>', $ofertari->descriere_solicitare);
             
@@ -431,14 +233,14 @@ class OfertareController extends Controller
             $descriere_solicitare = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $descriere_solicitare);
             $descriere_solicitare = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $descriere_solicitare);
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);   
+            $html .= $descriere_solicitare;
 
 
-            $html = '<br />' .
+            $html .= '<br />' .
                     '<p style="text-align: left;">' .
                         '<b>Propunere tehnică și comercială</b>' .                    
                     '</p>';
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+            
 
             $propunere_tehnica_si_comerciala = str_replace('<br>', '<br/>', $ofertari->propunere_tehnica_si_comerciala);
             
@@ -530,10 +332,10 @@ class OfertareController extends Controller
             $propunere_tehnica_si_comerciala = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $propunere_tehnica_si_comerciala);
             $propunere_tehnica_si_comerciala = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $propunere_tehnica_si_comerciala);
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $propunere_tehnica_si_comerciala, false, false);
+            $html .= $propunere_tehnica_si_comerciala;
 
 
-            $html ='<ul>';
+            $html .='<ul>';
             foreach ($ofertari->servicii as $serviciu) {
                 $html .= '<li>' . $serviciu->nume;
                     if ($serviciu->pret){
@@ -545,10 +347,9 @@ class OfertareController extends Controller
                 $html .= '</li>';
             }
             $html .='</ul>';
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
                 
-            $html = '
+            $html .= '
                 <br /><br />
                     <table align="center" style="width: 100%">
                         <tr>
@@ -564,32 +365,12 @@ class OfertareController extends Controller
                     </table>
                 ';      
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+            @endphp
 
-            $footer = $section->addFooter();
-            $footer->addPreserveText('Pagina {PAGE} din {NUMPAGES}', null, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER));
+            {!! $html !!}
+                    
+    </div>
+</body>
 
-            
-        if ($request->view_type === 'ofertare-html') {
-            echo $html;
-        } elseif ($request->view_type === 'ofertare-word') {
-            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-            try {
-                Storage::makeDirectory('fisiere_temporare');
-                $objWriter->save(storage_path(
-                    'app/fisiere_temporare/' .
-                    'Ofertarea nr. ' . $ofertari->nr_document . 
-                    (isset($ofertari->data_emitere) ? (' din data de ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
-                    ' - ' . ($ofertari->client->nume ?? '') . '.docx'
-                ));
-            } catch (Exception $e) { }
-
-            return response()->download(storage_path(
-                'app/fisiere_temporare/' .
-                    'Ofertarea nr. ' . $ofertari->nr_document . 
-                    (isset($ofertari->data_emitere) ? (' din data de ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
-                    ' - ' . ($ofertari->client->nume ?? '') . '.docx'
-            ));     
-        }
-    }
-}
+</html>
+    
