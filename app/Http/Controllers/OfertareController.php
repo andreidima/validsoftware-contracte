@@ -195,7 +195,7 @@ class OfertareController extends Controller
             ->to($ofertari->client->email)
             ->bcc($emailuri_bcc)
             ->send(
-                new App\Mail\Ofertare($ofertari)
+                new \App\Mail\Ofertare($ofertari)
             );
         $mesaj_trimis = new \App\MesajTrimis;
         $mesaj_trimis->inregistrare_id = $ofertari->id;
