@@ -136,6 +136,61 @@
                 </tr>
             </table>
 
+            {{-- Page break --}}
+            <p style="page-break-after: always;"></p>
+
+            {{-- Pagină publicitara --}}
+            
+            <br><br><br>
+
+            <p style="text-align:left; font-weight: bold;">Despre noi</p>
+            <p style="text-align:justify;">
+                Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. Pentru mai multe detalii legate de activitatea noastră din zona de servicii web, vă invităm să accesați secțiunea Portofoliu de la adresa https://validsoftware.ro  
+            </p>
+            
+            <br />
+
+            <p style="text-align:left; font-weight: bold;">Echipă și scop</p>
+            <p style="text-align:justify;">
+                Echipa noastră este formată din specialiști, absolvenți de studii superioare în domeniul IT, dar și în domenii conexe. Scopul nostru este furnizarea de servicii integrate, pentru a oferi clienților noștri creșterea competitivității și performanței activităților pe care le desfășoară.  
+            </p>
+
+            <br />
+
+            <p style="text-align:left; font-weight: bold;">Tehnologie</p>
+            <p style="text-align:justify;">
+                Adoptăm tehnologii de ultimă oră și ne bazăm pe spiritul de inovație al colegilor noștri. Oferim calitate și eficiență, finalizând cu succes proiectele, indiferent dacă acestea implică soluții simple sau complexe.  
+            </p>
+            <br />
+
+            <p style="text-align:left; font-weight: bold;">Ce vă oferim</p>
+                <ul>Venim în întâmpinarea nevoilor dumneavoastră prin:
+                    <li>
+                        Servicii web și multumedia: achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs, locație și clipuri de prezentare, consultanță IT. 
+                    </li>
+                    <li>
+                        IT: Instalare și actualizare sisteme de operare și aplicații adiacente, remedierea problemelor software ale calculatoarelor, salvare și transfer date, configurare echipamente IT, upgrade configurații hardware, mentenanță preventivă calculatoare. 
+                    </li>
+                    <li>
+                        Consultanță IT remote (de la distanță): Servicii de optimizare calculatoare, remediere probleme software de la distanță, consultanță IT generală, cu posibilitate de plată online cu cardul. 
+                    </li>
+                </ul>
+            <br />
+
+            <p style="text-align:left; font-weight: bold;">Contact:</p>
+            <ul>
+                <li>
+                    <a href="https://validsoftware.ro/" target="_blank">https://validsoftware.ro/</a>
+                </li>
+                <li>
+                    <a href="mailto:contact@validsoftware.ro">contact@validsoftware.ro</a>
+                </li>
+                <li>
+                    <a href="tel:+40 0744 761 451">0744 761 451</a>
+                </li>
+            </ul>
+            <br />
+
                     
     </div>
 </body>
