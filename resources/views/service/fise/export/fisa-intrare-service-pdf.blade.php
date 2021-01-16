@@ -166,13 +166,13 @@
             <p style="text-align:left; font-weight: bold;">Ce vă oferim</p>
                 <ul>Venim în întâmpinarea nevoilor dumneavoastră prin:<br><br>
                     <li>
-                        <b>Servicii web și multumedia</b> achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs, locație și clipuri de prezentare, consultanță IT. 
+                        <b>Servicii web și multumedia</b>: achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs, locație și clipuri de prezentare, consultanță IT. 
                     </li>
                     <li>
-                        <b>Service IT</b> Instalare și actualizare sisteme de operare și aplicații adiacente, remedierea problemelor software ale calculatoarelor, salvare și transfer date, configurare echipamente IT, upgrade configurații hardware, mentenanță preventivă calculatoare. 
+                        <b>Service IT</b>: Instalare și actualizare sisteme de operare și aplicații adiacente, remedierea problemelor software ale calculatoarelor, salvare și transfer date, configurare echipamente IT, upgrade configurații hardware, mentenanță preventivă calculatoare. 
                     </li>
                     <li>
-                        <b>Consultanță IT remote (de la distanță)</b> Servicii de optimizare calculatoare, remediere probleme software de la distanță, consultanță IT generală, cu posibilitate de plată online cu cardul. 
+                        <b>Consultanță IT remote (de la distanță)</b>: Servicii de optimizare calculatoare, remediere probleme software de la distanță, consultanță IT generală, cu posibilitate de plată online cu cardul. 
                     </li>
                 </ul>
             <br />
