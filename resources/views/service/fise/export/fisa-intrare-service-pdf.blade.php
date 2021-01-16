@@ -137,7 +137,7 @@
             </table>
 
             {{-- Page break --}}
-            <p style="page-break-after: always;"></p>
+            <p style="page-break-before: always;"></p>
 
             {{-- Pagină publicitara --}}
             
