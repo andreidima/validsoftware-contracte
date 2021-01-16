@@ -145,7 +145,7 @@
 
             <p style="text-align:left; font-weight: bold;">Despre noi</p>
             <p style="text-align:justify;">
-                Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. Pentru mai multe detalii legate de activitatea noastră din zona de servicii web, vă invităm să accesați secțiunea Portofoliu de la adresa https://validsoftware.ro  
+                Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. Pentru mai multe detalii legate de activitatea noastră din zona de servicii web, vă invităm să accesați secțiunea Portofoliu de la adresa <a href="https://validsoftware.ro/" target="_blank">https://validsoftware.ro</a>.
             </p>
             
             <br />
@@ -164,15 +164,15 @@
             <br />
 
             <p style="text-align:left; font-weight: bold;">Ce vă oferim</p>
-                <ul>Venim în întâmpinarea nevoilor dumneavoastră prin:
+                <ul>Venim în întâmpinarea nevoilor dumneavoastră prin:<br><br>
                     <li>
-                        Servicii web și multumedia: achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs, locație și clipuri de prezentare, consultanță IT. 
+                        <b>Servicii web și multumedia</b> achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs, locație și clipuri de prezentare, consultanță IT. 
                     </li>
                     <li>
-                        IT: Instalare și actualizare sisteme de operare și aplicații adiacente, remedierea problemelor software ale calculatoarelor, salvare și transfer date, configurare echipamente IT, upgrade configurații hardware, mentenanță preventivă calculatoare. 
+                        <b>IT</b> Instalare și actualizare sisteme de operare și aplicații adiacente, remedierea problemelor software ale calculatoarelor, salvare și transfer date, configurare echipamente IT, upgrade configurații hardware, mentenanță preventivă calculatoare. 
                     </li>
                     <li>
-                        Consultanță IT remote (de la distanță): Servicii de optimizare calculatoare, remediere probleme software de la distanță, consultanță IT generală, cu posibilitate de plată online cu cardul. 
+                        <b>Consultanță IT remote (de la distanță)</b> Servicii de optimizare calculatoare, remediere probleme software de la distanță, consultanță IT generală, cu posibilitate de plată online cu cardul. 
                     </li>
                 </ul>
             <br />
