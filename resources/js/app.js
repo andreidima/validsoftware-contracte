@@ -9,15 +9,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 /**
- * Uncomment below when compiling to production
- */
-// if (process.env.MIX_ENV_MODE === 'production') {
-    Vue.config.devtools = false;
-    Vue.config.debug = false;
-    Vue.config.silent = true;
-// }
-
-/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
