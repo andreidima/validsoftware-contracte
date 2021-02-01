@@ -131,6 +131,7 @@
             @endif
 
             @if ($fisa->servicii)
+                <div style="break-inside: avoid">
                 @php
                     $html ='<b>Servicii efectuate:</b>';
                     $html .='<ul>';
@@ -151,6 +152,7 @@
                 @endphp
 
                 {!! $html !!}
+                </div>
             @endif
 
             @if ($fisa->observatii)
