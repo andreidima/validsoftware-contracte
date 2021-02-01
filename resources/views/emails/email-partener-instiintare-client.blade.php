@@ -29,24 +29,25 @@ Datele partenerului:
     @endisset
     @isset($fisa->partener->telefon)
         <li>
-            Nume: {{ $fisa->partener->telefon }}
+            Telefon: {{ $fisa->partener->telefon }}
         </li>
     @endisset
     @isset($fisa->partener->email)
         <li>
-            Nume: {{ $fisa->partener->email }}
+            Email: {{ $fisa->partener->email }}
         </li>
     @endisset
     @isset($fisa->partener->adresa)
         <li>
-            Nume: {{ $fisa->partener->adresa }}
+            Adresa: {{ $fisa->partener->adresa }}
         </li>
     @endisset
     @isset($fisa->partener->google_maps_link)
         <li>
-            Link Google Maps: {!! $fisa->partener->google_maps_link !!}
+            Link Google Maps: <a href="{{ $fisa->partener->google_maps_link }}" target="_blank">{{ $fisa->partener->google_maps_link }}</a>
         </li>
     @endisset
+</ul>
 <br>
 Regăsiti atașat fișa de intrare din service-ul nostru.
 <br><br>
