@@ -37,7 +37,7 @@ class EmailPartenerInstiintareClient extends Mailable
         $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
             ->setPaper('a4', 'portrait');
 
-        $message->subject('Trimitere echipament la partener');
+        $message->subject('Trimitere echipament în service partener');
         $message->attachData(
             $pdf->output(),
             'Fisa echipamentului.pdf'
