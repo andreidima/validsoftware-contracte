@@ -14,11 +14,7 @@
                     id="app1"
                 >
 
-            @if (session()->has('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-            @endif
+            @include ('errors')
 
                     <div class="table-responsive col-md-12 mx-auto">
                         <table class="table table-sm table-striped table-hover"
@@ -122,6 +118,72 @@
                                         {{ $serviciu->pret ? ' - ' . $serviciu->pret . ' RON' : ''}}
                                         <br />
                                     @endforeach
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Partener
+                                </td>
+                                <td>
+                                    {{ $fise->partener->nume ?? '' }}
+                                    
+                                    <div class="d-flex">       
+                                        <a 
+                                            href="#" 
+                                            data-toggle="modal" 
+                                            data-target="#trimiteEmailPartener"
+                                            title="trimite Email Partener"
+                                            class="mr-1"
+                                            >
+                                            <span class="badge badge-primary">Trimite Email
+                                                <span class="badge badge-light" title="Emailuri trimise până acum">
+                                                    @isset ($fise->created_at)
+                                                        {{ $fise->emailuri_trimise_partener()->count() }}
+                                                    @else
+                                                        0
+                                                    @endisset
+                                                </span>
+                                            </span>
+                                        </a>
+                                            <div class="modal fade text-dark" id="trimiteEmailPartener" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-secondary">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Fișă: <b>{{ $fise->client->nume ?? '' }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                    @isset ($fise->created_at)
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            Ești sigur ca vrei să trimiți Emailuri către partener și către client?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                            
+                                                            <form method="POST" action="{{ $fise->path() }}/email-partener-si-client/trimite-email">
+                                                                @csrf   
+                                                                <button 
+                                                                    type="submit" 
+                                                                    class="btn btn-primary"  
+                                                                    >
+                                                                    Trimite email
+                                                                </button>                    
+                                                            </form>
+                                                        
+                                                        </div>
+                                                    @else
+                                                        <div class="modal-body bg-warning" style="text-align:left;">
+                                                            Trebuie să salvezi fișa înainte de a putea trimite emailul!
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                        </div>
+                                                    @endisset
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
                                 </td>
                             </tr>
                         </table>

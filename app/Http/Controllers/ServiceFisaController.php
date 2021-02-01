@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\ServiceFisa;
 use App\ServiceClient;
+use App\ServicePartener;
 use App\ServiceServiciu;
 use Illuminate\Http\Request;
 use App\Mail\FisaIntrareService;
 use App\Mail\FisaIesireService;
 use App\Mail\EmailPersonalizat;
+use App\Mail\EmailPartener;
+use App\Mail\EmailPartenerInstiintareClient;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -138,16 +141,13 @@ class ServiceFisaController extends Controller
      */
     public function create()
     {
-        $clienti = ServiceClient::all();
-        $clienti = $clienti->sortBy('nume')->values();
-
-        $servicii = ServiceServiciu::
-            orderBy('nume')
-            ->get();
+        $clienti = ServiceClient::orderBy('nume')->get();
+        $parteneri = ServicePartener::orderBy('nume')->get();
+        $servicii = ServiceServiciu::orderBy('nume')->get();
 
         $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
-        return view('service.fise.create', compact('clienti', 'servicii',  'urmatorul_document_nr'));
+        return view('service.fise.create', compact('clienti', 'parteneri', 'servicii',  'urmatorul_document_nr'));
     }
 
     /**
@@ -199,14 +199,11 @@ class ServiceFisaController extends Controller
      */
     public function edit(ServiceFisa $fise)
     {
-        $clienti = ServiceClient::all();
-        $clienti = $clienti->sortBy('nume')->values();
+        $clienti = ServiceClient::orderBy('nume')->get();
+        $parteneri = ServicePartener::orderBy('nume')->get();
+        $servicii = ServiceServiciu::orderBy('nume')->get();
 
-        $servicii = ServiceServiciu::
-            orderBy('nume')
-            ->get();
-
-        return view('service.fise.edit', compact('fise', 'clienti', 'servicii'));
+        return view('service.fise.edit', compact('fise', 'clienti', 'parteneri', 'servicii'));
     }
 
     /**
@@ -277,6 +274,7 @@ class ServiceFisaController extends Controller
     protected function validateRequestFisa(Request $request)
     {
         return request()->validate([
+            'partener_id' => ['nullable'],
             'nr_intrare' => ['required', 'numeric'],
             'nr_iesire' => ['required', 'numeric'],
             'tehnician_service' => ['max:90'],
@@ -303,7 +301,7 @@ class ServiceFisaController extends Controller
     protected function trimiteEmail(Request $request, ServiceFisa $fisa)
     {   
         // Verificare daca exista email corect catre care sa se trimita mesajul
-        $validator = Validator::make($fisa->client->toArray(), [
+        $validator = Validator::make($fisa->partener->toArray(), [
             'email' => ['email:rfc,dns']
         ]);
 
@@ -360,6 +358,45 @@ class ServiceFisaController extends Controller
             $mesaj_trimis->text = $email_text;
             $mesaj_trimis->save();
             return back()->with('status', 'Emailul personalizat a fost trimis către „' . $fisa->client->email . '” cu succes!');
+        } elseif ($request->tip_fisa === 'email-partener-si-client') {
+            // Verificare daca emailul partenerului este corect
+            $validator = Validator::make($fisa->partener->toArray(), [
+                'email' => ['email:rfc,dns']
+            ]);
+            if ($validator->fails()) { 
+                return back()
+                    // ->withErrors($validator)
+                    ->withErrors('Emailul Partenerului nu este o adresă de e-mail validă.')
+                    ->withInput();
+            }
+
+            //Trimitere email catre partener si salvarea actiunii in baza de date
+            \Mail::mailer('service')
+                ->to($fisa->partener->email)
+                ->bcc($emailuri_bcc)
+                ->send(
+                    new EmailPartener($fisa)
+                );
+            $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->inregistrare_id = $fisa->id;
+            $mesaj_trimis->categorie = 'Fise';
+            $mesaj_trimis->subcategorie = 'Partener';
+            $mesaj_trimis->save();
+
+            //Trimitere email catre client si salvarea actiunii in baza de date
+            \Mail::mailer('service')
+                ->to($fisa->client->email)
+                ->bcc($emailuri_bcc)
+                ->send(
+                    new EmailPartenerInstiintareClient($fisa)
+                );
+            $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->inregistrare_id = $fisa->id;
+            $mesaj_trimis->categorie = 'Fise';
+            $mesaj_trimis->subcategorie = 'PartenerClient';
+            $mesaj_trimis->save(); 
+            
+            return back()->with('status', 'Emailurile către client (' . $fisa->client->email . ') și către partener (' . $fisa->partener->email . ') au fost trimise cu succes!'); 
         }
 
     }

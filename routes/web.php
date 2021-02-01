@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::redirect('/', 'service/clienti');
 
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
+    Route::resource('service/parteneri', 'ServicePartenerController', ['names' => 'service.parteneri', 'parameters' => ['parteneri' => 'partener']]);
 
     Route::get('/service/fise/{fise}/export/word/{view_type}', 'ServiceFisaController@wordExport');
     Route::get('/service/fise/{fise}/export/{view_type}', 'ServiceFisaController@pdfExport');

@@ -101,6 +101,10 @@
                                             <i class="fas fa-users mr-1"></i>Clienți
                                         </a>
                                         <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('service.parteneri.index') }}">
+                                            <i class="fas fa-handshake mr-1"></i>Parteneri
+                                        </a>
+                                        <div class="dropdown-divider"></div>
                                         <a class="nav-link text-dark" href="{{ route('service.fise.index') }}">
                                             <i class="fas fa-file mr-1"></i>Fișe
                                         </a>
@@ -128,6 +132,11 @@
                                 <li class="nav-item active mr-4">
                                         <a class="nav-link text-dark" href="{{ route('service.clienti.index') }}">
                                             <i class="fas fa-users mr-1"></i>Clienți
+                                        </a>
+                                </li>
+                                <li class="nav-item active mr-4">
+                                        <a class="nav-link text-dark" href="{{ route('service.parteneri.index') }}">
+                                            <i class="fas fa-handshake mr-1"></i>Parteneri
                                         </a>
                                 </li>
                                 <li class="nav-item active mr-4">

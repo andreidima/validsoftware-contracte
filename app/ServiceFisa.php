@@ -19,6 +19,11 @@ class ServiceFisa extends Model
         return $this->belongsTo('App\ServiceClient', 'client_id');
     }
 
+    public function partener()
+    {
+        return $this->belongsTo('App\ServicePartener', 'partener_id');
+    }
+
     public function servicii()
     {
         return $this->belongsToMany('App\ServiceServiciu', 'service_fise_servicii', 'service_fisa_id', 'service_serviciu_id');
@@ -72,5 +77,10 @@ class ServiceFisa extends Model
     public function emailuri_trimise_fisa_personalizat()
     {
         return $this->hasMany('App\EmailTrimis', 'inregistrare_id')->where('categorie', 'Fise')->where('subcategorie', 'Personalizat');
+    }
+
+    public function emailuri_trimise_partener()
+    {
+        return $this->hasMany('App\EmailTrimis', 'inregistrare_id')->where('categorie', 'Fise')->where('subcategorie', 'Partener');
     }
 }

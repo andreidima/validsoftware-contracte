@@ -364,7 +364,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-row px-2 py-2 mb-4"
+        <div class="form-row px-2 py-2 mb-0"
             style="background-color:rgb(255, 219, 172); border-left:6px solid; border-color:rgb(143, 81, 20); border-radius: 0px 0px 0px 0px"
             > 
             <div class="col-lg-4 d-flex align-items-center">
@@ -419,8 +419,30 @@
                 </div>
             </div>
         </div>
+        <div class="form-row px-2 py-2 mb-4"
+            style="background-color:rgb(220, 225, 255); border-left:6px solid; border-color:rgb(43, 0, 160); border-radius: 0px 0px 0px 0px"
+            >  
+            <div class="form-group d-flex col-lg-12 mb-0 align-items-center"> 
+                <div class="d-flex mr-2">
+                    <label for="partener_id" class="mb-0 pr-1">Trimitere către partener service:</label>
+                    <div class="">                                      
+                        <select name="partener_id" 
+                            class="custom-select custom-select-sm rounded-pill {{ $errors->has('client_deja_inregistrat') ? 'is-invalid' : '' }}" 
+                        >
+                                <option value='' selected>Selectează partener</option>
+                            @foreach ($parteneri as $partener)                           
+                                <option value='{{ $partener->id }}'
+                                    {{ ($partener->id == old('partener_id', $fise->partener_id)) ? 'selected' : '' }}
+                                    >
+                                    {{ $partener->nume }} 
+                                </option>                                                
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-                                
         <div class="form-row mb-1 px-2 justify-content-center">                                    
             <div class="col-lg-8 d-flex justify-content-center">  
                 <button type="submit" class="btn btn-primary btn-sm mr-2 border border-dark rounded-pill">{{ $buttonText }}</button> 
