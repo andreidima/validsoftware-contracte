@@ -399,17 +399,19 @@ class ServiceFisaController extends Controller
             $mesaj_trimis->save();
 
             //Trimitere email catre client si salvarea actiunii in baza de date
-            \Mail::mailer('service')
-                ->to($fisa->client->email)
-                ->bcc($emailuri_bcc)
-                ->send(
-                    new EmailPartenerInstiintareClient($fisa)
-                );
-            $mesaj_trimis = new \App\MesajTrimis;
-            $mesaj_trimis->inregistrare_id = $fisa->id;
-            $mesaj_trimis->categorie = 'Fise';
-            $mesaj_trimis->subcategorie = 'PartenerClient';
-            $mesaj_trimis->save(); 
+            if(isset($fisa->client->email)){
+                \Mail::mailer('service')
+                    ->to($fisa->client->email)
+                    ->bcc($emailuri_bcc)
+                    ->send(
+                        new EmailPartenerInstiintareClient($fisa)
+                    );
+                $mesaj_trimis = new \App\MesajTrimis;
+                $mesaj_trimis->inregistrare_id = $fisa->id;
+                $mesaj_trimis->categorie = 'Fise';
+                $mesaj_trimis->subcategorie = 'PartenerClient';
+                $mesaj_trimis->save(); 
+            }
             
             return back()->with('status', 'Emailurile către client (' . $fisa->client->email . ') și către partener (' . $fisa->partener->email . ') au fost trimise cu succes!'); 
         }
