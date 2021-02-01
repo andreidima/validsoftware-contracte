@@ -71,6 +71,12 @@
 
 
             <p style="text-align: center; font-weight: bold; font-size: 21px;">FIȘĂ ECHIPAMENT</p>
+            <p style="text-align: center; font-weight: bold;">
+                {{
+                    'Nr. ' . $fisa->nr_intrare . (isset($fisa->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fisa->data_receptie)->isoFormat('DD.MM.YYYY')) : '')
+                }}
+            </p>
+            <br />
 
             <p style="text-align:justify;">
                 {{

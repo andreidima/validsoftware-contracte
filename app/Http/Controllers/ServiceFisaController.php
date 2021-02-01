@@ -300,15 +300,41 @@ class ServiceFisaController extends Controller
      */
     protected function trimiteEmail(Request $request, ServiceFisa $fisa)
     {   
-        // Verificare daca exista email corect catre care sa se trimita mesajul
-        $validator = Validator::make($fisa->client->toArray(), [
-            'email' => ['email:rfc,dns']
-        ]);
+        // Verificare daca exista email CLIENT corect catre care sa se trimita mesajul.
+        // In cazul in care se trimite email catre partener, emailul catre client nu este obligatoriu
+        if ($request->tip_fisa !== 'email-partener-si-client') {
+                $validator = Validator::make($fisa->client->toArray(), [
+                    'email' => ['email:rfc,dns']
+                ]);
 
-        if ($validator->fails()) {
-            return back()
-                        ->withErrors($validator)
+                if ($validator->fails()) {
+                    return back()
+                                ->withErrors($validator)
+                                ->withInput();
+                }
+        } else{
+            if(isset($fisa->client->email)){
+                $validator = Validator::make($fisa->client->toArray(), [
+                    'email' => ['email:rfc,dns']
+                ]);
+
+                if ($validator->fails()) {
+                    return back()
+                                ->withErrors($validator)
+                                ->withInput();
+                }
+            }
+            
+                // Verificare daca emailul partenerului este corect
+                $validator = Validator::make($fisa->partener->toArray(), [
+                    'email' => ['email:rfc,dns']
+                ]);
+                if ($validator->fails()) { 
+                    return back()
+                        // ->withErrors($validator)
+                        ->withErrors('Emailul Partenerului nu este o adresă de e-mail validă.')
                         ->withInput();
+                }            
         }
 
         // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
@@ -359,17 +385,6 @@ class ServiceFisaController extends Controller
             $mesaj_trimis->save();
             return back()->with('status', 'Emailul personalizat a fost trimis către „' . $fisa->client->email . '” cu succes!');
         } elseif ($request->tip_fisa === 'email-partener-si-client') {
-            // Verificare daca emailul partenerului este corect
-            $validator = Validator::make($fisa->partener->toArray(), [
-                'email' => ['email:rfc,dns']
-            ]);
-            if ($validator->fails()) { 
-                return back()
-                    // ->withErrors($validator)
-                    ->withErrors('Emailul Partenerului nu este o adresă de e-mail validă.')
-                    ->withInput();
-            }
-
             //Trimitere email catre partener si salvarea actiunii in baza de date
             \Mail::mailer('service')
                 ->to($fisa->partener->email)

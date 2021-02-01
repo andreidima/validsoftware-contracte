@@ -16,9 +16,9 @@ Multumim,<br>
     @endslot
 
 {{-- Body --}}
-# Bună, {{ $fisa->client->nume }},
+# Bun găsit, {{ $fisa->client->nume }},
 <br>
-Echipamentul dvs. a fost transferat în service-ul partener {{ $fisa->partener->nume }}. 
+Echipamentul dvs. a fost transferat în service-ul partener {{ $fisa->partener->nume }}, conform acordului exprimat. 
 <br><br>
 Datele partenerului:
 <ul>

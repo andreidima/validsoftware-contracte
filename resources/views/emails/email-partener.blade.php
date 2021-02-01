@@ -16,7 +16,7 @@ Multumim,<br>
     @endslot
 
 {{-- Body --}}
-# Bună, {{ $fisa->partener->nume }},
+# Bun găsit, {{ $fisa->partener->nume }},
 <br>
 Iți trimitem atașat Fișa echipamentului.
 <br><br>
