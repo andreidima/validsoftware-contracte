@@ -301,7 +301,7 @@ class ServiceFisaController extends Controller
     protected function trimiteEmail(Request $request, ServiceFisa $fisa)
     {   
         // Verificare daca exista email corect catre care sa se trimita mesajul
-        $validator = Validator::make($fisa->partener->toArray(), [
+        $validator = Validator::make($fisa->client->toArray(), [
             'email' => ['email:rfc,dns']
         ]);
 
