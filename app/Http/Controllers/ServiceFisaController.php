@@ -177,7 +177,7 @@ class ServiceFisaController extends Controller
         \App\Variabila::Nr_document();
 
         return redirect($service_fisa->path())->with('status', 
-            'Fișa de service Nr."' . $service_fisa->nr_fisa . '", pentru clientul "' . ($service_fisa->client->nume ?? '') . '", a fost adăugată cu succes!');
+            'Fișa de service pentru clientul "' . ($service_fisa->client->nume ?? '') . '", a fost adăugată cu succes!');
     }
 
     /**
@@ -228,7 +228,7 @@ class ServiceFisaController extends Controller
         $fise->servicii()->sync($request->input('servicii_selectate'));
 
         return redirect($fise->path())->with('status', 
-            'Fișa de service Nr."' . $fise->nr_fisa . '", pentru clientul "' . ($fise->client->nume ?? '') . '", a fost modificată cu succes!');
+            'Fișa de service pentru clientul "' . ($fise->client->nume ?? '') . '", a fost modificată cu succes!');
     }
 
     /**
