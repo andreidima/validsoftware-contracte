@@ -167,6 +167,33 @@
                 >
                 <label class="form-check-label" for="review_google">Review acordat prin Google</label>
             </div>
+        </div>  
+        <div class="form-row px-2 py-2">                         
+            <div class="form-group col-lg-12 mb-2">  
+                <label for="servicii_efectuate" class="mb-0 pl-1">Servicii pentru care a fost lăsat un review:</label>
+                    <div class="form-row">
+                            @foreach ($servicii as $serviciu)
+                                <div class="col-lg-6 mb-2 rounded-pill">
+                                    <div class="custom-control custom-checkbox border border-4" style="padding-left:30px; display: inline-block; border-color:mediumseagreen;">
+                                        <input type="checkbox" class="custom-control-input" 
+                                            name="servicii_selectate[]" 
+                                            value="{{ $serviciu->id }}"
+                                            style="padding:20px" id="{{ $serviciu->id }}"
+                                            @if (old("servicii_selectate"))
+                                                {{ in_array($serviciu->id, old("servicii_selectate")) ? "checked":"" }}
+                                            @else
+                                                {{ in_array($serviciu->id, $clienti->servicii_review->pluck('id')->toArray()) ? "checked":"" }}
+                                            @endif
+                                            >
+                                        <label class="custom-control-label text-white px-1" for="{{ $serviciu->id }}" style="background-color:mediumseagreen;">
+                                            {{ $serviciu->nume }}
+                                            {{ $serviciu->pret ? ' - ' . $serviciu->pret . ' RON' : ''}}
+                                        </label>
+                                    </div>
+                                </div>
+                            @endforeach
+                    </div>
+            </div> 
         </div>
         
                                 

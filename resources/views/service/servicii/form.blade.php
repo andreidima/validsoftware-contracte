@@ -2,8 +2,8 @@
 
 <div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px">
     <div class="form-group col-lg-12 px-2 mb-0">
-        <div class="form-row px-2 py-2 mb-2 justify-content-center">    
-            <div class="form-group col-lg-10 mb-0">  
+        <div class="form-row px-2 py-2 mb-2 justify-content-left">    
+            <div class="form-group col-lg-10 mb-2">  
                 <label for="nume" class="mb-0 pl-3">Serviciu service:</label>                                      
                 <input 
                     type="text" 
@@ -13,7 +13,7 @@
                     value="{{ old('nume') ?? $servicii->nume }}"
                     required> 
             </div>  
-            <div class="form-group col-lg-2 mb-0">  
+            <div class="form-group col-lg-2 mb-2">  
                 <label for="pret" class="mb-0 pl-3">Preț:</label>                                      
                 <input 
                     type="text" 
@@ -22,7 +22,17 @@
                     placeholder="" 
                     value="{{ old('pret') ?? $servicii->pret }}"
                     required> 
-            </div> 
+            </div>    
+            <div class="form-group col-lg-10 mb-2">  
+                <label for="link_review_site" class="mb-0 pl-3">Link review site:</label>                                      
+                <input 
+                    type="text" 
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('link_review_site') ? 'is-invalid' : '' }}" 
+                    name="link_review_site" 
+                    placeholder="" 
+                    value="{{ old('link_review_site') ?? $servicii->link_review_site }}"
+                    required> 
+            </div>  
         </div>        
                                 
         <div class="form-row mb-3 px-2 justify-content-center">                                    

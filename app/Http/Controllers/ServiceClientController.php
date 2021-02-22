@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ServiceClient;
+use App\ServiceServiciu;
 use Illuminate\Http\Request;
 
 class ServiceClientController extends Controller
@@ -33,7 +34,8 @@ class ServiceClientController extends Controller
      */
     public function create()
     {
-        return view('service.clienti.create');
+        $servicii = ServiceServiciu::orderBy('nume')->get();
+        return view('service.clienti.create', compact('servicii'));
     }
 
     /**
@@ -57,7 +59,7 @@ class ServiceClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(ServiceClient $clienti)
-    {
+    {       
         return view('service.clienti.show', compact('clienti'));
     }
 
@@ -69,7 +71,9 @@ class ServiceClientController extends Controller
      */
     public function edit(ServiceClient $clienti)
     {
-        return view('service.clienti.edit', compact('clienti'));
+        $servicii = ServiceServiciu::orderBy('nume')->get();
+
+        return view('service.clienti.edit', compact('clienti', 'servicii'));
     }
 
     /**
@@ -81,8 +85,9 @@ class ServiceClientController extends Controller
      */
     public function update(Request $request, ServiceClient $clienti)
     {
-        $this->validateRequest($request, $clienti);
-        $clienti->update($request->all());
+        $clienti->update($this->validateRequest($request));
+
+        $clienti->servicii_review()->sync($request->input('servicii_selectate'));
 
         return redirect($clienti->path())->with('status', 'Clientul "' . $clienti->nume . '" a fost modificat cu succes!');
     }

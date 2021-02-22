@@ -18,4 +18,9 @@ class ServiceClient extends Model
     {
         return $this->hasMany('App\ServiceAnydesk', 'client_id');
     }
+
+    public function servicii_review()
+    {
+        return $this->belongsToMany('App\ServiceServiciu', 'service_clienti_servicii_review', 'service_client_id', 'service_serviciu_id');
+    }
 }

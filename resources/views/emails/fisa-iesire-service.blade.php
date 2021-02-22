@@ -35,6 +35,25 @@ Te informăm că oferim și servicii de Asistență IT de la distanță. Mai mul
     @endcomponent
 @endif
 
+<br>
+
+@php $afiseaza = true; @endphp
+@foreach ($fisa->servicii as $serviciu)
+    @if(!in_array($serviciu->id, $fisa->client->servicii_review->pluck('id')->toArray()))
+        @if($afiseaza)
+            Te invităm să ne oferi o recenzie și individual pentru serviciile oferite.
+            @php $afiseaza = false; @endphp
+        @endif
+        @component('mail::button', ['url' => $serviciu->link_review_google, 'color' => 'success'])
+            <p style="text-align: center; margin:0px; padding:0px;">
+                {{ $serviciu->nume }}
+                <br>
+                Recenzia ta
+            </p>
+        @endcomponent
+    @endif
+@endforeach
+
 Mulțumim,
 <br>
 Echipa ValidSoftware.ro
