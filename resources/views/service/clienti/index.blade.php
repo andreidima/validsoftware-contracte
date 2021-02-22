@@ -79,7 +79,11 @@
                                         title="Trimite Client la Partener"
                                         >
                                         {{-- <i class="far fa-trash-alt"></i> --}}
-                                        <span class="badge badge-primary">Email</span>
+                                        <span class="badge badge-primary">Email                                            
+                                            <span class="badge badge-light" title="Email-uri trimise până acum">
+                                                {{ $client->emailuri_trimise_client_catre_partener()->count() }}
+                                            </span>
+                                        </span>
                                     </a>
                                         <div class="modal fade text-dark" id="trimiteClient{{ $client->id }}laPartener" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">

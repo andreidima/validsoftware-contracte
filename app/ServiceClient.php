@@ -23,4 +23,9 @@ class ServiceClient extends Model
     {
         return $this->belongsToMany('App\ServiceServiciu', 'service_clienti_servicii_review', 'service_client_id', 'service_serviciu_id');
     }
+
+    public function emailuri_trimise_client_catre_partener()
+    {
+        return $this->hasMany('App\EmailTrimis', 'inregistrare_id')->where('categorie', 'Client')->where('subcategorie', 'Partener');
+    }
 }

@@ -19,8 +19,8 @@ class ServiceClientController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
-        $clienti = ServiceClient::
-            when($search_nume, function ($query, $search_nume) {
+        $clienti = ServiceClient::with('emailuri_trimise_client_catre_partener')
+            ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
             // ->where('tip', 'service')
