@@ -29,29 +29,27 @@ Te informăm că oferim și servicii de Asistență IT de la distanță. Mai mul
 <a href="https://magic.validsoftware.ro/asistenta-it-la-distanta/">aici</a>.
 <br><br>
 @if ($fisa->client->review_google !== 1)
-    Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să ne oferi o recenzie.
-    @component('mail::button', ['url' => 'http://search.google.com/local/writereview?placeid=ChIJoX8PeK8YtEARgtFebuluoUo', 'color' => 'success'])
-        Recenzia ta
-    @endcomponent
+Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să ne oferi o recenzie.
+@component('mail::button', ['url' => 'http://search.google.com/local/writereview?placeid=ChIJoX8PeK8YtEARgtFebuluoUo', 'color' => 'success'])
+Recenzia ta
+@endcomponent
 @endif
-
-<br>
 
 @php $afiseaza = true; @endphp
 @foreach ($fisa->servicii as $serviciu)
-    @if(!in_array($serviciu->id, $fisa->client->servicii_review->pluck('id')->toArray()))
-        @if($afiseaza)
-            Te invităm să ne oferi o recenzie și individual pentru serviciile oferite.
-            @php $afiseaza = false; @endphp
-        @endif
-        @component('mail::button', ['url' => $serviciu->link_review_google, 'color' => 'success'])
-            <p style="text-align: center; margin:0px; padding:0px;">
-                {{ $serviciu->nume }}
-                <br>
-                Recenzia ta
-            </p>
-        @endcomponent
-    @endif
+@if(!in_array($serviciu->id, $fisa->client->servicii_review->pluck('id')->toArray()))
+@if($afiseaza)
+Te invităm să ne oferi o recenzie și individual pentru serviciile oferite.
+@php $afiseaza = false; @endphp
+@endif
+@component('mail::button', ['url' => $serviciu->link_review_google, 'color' => 'success'])
+{{-- <p style="text-align: center; margin:0px; padding:0px;"> --}}
+{{ $serviciu->nume }}
+{{-- <br>
+Recenzia ta --}}
+{{-- </p> --}}
+@endcomponent
+@endif
 @endforeach
 
 Mulțumim,
