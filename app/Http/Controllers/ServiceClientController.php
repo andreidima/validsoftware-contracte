@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\ServiceClient;
 use App\ServiceServiciu;
+use App\ServicePartener;
+use App\Mail\ClientCatrePartener;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ServiceClientController extends Controller
 {
@@ -24,7 +27,9 @@ class ServiceClientController extends Controller
             ->latest()
             ->Paginate(25);
             
-        return view('service.clienti.index', compact('clienti', 'search_nume'));
+        $parteneri = ServicePartener::orderBy('nume')->get();
+            
+        return view('service.clienti.index', compact('clienti', 'parteneri', 'search_nume'));
     }
 
     /**
@@ -101,7 +106,7 @@ class ServiceClientController extends Controller
     public function destroy(ServiceClient $clienti)
     {
         $clienti->delete();
-        return redirect('/clienti')->with('status', 'Clientul "' . $clienti->nume . '" a fost șters cu succes!');
+        return redirect('/service/clienti')->with('status', 'Clientul "' . $clienti->nume . '" a fost șters cu succes!');
     }
 
     /**
@@ -125,5 +130,55 @@ class ServiceClientController extends Controller
             'site_web' => ['nullable', 'max:180'],
             'review_google' => ['']
         ]);
+    }
+
+    public function trimiteEmail(Request $request, ServiceClient $client)
+    {        
+        $validator = Validator::make($request->toArray(), [
+            'partener_id' => ['required']
+        ]);
+        if ($validator->fails()) {
+            return redirect('/service/clienti')->with('error', 'Selectati un partener către care doriți să se trimită emailul.');
+        }    
+        
+        $validator = Validator::make($client->toArray(), [
+            'email' => ['email:rfc,dns']
+        ]);
+        if ($validator->fails()) {
+            return redirect('/service/clienti')->with('error', 'Emailul Clientului nu este o adresă de e-mail validă.');
+        }
+            
+        $partener = ServicePartener::where('id', $request->partener_id)->first();
+        $validator = Validator::make($partener->toArray(), [
+            'email' => ['email:rfc,dns']
+        ]);
+        if ($validator->fails()) {
+            return redirect('/service/clienti')->with('error', 'Emailul Partenerului nu este o adresă de e-mail validă.');
+        }
+
+        // dd($partener, $client);
+
+        // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
+        $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
+        $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
+        $emailuri_bcc = explode(',', $emailuri_bcc);
+        
+        \Mail::mailer('service')
+            ->to($client->email)  
+            ->cc($partener->email)                     
+            ->bcc($emailuri_bcc)
+            ->send(
+                new ClientCatrePartener($client, $partener)
+            );              
+        $mesaj_trimis = new \App\MesajTrimis;
+        $mesaj_trimis->inregistrare_id = $client->id;
+        $mesaj_trimis->categorie = 'Client';
+        $mesaj_trimis->subcategorie = 'Partener';
+        $mesaj_trimis->save();
+        return back()->with('status', 'Clientului ' . $client->nume . ' i-a fost trimis Email cu Partenerul „' . $partener->nume . '”, cu succes!');
+
+        // $servicii = ServiceServiciu::orderBy('nume')->get();
+
+        // return view('service.clienti.edit', compact('clienti', 'servicii'));
     }
 }

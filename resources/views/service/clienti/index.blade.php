@@ -30,11 +30,7 @@
 
         <div class="card-body px-0 py-3">
 
-            @if (session()->has('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-            @endif
+            @include('errors')
 
             <div class="table-responsive rounded">
                 <table class="table table-striped table-hover table-sm rounded"> 
@@ -45,6 +41,7 @@
                             <th>Reprezentant</th>
                             <th>Telefon</th>
                             <th>Email</th>
+                            <th>Trimite către Partener</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -72,9 +69,65 @@
                                 <td>
                                     {{ $client->email }}
                                 </td>
+                                <td style="text-align:center">                                                 
+                                    <a 
+                                        {{-- class="btn btn-danger btn-sm"  --}}
+                                        href="#" 
+                                        {{-- role="button" --}}
+                                        data-toggle="modal" 
+                                        data-target="#trimiteClient{{ $client->id }}laPartener"
+                                        title="Trimite Client la Partener"
+                                        >
+                                        {{-- <i class="far fa-trash-alt"></i> --}}
+                                        <span class="badge badge-primary">Email</span>
+                                    </a>
+                                        <div class="modal fade text-dark" id="trimiteClient{{ $client->id }}laPartener" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                
+                                            <form  class="needs-validation" novalidate method="POST" action="/service/clienti/{{ $client->id }}/trimite-email">
+                                                @csrf   
+
+                                                <div class="modal-content">
+                                                <div class="modal-header bg-primary">
+                                                    <h5 class="modal-title text-white" id="exampleModalLabel">Client: <b>{{ $client->nume }}</b></h5>
+                                                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" style="text-align:left;">
+                                                    Trimite Clientul către Partener?                                              
+                                                    <select name="partener_id" class="custom-select custom-select-sm rounded-pill {{ $errors->has('partener_id') ? 'is-invalid' : '' }}">
+                                                            <option value='' selected>Selectează partener</option>
+                                                        @foreach ($parteneri as $partener)                           
+                                                            <option value='{{ $partener->id }}'>
+                                                                {{ $partener->nume }} 
+                                                            </option>                                                
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+                                                    
+                                                        <button 
+                                                            type="submit" 
+                                                            class="btn btn-primary"  
+                                                            >
+                                                            Trimite Email
+                                                        </button>                    
+                                                    
+                                                
+                                                </div>
+                                                </div>
+
+                                            </form>
+                                            
+                                            </div>
+                                        </div>
+                                    
+                                </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $client->path() }}/modifica"
-                                        class="flex"    
+                                        class="flex mr-1"    
                                     >
                                         <span class="badge badge-primary">Modifică</span>
                                     </a>                                   

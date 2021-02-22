@@ -17,7 +17,9 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/', 'home');
     // Route::redirect('/', 'service/clienti');
 
+    Route::post('service/clienti/{client}/trimite-email', 'ServiceClientController@trimiteEmail');    
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
+
     Route::resource('service/parteneri', 'ServicePartenerController', ['names' => 'service.parteneri', 'parameters' => ['parteneri' => 'partener']]);
 
     Route::get('/service/fise/{fise}/export/word/{view_type}', 'ServiceFisaController@wordExport');
