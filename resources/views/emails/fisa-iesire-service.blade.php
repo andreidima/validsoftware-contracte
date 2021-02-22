@@ -42,7 +42,7 @@ Recenzia ta
 Te invităm să ne oferi o recenzie și individual pentru serviciile oferite.
 @php $afiseaza = false; @endphp
 @endif
-@component('mail::button', ['url' => '{{ $serviciu->link_review_google }}', 'color' => 'success'])
+@component('mail::button', ['url' => $serviciu->link_review_site, 'color' => 'success'])
 {{-- <p style="text-align: center; margin:0px; padding:0px;"> --}}
 {{ $serviciu->nume }}
 {{-- <br>
