@@ -32,7 +32,8 @@ class FisaIesireService extends Mailable
     {
         $fisa = $this->fisa;
 
-        $message = $this->markdown('emails.fisa-iesire-service');    
+        $message = $this->markdown('emails.fisa-iesire-service');   
+        // $message = $this->view('emails.fisa-iesire-service-test');     
 
         $pdf = \PDF::loadView('service.fise.export.fisa-iesire-service-pdf', compact('fisa'))
             ->setPaper('a4', 'portrait');
