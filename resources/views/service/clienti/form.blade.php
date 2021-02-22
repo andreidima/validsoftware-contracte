@@ -182,7 +182,7 @@
                                             @if (old("servicii_selectate"))
                                                 {{ in_array($serviciu->id, old("servicii_selectate")) ? "checked":"" }}
                                             @else
-                                                {{ in_array($serviciu->id, $clienti->servicii_review->pluck('id')->toArray()) ? "checked":"" }}
+                                                {{ in_array($serviciu->id, ($clienti->servicii_review ? $clienti->servicii_review->pluck('id')->toArray() : [] )) ? "checked":"" }}
                                             @endif
                                             >
                                         <label class="custom-control-label text-white px-1" for="{{ $serviciu->id }}" style="background-color:mediumseagreen;">
