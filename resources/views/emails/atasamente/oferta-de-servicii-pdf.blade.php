@@ -71,27 +71,27 @@
 
             {{-- Pagină publicitara --}}
             
-            <p style="text-align:left; font-weight: bold;">Despre noi</p>
+            <p style="text-align:left; font-weight: bold; margin:0px;">Despre noi</p>
             <p style="text-align:justify;">
                 Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. Pentru mai multe detalii legate de activitatea noastră din zona de servicii web, vă invităm să accesați secțiunea Portofoliu de la adresa <a href="https://validsoftware.ro/" target="_blank">https://validsoftware.ro</a>.
             </p>
             
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Echipă și scop</p>
+            <p style="text-align:left; font-weight: bold; margin:0px;">Echipă și scop</p>
             <p style="text-align:justify;">
                 Echipa noastră este formată din specialiști, absolvenți de studii superioare în domeniul IT, dar și în domenii conexe. Scopul nostru este furnizarea de servicii integrate, pentru a oferi clienților noștri creșterea competitivității și performanței activităților pe care le desfășoară.  
             </p>
 
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Tehnologie</p>
+            <p style="text-align:left; font-weight: bold; margin:0px;">Tehnologie</p>
             <p style="text-align:justify;">
                 Adoptăm tehnologii de ultimă oră și ne bazăm pe spiritul de inovație al colegilor noștri. Oferim calitate și eficiență, finalizând cu succes proiectele, indiferent dacă acestea implică soluții simple sau complexe.  
             </p>
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Ce vă oferim</p>
+            <p style="text-align:left; font-weight: bold; margin:0px;">Ce vă oferim</p>
                 <ul>Venim în întâmpinarea nevoilor dumneavoastră prin:<br><br>
                     <li>
                         <b>Servicii web și multumedia</b>: achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs/ locație și clipuri de prezentare, consultanță IT. 
@@ -105,7 +105,7 @@
                 </ul>
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Contact:</p>
+            <p style="text-align:left; font-weight: bold; margin:0px;">Contact:</p>
             <ul>
                 <li>
                     <a href="https://validsoftware.ro/" target="_blank">https://validsoftware.ro/</a>
