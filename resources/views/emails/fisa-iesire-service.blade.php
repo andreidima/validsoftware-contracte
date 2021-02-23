@@ -39,18 +39,16 @@ Recenzia ta
 @foreach ($fisa->servicii as $serviciu)
 @if(!in_array($serviciu->id, $fisa->client->servicii_review->pluck('id')->toArray()))
 @if($afiseaza)
-Te invităm să ne oferi o recenzie și individual pentru serviciile oferite.
+<p style="margin:0px">Te invităm să ne oferi o recenzie și individual pentru serviciile oferite:</p>
 @php $afiseaza = false; @endphp
 @endif
-@component('mail::button', ['url' => $serviciu->link_review_site, 'color' => 'success'])
-{{-- <p style="text-align: center; margin:0px; padding:0px;"> --}}
-{{ $serviciu->nume }}
-{{-- <br>
-Recenzia ta --}}
-{{-- </p> --}}
-@endcomponent
+<li>
+<a href="{{ $serviciu->link_review_site }}">{{ $serviciu->nume }} (lasă o recenzie)</a>
+</li>
 @endif
 @endforeach
+
+<br><br>
 
 Mulțumim,
 <br>
