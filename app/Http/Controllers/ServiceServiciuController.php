@@ -111,7 +111,7 @@ class ServiceServiciuController extends Controller
         return request()->validate([
             'nume' => ['required', 'max:250'],
             'pret' => ['nullable', 'between:0.01,99999.99'],
-            'link_review_site' => ['required', 'max:250']
+            'link_review_site' => ['nullable', 'max:250']
         ]);
     }
 }

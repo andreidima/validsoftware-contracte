@@ -36,7 +36,7 @@ Recenzia ta
 @endif
 
 @php $afiseaza = true; @endphp
-@foreach ($fisa->servicii as $serviciu)
+@foreach ($fisa->servicii->whereNotNull('link_review_site') as $serviciu)
 @if(!in_array($serviciu->id, $fisa->client->servicii_review->pluck('id')->toArray()))
 @if($afiseaza)
 <p style="margin:0px">Te invităm să ne oferi o recenzie și individual pentru serviciile oferite:</p>
