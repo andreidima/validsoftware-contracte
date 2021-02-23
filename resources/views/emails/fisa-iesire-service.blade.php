@@ -48,7 +48,7 @@ Recenzia ta
 @endif
 @endforeach
 
-<br><br>
+<br>
 
 Mulțumim,
 <br>
