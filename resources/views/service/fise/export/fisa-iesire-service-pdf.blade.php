@@ -137,12 +137,12 @@
                     $html .='<ul>';
                     foreach ($fisa->servicii as $serviciu) {
                         $html .= '<li>' . $serviciu->nume;
-                            if ($serviciu->pret){
-                                $html .= ' - ' . $serviciu->pret . ' RON';
-                            }
-                            if ($serviciu->recurenta){
-                                $html .= '/ ' . $serviciu->recurenta;
-                            }
+                            // if ($serviciu->pret){
+                            //     $html .= ' - ' . $serviciu->pret . ' RON';
+                            // }
+                            // if ($serviciu->recurenta){
+                            //     $html .= '/ ' . $serviciu->recurenta;
+                            // }
                         $html .= '</li>';
                     }
                     $html .='</ul>';
