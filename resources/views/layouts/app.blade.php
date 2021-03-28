@@ -128,29 +128,29 @@
                                         </a>
                                     </div>
                                 </li>
-                            @else                                
+                            @else
                                 <li class="nav-item active mr-4">
-                                        <a class="nav-link text-dark" href="{{ route('service.clienti.index') }}">
+                                        <a class="nav-link" href="{{ route('service.clienti.index') }}">
                                             <i class="fas fa-users mr-1"></i>Clienți
                                         </a>
                                 </li>
                                 <li class="nav-item active mr-4">
-                                        <a class="nav-link text-dark" href="{{ route('service.parteneri.index') }}">
+                                        <a class="nav-link" href="{{ route('service.parteneri.index') }}">
                                             <i class="fas fa-handshake mr-1"></i>Parteneri
                                         </a>
                                 </li>
                                 <li class="nav-item active mr-4">
-                                        <a class="nav-link text-dark" href="{{ route('service.fise.index') }}">
+                                        <a class="nav-link" href="{{ route('service.fise.index') }}">
                                             <i class="fas fa-file mr-1"></i>Fișe
                                         </a>
                                 </li>
                                 <li class="nav-item active mr-4">
-                                        <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
+                                        <a class="nav-link" href="{{ route('service.servicii.index') }}">
                                             <i class="fas fa-file-alt mr-1"></i>Servicii
                                         </a>
                                 </li>
                                 <li class="nav-item active mr-4">
-                                        <a class="nav-link text-dark" href="{{ route('service.anydeskuri.index') }}">
+                                        <a class="nav-link" href="{{ route('service.anydeskuri.index') }}">
                                             <i class="fas fa-network-wired mr-1"></i>AnyDesk
                                         </a>
                                 </li>
@@ -195,7 +195,7 @@
                     </div>
                 </div>
             </nav>
-            
+
             <main class="py-3">
                 @yield('content')
             </main>

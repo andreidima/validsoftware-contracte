@@ -47,6 +47,9 @@ class LoginController extends Controller
             case 'service':
                 return '/service/clienti';
                 break;
+            case 'service-voluntar':
+                return '/service/componente-pc';
+                break;
             default:
                 return '/login';
                 break;

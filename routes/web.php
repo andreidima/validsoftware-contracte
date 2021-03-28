@@ -13,11 +13,12 @@
 
 Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
+Route::middleware('role:service,admin')->group(function () {
     Route::view('/', 'home');
     // Route::redirect('/', 'service/clienti');
 
-    Route::post('service/clienti/{client}/trimite-email', 'ServiceClientController@trimiteEmail');    
+    Route::post('service/clienti/{client}/trimite-email', 'ServiceClientController@trimiteEmail');
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
 
     Route::resource('service/parteneri', 'ServicePartenerController', ['names' => 'service.parteneri', 'parameters' => ['parteneri' => 'partener']]);
@@ -38,7 +39,8 @@ Route::middleware(['auth'])->group(function () {
     // Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+// Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware('role:admin')->group(function () {
     // Route::redirect('/', 'clienti');
 
     Route::resource('clienti', 'ClientController');
@@ -85,9 +87,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
         echo \Carbon\Carbon::now()->hour;
         echo (\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9) ? 'da' : 'nu' ;
         echo (
-            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ? 
-                'Buna dimineata ' 
-                : 
+            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ?
+                'Buna dimineata '
+                :
                 (
                     ((\Carbon\Carbon::now()->hour >= 9) && (\Carbon\Carbon::now()->hour < 18)) ?
                         'Buna ziua '
