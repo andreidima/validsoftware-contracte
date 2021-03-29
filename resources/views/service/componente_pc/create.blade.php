@@ -15,7 +15,7 @@
                     style="border-radius: 0px 0px 40px 40px;"
                     id="app1"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="/service/componente-pc">
+                    <form  class="needs-validation" novalidate method="POST" action="/service/componente-pc" enctype="multipart/form-data">
 
 
                                 @include ('service/componente_pc.form', [

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ServiceComponentaPc;
 use App\ServiceComponentaPcCategorie;
+use App\ServiceComponentaPcImagine;
 
 use Illuminate\Http\Request;
 
@@ -54,7 +55,21 @@ class ServiceComponentaPcController extends Controller
      */
     public function store(Request $request)
     {
-        $componenta_pc = ServiceComponentaPc::create($this->validateRequest($request));
+        $this->validateRequest();
+        $componenta_pc = ServiceComponentaPc::create($request->except(['imagini']));
+
+        foreach ((array)$request->file('imagini') as $image) {
+            $nume = $image->getClientOriginalName();
+            $cale = '/uploads/imagini/componente_pc/' . $componenta_pc->id . '/';
+            $image->move(public_path() . $cale, $nume);
+
+            $imagine = new ServiceComponentaPcImagine;
+            $imagine->referinta_id = $componenta_pc->id;
+            $imagine->referinta_categorie = 'componenta_pc';
+            $imagine->imagine_nume = $nume;
+            $imagine->imagine_cale = $cale;
+            $imagine->save();
+        }
 
         return redirect('/service/componente-pc')->with('status',
             'Componenta "' . $componenta_pc->nume . '" a fost adăugată cu succes!');
@@ -68,7 +83,7 @@ class ServiceComponentaPcController extends Controller
      */
     public function show(ServiceComponentaPc $componenta_pc)
     {
-        //
+        return view('service.componente_pc.show', compact('componenta_pc'));
     }
 
     /**
@@ -77,11 +92,11 @@ class ServiceComponentaPcController extends Controller
      * @param  \App\ServiceComponentaPc  $componenta_pc
      * @return \Illuminate\Http\Response
      */
-    public function edit(ServiceComponentaPc $componenta_pc)
+    public function edit(Request $request, ServiceComponentaPc $componenta_pc)
     {
         $categorii = ServiceComponentaPcCategorie::orderBy('nume')->get();
 
-        return view('service.componente_pc.edit', compact('componenta_pc'), compact('categorii'));
+        return view('service.componente_pc.edit', compact('componenta_pc', 'categorii'));
     }
 
     /**
@@ -93,7 +108,21 @@ class ServiceComponentaPcController extends Controller
      */
     public function update(Request $request, ServiceComponentaPc $componenta_pc)
     {
-        $componenta_pc->update($this->validateRequest());
+        $this->validateRequest();
+        $componenta_pc->update($request->except(['imagine']));
+
+        foreach ((array)$request->file('imagini') as $image) {
+            $nume = $image->getClientOriginalName();
+            $cale = '/uploads/imagini/componente_pc/' . $componenta_pc->id . '/';
+            $image->move(public_path() . $cale, $nume);
+
+            $imagine = new ServiceComponentaPcImagine;
+            $imagine->referinta_id = $componenta_pc->id;
+            $imagine->referinta_categorie = 'componenta_pc';
+            $imagine->imagine_nume = $nume;
+            $imagine->imagine_cale = $cale;
+            $imagine->save();
+        }
 
         return redirect('/service/componente-pc')->with('status',
             'Componenta "' . $componenta_pc->nume . '" a fost modificată cu succes!');
@@ -109,8 +138,40 @@ class ServiceComponentaPcController extends Controller
     {
         $componenta_pc->delete();
 
+        foreach ($componenta_pc->imagini as $imagine) {
+            $cale_si_fisier = $imagine->imagine_cale . $imagine->imagine_nume;
+            Storage::disk('public')->delete($cale_si_fisier);
+
+            $imagine->delete();
+
+            //stergere director daca acesta este gol
+            if (empty(Storage::disk('public')->allFiles($artist->imagine->imagine_cale))) {
+                Storage::disk('public')->deleteDirectory($artist->imagine->imagine_cale);
+            }
+        }
+
         return redirect('/service/componente-pc')->with('status',
             'Componenta "' . $componenta_pc->nume . '" a fost ștearsă cu succes!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\ServiceComponentaPc  $componenta_pc
+     * @return \Illuminate\Http\Response
+     */
+    public function stergeImagine(ServiceComponentaPc $componenta_pc, ServiceComponentaPcImagine $imagine)
+    {
+        // dd($imagine->image_path);
+        Storage::disk('public')->delete($imagine->imagine_cale . $imagine->imagine_nume);
+        $imagine->delete();
+        // $exists = Storage::disk('public')->exists('/' . $imagine->image_path);
+        // $exists = Storage::disk('public')->exists('uploads/imagini/porumbei/5/Domestic-pigeon.jpg');
+
+        // dd($exists, '/' . $imagine->image_path);
+        // dd($imagine);
+
+        return back();
     }
 
     /**
@@ -122,7 +183,10 @@ class ServiceComponentaPcController extends Controller
     {
         return request()->validate([
             'nume' => 'required|max:250',
-            'categorie_id' => 'required'
+            'categorie_id' => 'required',
+            'cantitate' => 'nullable|numeric|digits_between:1,4',
+            'descriere' => 'nullable|max:1000',
+            'imagini.*' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048'
         ]);
     }
 }

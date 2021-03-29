@@ -50,6 +50,7 @@
                             <th>Nr. Crt.</th>
                             <th>Componentă Pc</th>
                             <th>Categorie</th>
+                            <th>Cantitate</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -64,6 +65,9 @@
                                 </td>
                                 <td align="">
                                     {{ $componenta_pc->categorie->nume ?? '' }}
+                                </td>
+                                <td align="">
+                                    {{ $componenta_pc->cantitate }}
                                 </td>
 
                                 <td class="d-flex justify-content-end">

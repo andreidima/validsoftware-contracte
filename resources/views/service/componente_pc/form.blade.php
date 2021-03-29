@@ -13,7 +13,7 @@
                     value="{{ old('nume') ?? $componenta_pc->nume }}"
                     required>
             </div>
-            <div class="form-group col-lg-12 ">
+            <div class="form-group col-lg-6 ">
                     <label for="categorie_id" class="mb-0 pl-3">Categorie:</label>
                     <div class="">
                         <select name="categorie_id"
@@ -28,6 +28,30 @@
                             @endforeach
                         </select>
                     </div>
+            </div>
+            <div class="form-group col-lg-6 mb-2">
+                <label for="cantitate" class="mb-0 pl-3">Cantitate:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('cantitate') ? 'is-invalid' : '' }}"
+                    name="cantitate"
+                    placeholder=""
+                    value="{{ old('cantitate') ?? $componenta_pc->cantitate }}"
+                    required>
+            </div>
+            <div class="form-group col-lg-12 mb-2">
+                <label for="descriere" class="mb-0 pl-3">Descriere:</label>
+                <textarea class="form-control form-control-sm {{ $errors->has('descriere') ? 'is-invalid' : '' }}"
+                    name="descriere" rows="2">{{ old('descriere') ?? $componenta_pc->descriere }}</textarea>
+            </div>
+            <div class="form-group col-lg-12 mb-3">
+                <label for="file" class="mb-0 pl-3">Adaugă imagini</label>
+                <input type="file" name="imagini[]" class="form-control rounded-pill py-1 pl-2"
+                    multiple=""
+                    >
+                @if($errors->has('imagini'))
+                <span class="help-block text-danger">{{ $errors->first('imagini') }}</span>
+                @endif
             </div>
         </div>
 

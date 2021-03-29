@@ -15,7 +15,7 @@
                     style="border-radius: 0px 0px 40px 40px;"
                     id="app1"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="{{ $componenta_pc->path() }}">
+                    <form  class="needs-validation" novalidate method="POST" action="{{ $componenta_pc->path() }}" enctype="multipart/form-data">
                         @method('PATCH')
 
 
@@ -24,6 +24,59 @@
                                 ])
 
                     </form>
+
+
+                    {{-- <div class="form-row px-2 py-2 mb-0 justify-content-center">
+                            @forelse ($componenta_pc->imagini as $imagine)
+                                <div class="form-group col-lg-6 mb-0 p-1 border">
+                                    <a href="{{ env('APP_URL') .$imagine->image_path }}" target="_blank">
+                                        <img src="{{ env('APP_URL') .$imagine->image_path }}" alt="" width="100%">
+                                    </a>
+                                                <div style="" class="d-flex m-auto">
+                                                    <a
+                                                        href="#"
+                                                        data-toggle="modal"
+                                                        data-target="#stergeImagine{{ $imagine->id }}"
+                                                        title="Șterge Imagine"
+                                                        >
+                                                        <span class="badge badge-danger">Șterge</span>
+                                                    </a>
+                                                        <div class="modal fade text-dark" id="stergeImagine{{ $imagine->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                <div class="modal-header bg-danger">
+                                                                    <h5 class="modal-title text-white" id="exampleModalLabel">Componenta: <b>{{ $componenta_pc->nume }}</b></h5>
+                                                                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body" style="text-align:left;">
+                                                                    Ești sigur ca vrei să ștergi imaginea? {{ $imagine->id }}
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+
+                                                                    <form method="POST" action="/service/componente-pc/sterge-imagine/{{ $imagine->id }}">
+                                                                        @method('PATCH')
+                                                                        @csrf
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn btn-danger"
+                                                                            >
+                                                                            Șterge imaginea {{ $imagine->id }}
+                                                                        </button>
+                                                                    </form>
+
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                </div>
+                            @empty
+                            @endforelse
+                    </div> --}}
+
                 </div>
             </div>
         </div>

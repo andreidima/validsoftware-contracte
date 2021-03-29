@@ -18,4 +18,9 @@ class ServiceComponentaPc extends Model
     {
         return $this->belongsTo('App\ServiceComponentaPcCategorie');
     }
+
+    public function imagini()
+    {
+        return $this->hasMany('App\ServiceComponentaPcImagine');
+    }
 }
