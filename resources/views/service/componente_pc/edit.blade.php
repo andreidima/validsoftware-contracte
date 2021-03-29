@@ -26,13 +26,13 @@
                     </form>
 
 
-                    {{-- <div class="form-row px-2 py-2 mb-0 justify-content-center">
+                    <div class="form-row px-2 py-2 mb-0 justify-content-center">
                             @forelse ($componenta_pc->imagini as $imagine)
                                 <div class="form-group col-lg-6 mb-0 p-1 border">
-                                    <a href="{{ env('APP_URL') .$imagine->image_path }}" target="_blank">
-                                        <img src="{{ env('APP_URL') .$imagine->image_path }}" alt="" width="100%">
+                                    <a href="{{ env('APP_URL') .$imagine->imagine_cale . $imagine->imagine_nume }}" target="_blank">
+                                        <img src="{{ env('APP_URL') .$imagine->imagine_cale . $imagine->imagine_nume }}" alt="" width="100%">
                                     </a>
-                                                <div style="" class="d-flex m-auto">
+                                                {{-- <div style="" class="d-flex m-auto">
                                                     <a
                                                         href="#"
                                                         data-toggle="modal"
@@ -71,11 +71,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                </div>
+                                                </div> --}}
                                 </div>
                             @empty
                             @endforelse
-                    </div> --}}
+                    </div>
 
                 </div>
             </div>

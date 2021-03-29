@@ -21,6 +21,6 @@ class ServiceComponentaPc extends Model
 
     public function imagini()
     {
-        return $this->hasMany('App\ServiceComponentaPcImagine');
+        return $this->hasmany('App\ServiceComponentaPcImagine', 'referinta_id')->where('referinta_categorie', 'componenta_pc');
     }
 }

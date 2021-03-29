@@ -13,9 +13,4 @@ class ServiceComponentaPcImagine extends Model
     {
         return "/service/componente-pc/imagini/{$this->id}";
     }
-
-    public function imagine()
-    {
-        return $this->hasmany('App\Models\ServiceComponentaPcImagine', 'referinta_id')->where('referinta_categorie', 'componenta_pc');
-    }
 }
