@@ -191,6 +191,7 @@ class ServiceComponentaPcController extends Controller
             'categorie_id' => 'required',
             'cantitate' => 'nullable|numeric|digits_between:1,4',
             'descriere' => 'nullable|max:1000',
+            'observatii' => 'nullable|max:1000',
             'imagini.*' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048'
         ]);
     }

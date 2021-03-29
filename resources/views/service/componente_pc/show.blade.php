@@ -38,10 +38,26 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Categorie
+                                    Cantitate
                                 </td>
                                 <td>
                                     {{ $componenta_pc->cantitate }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Descriere
+                                </td>
+                                <td>
+                                    {{ $componenta_pc->descriere }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Observații
+                                </td>
+                                <td>
+                                    {{ $componenta_pc->observatii }}
                                 </td>
                             </tr>
                         </table>

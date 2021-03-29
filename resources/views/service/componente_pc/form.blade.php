@@ -44,6 +44,11 @@
                 <textarea class="form-control form-control-sm {{ $errors->has('descriere') ? 'is-invalid' : '' }}"
                     name="descriere" rows="2">{{ old('descriere', $componenta_pc->descriere) }}</textarea>
             </div>
+            <div class="form-group col-lg-12 mb-2">
+                <label for="observatii" class="mb-0 pl-3">Observații:</label>
+                <textarea class="form-control form-control-sm {{ $errors->has('observatii') ? 'is-invalid' : '' }}"
+                    name="observatii" rows="2">{{ old('observatii', $componenta_pc->observatii) }}</textarea>
+            </div>
             <div class="form-group col-lg-12 mb-3">
                 <label for="file" class="mb-0 pl-3">Adaugă imagini</label>
                 <input type="file" name="imagini[]" class="form-control rounded-pill py-1 pl-2"
