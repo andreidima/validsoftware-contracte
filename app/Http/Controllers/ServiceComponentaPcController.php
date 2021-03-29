@@ -8,6 +8,8 @@ use App\ServiceComponentaPcImagine;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 class ServiceComponentaPcController extends Controller
 {
     /**
@@ -109,7 +111,7 @@ class ServiceComponentaPcController extends Controller
     public function update(Request $request, ServiceComponentaPc $componenta_pc)
     {
         $this->validateRequest();
-        $componenta_pc->update($request->except(['imagine']));
+        $componenta_pc->update($request->except(['imagini']));
 
         foreach ((array)$request->file('imagini') as $image) {
             $nume = $image->getClientOriginalName();
@@ -168,8 +170,11 @@ class ServiceComponentaPcController extends Controller
         // $exists = Storage::disk('public')->exists('/' . $imagine->image_path);
         // $exists = Storage::disk('public')->exists('uploads/imagini/porumbei/5/Domestic-pigeon.jpg');
 
-        // dd($exists, '/' . $imagine->image_path);
-        // dd($imagine);
+
+        //stergere director daca acesta este gol
+        if (empty(Storage::disk('public')->allFiles($imagine->imagine_cale))) {
+            Storage::disk('public')->deleteDirectory($imagine->imagine_cale);
+        }
 
         return back();
     }
@@ -188,5 +193,22 @@ class ServiceComponentaPcController extends Controller
             'descriere' => 'nullable|max:1000',
             'imagini.*' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048'
         ]);
+    }
+
+    public function schimbaCantitatea(Request $request, ServiceComponentaPc $componenta_pc)
+    {
+        switch ($request->input('action')) {
+            case 'minus':
+                $componenta_pc->cantitate--;
+                $componenta_pc->update();
+                return back()->with('status', 'Cantitatea componentei „' . $componenta_pc->nume . '” a fost scazută cu 1 bucată');
+                break;
+            case 'plus':
+                $componenta_pc->cantitate++;
+                $componenta_pc->update();
+                return back()->with('status', 'Cantitatea componentei „' . $componenta_pc->nume . '” a fost crescută cu 1 bucată');
+                break;
+            }
+        return back();
     }
 }

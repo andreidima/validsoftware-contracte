@@ -19,6 +19,7 @@ Route::middleware('role:service_voluntar,service,admin')->group(function () {
     Route::resource('service/componente-pc/categorii', 'ServiceComponentaPcCategorieController', ['names' => 'service.componente_pc.categorii', 'parameters' => ['categorii' => 'categorie']]);
 
     Route::any('service/componente-pc/sterge-imagine/{imagine}', 'ServiceComponentaPcController@stergeImagine');
+    Route::any('service/componente-pc/schimba-cantitatea/{componenta_pc}', 'ServiceComponentaPcController@schimbaCantitatea');
     Route::resource('service/componente-pc', 'ServiceComponentaPcController', ['names' => 'service.componente_pc', 'parameters' => ['componente-pc' => 'componenta_pc']]);
 });
 

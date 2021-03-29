@@ -10,7 +10,7 @@
                     class="form-control form-control-sm rounded-pill {{ $errors->has('nume') ? 'is-invalid' : '' }}"
                     name="nume"
                     placeholder=""
-                    value="{{ old('nume') ?? $componenta_pc->nume }}"
+                    value="{{ old('nume', $componenta_pc->nume) }}"
                     required>
             </div>
             <div class="form-group col-lg-6 ">
@@ -23,7 +23,7 @@
                             @foreach ($categorii as $categorie)
                                 <option
                                     value='{{ $categorie->id }}'
-                                    {{ ($categorie->id == old('categorie_id', ($piesa->categorie->id ?? ''))) ? 'selected' : '' }}
+                                    {{ ($categorie->id == old('categorie_id', ($componenta_pc->categorie_id))) ? 'selected' : '' }}
                                 >{{ $categorie->nume }} </option>
                             @endforeach
                         </select>
@@ -36,13 +36,13 @@
                     class="form-control form-control-sm rounded-pill {{ $errors->has('cantitate') ? 'is-invalid' : '' }}"
                     name="cantitate"
                     placeholder=""
-                    value="{{ old('cantitate') ?? $componenta_pc->cantitate }}"
+                    value="{{ old('cantitate', $componenta_pc->cantitate) }}"
                     required>
             </div>
             <div class="form-group col-lg-12 mb-2">
                 <label for="descriere" class="mb-0 pl-3">Descriere:</label>
                 <textarea class="form-control form-control-sm {{ $errors->has('descriere') ? 'is-invalid' : '' }}"
-                    name="descriere" rows="2">{{ old('descriere') ?? $componenta_pc->descriere }}</textarea>
+                    name="descriere" rows="2">{{ old('descriere', $componenta_pc->descriere) }}</textarea>
             </div>
             <div class="form-group col-lg-12 mb-3">
                 <label for="file" class="mb-0 pl-3">Adaugă imagini</label>

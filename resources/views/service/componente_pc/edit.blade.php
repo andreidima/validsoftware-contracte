@@ -32,7 +32,7 @@
                                     <a href="{{ env('APP_URL') .$imagine->imagine_cale . $imagine->imagine_nume }}" target="_blank">
                                         <img src="{{ env('APP_URL') .$imagine->imagine_cale . $imagine->imagine_nume }}" alt="" width="100%">
                                     </a>
-                                                {{-- <div style="" class="d-flex m-auto">
+                                                <div style="" class="d-flex m-auto">
                                                     <a
                                                         href="#"
                                                         data-toggle="modal"
@@ -51,7 +51,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body" style="text-align:left;">
-                                                                    Ești sigur ca vrei să ștergi imaginea? {{ $imagine->id }}
+                                                                    Ești sigur ca vrei să ștergi imaginea „{{ $imagine->imagine_nume }}”?
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
@@ -63,7 +63,7 @@
                                                                             type="submit"
                                                                             class="btn btn-danger"
                                                                             >
-                                                                            Șterge imaginea {{ $imagine->id }}
+                                                                            Șterge imaginea
                                                                         </button>
                                                                     </form>
 
@@ -71,7 +71,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                </div> --}}
+                                                </div>
                                 </div>
                             @empty
                             @endforelse

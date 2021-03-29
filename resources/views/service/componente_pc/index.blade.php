@@ -50,7 +50,7 @@
                             <th>Nr. Crt.</th>
                             <th>Componentă Pc</th>
                             <th>Categorie</th>
-                            <th>Cantitate</th>
+                            <th class="text-center">Cantitate</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -66,11 +66,30 @@
                                 <td align="">
                                     {{ $componenta_pc->categorie->nume ?? '' }}
                                 </td>
-                                <td align="">
-                                    {{ $componenta_pc->cantitate }}
+                                <td class="text-center">
+                                    <form method="POST" action="{{ url('service/componente-pc/schimba-cantitatea', $componenta_pc->id) }}">
+                                        @method('PATCH')
+                                        @csrf
+                                            <button type="submit" class="btn btn-sm p-0" name="action" value="minus">
+                                                <span class="badge badge-danger">
+                                                    <i class="fas fa-minus"></i>
+                                                </span>
+                                            </button>
+                                            {{ $componenta_pc->cantitate }}
+                                            <button type="submit" class="btn btn-sm p-0" name="action" value="plus">
+                                                <span class="badge badge-success">
+                                                    <i class="fas fa-plus"></i>
+                                                </span>
+                                            </button>
+                                    </form>
                                 </td>
 
                                 <td class="d-flex justify-content-end">
+                                    <a href="{{ $componenta_pc->path() }}"
+                                        class="flex mr-1"
+                                    >
+                                        <span class="badge badge-success">Vizualizează</span>
+                                    </a>
                                     <a href="{{ $componenta_pc->path() }}/modifica"
                                         class="flex mr-1"
                                     >
