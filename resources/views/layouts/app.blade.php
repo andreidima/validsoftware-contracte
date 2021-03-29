@@ -116,6 +116,13 @@
                                         <a class="nav-link text-dark" href="{{ route('service.anydeskuri.index') }}">
                                             <i class="fas fa-network-wired mr-1"></i>AnyDesk
                                         </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('service.componente_pc.index') }}">
+                                            <i class="fas fa-desktop mr-1"></i>Componente Pc
+                                        </a>
+                                        <a class="nav-link text-dark" href="{{ route('service.componente_pc.categorii.index') }}">
+                                            <i class="fas fa-object-group mr-1"></i>Categorii
+                                        </a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown active mr-4">
@@ -128,7 +135,7 @@
                                         </a>
                                     </div>
                                 </li>
-                            @else
+                            @elseif(auth()->user()->role === "service")
                                 <li class="nav-item active mr-4">
                                         <a class="nav-link" href="{{ route('service.clienti.index') }}">
                                             <i class="fas fa-users mr-1"></i>Clienți
@@ -152,6 +159,31 @@
                                 <li class="nav-item active mr-4">
                                         <a class="nav-link" href="{{ route('service.anydeskuri.index') }}">
                                             <i class="fas fa-network-wired mr-1"></i>AnyDesk
+                                        </a>
+                                </li>
+                                <li class="nav-item dropdown active mr-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-desktop mr-1"></i>Componente Pc
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link text-dark" href="{{ route('service.componente_pc.index') }}">
+                                            <i class="fas fa-desktop mr-1"></i>Componente Pc
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('service.componente_pc.categorii.index') }}">
+                                            <i class="fas fa-object-group mr-1"></i>Categorii
+                                        </a>
+                                    </div>
+                                </li>
+                            @elseif(auth()->user()->role === "service_voluntar")
+                                <li class="nav-item active mr-4">
+                                        <a class="nav-link" href="{{ route('service.componente_pc.index') }}">
+                                            <i class="fas fa-desktop mr-1"></i>Componente Pc
+                                        </a>
+                                </li>
+                                <li class="nav-item active mr-4">
+                                        <a class="nav-link" href="{{ route('service.componente_pc.categorii.index') }}">
+                                            <i class="fas fa-object-group mr-1"></i>Categorii
                                         </a>
                                 </li>
                             @endif

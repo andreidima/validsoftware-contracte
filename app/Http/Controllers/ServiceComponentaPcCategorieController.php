@@ -20,10 +20,10 @@ class ServiceComponentaPcCategorieController extends Controller
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
-            ->orderBy('nume')
+            ->latest()
             ->simplePaginate(25);
 
-        return view('service.componente_pc_categorii.index', compact('categorii', 'search_nume'));
+        return view('service.componente_pc.categorii.index', compact('categorii', 'search_nume'));
     }
 
     /**
@@ -53,10 +53,10 @@ class ServiceComponentaPcCategorieController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ServiceComponentaPcCategorie  $serviceServiciu
+     * @param  \App\ServiceComponentaPcCategorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function show(ServiceComponentaPcCategorie $serviceComponentaPcCategorie)
+    public function show(ServiceComponentaPcCategorie $categorie)
     {
         //
     }
@@ -64,41 +64,41 @@ class ServiceComponentaPcCategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ServiceComponentaPcCategorie  $serviceServiciu
+     * @param  \App\ServiceComponentaPcCategorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function edit(ServiceComponentaPcCategorie $serviceComponentaPcCategorie)
+    public function edit(ServiceComponentaPcCategorie $categorie)
     {
-        return view('service.componente_pc.categorii.edit', compact('serviceComponentaPcCategorie'));
+        return view('service.componente_pc.categorii.edit', compact('categorie'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ServiceComponentaPcCategorie  $serviceComponentaPcCategorie
+     * @param  \App\ServiceComponentaPcCategorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ServiceComponentaPcCategorie $serviceComponentaPcCategorie)
+    public function update(Request $request, ServiceComponentaPcCategorie $categorie)
     {
-        $serviceComponentaPcCategorie->update($this->validateRequest());
+        $categorie->update($this->validateRequest());
 
         return redirect('/service/componente-pc/categorii')->with('status',
-            'Categoria "' . $serviceComponentaPcCategorie->nume . '" a fost modificată cu succes!');
+            'Categoria "' . $categorie->nume . '" a fost modificată cu succes!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ServiceComponentaPcCategorie  $serviceComponentaPcCategorie
+     * @param  \App\ServiceComponentaPcCategorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ServiceComponentaPcCategorie $serviceComponentaPcCategorie)
+    public function destroy(ServiceComponentaPcCategorie $categorie)
     {
-        $serviceComponentaPcCategorie->delete();
+        $categorie->delete();
 
         return redirect('/service/componente-pc/categorii')->with('status',
-            'Categoria "' . $serviceComponentaPcCategorie->nume . '" a fost ștearsă cu succes!');
+            'Categoria "' . $categorie->nume . '" a fost ștearsă cu succes!');
     }
 
     /**
@@ -109,7 +109,7 @@ class ServiceComponentaPcCategorieController extends Controller
     protected function validateRequest(Request $request = null)
     {
         return request()->validate([
-            'nume' => ['required', 'max:250']
+            'nume' => 'required|max:250',
         ]);
     }
 }

@@ -4,7 +4,7 @@
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
-                <h4 class=" mb-0"><a href="{{ route('service.componente_pc.categorii.index') }}"><i class="fas fa-object-group mr-1"></i>Service - Componente PC - Categorii</a></h4>
+                <h4 class=" mb-0"><a href="{{ route('service.componente_pc.categorii.index') }}"><i class="fas fa-object-group mr-1"></i>Categorii</a></h4>
             </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.componente_pc.categorii.index') }}">
@@ -22,7 +22,7 @@
                 </form>
             </div>
             <div class="col-lg-3 text-right">
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('service.servicii.create') }}" role="button">
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('service.componente_pc.categorii.create') }}" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă categorie
                 </a>
             </div>
@@ -53,7 +53,7 @@
 
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $categorie->path() }}/modifica"
-                                        class="flex"
+                                        class="flex mr-1"
                                     >
                                         <span class="badge badge-primary">Modifică</span>
                                     </a>

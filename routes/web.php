@@ -13,9 +13,16 @@
 
 Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
+Route::middleware('role:service_voluntar,service,admin')->group(function () {
+    Route::view('/', 'home');
+
+    Route::resource('service/componente-pc/categorii', 'ServiceComponentaPcCategorieController', ['names' => 'service.componente_pc.categorii', 'parameters' => ['categorii' => 'categorie']]);
+    Route::resource('service/componente-pc', 'ServiceComponentaPcController', ['names' => 'service.componente_pc', 'parameters' => ['componente_pc' => 'componenta_pc']]);
+});
+
 // Route::middleware(['auth'])->group(function () {
 Route::middleware('role:service,admin')->group(function () {
-    Route::view('/', 'home');
+    // Route::view('/', 'home');
     // Route::redirect('/', 'service/clienti');
 
     Route::post('service/clienti/{client}/trimite-email', 'ServiceClientController@trimiteEmail');
