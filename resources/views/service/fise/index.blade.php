@@ -1,24 +1,24 @@
 @extends ('layouts.app')
 
-@section('content')   
+@section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header justify-content-between py-1" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-2 align-self-center">
                 <h4 class=" mb-0">
                     <a href="{{ route('service.fise.index') }}"><i class="fas fa-file-invoice mr-1"></i></i>Fișe service</a>
                 </h4>
-            </div> 
+            </div>
             <div class="col-lg-8 px-4" id="">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.fise.index') }}">
-                    @csrf                    
+                    @csrf
                     <div class="row input-group custom-search-form justify-content-center">
                         <div class="col-md-3 px-1">
-                            <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
+                            <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0"
                             id="search_numar_intrare" name="search_numar_intrare" placeholder="Nr intrare" autofocus
                                     value="{{ $search_numar_intrare }}">
                         </div>
                         <div class="col-md-5 px-1">
-                            <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0" 
+                            <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0"
                             id="search_nume" name="search_nume" placeholder="Client"
                                     value="{{ $search_nume }}">
                         </div>
@@ -87,13 +87,13 @@
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-12" href="{{ route('service.fise.create') }}" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă fișă
                 </a>
-            </div> 
+            </div>
 
             <div class="col-lg-12 py-1 text-center">
                 Fișe în lucru: cu plată = {{ $service_fise_cu_plata }}
                 |
                 gratuite = {{ $service_fise_gratuite }}
-            </div> 
+            </div>
         </div>
 
         <div class="card-body px-0 py-3">
@@ -101,7 +101,7 @@
             @include('errors')
 
             <div class="table-responsive rounded">
-                <table class="table table-striped table-hover table-sm rounded"> 
+                <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>Nr.</th>
@@ -112,17 +112,17 @@
                             <th class="text-center">Fișă ieșire</th>
                             <th class="text-center">Mesaje personalizate</th>
                             <th class="text-center">Fișiere</th>
-                            <th class="text-center">Acțiuni</th>                          
+                            <th class="text-center">Acțiuni</th>
                             <th class="text-center">Deschidere fișă</th>
                         </tr>
                     </thead>
-                    <tbody>               
-                        @forelse ($service_fise as $service_fisa) 
+                    <tbody>
+                        @forelse ($service_fise as $service_fisa)
                             @if (($service_fisa->mesaje_trimise_fisa_iesire->count() == 0) && ($service_fisa->sms_trimise_fisa_iesire->count() == 0))
-                            <tr style="background-color:rgb(0, 82, 82); color:white">                  
+                            <tr style="background-color:rgb(0, 82, 82); color:white">
                             @else
                             <tr>
-                            @endif                            
+                            @endif
                                 {{-- <td align="">
                                     {{ ($service_fise ->currentpage()-1) * $service_fise ->perpage() + $loop->index + 1 }}
                                 </td> --}}
@@ -131,6 +131,8 @@
                                 </td>
                                 <td>
                                     {{ $service_fisa->client->nume ?? '' }}
+                                    <br>
+                                    {{ $service_fisa->client->telefon ?? '' }}
                                 </td>
                                 {{-- <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_receptie)->isoFormat('DD.MM.YYYY') ?? '' }}
@@ -138,22 +140,22 @@
                                 {{-- <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_ridicare)->isoFormat('DD.MM.YYYY') ?? '' }}
                                 </td> --}}
-                                <td class="text-center">                                    
+                                <td class="text-center">
                                     <div class="d-flex justify-content-center">
                                         <a href="{{ $service_fisa->path() }}/export/word/fisa-word-intrare"
-                                            class="flex mr-1"    
+                                            class="flex mr-1"
                                         >
                                             <span class="badge badge-success">Word</span>
-                                        </a> 
+                                        </a>
                                         <a href="{{ $service_fisa->path() }}/export/fisa-pdf-intrare"
-                                            class="flex mr-1"    
+                                            class="flex mr-1"
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
-                                        </a> 
+                                        </a>
                                         <div style="" class="text-center">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
                                                 data-target="#trimiteEmail{{ $service_fisa->nr_intrare }}"
                                                 title="trimite email"
                                                 class="mr-1"
@@ -178,25 +180,25 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                            
+
                                                             <form method="POST" action="{{ $service_fisa->path() }}/fisa-intrare/trimite-email">
                                                                 {{-- @method('DELETE')   --}}
-                                                                @csrf   
-                                                                <button 
-                                                                    type="submit" 
-                                                                    class="btn btn-primary"  
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
                                                                     >
                                                                     Trimite email
-                                                                </button>                    
+                                                                </button>
                                                             </form>
-                                                        
+
                                                         </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div>  
+                                        </div>
                                         <div style="" class="text-center">
-                                            <a class="" data-toggle="collapse" href="#collapseSMSFisaIntrare{{ $service_fisa->id }}" role="button" 
+                                            <a class="" data-toggle="collapse" href="#collapseSMSFisaIntrare{{ $service_fisa->id }}" role="button"
                                                 aria-expanded="false" aria-controls="collapseSMSFisaIntrare{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
                                                         <span class="badge badge-light" title="SMS-uri trimise până acum">
@@ -204,26 +206,26 @@
                                                         </span>
                                                     </span>
                                             </a>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="text-center">             
+                                <td class="text-center">
                                     {{-- <div class="d-flex justify-content-center align-items-end">    --}}
-                                    <div class="d-flex justify-content-center">                     
+                                    <div class="d-flex justify-content-center">
                                         <a href="{{ $service_fisa->path() }}/export/word/fisa-word-iesire"
-                                            class="mr-1"    
+                                            class="mr-1"
                                         >
                                             <span class="badge badge-success">Word</span>
-                                        </a>                                        
+                                        </a>
                                         <a href="{{ $service_fisa->path() }}/export/fisa-pdf-iesire"
-                                            class="mr-1"    
+                                            class="mr-1"
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a>
                                         <div style="" class="text-center">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
                                                 data-target="#trimiteEmail{{ $service_fisa->nr_iesire }}"
                                                 title="trimite email"
                                                 class="mr-1"
@@ -248,25 +250,25 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                            
+
                                                             <form method="POST" action="{{ $service_fisa->path() }}/fisa-iesire/trimite-email">
                                                                 {{-- @method('DELETE')   --}}
-                                                                @csrf   
-                                                                <button 
-                                                                    type="submit" 
-                                                                    class="btn btn-primary"  
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
                                                                     >
                                                                     Trimite email
-                                                                </button>                    
+                                                                </button>
                                                             </form>
-                                                        
+
                                                         </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div>  
+                                        </div>
                                         <div style="" class="text-center">
-                                            <a class="" data-toggle="collapse" href="#collapseSMSFisaIesire{{ $service_fisa->id }}" role="button" 
+                                            <a class="" data-toggle="collapse" href="#collapseSMSFisaIesire{{ $service_fisa->id }}" role="button"
                                                 aria-expanded="false" aria-controls="collapseSMSFisaIesire{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
                                                         <span class="badge badge-light" title="SMS-uri trimise până acum">
@@ -274,19 +276,19 @@
                                                         </span>
                                                     </span>
                                             </a>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="text-center">   
-                                            <a class="mr-1" data-toggle="collapse" href="#collapseEmailFisaPersonalizat{{ $service_fisa->id }}" role="button" 
+                                <td class="text-center">
+                                            <a class="mr-1" data-toggle="collapse" href="#collapseEmailFisaPersonalizat{{ $service_fisa->id }}" role="button"
                                                 aria-expanded="false" aria-controls="collapseEmailFisaPersonalizat{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">Email
                                                         <span class="badge badge-light" title="Email-uri trimise până acum">
                                                             {{ $service_fisa->emailuri_trimise_fisa_personalizat()->count() }}
                                                         </span>
                                                     </span>
-                                            </a>                    
-                                            <a class="" data-toggle="collapse" href="#collapseSMSFisaPersonalizat{{ $service_fisa->id }}" role="button" 
+                                            </a>
+                                            <a class="" data-toggle="collapse" href="#collapseSMSFisaPersonalizat{{ $service_fisa->id }}" role="button"
                                                 aria-expanded="false" aria-controls="collapseSMSFisaPersonalizat{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
                                                         <span class="badge badge-light" title="SMS-uri trimise până acum">
@@ -295,21 +297,21 @@
                                                     </span>
                                             </a>
                                 </td>
-                                <td class="text-center">                              
+                                <td class="text-center">
                                     <div style="flex" class="">
-                                        @if ($service_fisa->fisiere_count > 0)    
-                                            <a class="" data-toggle="collapse" href="#collapseFisiere{{ $service_fisa->id }}" role="button" 
+                                        @if ($service_fisa->fisiere_count > 0)
+                                            <a class="" data-toggle="collapse" href="#collapseFisiere{{ $service_fisa->id }}" role="button"
                                                 aria-expanded="false" aria-controls="collapseFisiere{{ $service_fisa->id }}">
                                                 <span class="badge badge-primary">{{ $service_fisa->fisiere_count }}</span>
                                             </a>
                                         @else
                                             <span class="badge badge-secondary">0</span>
-                                        @endif  
-                                        <a 
+                                        @endif
+                                        <a
                                             {{-- class="btn btn-danger btn-sm"  --}}
-                                            href="#" 
+                                            href="#"
                                             {{-- role="button" --}}
-                                            data-toggle="modal" 
+                                            data-toggle="modal"
                                             data-target="#incarcaFisier{{ $service_fisa->id }}"
                                             title="incarca Fisier"
                                             >
@@ -321,7 +323,7 @@
                                                     <div class="modal-content">
                                                     <div class="modal-header bg-success">
                                                         <h5 class="modal-title text-white" id="exampleModalLabel">
-                                                            Adaugă un fișier la Fișa de service: 
+                                                            Adaugă un fișier la Fișa de service:
                                                             <b>{{ $service_fisa->nr_intrare }}</b>
                                                             -
                                                             <b>{{ $service_fisa->nr_iesire }}</b>
@@ -336,11 +338,11 @@
                                                         <form action="{{ route('service.file.upload.post', $service_fisa->id) }}" method="POST" enctype="multipart/form-data">
                                                             @csrf
 
-                                                            <div class="row">                                                
+                                                            <div class="row">
                                                                 <div class="col-md-12 d-flex">
                                                                     <input type="file" name="fisier" class="form-control py-1">
                                                                     <button type="submit" class="btn btn-success">Upload</button>
-                                                                </div>                                                
+                                                                </div>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -351,20 +353,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div> 
+                                    </div>
                                 </td>
-                                <td class="text-right"> 
+                                <td class="text-right">
                                     <div class="d-flex justify-content-end">
                                         <a href="{{ $service_fisa->path() }}"
-                                            class="flex mr-1"    
+                                            class="flex mr-1"
                                         >
                                             <span class="badge badge-success">Vizualizează</span>
-                                        </a> 
+                                        </a>
                                         <a href="{{ $service_fisa->path() }}/modifica"
-                                            class="flex mr-1"    
+                                            class="flex mr-1"
                                         >
                                             <span class="badge badge-primary">Modifică</span>
-                                        </a>                                   
+                                        </a>
                                         {{-- <a href="/produse/generare-factura-client/{{ $factura->id }}/export-pdf"
                                         >
                                             <span class="badge badge-success">
@@ -372,9 +374,9 @@
                                             </span>
                                         </a>                                     --}}
                                         <div style="" class="">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
                                                 data-target="#stergeFișa{{ $service_fisa->id }}"
                                                 title="Șterge Fișa"
                                                 >
@@ -394,23 +396,23 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                            
+
                                                             <form method="POST" action="{{ $service_fisa->path() }}">
-                                                                @method('DELETE')  
-                                                                @csrf   
-                                                                <button 
-                                                                    type="submit" 
-                                                                    class="btn btn-danger"  
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-danger"
                                                                     >
                                                                     Șterge Fișa
-                                                                </button>                    
+                                                                </button>
                                                             </form>
-                                                        
+
                                                         </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </td>
                                 <td class="text-right align-center">
@@ -420,16 +422,16 @@
                                         @endisset
                                     </small>
                                 </td>
-                            </tr> 
-                            <tr class="collapse bg-white" id="collapseSMSFisaIntrare{{ $service_fisa->id }}" 
+                            </tr>
+                            <tr class="collapse bg-white" id="collapseSMSFisaIntrare{{ $service_fisa->id }}"
                                 {{-- style="background-color:cornsilk" --}}
                             >
                                 <td colspan="10">
                                     <table class="table table-sm table-striped table-hover col-lg-9 mx-auto border"
                                 {{-- style="background-color:#008282" --}}
-                                    > 
+                                    >
                                         <tr>
-                                            <th colspan="4" class="text-center"> 
+                                            <th colspan="4" class="text-center">
                                                 SMS-uri Fișă Intrare
                                             </th>
                                         </tr>
@@ -458,7 +460,7 @@
                                                 <td class="py-0">
                                                     {{ $sms->mesaj }}
                                                 </td>
-                                                <td class="py-0 text-center">                                                    
+                                                <td class="py-0 text-center">
                                                     @if ($sms->trimis === 1)
                                                         <span class="text-success">DA</span>
                                                     @else
@@ -469,7 +471,7 @@
                                                     {{ \Carbon\Carbon::parse($sms->created_at)->isoFormat('HH:mm DD.MM.YYYY') ?? '' }}
                                                 </td>
                                             </tr>
-                                        @empty                                            
+                                        @empty
                                             <tr>
                                                 <td colspan="4" class="py-0">
                                                     Nu au fost trimise SMS-uri pentru Fișa Intrare Service / Nr. {{ $service_fisa->nr_intrare }}
@@ -478,9 +480,9 @@
                                         @endforelse
                                     </table>
                                         <div style="" class="text-center mb-4">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
                                                 data-target="#trimiteSMS{{ $service_fisa->nr_intrare }}"
                                                 title="trimite sms"
                                                 >
@@ -501,21 +503,21 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                            
-                                                            <form method="POST" 
+
+                                                            <form method="POST"
                                                                 action="/trimite-sms/{{
                                                                         'Fise'
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         'Intrare'
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         $service_fisa->id
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         $service_fisa->client->telefon ?? '0'
                                                                     }}/{{
                                                                         (
-                                                                            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ? 
-                                                                                'Buna dimineata ' 
-                                                                                : 
+                                                                            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ?
+                                                                                'Buna dimineata '
+                                                                                :
                                                                                 (
                                                                                     ((\Carbon\Carbon::now()->hour >= 9) && (\Carbon\Carbon::now()->hour < 18)) ?
                                                                                         'Buna ziua '
@@ -536,36 +538,36 @@
                                                                         ) .
                                                                         'O zi placuta!'
                                                                     }}">
-                                                                
-                                                                @csrf   
-                                                                <button 
-                                                                    type="submit" 
-                                                                    class="btn btn-primary"  
+
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
                                                                     >
                                                                     Trimite sms
-                                                                </button>                    
+                                                                </button>
                                                             </form>
-                                                        
+
                                                         </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div> 
+                                        </div>
                                 </td>
                             </tr>
                             <tr class="collapse">
-                                <td colspan="10">  
+                                <td colspan="10">
                                 </td>
                             </tr>
-                            <tr class="collapse bg-white" id="collapseSMSFisaIesire{{ $service_fisa->id }}" 
+                            <tr class="collapse bg-white" id="collapseSMSFisaIesire{{ $service_fisa->id }}"
                                 {{-- style="background-color:cornsilk" --}}
                             >
                                 <td colspan="10">
                                     <table class="table table-sm table-striped table-hover col-lg-9 mx-auto border"
                                 {{-- style="background-color:#008282" --}}
-                                    > 
+                                    >
                                         <tr>
-                                            <th colspan="4" class="text-center"> 
+                                            <th colspan="4" class="text-center">
                                                 SMS-uri Fișă Ieșire
                                             </th>
                                         </tr>
@@ -594,7 +596,7 @@
                                                 <td class="py-0">
                                                     {{ $sms->mesaj }}
                                                 </td>
-                                                <td class="py-0 text-center">                                                    
+                                                <td class="py-0 text-center">
                                                     @if ($sms->trimis === 1)
                                                         <span class="text-success">DA</span>
                                                     @else
@@ -605,7 +607,7 @@
                                                     {{ \Carbon\Carbon::parse($sms->created_at)->isoFormat('HH:mm DD.MM.YYYY') ?? '' }}
                                                 </td>
                                             </tr>
-                                        @empty                                            
+                                        @empty
                                             <tr>
                                                 <td colspan="4" class="py-0">
                                                     Nu au fost trimise SMS-uri pentru Fișa Ieșire Service / Nr. {{ $service_fisa->nr_iesire }}
@@ -614,9 +616,9 @@
                                         @endforelse
                                     </table>
                                         <div style="" class="text-center mb-4">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
                                                 data-target="#trimiteSMS{{ $service_fisa->nr_iesire }}"
                                                 title="trimite sms"
                                                 >
@@ -637,21 +639,21 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                            
-                                                            <form method="POST" 
+
+                                                            <form method="POST"
                                                                 action="/trimite-sms/{{
                                                                         'Fise'
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         'Ieșire'
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         $service_fisa->id
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         $service_fisa->client->telefon ?? '0'
                                                                     }}/{{
                                                                         (
-                                                                            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ? 
-                                                                                'Buna dimineata ' 
-                                                                                : 
+                                                                            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ?
+                                                                                'Buna dimineata '
+                                                                                :
                                                                                 (
                                                                                     ((\Carbon\Carbon::now()->hour >= 9) && (\Carbon\Carbon::now()->hour < 18)) ?
                                                                                         'Buna ziua '
@@ -669,36 +671,36 @@
                                                                         ) .
                                                                         'O zi placuta!'
                                                                     }}">
-                                                                
-                                                                @csrf   
-                                                                <button 
-                                                                    type="submit" 
-                                                                    class="btn btn-primary"  
+
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
                                                                     >
                                                                     Trimite sms
-                                                                </button>                    
+                                                                </button>
                                                             </form>
-                                                        
+
                                                         </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div> 
+                                        </div>
                                 </td>
                             </tr>
                             <tr class="collapse">
-                                <td colspan="10">  
+                                <td colspan="10">
                                 </td>
                             </tr>
-                            <tr class="collapse bg-white" id="collapseEmailFisaPersonalizat{{ $service_fisa->id }}" 
+                            <tr class="collapse bg-white" id="collapseEmailFisaPersonalizat{{ $service_fisa->id }}"
                                 {{-- style="background-color:cornsilk" --}}
                             >
                                 <td colspan="10">
                                     <table class="table table-sm table-striped table-hover col-lg-9 mx-auto border"
                                 {{-- style="background-color:#008282" --}}
-                                    > 
+                                    >
                                         <tr>
-                                            <th colspan="2" class="text-center"> 
+                                            <th colspan="2" class="text-center">
                                                 Email-uri Fișă Personalizate
                                             </th>
                                         </tr>
@@ -722,7 +724,7 @@
                                                     {{ \Carbon\Carbon::parse($email->created_at)->isoFormat('HH:mm DD.MM.YYYY') ?? '' }}
                                                 </td>
                                             </tr>
-                                        @empty                                            
+                                        @empty
                                             <tr>
                                                 <td colspan="4" class="py-0">
                                                     Nu au fost trimise Email-uri personalizate pentru această Fișă pentru clientul {{ $service_fisa->client->nume ?? '' }}
@@ -731,9 +733,9 @@
                                         @endforelse
                                     </table>
                                         <div style="" class="text-center mb-4">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
                                                 data-target="#trimiteEmailPersonalizat{{ $service_fisa->id }}"
                                                 title="trimite email"
                                                 >
@@ -750,59 +752,59 @@
                                                             </button>
                                                         </div>
 
-                                                        
-                                                            <form method="POST" 
-                                                                action="{{ $service_fisa->path() 
-                                                                    }}/{{ 
+
+                                                            <form method="POST"
+                                                                action="{{ $service_fisa->path()
+                                                                    }}/{{
                                                                         'email-personalizat'
                                                                     }}/{{
                                                                         'trimite-email'
                                                                     }}">
 
                                                                 <div class="modal-body" style="text-align:left;">
-                                                                    <div class="form-group col-lg-12 mb-4">  
+                                                                    <div class="form-group col-lg-12 mb-4">
                                                                         <label for="sms_personalizat" class="mb-0 pl-3">Text Email:</label>
-                                                                        <textarea class="form-control {{ $errors->has('email_personalizat') ? 'is-invalid' : '' }}" 
+                                                                        <textarea class="form-control {{ $errors->has('email_personalizat') ? 'is-invalid' : '' }}"
                                                                             name="email_personalizat"
                                                                             rows="8"
                                                                             ></textarea>
-                                                                    </div> 
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                                
-                                                                        
-                                                                        @csrf  
 
-                                                                        <button 
-                                                                            type="submit" 
-                                                                            class="btn btn-primary"  
+
+                                                                        @csrf
+
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn btn-primary"
                                                                             >
                                                                             Trimite email
-                                                                        </button>      
-                                                                </div>              
+                                                                        </button>
+                                                                </div>
                                                             </form>
-                                                        
+
                                                         </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div> 
+                                        </div>
                                 </td>
                             </tr>
                             <tr class="collapse">
-                                <td colspan="10">  
+                                <td colspan="10">
                                 </td>
                             </tr>
-                            <tr class="collapse bg-white" id="collapseSMSFisaPersonalizat{{ $service_fisa->id }}" 
+                            <tr class="collapse bg-white" id="collapseSMSFisaPersonalizat{{ $service_fisa->id }}"
                                 {{-- style="background-color:cornsilk" --}}
                             >
                                 <td colspan="10">
                                     <table class="table table-sm table-striped table-hover col-lg-9 mx-auto border"
                                 {{-- style="background-color:#008282" --}}
-                                    > 
+                                    >
                                         <tr>
-                                            <th colspan="4" class="text-center"> 
+                                            <th colspan="4" class="text-center">
                                                 SMS-uri Fișă Personalizate
                                             </th>
                                         </tr>
@@ -831,7 +833,7 @@
                                                 <td class="py-0">
                                                     {{ $sms->mesaj }}
                                                 </td>
-                                                <td class="py-0 text-center">                                                    
+                                                <td class="py-0 text-center">
                                                     @if ($sms->trimis === 1)
                                                         <span class="text-success">DA</span>
                                                     @else
@@ -842,7 +844,7 @@
                                                     {{ \Carbon\Carbon::parse($sms->created_at)->isoFormat('HH:mm DD.MM.YYYY') ?? '' }}
                                                 </td>
                                             </tr>
-                                        @empty                                            
+                                        @empty
                                             <tr>
                                                 <td colspan="4" class="py-0">
                                                     Nu au fost trimise SMS-uri personalizate pentru această Fișă pentru clientul {{ $service_fisa->client->nume ?? '' }}
@@ -851,9 +853,9 @@
                                         @endforelse
                                     </table>
                                         <div style="" class="text-center mb-4">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
                                                 data-target="#trimiteSMSPersonalizat{{ $service_fisa->id }}"
                                                 title="trimite sms"
                                                 >
@@ -870,31 +872,31 @@
                                                             </button>
                                                         </div>
 
-                                                        
-                                                            <form method="POST" 
+
+                                                            <form method="POST"
                                                                 action="/trimite-sms/{{
                                                                         'Fise'
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         'Personalizat'
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         $service_fisa->id
-                                                                    }}/{{ 
+                                                                    }}/{{
                                                                         $service_fisa->client->telefon ?? '0'
                                                                     }}/{{
                                                                         'sms_personalizat'
                                                                     }}">
 
                                                                 <div class="modal-body" style="text-align:left;">
-                                                                    <div class="form-group col-lg-12 mb-2" id="sms-personalizat">  
-                                                                        <label for="sms_personalizat" class="mb-0 pl-3">Text SMS:</label>                                      
-                                                                        {{-- <input 
-                                                                            type="text" 
-                                                                            class="form-control form-control-sm rounded-pill {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}" 
-                                                                            name="sms_personalizat" 
-                                                                            placeholder="" 
+                                                                    <div class="form-group col-lg-12 mb-2" id="sms-personalizat">
+                                                                        <label for="sms_personalizat" class="mb-0 pl-3">Text SMS:</label>
+                                                                        {{-- <input
+                                                                            type="text"
+                                                                            class="form-control form-control-sm rounded-pill {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}"
+                                                                            name="sms_personalizat"
+                                                                            placeholder=""
                                                                             value="{{ old('sms_personalizat') }}"
                                                                             required>            --}}
-                                                                        <textarea class="form-control mb-1 {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}" 
+                                                                        <textarea class="form-control mb-1 {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}"
                                                                             name="sms_personalizat"
                                                                             rows="4"
                                                                             {{-- placeholder="Observații" --}}
@@ -902,40 +904,40 @@
                                                                             ></textarea>
                                                                         <div class="text-right">
                                                                             <label for="nr_caractere" class="mb-0 pl-3">Nr. caractere:</label>
-                                                                            <input class="text-right" 
+                                                                            <input class="text-right"
                                                                                 style="width:40px"
-                                                                                v-model="caractere" 
+                                                                                v-model="caractere"
                                                                                 readonly>
                                                                         </div>
-                                                                    </div> 
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                                
-                                                                        
-                                                                        @csrf  
 
-                                                                        <button 
-                                                                            type="submit" 
-                                                                            class="btn btn-primary"  
+
+                                                                        @csrf
+
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn btn-primary"
                                                                             >
                                                                             Trimite sms
-                                                                        </button>      
-                                                                </div>              
+                                                                        </button>
+                                                                </div>
                                                             </form>
-                                                        
+
                                                         </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div> 
-                                </td>
-                            </tr> 
-                            <tr class="collapse">
-                                <td colspan="10">  
+                                        </div>
                                 </td>
                             </tr>
-                            <tr class="collapse bg-white" id="collapseFisiere{{ $service_fisa->id }}" 
+                            <tr class="collapse">
+                                <td colspan="10">
+                                </td>
+                            </tr>
+                            <tr class="collapse bg-white" id="collapseFisiere{{ $service_fisa->id }}"
                             >
                                 <td colspan="8">
                                     <table class="table table-sm table-striped table-hover col-lg-8 mx-auto border">
@@ -963,17 +965,17 @@
                                                 </td>
                                                 <td class="py-0 d-flex justify-content-end">
                                                                     <form method="POST" action="{{ route('service.file.download', $fisier->id) }}">
-                                                                        @csrf   
-                                                                        <button 
-                                                                            type="submit" 
-                                                                            class="btn btn-link py-0"  
+                                                                        @csrf
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn btn-link py-0"
                                                                             >
                                                                             <span class="badge badge-success">Descarcă</span>
-                                                                        </button>                    
+                                                                        </button>
                                                                     </form>
-                                                    <a 
-                                                        href="#" 
-                                                        data-toggle="modal" 
+                                                    <a
+                                                        href="#"
+                                                        data-toggle="modal"
                                                         data-target="#stergeFisier{{ $fisier->id }}"
                                                         title="Șterge Fisier"
                                                         >
@@ -993,33 +995,33 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                                    
+
                                                                     <form method="POST" action="{{ $fisier->path() }}">
-                                                                        @method('DELETE')  
-                                                                        @csrf   
-                                                                        <button 
-                                                                            type="submit" 
-                                                                            class="btn btn-danger"  
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn btn-danger"
                                                                             >
                                                                             Șterge Fișier
-                                                                        </button>                    
+                                                                        </button>
                                                                     </form>
-                                                                
+
                                                                 </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                 </td>
-                                            </tr>                                            
+                                            </tr>
                                         @empty
-                                            
+
                                         @endforelse
                                         </tbody>
                                     </table>
                                 </td>
-                            </tr> 
+                            </tr>
                             <tr class="collapse">
-                                <td colspan="10">  
+                                <td colspan="10">
                                 </td>
                             </tr>
                         @empty
