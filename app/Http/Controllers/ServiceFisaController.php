@@ -39,17 +39,17 @@ class ServiceFisaController extends Controller
         $service_fise = ServiceFisa::with('mesaje_trimise_fisa_iesire')
             ->leftJoin('service_clienti', 'service_fise.client_id', '=', 'service_clienti.id')
             ->select(
-                'service_fise.*', 
-                'service_clienti.nume',                
-                'service_clienti.nr_ord_reg_com',                
-                'service_clienti.cui',                
-                'service_clienti.adresa',                
-                'service_clienti.iban',                
-                'service_clienti.banca',                
-                'service_clienti.reprezentant',                
-                'service_clienti.reprezentant_functie',                
-                'service_clienti.telefon',                
-                'service_clienti.email',                
+                'service_fise.*',
+                'service_clienti.nume',
+                'service_clienti.nr_ord_reg_com',
+                'service_clienti.cui',
+                'service_clienti.adresa',
+                'service_clienti.iban',
+                'service_clienti.banca',
+                'service_clienti.reprezentant',
+                'service_clienti.reprezentant_functie',
+                'service_clienti.telefon',
+                'service_clienti.email',
                 'service_clienti.site_web'
             )
             ->when($search_numar_intrare, function ($query, $search_numar_intrare) {
@@ -62,10 +62,10 @@ class ServiceFisaController extends Controller
             ->where(function ($query) use ($search_cu_plata, $search_gratuit) {
                 if ($search_cu_plata == '1'){
                     if ($search_gratuit == '1'){
-                        $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile 
+                        $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
                     } else if ($search_gratuit == '0'){
-                        $query->where('service_fise.cost', '<>', 0);   
-                    }            
+                        $query->where('service_fise.cost', '<>', 0);
+                    }
                 } else if ($search_cu_plata == '0'){
                     if ($search_gratuit == '1'){
                         $query->where('cost', 0);
@@ -80,12 +80,12 @@ class ServiceFisaController extends Controller
                     if ($search_finalizate == '1'){
                         $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
                     } else if ($search_finalizate == '0'){
-                        $query->whereDoesntHave('mesaje_trimise_fisa_iesire')    
+                        $query->whereDoesntHave('mesaje_trimise_fisa_iesire')
                             ->whereDoesntHave('sms_trimise_fisa_iesire');
-                    }            
+                    }
                 } else if ($search_in_lucru == '0'){
                     if ($search_finalizate == '1'){
-                        $query->whereHas('mesaje_trimise_fisa_iesire')    
+                        $query->whereHas('mesaje_trimise_fisa_iesire')
                             ->orwhereHas('sms_trimise_fisa_iesire');
                     } else if ($search_finalizate == '0'){
                         $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
@@ -99,7 +99,7 @@ class ServiceFisaController extends Controller
                         $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
                     } else if ($search_donatie == '0'){
                         $query->where('service_fise.donatie', 0);
-                    }            
+                    }
                 } else if ($search_service == '0'){
                     if ($search_donatie == '1'){
                         $query->where('service_fise.donatie', 1);
@@ -129,7 +129,7 @@ class ServiceFisaController extends Controller
             ->where('cost', 0)
             ->count();
 
-        return view('service.fise.index', compact('service_fise', 'search_numar_intrare', 
+        return view('service.fise.index', compact('service_fise', 'search_numar_intrare',
             'search_nume', 'search_cu_plata', 'search_gratuit', 'search_in_lucru', 'search_finalizate', 'search_donatie', 'search_service',
             'service_fise_cu_plata', 'service_fise_gratuite'));
     }
@@ -169,14 +169,14 @@ class ServiceFisaController extends Controller
         $service_fisa = ServiceFisa::make($this->validateRequestFisa($request));
         $service_fisa->client_id = $client->id;
         $service_fisa->save();
-        
+
         $service_fisa->servicii()->attach($request->input('servicii_selectate'));
-        
+
         // Dubla Incrementare nr_document
         \App\Variabila::Nr_document();
         \App\Variabila::Nr_document();
 
-        return redirect($service_fisa->path())->with('status', 
+        return redirect($service_fisa->path())->with('status',
             'Fișa de service pentru clientul "' . ($service_fisa->client->nume ?? '') . '", a fost adăugată cu succes!');
     }
 
@@ -224,10 +224,11 @@ class ServiceFisaController extends Controller
         }
 
         $fise->update($this->validateRequestFisa($request, $fise));
-        
+        $fise->update(['client_id' => $client->id]);
+
         $fise->servicii()->sync($request->input('servicii_selectate'));
 
-        return redirect($fise->path())->with('status', 
+        return redirect($fise->path())->with('status',
             'Fișa de service pentru clientul "' . ($fise->client->nume ?? '') . '", a fost modificată cu succes!');
     }
 
@@ -299,7 +300,7 @@ class ServiceFisaController extends Controller
      * @return array
      */
     protected function trimiteEmail(Request $request, ServiceFisa $fisa)
-    {   
+    {
         // Verificare daca exista email CLIENT corect catre care sa se trimita mesajul.
         // In cazul in care se trimite email catre partener, emailul catre client nu este obligatoriu
         if ($request->tip_fisa !== 'email-partener-si-client') {
@@ -324,17 +325,17 @@ class ServiceFisaController extends Controller
                                 ->withInput();
                 }
             }
-            
+
                 // Verificare daca emailul partenerului este corect
                 $validator = Validator::make($fisa->partener->toArray(), [
                     'email' => ['email:rfc,dns']
                 ]);
-                if ($validator->fails()) { 
+                if ($validator->fails()) {
                     return back()
                         // ->withErrors($validator)
                         ->withErrors('Emailul Partenerului nu este o adresă de e-mail validă.')
                         ->withInput();
-                }            
+                }
         }
 
         // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
@@ -345,11 +346,11 @@ class ServiceFisaController extends Controller
         // Trimiterea mesajului
         if ($request->tip_fisa === 'fisa-intrare'){
             \Mail::mailer('service')
-                ->to($fisa->client->email)                       
+                ->to($fisa->client->email)
                 ->bcc($emailuri_bcc)
                 ->send(
                     new FisaIntrareService($fisa)
-                );              
+                );
             $mesaj_trimis = new \App\MesajTrimis;
             $mesaj_trimis->inregistrare_id = $fisa->id;
             $mesaj_trimis->categorie = 'Fise';
@@ -358,16 +359,16 @@ class ServiceFisaController extends Controller
             return back()->with('status', 'Emailul cu „Fișa de intrare nr. ' . $fisa->nr_intrare . '” a fost trimis către „' . $fisa->client->email . '” cu succes!');
         } elseif ($request->tip_fisa === 'fisa-iesire'){
             \Mail::mailer('service')
-                ->to($fisa->client->email)                       
+                ->to($fisa->client->email)
                 ->bcc($emailuri_bcc)
                 ->send(
                     new FisaIesireService($fisa)
-                ); 
+                );
             $mesaj_trimis = new \App\MesajTrimis;
             $mesaj_trimis->inregistrare_id = $fisa->id;
             $mesaj_trimis->categorie = 'Fise';
             $mesaj_trimis->subcategorie = 'Iesire';
-            $mesaj_trimis->save();       
+            $mesaj_trimis->save();
             return back()->with('status', 'Emailul cu „Fișa de ieșire nr. ' . $fisa->nr_iesire . '” a fost trimis către „' . $fisa->client->email . '” cu succes!');
         } elseif ($request->tip_fisa === 'email-personalizat') {
             $email_text = $request->email_personalizat;
@@ -410,10 +411,10 @@ class ServiceFisaController extends Controller
                 $mesaj_trimis->inregistrare_id = $fisa->id;
                 $mesaj_trimis->categorie = 'Fise';
                 $mesaj_trimis->subcategorie = 'PartenerClient';
-                $mesaj_trimis->save(); 
+                $mesaj_trimis->save();
             }
-            
-            return back()->with('status', 'Emailurile către client (' . $fisa->client->email . ') și către partener (' . $fisa->partener->email . ') au fost trimise cu succes!'); 
+
+            return back()->with('status', 'Emailurile către client (' . $fisa->client->email . ') și către partener (' . $fisa->partener->email . ') au fost trimise cu succes!');
         }
 
     }
@@ -424,16 +425,16 @@ class ServiceFisaController extends Controller
      * @return array
      */
     protected function pdfExport(Request $request, ServiceFisa $fise)
-    {   
+    {
         $fisa = $fise;
         if ($request->view_type === 'fisa-pdf-intrare') {
             $pdf = \PDF::loadView('service.fise.export.fisa-intrare-service-pdf', compact('fisa'))
                 ->setPaper('a4', 'portrait');
             if ($fisa->consultanta_it === 1) {
-                return $pdf->download('Fisa intrare consultanta nr. ' . $fisa->nr_intrare . '.pdf');  
+                return $pdf->download('Fisa intrare consultanta nr. ' . $fisa->nr_intrare . '.pdf');
             } else {
                 return $pdf->download('Fisa intrare service nr. ' . $fisa->nr_intrare . '.pdf');
-            }      
+            }
         }elseif ($request->view_type === 'fisa-pdf-iesire') {
             $pdf = \PDF::loadView('service.fise.export.fisa-iesire-service-pdf', compact('fisa'))
                 ->setPaper('a4', 'portrait');
@@ -441,7 +442,7 @@ class ServiceFisaController extends Controller
                 return $pdf->download('Fisa iesire consultanta nr. ' . $fisa->nr_intrare . '.pdf');
             } else {
                 return $pdf->download('Fisa iesire service nr. ' . $fisa->nr_intrare . '.pdf');
-            }   
+            }
         }
     }
 
@@ -515,7 +516,7 @@ class ServiceFisaController extends Controller
                 (isset($fise->client->reprezentant) ? ', Reprezentant ' . ($fise->client->reprezentant) : '') .
                 (isset($fise->client->reprezentant_functie) ? ', în funcția de ' . ($fise->client->reprezentant_functie) : '') .
                 (isset($fise->client->telefon) ? ', telefon: ' . ($fise->client->telefon) : '') .
-                (isset($fise->client->email) ? ', email: ' . ($fise->client->email) : '') . 
+                (isset($fise->client->email) ? ', email: ' . ($fise->client->email) : '') .
                 (isset($fise->client->site_web) ? ', site web: ' . ($fise->client->site_web) : '') .
                 '.</p>';
             $html .= '<br />';
@@ -540,7 +541,7 @@ class ServiceFisaController extends Controller
             //                 <td style="width:50%" align="center"><b>Beneficiar,</b>
             //                     <br/>' . $fise->client->nume .
             //                     '<br /><br />' . $fise->client->reprezentant_functie .
-            //                     '<br />' . $fise->client->reprezentant . '</td>                            
+            //                     '<br />' . $fise->client->reprezentant . '</td>
             //                 <td style="width:30%" align="center"><b>Prestator,</b>
             //                     <br/>Dima P. Valentin PFA
             //                     <br/>
@@ -567,13 +568,13 @@ class ServiceFisaController extends Controller
                             <td style="width:50%; page-break-inside: avoid;" align="center"><b>Beneficiar,</b>
                                 <br/>' . $fise->client->nume .
                                 '<br /><br />' . $fise->client->reprezentant_functie .
-                                '<br />' . $fise->client->reprezentant . '</td>                            
+                                '<br />' . $fise->client->reprezentant . '</td>
                             <td style="width:30%; page-break-inside: avoid;" align="center"><b>Prestator,</b>
                                 <br/>Validsoftware - Servicii Informatice
                             </td>
                         </tr>
                     </table>
-                ';  
+                ';
             \PhpOffice\PhpWord\Shared\Html::addHtml($cell, $html, false, false);
 
 
@@ -664,7 +665,7 @@ class ServiceFisaController extends Controller
                 (isset($fise->client->reprezentant) ? ', Reprezentant ' . ($fise->client->reprezentant) : '') .
                 (isset($fise->client->reprezentant_functie) ? ', în funcția de ' . ($fise->client->reprezentant_functie) : '') .
                 (isset($fise->client->telefon) ? ', telefon: ' . ($fise->client->telefon) : '') .
-                (isset($fise->client->email) ? ', email: ' . ($fise->client->email) : '') . 
+                (isset($fise->client->email) ? ', email: ' . ($fise->client->email) : '') .
                 (isset($fise->client->site_web) ? ', site web: ' . ($fise->client->site_web) : '') .
                 '.</p>';
             $html .= '<br />';
@@ -691,7 +692,7 @@ class ServiceFisaController extends Controller
                     <p style="text-align:justify;">' .
                         $fise->rezultat_service .
                     '</p>
-                    <br />';  
+                    <br />';
 
 
                 $html .='<ul><b>Servicii efectuate:</b>';
@@ -707,14 +708,14 @@ class ServiceFisaController extends Controller
                 }
                 $html .='</ul>';
 
-                    
+
                 $html .= '<br />
 
                     <p style="text-align:left; font-weight: bold;">Observatii</p>
                     <p style="text-align:justify;">' .
                         $fise->observatii .
                     '</p>
-                    <br />                    
+                    <br />
                     ';
 
             $html .= '<br /><br />';
@@ -724,7 +725,7 @@ class ServiceFisaController extends Controller
             //                 <td style="width:50%; page-break-inside: avoid;" align="center"><b>Beneficiar,</b>
             //                     <br/>' . $fise->client->nume .
             //                     '<br /><br />' . $fise->client->reprezentant_functie .
-            //                     '<br />' . $fise->client->reprezentant . 'dd</td>                            
+            //                     '<br />' . $fise->client->reprezentant . 'dd</td>
             //                 <td style="width:30%; page-break-inside: avoid;" align="center"><b>Prestator,</b>
             //                     <br/>Dima P. Valentin PFA
             //                     <br/>
@@ -738,7 +739,7 @@ class ServiceFisaController extends Controller
             //                 </td>
             //             </tr>
             //         </table>
-            //     ';            
+            //     ';
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
@@ -751,13 +752,13 @@ class ServiceFisaController extends Controller
                             <td style="width:50%; page-break-inside: avoid;" align="center"><b>Beneficiar,</b>
                                 <br/>' . $fise->client->nume .
                                 '<br /><br />' . $fise->client->reprezentant_functie .
-                                '<br />' . $fise->client->reprezentant . '</td>                            
+                                '<br />' . $fise->client->reprezentant . '</td>
                             <td style="width:30%; page-break-inside: avoid;" align="center"><b>Prestator,</b>
                                 <br/>Validsoftware - Servicii Informatice
                             </td>
                         </tr>
                     </table>
-                ';  
+                ';
             \PhpOffice\PhpWord\Shared\Html::addHtml($cell, $html, false, false);
 
 
