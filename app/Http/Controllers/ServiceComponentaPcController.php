@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
 
+use Image;
+
 class ServiceComponentaPcController extends Controller
 {
     /**
@@ -63,7 +65,15 @@ class ServiceComponentaPcController extends Controller
         foreach ((array)$request->file('imagini') as $image) {
             $nume = $image->getClientOriginalName();
             $cale = '/uploads/imagini/componente_pc/' . $componenta_pc->id . '/';
-            $image->move(public_path() . $cale, $nume);
+            // $image->move(public_path() . $cale, $nume);
+
+            Storage::disk('public')->makeDirectory($cale);
+
+            $imagine = Image::make($image->path());
+            $imagine->resize(1000, 1000, function ($const) {
+                $const->aspectRatio();
+            });
+            $imagine->save(public_path($cale . $nume));
 
             $imagine = new ServiceComponentaPcImagine;
             $imagine->referinta_id = $componenta_pc->id;
@@ -116,7 +126,15 @@ class ServiceComponentaPcController extends Controller
         foreach ((array)$request->file('imagini') as $image) {
             $nume = $image->getClientOriginalName();
             $cale = '/uploads/imagini/componente_pc/' . $componenta_pc->id . '/';
-            $image->move(public_path() . $cale, $nume);
+            // $image->move(public_path() . $cale, $nume);
+
+            Storage::disk('public')->makeDirectory($cale);
+
+            $imagine = Image::make($image->path());
+            $imagine->resize(1000, 1000, function ($const) {
+                $const->aspectRatio();
+            });
+            $imagine->save(public_path($cale . $nume));
 
             $imagine = new ServiceComponentaPcImagine;
             $imagine->referinta_id = $componenta_pc->id;
@@ -192,7 +210,7 @@ class ServiceComponentaPcController extends Controller
             'cantitate' => 'nullable|numeric|digits_between:1,4',
             'descriere' => 'nullable|max:1000',
             'observatii' => 'nullable|max:1000',
-            'imagini.*' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048'
+            'imagini.*' => 'nullable|mimes:jpg,jpeg,png,gif|max:10000'
         ]);
     }
 
