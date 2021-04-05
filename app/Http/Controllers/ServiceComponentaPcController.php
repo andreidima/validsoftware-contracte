@@ -165,8 +165,8 @@ class ServiceComponentaPcController extends Controller
             $imagine->delete();
 
             //stergere director daca acesta este gol
-            if (empty(Storage::disk('public')->allFiles($componenta_pc->imagine->imagine_cale))) {
-                Storage::disk('public')->deleteDirectory($componenta_pc->imagine->imagine_cale);
+            if (empty(Storage::disk('public')->allFiles($imagine->imagine_cale))) {
+                Storage::disk('public')->deleteDirectory($imagine->imagine_cale);
             }
         }
 
