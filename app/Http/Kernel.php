@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
 
         // 'admin' => \App\Http\Middleware\CheckAdmin::class,
         'role' => \App\Http\Middleware\Role::class,
+        'restrict_ip_adress' => \App\Http\Middleware\RestrictIpAddressMiddleware::class,
     ];
 
     /**

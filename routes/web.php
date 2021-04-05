@@ -15,7 +15,9 @@ Auth::routes(['register' => false, 'password.request' => false, 'reset' => false
 
 Route::middleware('role:service_voluntar,service,admin')->group(function () {
     Route::view('/', 'home');
+});
 
+Route::middleware('role:service_voluntar,service,admin', 'restrict_ip_adress')->group(function () {
     Route::resource('service/componente-pc/categorii', 'ServiceComponentaPcCategorieController', ['names' => 'service.componente_pc.categorii', 'parameters' => ['categorii' => 'categorie']]);
 
     Route::any('service/componente-pc/sterge-imagine/{imagine}', 'ServiceComponentaPcController@stergeImagine');
