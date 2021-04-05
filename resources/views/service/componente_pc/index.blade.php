@@ -47,7 +47,8 @@
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="small" style="padding:2rem">
-                            <th>Nr. Crt.</th>
+                            {{-- <th>Nr. Crt.</th> --}}
+                            <th>ID</th>
                             <th>Componentă Pc</th>
                             <th>Categorie</th>
                             <th class="text-center">Cantitate</th>
@@ -57,8 +58,11 @@
                     <tbody>
                         @forelse ($componente_pc as $componenta_pc)
                             <tr>
-                                <td align="">
+                                {{-- <td align="">
                                     {{ ($componente_pc ->currentpage()-1) * $componente_pc ->perpage() + $loop->index + 1 }}
+                                </td> --}}
+                                <td align="">
+                                    {{ $componenta_pc->id }}
                                 </td>
                                 <td align="">
                                     {{ $componenta_pc->nume }}
