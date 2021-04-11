@@ -101,7 +101,7 @@ Route::middleware('role:admin')->group(function () {
         $service_fise = App\ServiceFisa::with('mesaje_trimise_fisa_iesire')
             ->whereHas('mesaje_trimise_fisa_iesire')
             ->orwhereHas('sms_trimise_fisa_iesire');
-        // $service_fise->update(['inchisa'=>1]);
+        $service_fise->update(['inchisa'=>1]);
         // echo count($service_fise_toate) . ' | ' . count($service_fise);
     });
 
