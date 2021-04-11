@@ -37,6 +37,7 @@ Route::middleware('role:service,admin')->group(function () {
 
     Route::get('/service/fise/{fise}/export/word/{view_type}', 'ServiceFisaController@wordExport');
     Route::get('/service/fise/{fise}/export/{view_type}', 'ServiceFisaController@pdfExport');
+    Route::patch('service/fise/{fise}/deschide-inchide', 'ServiceFisaController@deschideInchide');
     Route::post('service/fise/{fisa}/{tip_fisa}/trimite-email', 'ServiceFisaController@trimiteEmail');
     Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
     Route::resource('service/servicii', 'ServiceServiciuController', ['names' => 'service.servicii']);
@@ -86,8 +87,6 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('generator', 'GeneratorController@index')->name('generator.index');
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
-
-    // Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
 });
 
     Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
@@ -95,20 +94,15 @@ Route::middleware('role:admin')->group(function () {
     // Trimitere Cron joburi din Cpanel
     Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
-    Route::get('teste', function() {
-        echo \Carbon\Carbon::now()->hour;
-        echo (\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9) ? 'da' : 'nu' ;
-        echo (
-            ((\Carbon\Carbon::now()->hour > 5) && (\Carbon\Carbon::now()->hour < 9)) ?
-                'Buna dimineata '
-                :
-                (
-                    ((\Carbon\Carbon::now()->hour >= 9) && (\Carbon\Carbon::now()->hour < 18)) ?
-                        'Buna ziua '
-                        :
-                        'Buna seara '
-                )
-        );
+    // Temporar, de sters dupa utilizare
+    Route::any('setare-deschis-inchis', function() {
+        // $service_fise_toate = App\ServiceFisa::with('mesaje_trimise_fisa_iesire')
+        //     ->get();
+        $service_fise = App\ServiceFisa::with('mesaje_trimise_fisa_iesire')
+            ->whereHas('mesaje_trimise_fisa_iesire')
+            ->orwhereHas('sms_trimise_fisa_iesire');
+        // $service_fise->update(['inchisa'=>1]);
+        // echo count($service_fise_toate) . ' | ' . count($service_fise);
     });
 
 

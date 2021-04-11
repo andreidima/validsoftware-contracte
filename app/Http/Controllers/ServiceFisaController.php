@@ -80,13 +80,15 @@ class ServiceFisaController extends Controller
                     if ($search_finalizate == '1'){
                         $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
                     } else if ($search_finalizate == '0'){
-                        $query->whereDoesntHave('mesaje_trimise_fisa_iesire')
-                            ->whereDoesntHave('sms_trimise_fisa_iesire');
+                        // $query->whereDoesntHave('mesaje_trimise_fisa_iesire')
+                        //     ->whereDoesntHave('sms_trimise_fisa_iesire');
+                        $query->where('service_fise.inchisa', 0);
                     }
                 } else if ($search_in_lucru == '0'){
                     if ($search_finalizate == '1'){
-                        $query->whereHas('mesaje_trimise_fisa_iesire')
-                            ->orwhereHas('sms_trimise_fisa_iesire');
+                        // $query->whereHas('mesaje_trimise_fisa_iesire')
+                        //     ->orwhereHas('sms_trimise_fisa_iesire');
+                        $query->where('service_fise.inchisa', 1);
                     } else if ($search_finalizate == '0'){
                         $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
                     }
@@ -119,13 +121,17 @@ class ServiceFisaController extends Controller
             ->withCount('fisiere')
             ->simplePaginate(15);
 
-        $service_fise_cu_plata = ServiceFisa::whereDoesntHave('mesaje_trimise_fisa_iesire')
-            ->whereDoesntHave('sms_trimise_fisa_iesire')
+        $service_fise_cu_plata = ServiceFisa::
+            // whereDoesntHave('mesaje_trimise_fisa_iesire')
+            // ->whereDoesntHave('sms_trimise_fisa_iesire')
+            where('service_fise.inchisa', 0)
             ->where('cost', '<>', 0)
             ->count();
 
-        $service_fise_gratuite = ServiceFisa::whereDoesntHave('mesaje_trimise_fisa_iesire')
-            ->whereDoesntHave('sms_trimise_fisa_iesire')
+        $service_fise_gratuite = ServiceFisa::
+            // whereDoesntHave('mesaje_trimise_fisa_iesire')
+            // ->whereDoesntHave('sms_trimise_fisa_iesire')
+            where('service_fise.inchisa', 0)
             ->where('cost', 0)
             ->count();
 
@@ -420,9 +426,23 @@ class ServiceFisaController extends Controller
     }
 
     /**
-     * Validate the request attributes.
+     * Buton de deschidere sau inchidere fisa
+     */
+    protected function DeschideInchide(Request $request, ServiceFisa $fise)
+    {
+        if ($fise->inchisa === 1){
+            $fise->inchisa = 0;
+            $fise->update();
+            return back()->with('status', 'Fișa de service pentru clientul „' . ($fise->client->nume ?? '') . '”, a fost deschisă cu succes!');
+        } else {
+            $fise->inchisa = 1;
+            $fise->update();
+            return back()->with('status', 'Fișa de service pentru clientul „' . ($fise->client->nume ?? '') . '”, a fost închisă cu succes!');
+        }
+    }
+
+    /**
      *
-     * @return array
      */
     protected function pdfExport(Request $request, ServiceFisa $fise)
     {

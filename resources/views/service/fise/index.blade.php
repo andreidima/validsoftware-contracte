@@ -104,16 +104,16 @@
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th>Nr.</th>
+                            <th>Nr. / Data</th>
                             <th>Client</th>
                             {{-- <th class="text-center">Data<br>recepție</th> --}}
                             {{-- <th class="text-center">Data<br>ridicare</th> --}}
                             <th class="text-center">Fișă intrare</th>
                             <th class="text-center">Fișă ieșire</th>
-                            <th class="text-center">Mesaje personalizate</th>
+                            <th class="text-center">Personalizate</th>
                             <th class="text-center">Fișiere</th>
                             <th class="text-center">Acțiuni</th>
-                            <th class="text-center">Deschidere fișă</th>
+                            {{-- <th class="text-center">Deschidere fișă</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -128,11 +128,19 @@
                                 </td> --}}
                                 <td>
                                     {{ $service_fisa->nr_intrare }}/{{ $service_fisa->nr_iesire }}
+                                    <br>
+                                    <small>
+                                        @isset ($service_fisa->created_at)
+                                            {{ \Carbon\Carbon::parse($service_fisa->created_at)->isoFormat('DD.MM.YYYY') }}
+                                        @endisset
+                                    </small>
                                 </td>
                                 <td>
                                     {{ $service_fisa->client->nume ?? '' }}
                                     <br>
-                                    {{ $service_fisa->client->telefon ?? '' }}
+                                        <small>
+                                            {{ $service_fisa->client->telefon ?? '' }}
+                                        </small>
                                 </td>
                                 {{-- <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_receptie)->isoFormat('DD.MM.YYYY') ?? '' }}
@@ -152,6 +160,8 @@
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
                                         <div style="" class="text-center">
                                             <a
                                                 href="#"
@@ -222,6 +232,8 @@
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
                                         <div style="" class="text-center">
                                             <a
                                                 href="#"
@@ -288,6 +300,7 @@
                                                         </span>
                                                     </span>
                                             </a>
+                                            <br>
                                             <a class="" data-toggle="collapse" href="#collapseSMSFisaPersonalizat{{ $service_fisa->id }}" role="button"
                                                 aria-expanded="false" aria-controls="collapseSMSFisaPersonalizat{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
@@ -363,17 +376,19 @@
                                             <span class="badge badge-success">Vizualizează</span>
                                         </a>
                                         <a href="{{ $service_fisa->path() }}/modifica"
-                                            class="flex mr-1"
+                                            class="flex"
                                         >
                                             <span class="badge badge-primary">Modifică</span>
                                         </a>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
                                         {{-- <a href="/produse/generare-factura-client/{{ $factura->id }}/export-pdf"
                                         >
                                             <span class="badge badge-success">
                                                 <i class="fas fa-file-pdf mr-1"></i>PDF
                                             </span>
                                         </a>                                     --}}
-                                        <div style="" class="">
+                                        <div style="" class="mr-1">
                                             <a
                                                 href="#"
                                                 data-toggle="modal"
@@ -413,15 +428,76 @@
                                                     </div>
                                                 </div>
                                         </div>
+                                        <div>
+                                            @if ($service_fisa->inchisa === 1)
+                                                <a class=""
+                                                    href="#"
+                                                    role="button"
+                                                    data-toggle="modal"
+                                                    data-target="#DeschideInchideFisa{{ $service_fisa->id }}"
+                                                    title=""
+                                                    >
+                                                    <span class="badge badge-dark">Închisă</span>
+                                                </a>
+                                            @else
+                                                <a class=""
+                                                    href="#"
+                                                    role="button"
+                                                    data-toggle="modal"
+                                                    data-target="#DeschideInchideFisa{{ $service_fisa->id }}"
+                                                    title=""
+                                                    >
+                                                    <span class="badge badge-warning" style="color:black !important">Deschisă</span>
+                                                </a>
+                                            @endif
+
+                                                <div class="modal fade text-dark" id="DeschideInchideFisa{{ $service_fisa->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-warning">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Fișă client: <b>{{ $service_fisa->client->nume ?? '' }}</b></h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            @if ($service_fisa->inchisa === 1)
+                                                                Ești sigur că vrei să deschizi Fișa?
+                                                            @else
+                                                                Ești sigur că vrei să închizi Fișă?
+                                                            @endif
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+
+                                                            <form method="POST" action="{{ url('service/fise/' . $service_fisa->id . '/deschide-inchide') }}">
+                                                                @method('PATCH')
+                                                                @csrf
+                                                                    @if ($service_fisa->inchisa === 1)
+                                                                        <button type="submit" class="btn btn-warning">
+                                                                            Deschide Fișa
+                                                                        </button>
+                                                                    @else
+                                                                        <button type="submit" class="btn btn-warning">
+                                                                            Închide Fișa
+                                                                        </button>
+                                                                    @endif
+                                                            </form>
+
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="text-right align-center">
+                                {{-- <td class="text-right align-center">
                                     <small>
                                         @isset ($service_fisa->created_at)
                                             {{ \Carbon\Carbon::parse($service_fisa->created_at)->isoFormat('HH:mm - DD.MM.YYYY') }}
                                         @endisset
                                     </small>
-                                </td>
+                                </td> --}}
                             </tr>
                             <tr class="collapse bg-white" id="collapseSMSFisaIntrare{{ $service_fisa->id }}"
                                 {{-- style="background-color:cornsilk" --}}
