@@ -364,6 +364,9 @@ class ServiceFisaController extends Controller
             $mesaj_trimis->save();
             return back()->with('status', 'Emailul cu „Fișa de intrare nr. ' . $fisa->nr_intrare . '” a fost trimis către „' . $fisa->client->email . '” cu succes!');
         } elseif ($request->tip_fisa === 'fisa-iesire'){
+            // Daca este Email pentru Fisa iesire service, se inchide automat si Fisa service
+            $fisa->update(['inchisa'=>1]);
+
             \Mail::mailer('service')
                 ->to($fisa->client->email)
                 ->bcc($emailuri_bcc)

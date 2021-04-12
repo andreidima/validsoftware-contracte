@@ -9,26 +9,32 @@ use App\SmsTrimis;
 class SmsTrimiteController extends Controller
 {
     public function trimite_sms(Request $request, $categorie = null, $subcategorie = null, $inregistrare_id = null, $telefon = null, $mesaj = null)
-    {       
+    {
+        // Daca este SMS pentru Fisa iesire service, se inchide automat si Fisa service
+        if (($categorie === 'Fise') && ($subcategorie === "Ieșire")) {
+            \App\ServiceFisa::find($inregistrare_id)->update(['inchisa'=>1]);
+        }
+
+
         if ($mesaj == 'sms_personalizat'){
             $mesaj = $request->sms_personalizat;
         }
 
         // $test = 1; // sms-ul nu se trimite
-        $test = 0; // sms-ul se trimite        
+        $test = 0; // sms-ul se trimite
 
         // ----------------------------------------------------------------------------
-        // 
+        //
         //    Exemplu minimal pentru trimiterea de SMS-uri (PHP)
         //    Serviciul SMS Gateway
         //    Versiunea 1.1 / 12.04.2010
-        //    Distribuit gratuit    
+        //    Distribuit gratuit
         //
         // ----------------------------------------------------------------------------
 
         // ----------------------------------------------------------------------------
-        //  Pasul 1    
-        //  Interogam SMS Gateway si salvam rezultatul trimis de acesta in variabila 
+        //  Pasul 1
+        //  Interogam SMS Gateway si salvam rezultatul trimis de acesta in variabila
         //  pentru a putea interpreta statutul trimiterii
         //   - Pentru HTTPS utilizati https://secure.smslink.ro
         // ----------------------------------------------------------------------------
@@ -48,7 +54,7 @@ class SmsTrimiteController extends Controller
         //  string Nivel;int ID Rezultat;string Mesaj;string[optional] Variabile
         // ----------------------------------------------------------------------------
         //  Pasul 2.1
-        //  Extragem din rezultat toate variabilele separate prin punct si virgula 
+        //  Extragem din rezultat toate variabilele separate prin punct si virgula
         // ----------------------------------------------------------------------------
         list($level, $id, $response, $variabiles) = explode(";", $content . ';');
 
@@ -57,21 +63,21 @@ class SmsTrimiteController extends Controller
         //  Verificam daca mesajul trimis a fost transmis cu succes prin compararea
         //  Nivelului si ID Rezultat
         // ----------------------------------------------------------------------------
-        //  Daca mesajul este transmis atunci Nivelul va fi MESSAGE si ID- rezultat 
-        //  va avea valoarea numerica 1    
+        //  Daca mesajul este transmis atunci Nivelul va fi MESSAGE si ID- rezultat
+        //  va avea valoarea numerica 1
         // ----------------------------------------------------------------------------
         if (($level == "MESSAGE") and ($id == 1)) {
-            // ------------------------------------------------------------------------    
+            // ------------------------------------------------------------------------
             //  Variabilele optionale transmise optional sunt separate prin virgula
             //  si vor avea forma urmatoare:
-            //  mixed Variabila 1,mixed Variabila 2 ... mixed Variabila 3                
+            //  mixed Variabila 1,mixed Variabila 2 ... mixed Variabila 3
             // ------------------------------------------------------------------------
             $variabiles = explode(",", $variabiles);
 
             // ------------------------------------------------------------------------
             //  Extragem ID-ul Mesajului alocat de gateway pentru a il salva pentru
-            //  utilizare ulterioara. Message ID  va fi intotdeauna prima variabila 
-            //  trimisa, restul fiind explicate complet in documentatia de pe site. 
+            //  utilizare ulterioara. Message ID  va fi intotdeauna prima variabila
+            //  trimisa, restul fiind explicate complet in documentatia de pe site.
             // ------------------------------------------------------------------------
             $message_id = $variabiles[0];
 
@@ -96,7 +102,7 @@ class SmsTrimiteController extends Controller
             // return redirect('/clienti')->with('status', 'SMS-ul către "' . $clienti->nume . '" a fost trimis cu succes!');
             // $raspuns['sms-trimis'] = $smsTrimis;
             // return ($raspuns);
-            
+
             return back()->with('status', 'SMS-ul către numărul de telefon ' . $telefon . ' a fost trimis cu succes!');
 
         } else {
