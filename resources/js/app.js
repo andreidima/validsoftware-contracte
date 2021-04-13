@@ -75,6 +75,9 @@ if (document.querySelector('#fisa-service')) {
             client_email: clientVechi_email,
             // client_email_dpo: clientVechi_email_dpo,
             client_site_web: clientVechi_site_web,
+
+            servicii: servicii,
+            servicii_selectate: []
         },
         created: function () {
             this.getDateClient()
