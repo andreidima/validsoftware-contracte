@@ -6,6 +6,7 @@ use App\ServiceFisa;
 use App\ServiceClient;
 use App\ServicePartener;
 use App\ServiceServiciu;
+use App\ServiceServiciuCategorie;
 use Illuminate\Http\Request;
 use App\Mail\FisaIntrareService;
 use App\Mail\FisaIesireService;
@@ -150,10 +151,11 @@ class ServiceFisaController extends Controller
         $clienti = ServiceClient::orderBy('nume')->get();
         $parteneri = ServicePartener::orderBy('nume')->get();
         $servicii = ServiceServiciu::orderBy('nume')->get();
+        $categorii_servicii = ServiceServiciuCategorie::orderBy('nume')->get();
 
         $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
-        return view('service.fise.create', compact('clienti', 'parteneri', 'servicii',  'urmatorul_document_nr'));
+        return view('service.fise.create', compact('clienti', 'parteneri', 'servicii', 'categorii_servicii', 'urmatorul_document_nr'));
     }
 
     /**

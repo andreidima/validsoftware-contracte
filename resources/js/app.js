@@ -148,19 +148,38 @@ if (document.querySelector('#fisa-service')) {
             // formfocus() {
             //     document.getElementById("cod_de_bare").focus();
             // },
-            selectAll: function () {
-                var servicii_selectate = [];
+            select: function (value, event) {
+                servicii_selectate = this.servicii_selectate;
 
-                if (this.servicii_selectate.length == this.servicii.length){
-                    this.servicii_selectate = [];
-                } else {
+                // if (this.servicii_selectate.length == this.servicii.length){
+                //     this.servicii_selectate = [];
+                // } else {
+                if (event.target.checked) {
+                this.client_site_web = value;
                     this.servicii.forEach(function (serviciu) {
-                        servicii_selectate.push(serviciu.id);
+                        if (serviciu.categorie_id == value){
+                            this.servicii_selectate.push(serviciu.id);
+                        }
+                    });
+                } else {
+                    this.client_site_web = 'asd';
+                    this.servicii.forEach(function (serviciu) {
+                        if (serviciu.categorie_id == value) {
+                            for (var i = this.servicii_selectate.length - 1; i >= 0; i--) {
+                                if (this.servicii_selectate[i] == serviciu.id) {
+                                    this.servicii_selectate.splice(i, 1);
+                                }
+                                console.log(i);
+                                console.log(this.servicii_selectate[i].categorie_id);
+                            }
+                        }
                     });
                 }
+                // }
 
-                this.servicii_selectate = servicii_selectate;
+                // this.servicii_selectate = servicii_selectate;
             }
+
         },
         mounted() {
             // this.formfocus()

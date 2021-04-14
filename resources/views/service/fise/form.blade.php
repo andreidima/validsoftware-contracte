@@ -320,15 +320,31 @@
                     >{{ old('rezultat_service') == '' ? $fise->rezultat_service : old('rezultat_service') }}</textarea>
             </div>
             <div class="form-group col-lg-12 mb-2">
-                <label for="servicii_efectuate" class="mb-0 pl-1">Servicii efectuate:</label>
+                <label for="servicii_efectuate" class="mb-0 pl-1">Categorii Servicii efectuate:</label>
                         <script type="application/javascript">
                             // clientVechi={!! json_encode(old('client_deja_inregistrat', ($fise->client_id ?? ""))) !!}
                             servicii={!! json_encode($servicii) !!}
                         </script>
+                    <div class="form-row mb-2">
+                        @foreach ($categorii_servicii as $categorie)
+                            <div class="col-lg-6 mb-2 rounded-pill">
+                                <div class="custom-control custom-checkbox border border-4" style="padding-left:30px; display: inline-block; border-color:mediumseagreen;">
+                                    <input type="checkbox"
+                                        class="custom-control-input"
+                                        id="categorie{{ $categorie->id }}"
+                                        style="padding:20px"
+                                        {{-- v-on:change="select({{ $categorie->id }})" --}}
+                                        v-on:change="select({{ $categorie->id }},$event)"
+                                        >
+                                    <label class="custom-control-label text-white px-1" for="categorie{{ $categorie->id }}" style="background-color:mediumseagreen;">
+                                        {{ $categorie->nume }}
+                                    </label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                <label for="servicii_efectuate" class="mb-0 pl-1">Servicii efectuate:</label>
                     <div class="form-row">
-                        <div class="col-lg-12 mb-2 rounded-pill">
-                            <input type="checkbox" v-on:change="selectAll()">
-                        </div>
                                 <div v-for="serviciu in servicii" class="col-lg-6 mb-2 rounded-pill">
                                     <div class="custom-control custom-checkbox border border-4" style="padding-left:30px; display: inline-block; border-color:mediumseagreen;">
                                         {{-- <input type="checkbox" class="custom-control-input"
@@ -343,6 +359,7 @@
                                             > --}}
                                         <input type="checkbox"
                                             class="custom-control-input"
+                                            name="servicii_selectate[]"
                                             v-model="servicii_selectate"
                                             :value="serviciu.id"
                                             style="padding:20px"
