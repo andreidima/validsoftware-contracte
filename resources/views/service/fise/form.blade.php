@@ -326,6 +326,9 @@
                             servicii={!! json_encode($servicii) !!}
                         </script>
                     <div class="form-row">
+                        <div class="col-lg-12 mb-2 rounded-pill">
+                            <input type="checkbox" v-on:change="selectAll()">
+                        </div>
                                 <div v-for="serviciu in servicii" class="col-lg-6 mb-2 rounded-pill">
                                     <div class="custom-control custom-checkbox border border-4" style="padding-left:30px; display: inline-block; border-color:mediumseagreen;">
                                         {{-- <input type="checkbox" class="custom-control-input"
@@ -338,9 +341,12 @@
                                                 {{ in_array($serviciu->id, $fise->servicii->pluck('id')->toArray()) ? "checked":"" }}
                                             @endif
                                             > --}}
-                                        <input type="checkbox" class="custom-control-input"
+                                        <input type="checkbox"
+                                            class="custom-control-input"
                                             v-model="servicii_selectate"
                                             :value="serviciu.id"
+                                            style="padding:20px"
+                                            :id="serviciu.id"
                                             number>
                                         <label class="custom-control-label text-white px-1" :for="serviciu.id" style="background-color:mediumseagreen;">
                                             @{{ serviciu.nume }}

@@ -40,8 +40,6 @@ if (document.querySelector('#app1')) {
     });
 }
 
-
-
 if (document.querySelector('#produse')) {
     const app = new Vue({
         el: '#produse',
@@ -149,7 +147,20 @@ if (document.querySelector('#fisa-service')) {
             },
             // formfocus() {
             //     document.getElementById("cod_de_bare").focus();
-            // }
+            // },
+            selectAll: function () {
+                var servicii_selectate = [];
+
+                if (this.servicii_selectate.length == this.servicii.length){
+                    this.servicii_selectate = [];
+                } else {
+                    this.servicii.forEach(function (serviciu) {
+                        servicii_selectate.push(serviciu.id);
+                    });
+                }
+
+                this.servicii_selectate = servicii_selectate;
+            }
         },
         mounted() {
             // this.formfocus()
