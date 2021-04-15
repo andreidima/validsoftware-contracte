@@ -324,6 +324,7 @@
                         <script type="application/javascript">
                             // clientVechi={!! json_encode(old('client_deja_inregistrat', ($fise->client_id ?? ""))) !!}
                             servicii={!! json_encode($servicii) !!}
+                            serviciiSelectate={!! json_encode(old('servicii_selectate', $servicii_curente_selectate ?? [])) !!}
                         </script>
                     <div class="form-row mb-2">
                         @foreach ($categorii_servicii as $categorie)

@@ -13,4 +13,9 @@ class ServiceServiciu extends Model
     {
         return "/service/servicii/{$this->id}";
     }
+
+    public function categorie()
+    {
+        return $this->belongsTo('App\ServiceServiciuCategorie', 'categorie_id');
+    }
 }

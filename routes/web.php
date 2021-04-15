@@ -40,6 +40,7 @@ Route::middleware('role:service,admin')->group(function () {
     Route::patch('service/fise/{fise}/deschide-inchide', 'ServiceFisaController@deschideInchide');
     Route::post('service/fise/{fisa}/{tip_fisa}/trimite-email', 'ServiceFisaController@trimiteEmail');
     Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
+    Route::resource('service/servicii/categorii', 'ServiceServiciuCategorieController', ['names' => 'service.servicii.categorii', 'parameters' => ['categorii' => 'categorie']]);
     Route::resource('service/servicii', 'ServiceServiciuController', ['names' => 'service.servicii']);
     Route::resource('service/anydeskuri', 'ServiceAnydeskController', ['names' => 'service.anydeskuri', 'parameters' => ['anydeskuri' => 'anydesk']]);
 

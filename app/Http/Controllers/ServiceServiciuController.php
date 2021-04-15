@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ServiceServiciu;
+use App\ServiceServiciuCategorie;
+
 use Illuminate\Http\Request;
 
 class ServiceServiciuController extends Controller
@@ -20,7 +22,8 @@ class ServiceServiciuController extends Controller
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
-            ->orderBy('nume')
+            // ->orderBy('nume')
+            ->latest()
             ->simplePaginate(25);
 
         return view('service.servicii.index', compact('servicii', 'search_nume'));
@@ -33,7 +36,9 @@ class ServiceServiciuController extends Controller
      */
     public function create()
     {
-        return view('service.servicii.create');
+        $categorii = ServiceServiciuCategorie::orderBy('nume')->get();
+
+        return view('service.servicii.create', compact('categorii'));
     }
 
     /**
@@ -46,7 +51,7 @@ class ServiceServiciuController extends Controller
     {
         $serviciu = ServiceServiciu::create($this->validateRequest($request));
 
-        return redirect('/service/servicii')->with('status', 
+        return redirect('/service/servicii')->with('status',
             'Serviciul "' . $serviciu->nume . '", pentru service, a fost adăugat cu succes!');
     }
 
@@ -69,7 +74,9 @@ class ServiceServiciuController extends Controller
      */
     public function edit(ServiceServiciu $servicii)
     {
-        return view('service.servicii.edit', compact('servicii'));
+        $categorii = ServiceServiciuCategorie::orderBy('nume')->get();
+
+        return view('service.servicii.edit', compact('servicii', 'categorii'));
     }
 
     /**
@@ -83,7 +90,7 @@ class ServiceServiciuController extends Controller
     {
         $servicii->update($this->validateRequest());
 
-        return redirect('service/servicii')->with('status', 
+        return redirect('service/servicii')->with('status',
             'Serviciul "' . $servicii->nume . '" a fost modificat cu succes!');
     }
 
@@ -97,8 +104,8 @@ class ServiceServiciuController extends Controller
     {
         $servicii->delete();
 
-        return redirect('/service/servicii')->with('status', 
-            'Serviciul "' . $servicii->nume . '" a fost șters cu succes!'); 
+        return redirect('/service/servicii')->with('status',
+            'Serviciul "' . $servicii->nume . '" a fost șters cu succes!');
     }
 
     /**
@@ -111,6 +118,7 @@ class ServiceServiciuController extends Controller
         return request()->validate([
             'nume' => ['required', 'max:250'],
             'pret' => ['nullable', 'between:0.01,99999.99'],
+            'categorie_id' => 'nullable',
             'link_review_site' => ['nullable', 'max:250']
         ]);
     }

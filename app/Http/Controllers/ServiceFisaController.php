@@ -210,8 +210,11 @@ class ServiceFisaController extends Controller
         $clienti = ServiceClient::orderBy('nume')->get();
         $parteneri = ServicePartener::orderBy('nume')->get();
         $servicii = ServiceServiciu::orderBy('nume')->get();
+        $servicii_curente_selectate = $fise->servicii->pluck('id')->toArray();
+        // dd($servicii_curente_selectate);
+        $categorii_servicii = ServiceServiciuCategorie::orderBy('nume')->get();
 
-        return view('service.fise.edit', compact('fise', 'clienti', 'parteneri', 'servicii'));
+        return view('service.fise.edit', compact('fise', 'clienti', 'parteneri', 'servicii', 'servicii_curente_selectate', 'categorii_servicii'));
     }
 
     /**

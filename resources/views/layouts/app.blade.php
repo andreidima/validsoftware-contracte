@@ -112,6 +112,9 @@
                                         <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
                                             <i class="fas fa-file-alt mr-1"></i>Servicii
                                         </a>
+                                        <a class="nav-link text-dark" href="{{ route('service.servicii.categorii.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Categorii
+                                        </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="nav-link text-dark" href="{{ route('service.anydeskuri.index') }}">
                                             <i class="fas fa-network-wired mr-1"></i>AnyDesk
@@ -151,10 +154,19 @@
                                             <i class="fas fa-file mr-1"></i>Fișe
                                         </a>
                                 </li>
-                                <li class="nav-item active mr-4">
-                                        <a class="nav-link" href="{{ route('service.servicii.index') }}">
+                                <li class="nav-item dropdown active mr-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-file-alt mr-1"></i>Servicii
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
                                             <i class="fas fa-file-alt mr-1"></i>Servicii
                                         </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('service.servicii.categorii.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Categorii
+                                        </a>
+                                    </div>
                                 </li>
                                 <li class="nav-item active mr-4">
                                         <a class="nav-link" href="{{ route('service.anydeskuri.index') }}">
