@@ -1,14 +1,14 @@
 @extends ('layouts.app')
 
-@section('content')   
+@section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class=" mb-0"><a href="{{ route('service.servicii.index') }}"><i class="fas fa-tools mr-1"></i>Service - servicii</a></h4>
-            </div> 
+            </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.servicii.index') }}">
-                    @csrf                    
+                    @csrf
                     <div class="row input-group custom-search-form">
                         <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Serviciu" autofocus
                                 value="{{ $search_nume }}">
@@ -25,7 +25,7 @@
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('service.servicii.create') }}" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă serviciu
                 </a>
-            </div> 
+            </div>
         </div>
 
         <div class="card-body px-0 py-3">
@@ -33,38 +33,42 @@
             @include('errors')
 
             <div class="table-responsive rounded">
-                <table class="table table-striped table-hover table-sm rounded"> 
+                <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="small" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Serviciu service</th>
+                            <th>Categoria</th>
                             <th>Preț</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
-                    <tbody>               
-                        @forelse ($servicii as $serviciu) 
-                            <tr>                      
+                    <tbody>
+                        @forelse ($servicii as $serviciu)
+                            <tr>
                                 <td align="">
                                     {{ ($servicii ->currentpage()-1) * $servicii ->perpage() + $loop->index + 1 }}
-                                </td>          
+                                </td>
                                 <td align="">
                                     {{ $serviciu->nume }}
-                                </td>        
+                                </td>
+                                <td align="">
+                                    {{ $serviciu->categorie->nume ?? '' }}
+                                </td>
                                 <td align="">
                                     {{ $serviciu->pret }}
-                                </td>  
-                                
+                                </td>
+
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $serviciu->path() }}/modifica"
-                                        class="flex"    
+                                        class="flex"
                                     >
                                         <span class="badge badge-primary">Modifică</span>
-                                    </a>                                   
+                                    </a>
                                     <div style="flex" class="">
-                                        <a 
-                                            href="#" 
-                                            data-toggle="modal" 
+                                        <a
+                                            href="#"
+                                            data-toggle="modal"
                                             data-target="#stergeServiciu{{ $serviciu->id }}"
                                             title="Șterge Serviciu"
                                             >
@@ -84,26 +88,26 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                        
+
                                                         <form method="POST" action="{{ $serviciu->path() }}">
-                                                            @method('DELETE')  
-                                                            @csrf   
-                                                            <button 
-                                                                type="submit" 
-                                                                class="btn btn-danger"  
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger"
                                                                 >
                                                                 Șterge Serviciu
-                                                            </button>                    
+                                                            </button>
                                                         </form>
-                                                    
+
                                                     </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div> 
+                                    </div>
                                 </td>
-                            </tr>                             
-                            
+                            </tr>
+
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                         @endforelse
