@@ -26,9 +26,9 @@ class ServiceClientController extends Controller
             // ->where('tip', 'service')
             ->latest()
             ->Paginate(25);
-            
+
         $parteneri = ServicePartener::orderBy('nume')->get();
-            
+
         return view('service.clienti.index', compact('clienti', 'parteneri', 'search_nume'));
     }
 
@@ -64,7 +64,7 @@ class ServiceClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(ServiceClient $clienti)
-    {       
+    {
         return view('service.clienti.show', compact('clienti'));
     }
 
@@ -133,21 +133,21 @@ class ServiceClientController extends Controller
     }
 
     public function trimiteEmail(Request $request, ServiceClient $client)
-    {        
+    {
         $validator = Validator::make($request->toArray(), [
             'partener_id' => ['required']
         ]);
         if ($validator->fails()) {
             return redirect('/service/clienti')->with('error', 'Selectati un partener către care doriți să se trimită emailul.');
-        }    
-        
+        }
+
         $validator = Validator::make($client->toArray(), [
             'email' => ['email:rfc,dns']
         ]);
         if ($validator->fails()) {
             return redirect('/service/clienti')->with('error', 'Emailul Clientului nu este o adresă de e-mail validă.');
         }
-            
+
         $partener = ServicePartener::where('id', $request->partener_id)->first();
         $validator = Validator::make($partener->toArray(), [
             'email' => ['email:rfc,dns']
@@ -162,14 +162,14 @@ class ServiceClientController extends Controller
         $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
         $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
         $emailuri_bcc = explode(',', $emailuri_bcc);
-        
+
         \Mail::mailer('service')
-            ->to($client->email)  
-            ->cc($partener->email)                     
+            ->to($client->email)
+            ->cc($partener->email)
             ->bcc($emailuri_bcc)
             ->send(
                 new ClientCatrePartener($client, $partener)
-            );              
+            );
         $mesaj_trimis = new \App\MesajTrimis;
         $mesaj_trimis->inregistrare_id = $client->id;
         $mesaj_trimis->categorie = 'Client';
@@ -180,5 +180,16 @@ class ServiceClientController extends Controller
         // $servicii = ServiceServiciu::orderBy('nume')->get();
 
         // return view('service.clienti.edit', compact('clienti', 'servicii'));
+    }
+
+    // Afisarea tuturor emailurilor clientilor de service pentru folosirea lor externa. de trimitere mesaje in masă
+    public function emailuri()
+    {
+        $clienti = ServiceClient::select('email')
+            ->where('email', '<>' , null)
+            ->orderBy('email', 'asc')
+            ->get();
+
+        return view('service.clienti.diverse.emailuri', compact('clienti'));
     }
 }

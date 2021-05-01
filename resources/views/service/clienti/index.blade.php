@@ -1,14 +1,14 @@
 @extends ('layouts.app')
 
-@section('content')   
+@section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class=" mb-0"><a href="{{ route('service.clienti.index') }}"><i class="fas fa-building mr-1"></i>Clienți</a></h4>
-            </div> 
+            </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.clienti.index') }}">
-                    @csrf                    
+                    @csrf
                     <div class="row input-group custom-search-form">
                         <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                 value="{{ $search_nume }}">
@@ -25,7 +25,13 @@
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('service.clienti.create') }}" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă client
                 </a>
-            </div> 
+            </div>
+            <div class="col-lg-3 text-right">
+                <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="{{ route('service.clienti.emailuri') }}" role="button">
+                {{-- <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="/service/clienti/emailuri" role="button"> --}}
+                    <i class="fas fa-plus-square text-white mr-1"></i>Emailuri clienți
+                </a>
+            </div>
         </div>
 
         <div class="card-body px-0 py-3">
@@ -33,7 +39,7 @@
             @include('errors')
 
             <div class="table-responsive rounded">
-                <table class="table table-striped table-hover table-sm rounded"> 
+                <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
@@ -45,17 +51,17 @@
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
-                    <tbody>               
-                        @forelse ($clienti as $client) 
-                            <tr>                  
+                    <tbody>
+                        @forelse ($clienti as $client)
+                            <tr>
                                 <td align="">
                                     {{ ($clienti ->currentpage()-1) * $clienti ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    {{-- <a href="{{ $client->path() }}">  
+                                    {{-- <a href="{{ $client->path() }}">
                                         <b>{{ $client->nume }}</b>
                                     </a> --}}
-                                    <a class="" data-toggle="collapse" href="#collapse{{ $client->id }}" role="button" 
+                                    <a class="" data-toggle="collapse" href="#collapse{{ $client->id }}" role="button"
                                         aria-expanded="false" aria-controls="collapse{{ $client->id }}">
                                         <b>{{ $client->nume }}</b>
                                     </a>
@@ -69,17 +75,17 @@
                                 <td>
                                     {{ $client->email }}
                                 </td>
-                                <td style="text-align:center">                                                 
-                                    <a 
+                                <td style="text-align:center">
+                                    <a
                                         {{-- class="btn btn-danger btn-sm"  --}}
-                                        href="#" 
+                                        href="#"
                                         {{-- role="button" --}}
-                                        data-toggle="modal" 
+                                        data-toggle="modal"
                                         data-target="#trimiteClient{{ $client->id }}laPartener"
                                         title="Trimite Client la Partener"
                                         >
                                         {{-- <i class="far fa-trash-alt"></i> --}}
-                                        <span class="badge badge-primary">Email                                            
+                                        <span class="badge badge-primary">Email
                                             <span class="badge badge-light" title="Email-uri trimise până acum">
                                                 {{ $client->emailuri_trimise_client_catre_partener()->count() }}
                                             </span>
@@ -87,9 +93,9 @@
                                     </a>
                                         <div class="modal fade text-dark" id="trimiteClient{{ $client->id }}laPartener" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
-                                                
+
                                             <form  class="needs-validation" novalidate method="POST" action="/service/clienti/{{ $client->id }}/trimite-email">
-                                                @csrf   
+                                                @csrf
 
                                                 <div class="modal-content">
                                                 <div class="modal-header bg-primary">
@@ -99,48 +105,48 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body" style="text-align:left;">
-                                                    Trimite Clientul către Partener?                                              
+                                                    Trimite Clientul către Partener?
                                                     <select name="partener_id" class="custom-select custom-select-sm rounded-pill {{ $errors->has('partener_id') ? 'is-invalid' : '' }}">
                                                             <option value='' selected>Selectează partener</option>
-                                                        @foreach ($parteneri as $partener)                           
+                                                        @foreach ($parteneri as $partener)
                                                             <option value='{{ $partener->id }}'>
-                                                                {{ $partener->nume }} 
-                                                            </option>                                                
+                                                                {{ $partener->nume }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                    
-                                                        <button 
-                                                            type="submit" 
-                                                            class="btn btn-primary"  
+
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-primary"
                                                             >
                                                             Trimite Email
-                                                        </button>                    
-                                                    
-                                                
+                                                        </button>
+
+
                                                 </div>
                                                 </div>
 
                                             </form>
-                                            
+
                                             </div>
                                         </div>
-                                    
+
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $client->path() }}/modifica"
-                                        class="flex mr-1"    
+                                        class="flex mr-1"
                                     >
                                         <span class="badge badge-primary">Modifică</span>
-                                    </a>                                   
+                                    </a>
                                     <div style="flex" class="">
-                                        <a 
+                                        <a
                                             {{-- class="btn btn-danger btn-sm"  --}}
-                                            href="#" 
+                                            href="#"
                                             {{-- role="button" --}}
-                                            data-toggle="modal" 
+                                            data-toggle="modal"
                                             data-target="#stergeClient{{ $client->id }}"
                                             title="Șterge Client"
                                             >
@@ -161,32 +167,32 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                        
+
                                                         <form method="POST" action="{{ $client->path() }}">
-                                                            @method('DELETE')  
-                                                            @csrf   
-                                                            <button 
-                                                                type="submit" 
-                                                                class="btn btn-danger"  
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger"
                                                                 >
                                                                 Șterge Client
-                                                            </button>                    
+                                                            </button>
                                                         </form>
-                                                    
+
                                                     </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div> 
+                                    </div>
                                 </td>
-                            </tr>  
-                            <tr class="collapse bg-white" id="collapse{{ $client->id }}" 
+                            </tr>
+                            <tr class="collapse bg-white" id="collapse{{ $client->id }}"
                                 {{-- style="background-color:cornsilk" --}}
                             >
                                 <td colspan="6">
                                     <table class="table table-sm table-striped table-hover col-lg-6 mx-auto border"
                                 {{-- style="background-color:#008282" --}}
-                                    > 
+                                    >
                                         <tr>
                                             <td class="py-0">
                                                 Nume
@@ -286,12 +292,12 @@
                                     </table>
                                     {{-- <div class="row">
                                         <div class="col-lg-3">
-                                            Adresa: 
+                                            Adresa:
                                             <br>
                                             {{ $client->adresa }}
                                         </div>
                                         <div class="col-lg-3">
-                                            Funcție reprezentant: 
+                                            Funcție reprezentant:
                                             {{ $client->reprezentant_functie }}
                                         </div>
                                         <div class="col-lg-3">
@@ -302,15 +308,15 @@
                                         <div class="col-lg-3">
                                             Banca: {{ $client->banca }}
                                             <br>
-                                            Iban: {{ $client->iban }}                                            
+                                            Iban: {{ $client->iban }}
                                         </div>
                                     </div> --}}
                                 </td>
-                            </tr> 
+                            </tr>
                             <tr class="collapse">
                                 <td colspan="6">
 
-                                </td>                                       
+                                </td>
                             </tr>
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}

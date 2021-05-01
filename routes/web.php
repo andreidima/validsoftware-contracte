@@ -30,6 +30,8 @@ Route::middleware('role:service,admin')->group(function () {
     // Route::view('/', 'home');
     // Route::redirect('/', 'service/clienti');
 
+    // Afisarea tuturor emailurilor clientilor de service pentru folosirea lor externa. de trimitere mesaje in masă
+    Route::get('service/clienti/emailuri', 'ServiceClientController@emailuri')->name('service.clienti.emailuri');
     Route::post('service/clienti/{client}/trimite-email', 'ServiceClientController@trimiteEmail');
     Route::resource('service/clienti', 'ServiceClientController', ['names' => 'service.clienti']);
 
