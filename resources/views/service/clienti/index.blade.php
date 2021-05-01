@@ -26,12 +26,14 @@
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă client
                 </a>
             </div>
-            <div class="col-lg-3 text-right">
+            @if (auth()->user()->isAdmin())
+            <div class="col-lg-3">
                 <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="{{ route('service.clienti.emailuri') }}" role="button">
                 {{-- <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="/service/clienti/emailuri" role="button"> --}}
-                    <i class="fas fa-plus-square text-white mr-1"></i>Emailuri clienți
+                    Emailuri clienți
                 </a>
             </div>
+            @endif
         </div>
 
         <div class="card-body px-0 py-3">
