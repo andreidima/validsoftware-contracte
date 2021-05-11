@@ -156,7 +156,7 @@
             @endif
 
             @if ($fisa->observatii)
-                <p style="text-align:left; font-weight: bold;">Obervații</p>
+                <p style="text-align:left; font-weight: bold;">Observații</p>
                 <p style="text-align:justify;">
                     {{ $fisa->observatii }}
                 </p>
