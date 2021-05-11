@@ -164,7 +164,7 @@
             @endif
 
             {{-- <br /><br /> --}}
-            <table align="center" style="width: 100%; margin: 0px; padding: 0px;" >
+            {{-- <table align="center" style="width: 100%; margin: 0px; padding: 0px;" >
                 <tr style="margin: 0px; padding: 0px;">
                     <td style="width:50%" align="center"><b>Beneficiar,</b>
                         <br/> {{ $fisa->client->nume }}
@@ -182,7 +182,7 @@
                         <img src="images/semnatura si stampila.png" width="100"/>
                     </td>
                 </tr>
-            </table>
+            </table> --}}
 
             {{-- Page break --}}
             <span style="page-break-after: always;"></span>
