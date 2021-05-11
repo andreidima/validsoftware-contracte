@@ -164,8 +164,8 @@
             @endif
 
             {{-- <br /><br /> --}}
-            <table align="center" style="width: 100%">
-                <tr>
+            <table align="center" style="width: 100%; margin: 0px; padding: 0px;" >
+                <tr style="margin: 0px; padding: 0px;">
                     <td style="width:50%" align="center"><b>Beneficiar,</b>
                         <br/> {{ $fisa->client->nume }}
                         <br /><br /> {{ $fisa->client->reprezentant_functie }}
@@ -185,7 +185,7 @@
             </table>
 
             {{-- Page break --}}
-            <p style="page-break-after: always;"></p>
+            <span style="page-break-after: always;"></span>
 
             {{-- Pagină publicitara --}}
 
