@@ -127,7 +127,7 @@
                                     {{ ($service_fise ->currentpage()-1) * $service_fise ->perpage() + $loop->index + 1 }}
                                 </td> --}}
                                 <td>
-                                    {{ $service_fisa->nr_intrare }}/{{ $service_fisa->nr_iesire }}
+                                    <b>{{ $service_fisa->nr_intrare }}</b>/{{ $service_fisa->nr_iesire }}
                                     <br>
                                     <small>
                                         @isset ($service_fisa->created_at)
