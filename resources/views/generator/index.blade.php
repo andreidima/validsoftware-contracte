@@ -1,14 +1,14 @@
 @extends ('layouts.app')
 
-@section('content')   
+@section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class=" mb-0"><a href="{{ route('generator.index') }}"><i class="fas fa-building mr-1"></i>Generator</a></h4>
-            </div> 
+            </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('generator.index') }}">
-                    @csrf                    
+                    @csrf
                     <div class="row input-group custom-search-form">
                         <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                 value="{{ $search_nume }}">
@@ -25,7 +25,7 @@
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('clienti.create') }}" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă client
                 </a>
-            </div> 
+            </div>
         </div>
 
         <div class="card-body px-0 py-3">
@@ -37,7 +37,7 @@
             @endif
 
             <div class="table-responsive rounded">
-                <table class="table table-striped table-hover table-sm rounded"> 
+                <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
@@ -46,72 +46,72 @@
                             <th class="text-center" colspan="1">Site de prezentare</th>
                         </tr>
                     </thead>
-                    <tbody>               
-                        @forelse ($clienti as $client) 
-                            <tr>                  
+                    <tbody>
+                        @forelse ($clienti as $client)
+                            <tr>
                                 <td align="">
                                     {{ ($clienti ->currentpage()-1) * $clienti ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    <a href="{{ $client->path() }}">  
+                                    <a href="{{ $client->path() }}">
                                         <b>{{ $client->nume }}</b>
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="generator/{{$client->id}}/magazin-online/protectia-datelor-cu-caracter-personal">  
+                                    <a href="generator/{{$client->id}}/magazin-online/protectia-datelor-cu-caracter-personal">
                                         <span class="badge badge-info" title="Protecția datelor cu caracter personal">
                                             PDCP
                                         </span>
                                     </a>
-                                    <a href="generator/{{$client->id}}/magazin-online/termeni-si-conditii">  
+                                    <a href="generator/{{$client->id}}/magazin-online/termeni-si-conditii">
                                         <span class="badge badge-success" title="Termeni și condiții">
                                             TC
                                         </span>
                                     </a>
-                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-confidentialitate">  
+                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-confidentialitate">
                                         <span class="badge badge-warning" title="Politica de Confidențialitate">
                                             PC
                                         </span>
                                     </a>
-                                    <a href="generator/{{$client->id}}/magazin-online/politica-cookies">  
+                                    <a href="generator/{{$client->id}}/magazin-online/politica-cookies">
                                         <span class="badge badge-danger" title="Politica Cookies">
                                             PC
                                         </span>
                                     </a>
-                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-livrare">  
+                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-livrare">
                                         <span class="badge text-white" title="Politica de livrare" style="background-color:teal">
                                             PL
                                         </span>
                                     </a>
-                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-retur">  
+                                    <a href="generator/{{$client->id}}/magazin-online/politica-de-retur">
                                         <span class="badge text-white" title="Politica de retur" style="background-color:sienna">
                                             PR
                                         </span>
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="generator/{{$client->id}}/site-de-prezentare/protectia-datelor-cu-caracter-personal">  
+                                    <a href="generator/{{$client->id}}/site-de-prezentare/protectia-datelor-cu-caracter-personal">
                                         <span class="badge badge-info" title="Protecția datelor cu caracter personal">
                                             PDCP
                                         </span>
                                     </a>
-                                    <a href="generator/{{$client->id}}/site-de-prezentare/termeni-si-conditii">  
+                                    <a href="generator/{{$client->id}}/site-de-prezentare/termeni-si-conditii">
                                         <span class="badge badge-success" title="Termeni și condiții">
                                             TC
                                         </span>
                                     </a>
-                                    <a href="generator/{{$client->id}}/site-de-prezentare/politica-de-confidentialitate">  
+                                    {{-- <a href="generator/{{$client->id}}/site-de-prezentare/politica-de-confidentialitate">
                                         <span class="badge badge-warning" title="Politica de Confidențialitate">
                                             PC
                                         </span>
-                                    </a>
-                                    <a href="generator/{{$client->id}}/site-de-prezentare/politica-cookies">  
+                                    </a> --}}
+                                    <a href="generator/{{$client->id}}/site-de-prezentare/politica-cookies">
                                         <span class="badge badge-danger" title="Politica Cookies">
                                             PC
                                         </span>
                                     </a>
                                 </td>
-                            </tr> 
+                            </tr>
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                         @endforelse
