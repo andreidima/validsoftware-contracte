@@ -131,7 +131,7 @@
                                     <br>
                                     <small>
                                         @isset ($service_fisa->created_at)
-                                            {{ \Carbon\Carbon::parse($service_fisa->created_at)->isoFormat('DD.MM.YYYY') }}
+                                            {{ \Carbon\Carbon::parse($service_fisa->created_at)->isoFormat('DD.MM.YYYY HH:mm') }}
                                         @endisset
                                     </small>
                                 </td>
