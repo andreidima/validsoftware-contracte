@@ -205,3 +205,23 @@ if (document.querySelector('#sms-personalizat')) {
         }
     });
 }
+
+if (document.querySelector('#copy_to_clipboard')) {
+    const app = new Vue({
+        el: '#copy_to_clipboard',
+        data: {
+            appId: '3493993048904',
+            appToken: 'dksklq33lkj21kjl12lkdsasd21jk',
+            canCopy: false
+        },
+        created() {
+            this.canCopy = !!navigator.clipboard;
+        },
+        methods: {
+            async copy(s) {
+                await navigator.clipboard.writeText(s);
+                alert('Copied!');
+            }
+        }
+    });
+}

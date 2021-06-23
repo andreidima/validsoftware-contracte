@@ -136,10 +136,13 @@
                                     </small>
                                 </td>
                                 <td>
-                                    {{ $service_fisa->client->nume ?? '' }}
-                                    <br>
+                                    {{ $service_fisa->client->nume ?? '' }} -
                                         <small>
                                             {{ $service_fisa->client->telefon ?? '' }}
+                                        </small>
+                                    <br>
+                                        <small title="Copiați emailul">
+                                            {{ $service_fisa->client->email ?? '' }} <i class="far fa-clone"></i>
                                         </small>
                                 </td>
                                 {{-- <td class="text-center">

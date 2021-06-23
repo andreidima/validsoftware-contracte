@@ -19,4 +19,9 @@ class TestareCodController extends Controller
         }
 
     }
+
+    public function CopyToClipboard()
+    {
+        return view('testare_cod.copy_to_clipboard');
+    }
 }

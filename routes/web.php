@@ -92,6 +92,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
 });
 
+    Route::get('testare-cod/copy-to-clipboard', 'TestareCodController@CopyToClipboard')->name('copy.to.clipboard');
     Route::get('testare-cod/{view_type}', 'TestareCodController@testareCod')->name('testare.cod');
 
     // Trimitere Cron joburi din Cpanel
