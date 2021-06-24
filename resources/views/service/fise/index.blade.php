@@ -141,9 +141,15 @@
                                             {{ $service_fisa->client->telefon ?? '' }}
                                         </small>
                                     <br>
-                                        <small title="Copiați emailul">
-                                            {{ $service_fisa->client->email ?? '' }} <i class="far fa-clone"></i>
-                                        </small>
+                                        <div id="copy_to_clipboard">
+                                            <button v-if="canCopy" @click="copy(appId)">
+                                                <small title="Copiați emailul"
+                                                    id="appId" v-model="appId"
+                                                >
+                                                    {{ $service_fisa->client->email ?? '' }} <i class="far fa-clone"></i>
+                                                </small>
+                                            </button>
+                                        </div>
                                 </td>
                                 {{-- <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_receptie)->isoFormat('DD.MM.YYYY') ?? '' }}
