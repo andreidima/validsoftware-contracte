@@ -117,7 +117,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($service_fise as $service_fisa)
+                        @forelse ($service_fise->take(3) as $service_fisa)
                             @if ($service_fisa->inchisa === 0)
                             <tr style="background-color:rgb(0, 82, 82); color:white">
                             @else
@@ -136,20 +136,25 @@
                                     </small>
                                 </td>
                                 <td>
+
+
                                     {{ $service_fisa->client->nume ?? '' }} -
                                         <small>
                                             {{ $service_fisa->client->telefon ?? '' }}
                                         </small>
                                     <br>
-                                        <div id="copy_to_clipboard">
-                                            <button v-if="canCopy" @click="copy(appId)">
-                                                <small title="Copiați emailul"
-                                                    id="appId" v-model="appId"
-                                                >
+                                        <script type="application/javascript">
+                                            appIdVechi={!! json_encode($service_fisa->client->email ?? '') !!}
+                                        </script>
+                                        <div id="copy_to_clipboard" v-cloak>
+                                            <a class="btn btn-sm p-0 border-0" v-if="canCopy" @click="copy('{{ $service_fisa->client->email}}')">
+                                                <small title="Copiați emailul" id="appId">
                                                     {{ $service_fisa->client->email ?? '' }} <i class="far fa-clone"></i>
                                                 </small>
-                                            </button>
+                                            </a>
                                         </div>
+
+
                                 </td>
                                 {{-- <td class="text-center">
                                     {{ \Carbon\Carbon::parse($service_fisa->data_receptie)->isoFormat('DD.MM.YYYY') ?? '' }}
@@ -974,17 +979,9 @@
                                                                 <div class="modal-body" style="text-align:left;">
                                                                     <div class="form-group col-lg-12 mb-2" id="sms-personalizat">
                                                                         <label for="sms_personalizat" class="mb-0 pl-3">Text SMS:</label>
-                                                                        {{-- <input
-                                                                            type="text"
-                                                                            class="form-control form-control-sm rounded-pill {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}"
-                                                                            name="sms_personalizat"
-                                                                            placeholder=""
-                                                                            value="{{ old('sms_personalizat') }}"
-                                                                            required>            --}}
                                                                         <textarea class="form-control mb-1 {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}"
                                                                             name="sms_personalizat"
                                                                             rows="4"
-                                                                            {{-- placeholder="Observații" --}}
                                                                             v-model="sms_personalizat"
                                                                             ></textarea>
                                                                         <div class="text-right">

@@ -210,6 +210,7 @@ if (document.querySelector('#copy_to_clipboard')) {
     const app = new Vue({
         el: '#copy_to_clipboard',
         data: {
+            appId1: ((typeof appIdVechi !== 'undefined') ? appIdVechi : ''),
             appId: '3493993048904',
             appToken: 'dksklq33lkj21kjl12lkdsasd21jk',
             canCopy: false
