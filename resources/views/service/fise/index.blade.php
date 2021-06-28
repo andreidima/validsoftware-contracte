@@ -177,37 +177,23 @@
                                     </small>
                                 </td>
                                 <td>
-
-
                                     {{ $service_fisa->client->nume ?? '' }} -
                                         <small>
                                             {{ $service_fisa->client->telefon ?? '' }}
                                         </small>
                                     <br>
-                                        {{-- <script type="application/javascript">
-                                            appIdVechi={!! json_encode($service_fisa->client->email ?? '') !!}
-                                        </script> --}}
-                                        {{-- <div id="copy_to_clipboard" v-cloak> --}}
-                                        <div>
-                                            <a class="btn btn-sm p-0 border-0" v-if="canCopy" @click="copy('{{ $service_fisa->client->email}}')">
-                                            {{-- <a class="btn btn-sm p-0 border-0" v-if="canCopy" @click="copy('asdsad222')"> --}}
-                                                <small title="Copy to clipboard" id="appId"
-                                                    aria-describedby="aaaaaaaaaaa"
-                                                >
-                                                    {{ $service_fisa->client->email ?? '' }} <i class="far fa-clone"></i>
-                                                </small>
-                                            </a>
-                                        </div>
-                                        {{-- <button class="btn-clipboard" title="" data-original-title="Copy to clipboard">Copy</button> --}}
-
-
+                                        @isset ($service_fisa->client->email)
+                                            <div>
+                                                <a class="btn btn-sm p-0 border-0" v-if="canCopy" @click="copy('{{ $service_fisa->client->email}}')">
+                                                    <small title="Copy to clipboard" id="appId"
+                                                        aria-describedby="aaaaaaaaaaa"
+                                                    >
+                                                        {{ $service_fisa->client->email ?? '' }} <i class="far fa-clone"></i>
+                                                    </small>
+                                                </a>
+                                            </div>
+                                        @endisset
                                 </td>
-                                {{-- <td class="text-center">
-                                    {{ \Carbon\Carbon::parse($service_fisa->data_receptie)->isoFormat('DD.MM.YYYY') ?? '' }}
-                                </td> --}}
-                                {{-- <td class="text-center">
-                                    {{ \Carbon\Carbon::parse($service_fisa->data_ridicare)->isoFormat('DD.MM.YYYY') ?? '' }}
-                                </td> --}}
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center">
                                         <a href="{{ $service_fisa->path() }}/export/word/fisa-word-intrare"
