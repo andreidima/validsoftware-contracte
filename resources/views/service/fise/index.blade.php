@@ -1,6 +1,45 @@
 @extends ('layouts.app')
 
 @section('content')
+<style>
+.tooltip__layout {
+  position: relative;
+  display:inline-block;
+}
+
+.tooltip__content.show {
+   opacity:1;
+   transition: 1s;
+   -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+
+.tooltip__content {
+    padding-left: 50px;
+    right:-55px
+    top:-4px;
+    background: #616161;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 8px;
+    /* position: absolute; */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 20px;
+    margin-left: 20px;
+
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    width: auto;
+    opacity:0;
+}
+</style>
+
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header justify-content-between py-1" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-2 align-self-center">
@@ -96,9 +135,11 @@
             </div>
         </div>
 
-        <div class="card-body px-0 py-3">
+        <div class="card-body px-0 py-3" id="fise">
 
             @include('errors')
+
+            <span class="tooltip__content" :class="{'show': flag}">Copiat!</span>
 
             <div class="table-responsive rounded">
                 <table class="table table-striped table-hover table-sm rounded">
@@ -117,7 +158,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($service_fise->take(3) as $service_fisa)
+                        @forelse ($service_fise->take(25) as $service_fisa)
                             @if ($service_fisa->inchisa === 0)
                             <tr style="background-color:rgb(0, 82, 82); color:white">
                             @else
@@ -143,16 +184,21 @@
                                             {{ $service_fisa->client->telefon ?? '' }}
                                         </small>
                                     <br>
-                                        <script type="application/javascript">
+                                        {{-- <script type="application/javascript">
                                             appIdVechi={!! json_encode($service_fisa->client->email ?? '') !!}
-                                        </script>
-                                        <div id="copy_to_clipboard" v-cloak>
+                                        </script> --}}
+                                        {{-- <div id="copy_to_clipboard" v-cloak> --}}
+                                        <div>
                                             <a class="btn btn-sm p-0 border-0" v-if="canCopy" @click="copy('{{ $service_fisa->client->email}}')">
-                                                <small title="Copiați emailul" id="appId">
+                                            {{-- <a class="btn btn-sm p-0 border-0" v-if="canCopy" @click="copy('asdsad222')"> --}}
+                                                <small title="Copy to clipboard" id="appId"
+                                                    aria-describedby="aaaaaaaaaaa"
+                                                >
                                                     {{ $service_fisa->client->email ?? '' }} <i class="far fa-clone"></i>
                                                 </small>
                                             </a>
                                         </div>
+                                        {{-- <button class="btn-clipboard" title="" data-original-title="Copy to clipboard">Copy</button> --}}
 
 
                                 </td>
@@ -977,7 +1023,8 @@
                                                                     }}">
 
                                                                 <div class="modal-body" style="text-align:left;">
-                                                                    <div class="form-group col-lg-12 mb-2" id="sms-personalizat">
+                                                                    {{-- <div class="form-group col-lg-12 mb-2" id="sms-personalizat"> --}}
+                                                                    <div class="form-group col-lg-12 mb-2">
                                                                         <label for="sms_personalizat" class="mb-0 pl-3">Text SMS:</label>
                                                                         <textarea class="form-control mb-1 {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}"
                                                                             name="sms_personalizat"

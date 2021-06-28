@@ -226,3 +226,42 @@ if (document.querySelector('#copy_to_clipboard')) {
         }
     });
 }
+
+if (document.querySelector('#fise')) {
+    const app = new Vue({
+        el: '#fise',
+        data: {
+            sms_personalizat: '',
+            nr_caractere: 0,
+
+            canCopy: false, // pentru copy paste
+            flag: false // pentru tooltip
+        },
+
+        // Pentru copy paste
+        created() {
+            this.canCopy = !!navigator.clipboard;
+        },
+        methods: {
+            async copy(s) {
+                await navigator.clipboard.writeText(s);
+                // alert('Copied!');
+
+                this.flag = true
+                setTimeout(() => {
+                    this.flag = false
+                }, 3000)
+            }
+        },
+
+        // Pentru SMS
+        computed: {
+            caractere() {
+                var char = this.sms_personalizat.length;
+                return char;
+            }
+        }
+    });
+
+
+}
