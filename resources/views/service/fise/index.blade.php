@@ -184,15 +184,32 @@
                                     <br>
                                         @isset ($service_fisa->client->email)
                                             <div>
-                                                <a class="btn btn-sm p-0 border-0" v-if="canCopy" @click="copy('{{ $service_fisa->client->email}}')">
+                                                <a class="btn btn-sm p-0 border-0"
+                                                    v-if="canCopy"
+                                                    @click="copy('{{ $service_fisa->client->email}}')">
                                                     <small title="Copy to clipboard" id="appId"
-                                                        aria-describedby="aaaaaaaaaaa"
+                                                        aria-describedby=""
                                                     >
                                                         {{ $service_fisa->client->email ?? '' }} <i class="far fa-clone"></i>
                                                     </small>
                                                 </a>
                                             </div>
                                         @endisset
+                                    @isset ($service_fisa->client->cui)
+                                        {{-- <br> --}}
+                                        <div>
+                                            <a class="btn btn-sm p-0 border-0"
+                                                v-if="canCopy"
+                                                @click="copy('{{ $service_fisa->client->cui}}')">
+                                                <small title="Copy to clipboard" id="appId"
+                                                    aria-describedby=""
+                                                >
+                                                    CUI:
+                                                    {{ $service_fisa->client->cui ?? '' }} <i class="far fa-clone"></i>
+                                                </small>
+                                            </a>
+                                        </div>
+                                    @endisset
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center">
