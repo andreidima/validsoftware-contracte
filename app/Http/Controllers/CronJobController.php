@@ -72,7 +72,7 @@ class CronJobController extends Controller
     public function show(CronJob $cron_job)
     {
 
-        return view('cron-jobs.show', compact('cron_job', 'data_curenta'));
+        return view('cron-jobs.show', compact('cron_job'));
     }
 
     /**
@@ -124,7 +124,7 @@ class CronJobController extends Controller
                 'status',
                 'Cron Jobul "' . $cron_job->nume . '", pentru clientul "' . ($cron_job->client->nume ?? '') . '", a fost șters cu succes!'
             );
-        } 
+        }
     }
 
     /**
