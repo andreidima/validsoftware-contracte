@@ -92,7 +92,7 @@
             <div class="form-group col-lg-1 mb-2 d-flex justify-content-center align-items-center">
                 <label for="" class="mb-0 pl-2">sau</label>
             </div>
-            <div class="form-group col-lg-4 mb-2">
+            {{-- <div class="form-group col-lg-4 mb-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <label for="client_nume_autocomplete" class="mb-0 pl-2">
@@ -141,7 +141,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="form-group col-lg-4 mb-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
