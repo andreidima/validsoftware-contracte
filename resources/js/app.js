@@ -74,8 +74,8 @@ if (document.querySelector('#fisa-service')) {
             // client_email_dpo: clientVechi_email_dpo,
             client_site_web: clientVechi_site_web,
 
-            client_nume_autocomplete: '',
-            clienti_lista_autocomplete: '',
+            // client_nume_autocomplete: '',
+            // clienti_lista_autocomplete: '',
 
             client_nume_autocomplete2: '',
             clienti_lista_autocomplete2: [],
