@@ -74,6 +74,12 @@ if (document.querySelector('#fisa-service')) {
             // client_email_dpo: clientVechi_email_dpo,
             client_site_web: clientVechi_site_web,
 
+            client_nume_autocomplete: '',
+            clienti_lista_autocomplete: '',
+
+            client_nume_autocomplete2: '',
+            clienti_lista_autocomplete2: [],
+
             servicii: servicii,
             servicii_selectate: serviciiSelectate
         },
@@ -84,6 +90,9 @@ if (document.querySelector('#fisa-service')) {
             getDateClient: function () {
                 for (var i = 0; i < this.clienti.length; i++) {
                     if (this.clienti[i].id == this.client_deja_inregistrat) {
+                        // this.client_nume_autocomplete = this.clienti[i].nume;
+                        this.client_nume_autocomplete2 = this.clienti[i].nume;
+
                         this.client_nume = this.clienti[i].nume;
                         // this.client_nume_scurt = this.clienti[i].nume_scurt;
                         this.client_nr_ord_reg_com = this.clienti[i].nr_ord_reg_com;
@@ -116,6 +125,9 @@ if (document.querySelector('#fisa-service')) {
             changeDateClient: function () {
                 for (var i = 0; i < this.clienti.length; i++) {
                     if (this.clienti[i].id == this.client_deja_inregistrat) {
+                        // this.client_nume_autocomplete = this.clienti[i].nume;
+                        this.client_nume_autocomplete2 = this.clienti[i].nume;
+
                         this.client_nume = this.clienti[i].nume;
                         // this.client_nume_scurt = this.clienti[i].nume_scurt;
                         this.client_nr_ord_reg_com = this.clienti[i].nr_ord_reg_com;
@@ -148,6 +160,38 @@ if (document.querySelector('#fisa-service')) {
             // formfocus() {
             //     document.getElementById("cod_de_bare").focus();
             // },
+
+            // Autocomplete pentru datele clientului
+            autoComplete: function () {
+                this.clienti_lista_autocomplete = '';
+                if (this.client_nume_autocomplete.length > 2) {
+                    axios.get('/vuejs/autocomplete/search', {
+                        params: {
+                            client_nume: this.client_nume_autocomplete
+                        }
+                    })
+                        .then(response => {
+                            this.clienti_lista_autocomplete = response.data;
+                        });
+                }
+            },
+
+            // Autocomplete pentru datele clientului
+            autoComplete2: function () {
+                this.clienti_lista_autocomplete2 = [];
+                if (this.client_nume_autocomplete2.length > 2) {
+                    for (var i = 0; i < this.clienti.length; i++) {
+                        if (this.clienti[i].nume.toLowerCase().includes(this.client_nume_autocomplete2.toLowerCase())) {
+
+                            // this.clienti_lista_autocomplete.push(this.clienti[i])
+                            this.clienti_lista_autocomplete2.push(this.clienti[i]);
+                            // this.clienti_lista_autocomplete2 = 'asd';
+                        }
+                    }
+                }
+            },
+
+
             select: function (value, event) {
                 servicii_selectate = this.servicii_selectate;
 

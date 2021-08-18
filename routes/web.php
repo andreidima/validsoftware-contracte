@@ -53,6 +53,10 @@ Route::middleware('role:service,admin')->group(function () {
     Route::post('/service/fisiere/{fisa}/file-upload', 'ServiceFisierController@store')->name('service.file.upload.post');
     Route::post('/service/fisiere/file-download/{fisier}', 'ServiceFisierController@fileDownload')->name('service.file.download');
     // Route::post('/fisiere/file-delete/{fisier}', 'FisierController@destroy')->name('file.delete');
+
+    // Autocomplete cautare clienti la completare fise service
+    Route::get('vuejs/autocomplete', 'VueJSController@autocomplete');
+    Route::get('vuejs/autocomplete/search', 'VueJSController@autocompleteSearch');
 });
 
 // Route::middleware(['auth', 'admin'])->group(function () {
