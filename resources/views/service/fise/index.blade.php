@@ -177,12 +177,12 @@
                                     </small>
                                 </td>
                                 <td>
-                                    <a href="{{ $service_fisa->path() }}">
-                                        {{ $service_fisa->client->nume ?? '' }} -
+                                    <a href="{{ $service_fisa->client->path() }}">
+                                        {{ $service_fisa->client->nume ?? '' }}
+                                    </a> -
                                             <small>
                                                 {{ $service_fisa->client->telefon ?? '' }}
                                             </small>
-                                    </a>
                                     <br>
                                         @isset ($service_fisa->client->email)
                                             <div>
