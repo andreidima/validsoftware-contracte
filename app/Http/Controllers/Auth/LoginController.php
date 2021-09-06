@@ -39,13 +39,13 @@ class LoginController extends Controller
         // Check user role
         switch ($role) {
             case 'superadmin':
-                return '/clienti';
+                return '/service/fise';
                 break;
             case 'admin':
-                return '/clienti';
+                return '/service/fise';
                 break;
             case 'service':
-                return '/service/clienti';
+                return '/service/fise';
                 break;
             case 'service-voluntar':
                 return '/service/componente-pc';
