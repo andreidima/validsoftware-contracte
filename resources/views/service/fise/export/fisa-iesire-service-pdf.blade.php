@@ -131,7 +131,7 @@
             @endif
 
             @if (count($fisa->servicii))
-                <div style="break-inside: avoid">
+                <div style="page-break-inside: avoid">
                 @php
                     $html ='<b>Servicii efectuate:</b>';
                     $html .='<ul>';
@@ -156,7 +156,7 @@
             @endif
 
             @if ($fisa->instalare_anydesk === 1)
-                <div style="break-inside: avoid">
+                <div style="page-break-inside: avoid">
                     <p style="text-align:left; font-weight: bold;">Important</p>
                     <p style="text-align:justify;">
                         Pentru suport tehnic de la distanță am instalat și aplicația AnyDesk. În cazul în care întâmpitați probleme în utilizarea calculatorului, vă rugăm să ne contactați la <a href="service@validsoftware.ro">service@validsoftware.ro</a> sau 0785 709 027.
@@ -166,7 +166,7 @@
             @endif
 
             @if ($fisa->observatii)
-                <div style="break-inside: avoid">
+                <div style="page-break-inside: avoid">
                     <p style="text-align:left; font-weight: bold;">Observații</p>
                     <p style="text-align:justify;">
                         {{ $fisa->observatii }}
