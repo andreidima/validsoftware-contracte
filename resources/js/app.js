@@ -82,6 +82,7 @@ if (document.querySelector('#fisa-service')) {
 
             servicii: servicii,
             servicii_selectate: serviciiSelectate
+            // servicii_selectate: []
         },
         created: function () {
             this.getDateClient()
@@ -193,11 +194,9 @@ if (document.querySelector('#fisa-service')) {
 
 
             select: function (value, event) {
-                servicii_selectate = this.servicii_selectate;
+                // this.servicii_selectate = ['a'];
+                var servicii_selectate = this.servicii_selectate;
 
-                // if (this.servicii_selectate.length == this.servicii.length){
-                //     this.servicii_selectate = [];
-                // } else {
                 if (event.target.checked) {
                     this.servicii.forEach(function (serviciu) {
                         if (serviciu.categorie_id == value){
@@ -206,7 +205,6 @@ if (document.querySelector('#fisa-service')) {
                                 console.log(serviciu.id);
                             }
                                 console.log(servicii_selectate);
-                                // console.log(this.servicii_selectate[i].categorie_id);
                         }
                     });
                 } else {
@@ -216,13 +214,10 @@ if (document.querySelector('#fisa-service')) {
                                 if (servicii_selectate[i] == serviciu.id) {
                                     servicii_selectate.splice(i, 1);
                                 }
-                                // console.log(i);
-                                // console.log(this.servicii_selectate[i].categorie_id);
                             }
                         }
                     });
                 }
-                // }
 
                 this.servicii_selectate = servicii_selectate;
             }
