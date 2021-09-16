@@ -744,7 +744,7 @@ class ServiceFisaController extends Controller
             if ($fise->instalare_anydesk === 1) {
                 $html .='
                     <p style="text-align:left; font-weight: bold;">Important</p>
-                    <p style="text-align:justify;">Pentru suport tehnic de la distanță am instalat și aplicația AnyDesk. În cazul în care întâmpitați probleme în utilizarea calculatorului, vă rugăm să ne contactați la service@validsoftware.ro sau 0785 709 027.</p>
+                    <p style="text-align:justify;">Pentru suport tehnic de la distanță am instalat și aplicația AnyDesk. În cazul în care întâmpinați probleme în utilizarea calculatorului, vă rugăm să ne contactați la service@validsoftware.ro sau 0785 709 027.</p>
                     <br />
                     ';
             }

@@ -159,7 +159,7 @@
                 <div style="page-break-inside: avoid">
                     <p style="text-align:left; font-weight: bold;">Important</p>
                     <p style="text-align:justify;">
-                        Pentru suport tehnic de la distanță am instalat și aplicația AnyDesk. În cazul în care întâmpitați probleme în utilizarea calculatorului, vă rugăm să ne contactați la <a href="service@validsoftware.ro">service@validsoftware.ro</a> sau 0785 709 027.
+                        Pentru suport tehnic de la distanță am instalat și aplicația AnyDesk. În cazul în care întâmpinați probleme în utilizarea calculatorului, vă rugăm să ne contactați la <a href="service@validsoftware.ro">service@validsoftware.ro</a> sau 0785 709 027.
                     </p>
                     <br />
                 </div>
@@ -174,6 +174,7 @@
                     <br />
                 </div>
             @endif
+
 
             {{-- <br /><br /> --}}
             {{-- <table align="center" style="width: 100%; margin: 0px; padding: 0px;" >
