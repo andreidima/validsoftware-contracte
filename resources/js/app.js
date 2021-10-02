@@ -161,22 +161,22 @@ if (document.querySelector('#fisa-service')) {
             //     document.getElementById("cod_de_bare").focus();
             // },
 
-            // Autocomplete pentru datele clientului
-            autoComplete: function () {
-                this.clienti_lista_autocomplete = '';
-                if (this.client_nume_autocomplete.length > 2) {
-                    axios.get('/vuejs/autocomplete/search', {
-                        params: {
-                            client_nume: this.client_nume_autocomplete
-                        }
-                    })
-                        .then(response => {
-                            this.clienti_lista_autocomplete = response.data;
-                        });
-                }
-            },
+            // Autocomplete pentru datele clientului cu Axios
+            // autoComplete: function () {
+            //     this.clienti_lista_autocomplete = '';
+            //     if (this.client_nume_autocomplete.length > 2) {
+            //         axios.get('/vuejs/autocomplete/search', {
+            //             params: {
+            //                 client_nume: this.client_nume_autocomplete
+            //             }
+            //         })
+            //             .then(response => {
+            //                 this.clienti_lista_autocomplete = response.data;
+            //             });
+            //     }
+            // },
 
-            // Autocomplete pentru datele clientului
+            // Autocomplete pentru datele clientului folosind clientii trimisi din start in vuejs
             autoComplete2: function () {
                 this.clienti_lista_autocomplete2 = [];
                 if (this.client_nume_autocomplete2.length > 2) {
