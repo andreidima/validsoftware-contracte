@@ -33,6 +33,9 @@ Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să
 @component('mail::button', ['url' => 'http://search.google.com/local/writereview?placeid=ChIJoX8PeK8YtEARgtFebuluoUo', 'color' => 'success'])
 Recenzia ta
 @endcomponent
+@component('mail::button', ['url' => 'https://www.facebook.com/validsoftware.ro', 'color' => 'primary'])
+Recenzia ta
+@endcomponent
 @endif
 
 @php $afiseaza = true; @endphp
@@ -48,6 +51,12 @@ Recenzia ta
 @endif
 @endforeach
 
+<br>
+
+Serviciile noastre sunt disponibile și prin platforma SEAP/ SICAP.
+Mai multe detalii <a href="https://validsoftware.ro/oferta-servicii-informatice-disponibila-si-in-seap/" target="_blank">aici</a>.
+
+<br>
 <br>
 
 Mulțumim,
