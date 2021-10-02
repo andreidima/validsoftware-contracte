@@ -1,6 +1,6 @@
 @extends ('layouts.app')
 
-@section('content')   
+@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-7">
@@ -9,7 +9,7 @@
                     <h6 class="ml-4 my-0" style="color:white"><i class="fas fa-money-bill-wave mr-1"></i>Fișe service / {{ $fise->nr_fisa }}</h6>
                 </div>
 
-                <div class="card-body py-2 border border-secondary" 
+                <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
                     id="app1"
                 >
@@ -19,7 +19,7 @@
                     <div class="table-responsive col-md-12 mx-auto">
                         <table class="table table-sm table-striped table-hover"
                                 {{-- style="background-color:#008282" --}}
-                        > 
+                        >
                             <tr>
                                 <td>
                                     Număr intrare
@@ -50,6 +50,22 @@
                                 </td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($fise->data_receptie)->isoFormat('DD.MM.YYYY') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Consultanță IT
+                                </td>
+                                <td>
+                                    {{ ($fise->consultanta_it === 1) ? 'da' : 'nu' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Instalare Anydesk
+                                </td>
+                                <td>
+                                    {{ ($fise->instalare_anydesk === 1) ? 'da' : 'nu' }}
                                 </td>
                             </tr>
                             <tr>
@@ -126,11 +142,11 @@
                                 </td>
                                 <td>
                                     {{ $fise->partener->nume ?? '' }}
-                                    
-                                    <div class="d-flex">       
-                                        <a 
-                                            href="#" 
-                                            data-toggle="modal" 
+
+                                    <div class="d-flex">
+                                        <a
+                                            href="#"
+                                            data-toggle="modal"
                                             data-target="#trimiteEmailPartener"
                                             title="trimite Email Partener"
                                             class="mr-1"
@@ -160,17 +176,17 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                            
+
                                                             <form method="POST" action="{{ $fise->path() }}/email-partener-si-client/trimite-email">
-                                                                @csrf   
-                                                                <button 
-                                                                    type="submit" 
-                                                                    class="btn btn-primary"  
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
                                                                     >
                                                                     Trimite email
-                                                                </button>                    
+                                                                </button>
                                                             </form>
-                                                        
+
                                                         </div>
                                                     @else
                                                         <div class="modal-body bg-warning" style="text-align:left;">
@@ -187,11 +203,11 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>                   
-                                        
-                    <div class="form-row mb-0 px-2 justify-content-center">                                    
-                        <div class="col-lg-8 d-flex justify-content-center">  
-                            <a class="btn btn-primary btn-sm mr-4 rounded-pill" href="/service/fise">Înapoi la Fișe Service</a> 
+                    </div>
+
+                    <div class="form-row mb-0 px-2 justify-content-center">
+                        <div class="col-lg-8 d-flex justify-content-center">
+                            <a class="btn btn-primary btn-sm mr-4 rounded-pill" href="/service/fise">Înapoi la Fișe Service</a>
                         </div>
                     </div>
 

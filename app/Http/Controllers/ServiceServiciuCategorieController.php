@@ -17,8 +17,8 @@ class ServiceServiciuCategorieController extends Controller
     {
         $search_nume = \Request::get('search_nume');
 
-        $categorii = ServiceServiciuCategorie::
-            when($search_nume, function ($query, $search_nume) {
+        $categorii = ServiceServiciuCategorie::with('servicii')
+            ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
             // ->orderBy('nume')

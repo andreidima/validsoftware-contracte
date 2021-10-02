@@ -13,4 +13,9 @@ class ServiceServiciuCategorie extends Model
     {
         return "/service/servicii/categorii/{$this->id}";
     }
+
+    public function servicii()
+    {
+        return $this->hasMany(ServiceServiciu::class, 'categorie_id');
+    }
 }

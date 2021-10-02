@@ -226,6 +226,7 @@ class ServiceFisaController extends Controller
      */
     public function update(Request $request, ServiceFisa $fise)
     {
+        // dd($request);
         $client = ServiceClient::where('id', $request->client_deja_inregistrat)->first();
         if (isset($client)){
             $client->update($this->validateRequestClient($request));
@@ -292,6 +293,7 @@ class ServiceFisaController extends Controller
             'tehnician_service' => ['max:90'],
             'data_receptie' => [''],
             'consultanta_it' => [''],
+            'instalare_anydesk' => [''],
             'descriere_echipament' => [''],
             'defect_reclamat' => [''],
             'defect_constatat' => [''],
@@ -498,7 +500,7 @@ class ServiceFisaController extends Controller
                     'marginRight'  => 1200,
                     'marginTop'    => 0,
                     'marginBottom' => 700,
-                    'headerHeight' => 1700,
+                    'headerHeight' => 2700,
                     'footerHeight' => 0,
                 )
             );
@@ -648,7 +650,7 @@ class ServiceFisaController extends Controller
                     'marginRight'  => 1200,
                     'marginTop'    => 0,
                     'marginBottom' => 700,
-                    'headerHeight' => 1700,
+                    'headerHeight' => 2700,
                     'footerHeight' => 0,
                 )
             );
@@ -722,7 +724,7 @@ class ServiceFisaController extends Controller
                     '</p>
                     <br />';
 
-
+            if (count($fise->servicii)){
                 $html .='<ul><b>Servicii efectuate:</b>';
                 foreach ($fise->servicii as $serviciu) {
                     $html .= '<li>' . $serviciu->nume;
@@ -736,15 +738,26 @@ class ServiceFisaController extends Controller
                 }
                 $html .='</ul>';
 
+                $html .= '<br />';
+            }
 
-                $html .= '<br />
+            if ($fise->instalare_anydesk === 1) {
+                $html .='
+                    <p style="text-align:left; font-weight: bold;">Important</p>
+                    <p style="text-align:justify;">Pentru suport tehnic de la distanță am instalat și aplicația AnyDesk. În cazul în care întâmpinați probleme în utilizarea calculatorului, vă rugăm să ne contactați la service@validsoftware.ro sau 0785 709 027.</p>
+                    <br />
+                    ';
+            }
 
+            if ($fise->observatii) {
+                $html .='
                     <p style="text-align:left; font-weight: bold;">Observatii</p>
                     <p style="text-align:justify;">' .
                         $fise->observatii .
                     '</p>
                     <br />
                     ';
+            }
 
             $html .= '<br /><br />';
             // $html .= '

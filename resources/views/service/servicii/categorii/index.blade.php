@@ -38,6 +38,7 @@
                         <tr class="small" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Categorie serviciu</th>
+                            <th>Servicii</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -49,6 +50,14 @@
                                 </td>
                                 <td align="">
                                     {{ $categorie->nume }}
+                                </td>
+                                <td>
+                                    @foreach ($categorie->servicii as $serviciu)
+                                        {{ $serviciu->nume }}
+                                        @if (!$loop->last)
+                                            <br>
+                                        @endif
+                                    @endforeach
                                 </td>
 
                                 <td class="d-flex justify-content-end">

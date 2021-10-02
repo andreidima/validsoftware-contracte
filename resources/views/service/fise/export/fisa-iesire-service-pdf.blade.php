@@ -130,8 +130,8 @@
                 <br />
             @endif
 
-            @if ($fisa->servicii)
-                <div style="break-inside: avoid">
+            @if (count($fisa->servicii))
+                <div style="page-break-inside: avoid">
                 @php
                     $html ='<b>Servicii efectuate:</b>';
                     $html .='<ul>';
@@ -155,13 +155,26 @@
                 </div>
             @endif
 
-            @if ($fisa->observatii)
-                <p style="text-align:left; font-weight: bold;">Observații</p>
-                <p style="text-align:justify;">
-                    {{ $fisa->observatii }}
-                </p>
-                <br />
+            @if ($fisa->instalare_anydesk === 1)
+                <div style="page-break-inside: avoid">
+                    <p style="text-align:left; font-weight: bold;">Important</p>
+                    <p style="text-align:justify;">
+                        Pentru suport tehnic de la distanță am instalat și aplicația AnyDesk. În cazul în care întâmpinați probleme în utilizarea calculatorului, vă rugăm să ne contactați la <a href="service@validsoftware.ro">service@validsoftware.ro</a> sau 0785 709 027.
+                    </p>
+                    <br />
+                </div>
             @endif
+
+            @if ($fisa->observatii)
+                <div style="page-break-inside: avoid">
+                    <p style="text-align:left; font-weight: bold;">Observații</p>
+                    <p style="text-align:justify;">
+                        {{ $fisa->observatii }}
+                    </p>
+                    <br />
+                </div>
+            @endif
+
 
             {{-- <br /><br /> --}}
             {{-- <table align="center" style="width: 100%; margin: 0px; padding: 0px;" >
@@ -217,7 +230,7 @@
                         <b>Servicii web și multumedia</b>: achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs/ locație și clipuri de prezentare, consultanță IT.
                     </li>
                     <li>
-                        <b>Service IT</b>: Instalare și actualizare sisteme de operare și aplicații adiacente, remedierea problemelor software ale calculatoarelor, salvare și transfer date, configurare echipamente IT, upgrade configurații hardware, mentenanță preventivă calculatoare.
+                        <b>Service IT</b>: Instalare și actualizare sisteme de operare și aplicații adiacente, migrare sisteme de operare pe ssd, remedierea problemelor software ale calculatoarelor, salvare și transfer date, configurare echipamente IT, upgrade configurații hardware, mentenanță preventivă calculatoare.
                     </li>
                     <li>
                         <b>Consultanță IT remote (de la distanță)</b>: Servicii de optimizare calculatoare, remediere probleme software de la distanță, consultanță IT generală, cu posibilitate de plată online cu cardul.

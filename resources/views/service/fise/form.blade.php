@@ -63,6 +63,15 @@
                     <label class="form-check-label" for="consultanta_it">Consultanță IT</label>
                 </div>
             </div>
+            <div class="form-group col-lg-2 mb-0 pl-4 d-flex align-items-center">
+                <div>
+                    <input type="hidden" name="instalare_anydesk" value=0>
+                    <input type="checkbox" class="form-check-input" name="instalare_anydesk" value="1"
+                        {{ old('instalare_anydesk', $fise->instalare_anydesk) == '1' ? 'checked' : '' }}
+                    >
+                    <label class="form-check-label" for="instalare_anydesk">Instalare Anydesk</label>
+                </div>
+            </div>
 
         </div>
         <div class="form-row px-2 py-2 mb-0"
