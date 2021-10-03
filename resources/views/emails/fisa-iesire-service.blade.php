@@ -28,15 +28,20 @@ Multumim,<br>
 Te informăm că oferim și servicii de Asistență IT de la distanță. Mai multe detalii
 <a href="https://magic.validsoftware.ro/asistenta-it-la-distanta/">aici</a>.
 <br><br>
-@if ($fisa->client->review_google !== 1)
+
 Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să ne oferi o recenzie.
+<div style="display:flex;">
+@if ($fisa->client->review_google !== 1)
 @component('mail::button', ['url' => 'http://search.google.com/local/writereview?placeid=ChIJoX8PeK8YtEARgtFebuluoUo', 'color' => 'success'])
 Recenzia ta
 @endcomponent
-@component('mail::button', ['url' => 'https://www.facebook.com/validsoftware.ro', 'color' => 'primary'])
-Recenzia ta
-@endcomponent
 @endif
+@component('mail::button', ['url' => 'https://www.facebook.com/validsoftware.ro', 'color' => 'primary'])
+<div style="display:flex;">
+<img src="{{ asset('images/Facebook_icon_2013.svg.png') }}" width="20px" style="margin-right: 10px">validsoftware.ro
+</div>
+@endcomponent
+</div>
 
 @php $afiseaza = true; @endphp
 @foreach ($fisa->servicii->whereNotNull('link_review_site') as $serviciu)
