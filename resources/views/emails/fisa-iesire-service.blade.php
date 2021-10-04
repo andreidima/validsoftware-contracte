@@ -60,8 +60,6 @@ Mai multe detalii <a href="https://validsoftware.ro/oferta-servicii-informatice-
 </div>
 @endcomponent
 
-<br>
-<br>
 
 Mulțumim,
 <br>
