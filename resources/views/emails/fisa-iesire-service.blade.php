@@ -27,7 +27,7 @@ Multumim,<br>
 <br><br>
 Te informăm că oferim și servicii de Asistență IT de la distanță. Mai multe detalii
 <a href="https://magic.validsoftware.ro/asistenta-it-la-distanta/">aici</a>.
-<br>
+<br><br>
 
 Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să ne oferi o recenzie.
 <div style="display:flex;">
@@ -36,18 +36,13 @@ Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să
 Recenzia ta
 @endcomponent
 @endif
-@component('mail::button', ['url' => 'https://www.facebook.com/validsoftware.ro', 'color' => 'primary'])
-<div style="display:flex;">
-<img src="{{ asset('images/Facebook_icon_2013.svg.png') }}" width="20px" style="margin-right: 10px">validsoftware.ro
-</div>
-@endcomponent
 </div>
 
 @php $afiseaza = true; @endphp
 @foreach ($fisa->servicii->whereNotNull('link_review_site') as $serviciu)
 @if(!in_array($serviciu->id, $fisa->client->servicii_review->pluck('id')->toArray()))
 @if($afiseaza)
-<p style="margin:0px">Te invităm să ne oferi o recenzie și individual pentru serviciile oferite:</p>
+<p style="margin:0px">Ne poți oferi o recenzie și individual pentru serviciile oferite:</p>
 @php $afiseaza = false; @endphp
 @endif
 <li>
@@ -60,6 +55,12 @@ Recenzia ta
 
 Serviciile noastre sunt disponibile și prin platforma SEAP/ SICAP.
 Mai multe detalii <a href="https://validsoftware.ro/oferta-servicii-informatice-disponibila-si-in-seap/" target="_blank">aici</a>.
+
+@component('mail::button', ['url' => 'https://www.facebook.com/validsoftware.ro', 'color' => 'primary'])
+<div style="display:flex;">
+<img src="{{ asset('images/Facebook_icon_2013.svg.png') }}" width="20px" style="margin-right: 10px">validsoftware.ro
+</div>
+@endcomponent
 
 <br>
 <br>
