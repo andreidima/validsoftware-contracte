@@ -156,9 +156,6 @@
                     <div class="panel-body">
                         <label for="client_nume_autocomplete2" class="mb-0 pl-2">
                             Caută clientul
-                            <small>
-                                (introdu minim 3 litere din nume)
-                            </small>
                             :
                         </label>
                         <input
@@ -198,6 +195,9 @@
                                 </li>
                             </div>
                         </div>
+                        <small class="pl-2">
+                            Introdu minim 3 caractere din nume sau telefon
+                        </small>
                     </div>
                 </div>
             </div>

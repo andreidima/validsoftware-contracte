@@ -46,10 +46,10 @@ Recenzia ta
 <li>
 <a href="{{ $serviciu->link_review_site }}">{{ $serviciu->nume }} (lasă o recenzie)</a>
 </li>
+<br>
 @endif
 @endforeach
 
-<br>
 
 Serviciile noastre sunt disponibile și prin platforma SEAP/ SICAP.
 Mai multe detalii <a href="https://validsoftware.ro/oferta-servicii-informatice-disponibila-si-in-seap/" target="_blank">aici</a>.
