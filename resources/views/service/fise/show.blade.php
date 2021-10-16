@@ -110,6 +110,22 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Link QR
+                                </td>
+                                <td>
+                                    {{ $fise->link_qr }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Link QR descriere
+                                </td>
+                                <td>
+                                    {{ $fise->link_qr_descriere }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Observații
                                 </td>
                                 <td>

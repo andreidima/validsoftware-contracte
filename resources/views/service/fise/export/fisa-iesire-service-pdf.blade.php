@@ -130,6 +130,30 @@
                 <br />
             @endif
 
+            @if ($fisa->link_qr)
+                <p style="text-align:left;">
+                    <b>Link QR</b>
+                    - Accesează rapid linkul prin scanarea codului QR, sau click
+                    <a href="$fisa->link_qr" target="_blank">
+                        aici
+                    </a>
+                </p>
+                <table style="margin:0px;">
+                    <tr>
+                        <td style="width: 60px;">
+                            {{-- {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(50)->generate($fisa->link_qr) !!} --}}
+                            <img src="data:image/png;base64, {{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::size(50)->generate($fisa->link_qr)) }} ">
+                        </td>
+                        <td>
+                            <p style="text-align:justify; margin:0px;">
+                                {{ $fisa->link_qr_descriere }}
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+            @endif
+
             @if (count($fisa->servicii))
                 <div style="page-break-inside: avoid">
                 @php

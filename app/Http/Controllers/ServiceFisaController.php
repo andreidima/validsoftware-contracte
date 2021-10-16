@@ -298,6 +298,8 @@ class ServiceFisaController extends Controller
             'defect_reclamat' => [''],
             'defect_constatat' => [''],
             'rezultat_service' => [''],
+            'link_qr' => ['nullable', 'max:1000'],
+            'link_qr_descriere' => ['nullable', 'max:1000'],
             'observatii' => [''],
             'data_ridicare' => [''],
             'durata_interventie' => [''],
@@ -465,6 +467,8 @@ class ServiceFisaController extends Controller
             } else {
                 return $pdf->download('Fisa intrare service nr. ' . $fisa->nr_intrare . '.pdf');
             }
+        }elseif ($request->view_type === 'fisa-html-iesire') {
+            return view('service.fise.export.fisa-iesire-service-pdf', compact('fisa'));
         }elseif ($request->view_type === 'fisa-pdf-iesire') {
             $pdf = \PDF::loadView('service.fise.export.fisa-iesire-service-pdf', compact('fisa'))
                 ->setPaper('a4', 'portrait');

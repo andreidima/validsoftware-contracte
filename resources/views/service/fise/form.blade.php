@@ -431,6 +431,20 @@
                     {{-- placeholder="Rezultat service" --}}
                     >{{ old('rezultat_service') == '' ? $fise->rezultat_service : old('rezultat_service') }}</textarea>
             </div>
+            <div class="form-group col-lg-6">
+                <label for="link_qr" class="mb-0 pl-3">Link QR:</label>
+                <textarea class="form-control {{ $errors->has('link_qr') ? 'is-invalid' : '' }}"
+                    name="link_qr"
+                    {{-- placeholder="Link QR" --}}
+                    >{{ old('link_qr') == '' ? $fise->link_qr : old('link_qr') }}</textarea>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="link_qr_descriere" class="mb-0 pl-3">Link QR descriere:</label>
+                <textarea class="form-control {{ $errors->has('link_qr_descriere') ? 'is-invalid' : '' }}"
+                    name="link_qr_descriere"
+                    {{-- placeholder="Link QR descriere" --}}
+                    >{{ old('link_qr_descriere') == '' ? $fise->link_qr_descriere : old('link_qr_descriere') }}</textarea>
+            </div>
             <div class="form-group col-lg-12 mb-2">
                 <label for="servicii_efectuate" class="mb-0 pl-1">Categorii Servicii efectuate:</label>
                         <script type="application/javascript">
