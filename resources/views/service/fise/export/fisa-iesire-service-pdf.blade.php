@@ -134,7 +134,7 @@
                 <p style="text-align:left;">
                     <b>Link QR</b>
                     - Accesează rapid linkul prin scanarea codului QR, sau click
-                    <a href="$fisa->link_qr" target="_blank">
+                    <a href="{{ $fisa->link_qr }}" target="_blank">
                         aici
                     </a>
                 </p>
