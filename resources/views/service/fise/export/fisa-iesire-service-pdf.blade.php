@@ -125,7 +125,12 @@
             @if ($fisa->rezultat_service)
                 <p style="text-align:left; font-weight: bold;">Rezultat service</p>
                 <p style="text-align:justify;">
-                    {{ $fisa->rezultat_service }}
+                    {{-- {{ $fisa->rezultat_service }} --}}
+                    @php
+                        $url = '/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/';
+                        $fisa->rezultat_service_cu_linkuri = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $fisa->rezultat_service);
+                    @endphp
+                    {!! $fisa->rezultat_service_cu_linkuri !!}
                 </p>
                 <br />
             @endif
