@@ -141,22 +141,23 @@
                 <br />
             @endif
 
+            @if (count($urlurile_extrase[0]) == 1)
+                <b>Accesează rapid linkul de mai sus, prin scanarea codului QR</b>
+            @else
+                <b>Accesează rapid linkurile de mai sus, prin scanarea codurilor QR</b>
+            @endif
             @if ($urlurile_extrase[0])
                 <table style="width: 100%; margin:0px;">
-                    <tr>
-                        @foreach ($urlurile_extrase[0] as $url)
-                            <td style="width: 1%">
+                    @foreach ($urlurile_extrase[0] as $url)
+                        <tr>
+                            <td style="width: 1%; padding-bottom:15px">
                                 <img src="data:image/png;base64, {{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::size(60)->generate($url)) }}">
                             </td>
-                        @endforeach
-                        <td style="vertical-align:middle;">
-                            @if (count($urlurile_extrase[0]) == 1)
-                                Accesează rapid linkul de mai sus, prin scanarea codului QR
-                            @else
-                                Accesează rapid linkurile de mai sus, prin scanarea codurilor QR
-                            @endif
-                        </td>
-                    </tr>
+                            <td style="vertical-align:middle; padding-bottom:15px">
+                                {{ $url }}
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
                 <br />
             @endif
