@@ -108,7 +108,7 @@
                                     {{ $fise->rezultat_service }}
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td>
                                     Link QR
                                 </td>
@@ -123,7 +123,7 @@
                                 <td>
                                     {{ $fise->link_qr_descriere }}
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td>
                                     Observații
