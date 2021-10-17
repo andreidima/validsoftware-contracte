@@ -48,7 +48,7 @@ class CronJobTrimitere extends Mailable
         }
 
         //Adaugare fisier particular pentru "Scoala Gimnaziala Stefan cel Mare Focsani"
-        if($cron_job->id === 1) {
+        if($cron_job->id === 4) {
             $nr_document = \App\Variabila::Nr_document();
 
             $pdf = \PDF::loadView('cron-jobs.fisiere-particularizate-pdf.Scoala-Gimnaziala-Stefan-cel-Mare-Focsani-pdf', compact('nr_document'))
