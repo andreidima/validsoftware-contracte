@@ -102,16 +102,6 @@ Route::middleware('role:admin')->group(function () {
     // Trimitere Cron joburi din Cpanel
     Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
-    // Temporar, de sters dupa utilizare
-    Route::any('setare-deschis-inchis', function() {
-        // $service_fise_toate = App\ServiceFisa::with('mesaje_trimise_fisa_iesire')
-        //     ->get();
-        $service_fise = App\ServiceFisa::with('mesaje_trimise_fisa_iesire')
-            ->whereHas('mesaje_trimise_fisa_iesire')
-            ->orwhereHas('sms_trimise_fisa_iesire');
-        $service_fise->update(['inchisa'=>1]);
-        // echo count($service_fise_toate) . ' | ' . count($service_fise);
-    });
 
 
 Route::get('backup', function() {

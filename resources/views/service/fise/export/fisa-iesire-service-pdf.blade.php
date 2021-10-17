@@ -20,6 +20,7 @@
         * {
             /* padding: 0; */
             text-indent: 0;
+            margin: 0px;
         }
 
         table{
@@ -80,8 +81,9 @@
                 Nr. {{ $fisa->nr_iesire . (isset($fisa->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fisa->data_receptie)->isoFormat('DD.MM.YYYY')) : '') }}
             </p>
             <br />
+            <br />
 
-            <p style="text-align:justify;">
+            <p style="text-align:justify; margin:0px;">
                 {{
                     'Beneficiar ' . ($fisa->client->nume ?? '') .
                     (isset($fisa->client->adresa) ? ', din ' . ($fisa->client->adresa) : '') .
@@ -99,60 +101,60 @@
             <br />
 
             @if ($fisa->descriere_echipament)
-                <p style="text-align:left; font-weight: bold;">Descriere echipament</p>
-                <p style="text-align:justify;">
+                <p style="text-align:left; font-weight: bold; margin:0px;">Descriere echipament</p>
+                <p style="text-align:justify; margin:0px;">
                     {{ $fisa->descriere_echipament }}
                 </p>
                 <br />
             @endif
 
             @if ($fisa->defect_reclamat)
-                <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
-                <p style="text-align:justify;">
+                <p style="text-align:left; font-weight: bold; margin:0px;">Defect reclamat</p>
+                <p style="text-align:justify; margin:0px;">
                     {{ $fisa->defect_reclamat }}
                 </p>
                 <br />
             @endif
 
             @if ($fisa->defect_constatat)
-                <p style="text-align:left; font-weight: bold;">Defect constatat</p>
-                <p style="text-align:justify;">
+                <p style="text-align:left; font-weight: bold; margin:0px;">Defect constatat</p>
+                <p style="text-align:justify; margin:0px;">
                     {{ $fisa->defect_constatat }}
                 </p>
                 <br />
             @endif
 
             @if ($fisa->rezultat_service)
-                <p style="text-align:left; font-weight: bold;">Rezultat service</p>
-                <p style="text-align:justify;">
+                <p style="text-align:left; font-weight: bold; margin:0px;">Rezultat service</p>
+                <p style="text-align:justify; margin:0px;">
                     {{-- {{ $fisa->rezultat_service }} --}}
                     @php
                         $url = '/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/';
                         $fisa->rezultat_service_cu_linkuri = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $fisa->rezultat_service);
+
+                        // $reg_exUrl = "/<a\s+.*?href=[\"\']?([^\"\' >]*)[\"\']?[^>]*>(.*?)<\/a>/i";
+                        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $fisa->rezultat_service, $urlurile_extrase);
+                        // dd($urlurile_extrase[0]);
                     @endphp
                     {!! $fisa->rezultat_service_cu_linkuri !!}
                 </p>
                 <br />
             @endif
 
-            @if ($fisa->link_qr)
-                <p style="text-align:left;">
-                    <b>Link QR</b>
-                    - Accesează rapid linkul prin scanarea codului QR, sau click
-                    <a href="{{ $fisa->link_qr }}" target="_blank">
-                        aici
-                    </a>
-                </p>
-                <table style="margin:0px;">
+            @if ($urlurile_extrase[0])
+                <table style="width: 100%; margin:0px;">
                     <tr>
-                        <td style="width: 60px;">
-                            {{-- {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(50)->generate($fisa->link_qr) !!} --}}
-                            <img src="data:image/png;base64, {{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::size(50)->generate($fisa->link_qr)) }} ">
-                        </td>
-                        <td>
-                            <p style="text-align:justify; margin:0px;">
-                                {{ $fisa->link_qr_descriere }}
-                            </p>
+                        @foreach ($urlurile_extrase[0] as $url)
+                            <td style="width: 1%">
+                                <img src="data:image/png;base64, {{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::size(60)->generate($url)) }}">
+                            </td>
+                        @endforeach
+                        <td style="vertical-align:middle;">
+                            @if (count($urlurile_extrase[0]) == 1)
+                                Accesează rapid linkul de mai sus, prin scanarea codului QR
+                            @else
+                                Accesează rapid linkurile de mai sus, prin scanarea codurilor QR
+                            @endif
                         </td>
                     </tr>
                 </table>
@@ -163,7 +165,7 @@
                 <div style="page-break-inside: avoid">
                 @php
                     $html ='<b>Servicii efectuate:</b>';
-                    $html .='<ul>';
+                    $html .='<ul style="margin:0px;">';
                     foreach ($fisa->servicii as $serviciu) {
                         $html .= '<li>' . $serviciu->nume;
                             // if ($serviciu->pret){
@@ -186,8 +188,8 @@
 
             @if ($fisa->instalare_anydesk === 1)
                 <div style="page-break-inside: avoid">
-                    <p style="text-align:left; font-weight: bold;">Important</p>
-                    <p style="text-align:justify;">
+                    <p style="text-align:left; font-weight: bold; margin:0px;">Important</p>
+                    <p style="text-align:justify; margin:0px;">
                         Pentru suport tehnic de la distanță am instalat și aplicația AnyDesk. În cazul în care întâmpinați probleme în utilizarea calculatorului, vă rugăm să ne contactați la <a href="service@validsoftware.ro">service@validsoftware.ro</a> sau 0785 709 027.
                     </p>
                     <br />
@@ -196,8 +198,8 @@
 
             @if ($fisa->observatii)
                 <div style="page-break-inside: avoid">
-                    <p style="text-align:left; font-weight: bold;">Observații</p>
-                    <p style="text-align:justify;">
+                    <p style="text-align:left; font-weight: bold; margin:0px;">Observații</p>
+                    <p style="text-align:justify; margin:0px;">
                         {{ $fisa->observatii }}
                     </p>
                     <br />
@@ -205,26 +207,6 @@
             @endif
 
 
-            {{-- <br /><br /> --}}
-            {{-- <table align="center" style="width: 100%; margin: 0px; padding: 0px;" >
-                <tr style="margin: 0px; padding: 0px;">
-                    <td style="width:50%" align="center"><b>Beneficiar,</b>
-                        <br/> {{ $fisa->client->nume }}
-                        <br /><br /> {{ $fisa->client->reprezentant_functie }}
-                        <br /> {{ $fisa->client->reprezentant }}
-                    </td>
-                    <td style="width:50%" align="center"><b>Prestator,</b>
-                        <br/>Dima P. Valentin PFA
-                        <br/>
-                        <br/>
-                        <b>Tehnician service</b>
-                        <br/>
-                            {{ $fisa->tehnician_service }}
-                        <br/>
-                        <img src="images/semnatura si stampila.png" width="100"/>
-                    </td>
-                </tr>
-            </table> --}}
 
             {{-- Page break --}}
             <span style="page-break-after: always;"></span>
@@ -233,28 +215,30 @@
 
             <br><br><br>
 
-            <p style="text-align:left; font-weight: bold;">Despre noi</p>
-            <p style="text-align:justify;">
+            <p style="text-align:left; font-weight: bold; margin:0px;">Despre noi</p>
+            <p style="text-align:justify; margin:0px;">
                 Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. Pentru mai multe detalii legate de activitatea noastră din zona de servicii web, vă invităm să accesați secțiunea Portofoliu de la adresa <a href="https://validsoftware.ro/" target="_blank">https://validsoftware.ro</a>.
             </p>
 
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Echipă și scop</p>
-            <p style="text-align:justify;">
+            <p style="text-align:left; font-weight: bold; margin:0px;">Echipă și scop</p>
+            <p style="text-align:justify; margin:0px;">
                 Echipa noastră este formată din specialiști, absolvenți de studii superioare în domeniul IT, dar și în domenii conexe. Scopul nostru este furnizarea de servicii integrate, pentru a oferi clienților noștri creșterea competitivității și performanței activităților pe care le desfășoară.
             </p>
 
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Tehnologie</p>
-            <p style="text-align:justify;">
+            <p style="text-align:left; font-weight: bold; margin:0px;">Tehnologie</p>
+            <p style="text-align:justify; margin:0px;">
                 Adoptăm tehnologii de ultimă oră și ne bazăm pe spiritul de inovație al colegilor noștri. Oferim calitate și eficiență, finalizând cu succes proiectele, indiferent dacă acestea implică soluții simple sau complexe.
             </p>
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Ce vă oferim</p>
-                <ul>Venim în întâmpinarea nevoilor dumneavoastră prin:<br><br>
+            <b>Ce vă oferim</b>
+            <br />
+            Venim în întâmpinarea nevoilor dumneavoastră prin:
+                <ul style="margin:0px;">
                     <li>
                         <b>Servicii web și multumedia</b>: achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs/ locație și clipuri de prezentare, consultanță IT.
                     </li>
@@ -267,8 +251,8 @@
                 </ul>
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Contact:</p>
-            <ul>
+            <p style="text-align:left; font-weight: bold; margin:0px;">Contact:</p>
+            <ul style="margin:0px;">
                 <li>
                     <a href="https://validsoftware.ro/" target="_blank">https://validsoftware.ro/</a>
                 </li>

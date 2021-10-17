@@ -20,6 +20,7 @@
         * {
             /* padding: 0; */
             text-indent: 0;
+            margin: 0px;
         }
 
         table{
@@ -80,6 +81,7 @@
                     'Nr. ' . $fisa->nr_intrare . (isset($fisa->data_receptie) ? (' din ' . \Carbon\Carbon::parse($fisa->data_receptie)->isoFormat('DD.MM.YYYY')) : '')
                 }}
             </p>
+            <br />
             <br />
 
             <p style="text-align:justify;">
@@ -163,8 +165,10 @@
             </p>
             <br />
 
-            <p style="text-align:left; font-weight: bold;">Ce vă oferim</p>
-                <ul>Venim în întâmpinarea nevoilor dumneavoastră prin:<br><br>
+            <b>Ce vă oferim</b>
+            <br />
+            Venim în întâmpinarea nevoilor dumneavoastră prin:
+                <ul>
                     <li>
                         <b>Servicii web și multumedia</b>: achiziționare domenii, găzduire site-uri și aplicații web, dezvoltare aplicații web personalizate, realizare site-uri de prezentare și magazine online, promovare online servicii și produse, fotografii de produs/ locație și clipuri de prezentare, consultanță IT.
                     </li>
