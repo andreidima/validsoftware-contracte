@@ -141,12 +141,12 @@
                 <br />
             @endif
 
-            @if (count($urlurile_extrase[0]) == 1)
-                <b>Accesează rapid linkul de mai sus, prin scanarea codului QR</b>
-            @else
-                <b>Accesează rapid linkurile de mai sus, prin scanarea codurilor QR</b>
-            @endif
-            @if ($urlurile_extrase[0])
+            @if (!empty($urlurile_extrase[0]))
+                @if (count($urlurile_extrase[0]) == 1)
+                    <b>Accesează rapid linkul de mai sus, prin scanarea codului QR</b>
+                @else
+                    <b>Accesează rapid linkurile de mai sus, prin scanarea codurilor QR</b>
+                @endif
                 <table style="width: 100%; margin:0px;">
                     @foreach ($urlurile_extrase[0] as $url)
                         <tr>
