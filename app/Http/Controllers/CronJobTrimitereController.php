@@ -49,7 +49,7 @@ class CronJobTrimitereController extends Controller
             }
             return back()->with('status', 'Cron Joburile de astăzi au fost trimise!' . $cron_jobs->count());
         } else {
-            return back()->with('error', 'Cron Joburile de astăzi nu fost trimise! Cheia ' . $key . ' nu este validă');
+            return back()->with('error', 'Cron Joburile de astăzi nu au fost trimise! Cheia ' . $key . ' nu este validă');
         }
 
 
