@@ -47,7 +47,7 @@ class CronJobTrimitereController extends Controller
                     $cron_job_trimis->save();
                 }
             }
-            return back()->with('status', 'Cron Joburile de astăzi au fost trimise!' . $cron_jobs->count());
+            return back()->with('status', 'Cron Joburile de astăzi, ' . $cron_jobs->count() . ' la număr, au fost trimise!');
         } else {
             return back()->with('error', 'Cron Joburile de astăzi nu au fost trimise! Cheia ' . $key . ' nu este validă');
         }
