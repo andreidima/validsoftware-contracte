@@ -86,7 +86,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Defect reclamat
+                                    Serviciu solicitat sau defect reclamat
                                 </td>
                                 <td>
                                     {{ $fise->defect_reclamat }}

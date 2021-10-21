@@ -407,7 +407,7 @@
                     >{{ old('descriere_echipament') == '' ? $fise->descriere_echipament : old('descriere_echipament') }}</textarea>
             </div>
             <div class="form-group col-lg-6">
-                <label for="defect_reclamat" class="mb-0 pl-3">Defect reclamat:</label>
+                <label for="defect_reclamat" class="mb-0 pl-3">Serviciu solicitat sau defect reclamat:</label>
                 <textarea class="form-control {{ $errors->has('defect_reclamat') ? 'is-invalid' : '' }}"
                     name="defect_reclamat"
                     {{-- placeholder="Descriere defect" --}}

@@ -18,7 +18,7 @@ Multumim,<br>
 {{-- Body --}}
 # Bun găsit, {{ $fisa->partener->nume }},
 <br>
-Iți trimitem atașat Fișa echipamentului.
+Iți trimitem atașat fișa unui echipament, redirecționat pentru evaluare suplimentară în service-ul dvs.
 <br><br>
 Mulțumim,
 <br>

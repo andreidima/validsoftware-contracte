@@ -110,7 +110,7 @@
             <br />
 
             @if ($fisa->defect_reclamat)
-                <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
+                <p style="text-align:left; font-weight: bold;">Serviciu solicitat sau defect reclamat</p>
                 <p style="text-align:justify;">
                     {{ $fisa->defect_reclamat }}
                 </p>

@@ -6,11 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Fișă service</title>
     <style>
-        html { 
+        html {
             margin: 0px 0px;
         }
 
-        body { 
+        body {
             font-family: DejaVu Sans, sans-serif;
             /* font-family: Arial, Helvetica, sans-serif; */
             font-size: 14px;
@@ -32,18 +32,18 @@
             width: 100%;
             word-wrap:break-word;
         }
-        
+
         th, td {
             padding: 1px 10px;
             border-width: 0px;
             border-style: solid;
-            
+
         }
         tr {
             border-style: solid;
             border-width: 0px;
         }
-        hr { 
+        hr {
             display: block;
             margin-top: 0.5em;
             margin-bottom: 0.5em;
@@ -51,18 +51,18 @@
             margin-right: auto;
             border-style: inset;
             border-width: 0.5px;
-        } 
+        }
     </style>
 </head>
 
 <body>
-    {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}        
+    {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}
     <img src="{{ asset('images/contract-header.jpg') }}" width="800px">
 
     <div style="
         /* border:dashed #999; */
-        width:710px; 
-        min-height:500px;            
+        width:710px;
+        min-height:500px;
         padding: 0px 0px 0px 0px;
         margin:20px 50px;
             -moz-border-radius: 10px;
@@ -89,7 +89,7 @@
                     (isset($fisa->client->reprezentant) ? ', Reprezentant ' . ($fisa->client->reprezentant) : '') .
                     (isset($fisa->client->reprezentant_functie) ? ', în funcția de ' . ($fisa->client->reprezentant_functie) : '') .
                     (isset($fisa->client->telefon) ? ', telefon: ' . ($fisa->client->telefon) : '') .
-                    (isset($fisa->client->email) ? ', email: ' . ($fisa->client->email) : '') . 
+                    (isset($fisa->client->email) ? ', email: ' . ($fisa->client->email) : '') .
                     (isset($fisa->client->site_web) ? ', site web: ' . ($fisa->client->site_web) : '')
                 }}.
             </p>
@@ -104,7 +104,7 @@
             @endif
 
             @if ($fisa->defect_reclamat)
-                <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
+                <p style="text-align:left; font-weight: bold;">Serviciu solicitat sau defect reclamat</p>
                 <p style="text-align:justify;">
                     {{ $fisa->defect_reclamat }}
                 </p>
@@ -125,10 +125,9 @@
                     {{ $fisa->rezultat_service }}
                 </p>
                 <br />
-            @endif            
-                    
+            @endif
+
     </div>
 </body>
 
 </html>
-    

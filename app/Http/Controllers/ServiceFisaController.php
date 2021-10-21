@@ -561,7 +561,7 @@ class ServiceFisaController extends Controller
                     '</p>
                     <br />
 
-                    <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
+                    <p style="text-align:left; font-weight: bold;">Serviciu solicitat sau defect reclamat</p>
                     <p style="text-align:justify;">' .
                         $fise->defect_reclamat .
                     '</p>
@@ -710,7 +710,7 @@ class ServiceFisaController extends Controller
                     '</p>
                     <br />
 
-                    <p style="text-align:left; font-weight: bold;">Defect reclamat</p>
+                    <p style="text-align:left; font-weight: bold;">Serviciu solicitat sau defect reclamat</p>
                     <p style="text-align:justify;">' .
                         $fise->defect_reclamat .
                     '</p>
