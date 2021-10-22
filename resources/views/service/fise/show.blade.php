@@ -154,6 +154,14 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Observații interne
+                                </td>
+                                <td>
+                                    {{ $fise->observatii_interne }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Partener
                                 </td>
                                 <td>

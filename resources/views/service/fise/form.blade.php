@@ -591,6 +591,13 @@
                     <label class="form-check-label" for="casare">Casare</label>
                 </div>
             </div>
+            <div class="form-group col-lg-12">
+                <label for="observatii_interne" class="mb-0 pl-3">Observații interne:</label>
+                <textarea class="form-control {{ $errors->has('observatii_interne') ? 'is-invalid' : '' }}"
+                    name="observatii_interne"
+                    {{-- placeholder="Observații" --}}
+                    >{{ old('observatii_interne') == '' ? $fise->observatii_interne : old('observatii_interne') }}</textarea>
+            </div>
         </div>
         <div class="form-row px-2 py-2 mb-4"
             style="background-color:rgb(220, 225, 255); border-left:6px solid; border-color:rgb(43, 0, 160); border-radius: 0px 0px 0px 0px"
