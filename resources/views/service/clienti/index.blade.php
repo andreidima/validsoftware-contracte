@@ -5,19 +5,35 @@
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class=" mb-0"><a href="{{ route('service.clienti.index') }}"><i class="fas fa-building mr-1"></i>Clienți</a></h4>
+                @if (auth()->user()->isAdmin())
+                    <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="{{ route('service.clienti.emailuri') }}" role="button">
+                    {{-- <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="/service/clienti/emailuri" role="button"> --}}
+                        Emailuri clienți
+                    </a>
+                @endif
             </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.clienti.index') }}">
                     @csrf
-                    <div class="row input-group custom-search-form">
-                        <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
-                                value="{{ $search_nume }}">
-                        <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
-                            <i class="fas fa-search text-white mr-1"></i>Caută
-                        </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-pill" href="{{ route('service.clienti.index') }}" role="button">
-                            <i class="far fa-trash-alt text-white mr-1"></i>Resetează căutarea
-                        </a>
+                    <div class="row">
+                        <div class="col-lg-6 mb-2">
+                            <input type="text" class="form-control form-control-sm border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
+                                    value="{{ $search_nume }}">
+                        </div>
+                        <div class="col-lg-6 mb-2">
+                            <input type="text" class="form-control form-control-sm border rounded-pill" id="search_telefon" name="search_telefon" placeholder="Telefon" autofocus
+                                    value="{{ $search_telefon }}">
+                        </div>
+                        <div class="col-lg-6">
+                            <button class="btn btn-sm btn-primary btn-block border border-dark rounded-pill" type="submit">
+                                <i class="fas fa-search text-white"></i>Caută
+                            </button>
+                        </div>
+                        <div class="col-lg-6">
+                            <a class="btn btn-sm bg-secondary btn-block text-white border border-dark rounded-pill" href="{{ route('service.clienti.index') }}" role="button">
+                                <i class="far fa-trash-alt text-white mr-1"></i>Resetează căutarea
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -26,14 +42,6 @@
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă client
                 </a>
             </div>
-            @if (auth()->user()->isAdmin())
-            <div class="col-lg-3">
-                <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="{{ route('service.clienti.emailuri') }}" role="button">
-                {{-- <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="/service/clienti/emailuri" role="button"> --}}
-                    Emailuri clienți
-                </a>
-            </div>
-            @endif
         </div>
 
         <div class="card-body px-0 py-3">

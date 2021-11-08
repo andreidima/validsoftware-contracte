@@ -28,6 +28,7 @@ class ServiceFisaController extends Controller
     {
         $search_numar_intrare = \Request::get('search_numar_intrare');
         $search_nume = \Request::get('search_nume');
+        $search_telefon = \Request::get('search_telefon');
         $search_cu_plata = \Request::get('search_cu_plata') ?? 1;
         // $search_cu_plata = ($search_cu_plata == '0') ? null : $search_cu_plata;
         $search_gratuit = \Request::get('search_gratuit') ?? 1;
@@ -58,6 +59,9 @@ class ServiceFisaController extends Controller
             })
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('service_clienti.nume', 'like', '%' . $search_nume . '%');
+            })
+            ->when($search_telefon, function ($query, $search_telefon) {
+                return $query->where('service_clienti.telefon', 'like', '%' . $search_telefon . '%');
             })
             // ->where(function ($query, $search_cu_plata, $search_gratuit, $search_donatie) {
             ->where(function ($query) use ($search_cu_plata, $search_gratuit) {
@@ -137,7 +141,7 @@ class ServiceFisaController extends Controller
             ->count();
 
         return view('service.fise.index', compact('service_fise', 'search_numar_intrare',
-            'search_nume', 'search_cu_plata', 'search_gratuit', 'search_in_lucru', 'search_finalizate', 'search_donatie', 'search_service',
+            'search_nume', 'search_telefon', 'search_cu_plata', 'search_gratuit', 'search_in_lucru', 'search_finalizate', 'search_donatie', 'search_service',
             'service_fise_cu_plata', 'service_fise_gratuite'));
     }
 

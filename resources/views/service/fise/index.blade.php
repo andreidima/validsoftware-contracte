@@ -61,6 +61,11 @@
                             id="search_nume" name="search_nume" placeholder="Client"
                                     value="{{ $search_nume }}">
                         </div>
+                        <div class="col-md-3 px-1">
+                            <input type="text" class="form-control form-control-sm border rounded-pill mb-1 py-0"
+                            id="search_telefon" name="search_telefon" placeholder="Telefon"
+                                    value="{{ $search_telefon }}">
+                        </div>
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
                         <div class="col-md-12 px-1 d-flex align-items-center justify-content-center">

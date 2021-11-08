@@ -19,9 +19,13 @@ class ServiceClientController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
+        $search_telefon = \Request::get('search_telefon');
         $clienti = ServiceClient::with('emailuri_trimise_client_catre_partener')
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
+            })
+            ->when($search_telefon, function ($query, $search_telefon) {
+                return $query->where('telefon', 'like', '%' . $search_telefon . '%');
             })
             // ->where('tip', 'service')
             ->latest()
@@ -29,7 +33,7 @@ class ServiceClientController extends Controller
 
         $parteneri = ServicePartener::orderBy('nume')->get();
 
-        return view('service.clienti.index', compact('clienti', 'parteneri', 'search_nume'));
+        return view('service.clienti.index', compact('clienti', 'parteneri', 'search_nume', 'search_telefon'));
     }
 
     /**
