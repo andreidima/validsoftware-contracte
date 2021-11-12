@@ -175,11 +175,33 @@
                                 <td>
                                     <b>{{ $service_fisa->nr_intrare }}</b>/{{ $service_fisa->nr_iesire }}
                                     <br>
-                                    <small>
+                                    <small style="white-space: nowrap;">
+                                        Deschisă la:
                                         @isset ($service_fisa->created_at)
                                             {{ \Carbon\Carbon::parse($service_fisa->created_at)->isoFormat('DD.MM.YYYY HH:mm') }}
                                         @endisset
                                     </small>
+                                    <br>
+                                    {{-- <small style="white-space: nowrap;">
+                                        Ultima modificare:
+                                        @isset ($service_fisa->updated_at)
+                                            {{ \Carbon\Carbon::parse($service_fisa->updated_at)->isoFormat('DD.MM.YYYY HH:mm') }}
+                                        @endisset
+                                    </small> --}}
+                                    {{-- <small style="white-space: nowrap;">
+                                        Durată:
+                                        @isset ($service_fisa->created_at, $service_fisa->updated_at)
+                                            {{ \Carbon\Carbon::parse($service_fisa->created_at)->diffInHours($service_fisa->updated_at) . ':' . \Carbon\Carbon::parse($service_fisa->created_at)->diff($service_fisa->updated_at)->format('%I:%S') }}
+                                        @endisset
+                                    </small> --}}
+                                    @if ($service_fisa->inchisa === 0)
+                                        <small style="white-space: nowrap;">
+                                            Deschisă de:
+                                            @isset ($service_fisa->created_at, $service_fisa->updated_at)
+                                                {{ \Carbon\Carbon::parse($service_fisa->created_at)->diffForHumans(['syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE]) }}
+                                            @endisset
+                                        </small>
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ $service_fisa->client->path() }}">

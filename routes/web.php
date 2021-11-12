@@ -46,6 +46,9 @@ Route::middleware('role:service,admin')->group(function () {
     Route::resource('service/servicii', 'ServiceServiciuController', ['names' => 'service.servicii']);
     Route::resource('service/anydeskuri', 'ServiceAnydeskController', ['names' => 'service.anydeskuri', 'parameters' => ['anydeskuri' => 'anydesk']]);
 
+    Route::any('service/licente/schimba-cantitatea/{licenta}', 'ServiceComponentaPcController@schimbaCantitatea');
+    Route::resource('service/licente', 'ServiceComponentaPcController', ['names' => 'service.licente', 'parameters' => ['licente' => 'licenta']]);
+
     Route::post('trimite-sms/{categorie}/{subcategorie}/{inregistrare_id}/{telefon}/{mesaj}', 'SmsTrimiteController@trimite_sms');
 
     Route::resource('service/fisiere', 'ServiceFisierController', ['names' => 'service.fisiere']);
