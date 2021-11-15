@@ -55,7 +55,9 @@
                                     {{ $licenta->nume }}
                                 </td>
                                 <td align="">
-                                    <a href="{{ $licenta->link }}" target="_blank">Accesează link licențe</a>
+                                    @isset ($licenta->link)
+                                        <a href="{{ $licenta->link }}" target="_blank">Accesează link licențe</a>
+                                    @endisset
                                 </td>
                                 <td class="text-center">
                                     <form method="POST" action="{{ url('service/licente/schimba-cantitatea', $licenta->id) }}">

@@ -33,7 +33,9 @@
                                     Link
                                 </td>
                                 <td>
-                                    <a href="{{ $licenta->link }}" target="_blank">Link licențe</a>
+                                    @isset ($licenta->link)
+                                        <a href="{{ $licenta->link }}" target="_blank">Link licențe</a>
+                                    @endisset
                                 </td>
                             </tr>
                             <tr>
