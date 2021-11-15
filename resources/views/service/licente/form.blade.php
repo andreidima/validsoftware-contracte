@@ -13,7 +13,7 @@
                     value="{{ old('nume', $licenta->nume) }}"
                     required>
             </div>
-            <div class="form-group col-lg-9 mb-2">
+            <div class="form-group col-lg-7 mb-2">
                 <label for="link" class="mb-0 pl-3">Link:</label>
                 <input
                     type="text"
@@ -23,8 +23,8 @@
                     value="{{ old('link', $licenta->link) }}"
                     >
             </div>
-            <div class="form-group col-lg-3 mb-2">
-                <label for="cantitate" class="mb-0 pl-3">Cantitate:</label>
+            <div class="form-group col-lg-5 mb-2">
+                <label for="cantitate" class="mb-0 pl-3">Licențe disponibile:</label>
                 <input
                     type="text"
                     class="form-control form-control-sm rounded-pill {{ $errors->has('cantitate') ? 'is-invalid' : '' }}"

@@ -33,12 +33,12 @@
                                     Link
                                 </td>
                                 <td>
-                                    <a href="{{ $licenta->link }}" target="_blank">{{ $licenta->link }}</a>
+                                    <a href="{{ $licenta->link }}" target="_blank">Link licențe</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Cantitate
+                                    Licențe disponibile
                                 </td>
                                 <td>
                                     {{ $licenta->cantitate }}

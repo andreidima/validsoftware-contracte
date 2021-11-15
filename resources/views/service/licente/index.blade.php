@@ -41,7 +41,7 @@
                             <th>Nr. Crt.</th>
                             <th>Licență</th>
                             <th>Link</th>
-                            <th class="text-center">Cantitate</th>
+                            <th class="text-center">Cantitate disponibilă</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -55,7 +55,7 @@
                                     {{ $licenta->nume }}
                                 </td>
                                 <td align="">
-                                    <a href="{{ $licenta->link }}" target="_blank">{{ $licenta->link }}</a>
+                                    <a href="{{ $licenta->link }}" target="_blank">Accesează link licențe</a>
                                 </td>
                                 <td class="text-center">
                                     <form method="POST" action="{{ url('service/licente/schimba-cantitatea', $licenta->id) }}">
