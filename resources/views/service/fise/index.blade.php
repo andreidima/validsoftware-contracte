@@ -197,7 +197,7 @@
                                     @if ($service_fisa->inchisa === 0)
                                         <small style="white-space: nowrap;">
                                             Deschisă de:
-                                            @isset ($service_fisa->created_at, $service_fisa->updated_at)
+                                            @isset ($service_fisa->created_at)
                                                 {{ \Carbon\Carbon::parse($service_fisa->created_at)->diffForHumans(['syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE]) }}
                                             @endisset
                                         </small>
