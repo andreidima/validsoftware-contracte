@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Licenta extends Model
+class ServiceLicenta extends Model
 {
-    protected $table = 'licente';
+    protected $table = 'service_licente';
     protected $guarded = [];
 
     public function path()

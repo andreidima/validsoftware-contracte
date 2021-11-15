@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Licenta;
+use App\ServiceLicenta;
 use Illuminate\Http\Request;
 
-class LicentaController extends Controller
+class ServiceLicentaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class LicentaController extends Controller
     {
         $search_nume = \Request::get('search_nume');
 
-        $licente = Licenta::
+        $licente = ServiceLicenta::
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
@@ -44,7 +44,7 @@ class LicentaController extends Controller
      */
     public function store(Request $request)
     {
-        $licenta = Licenta::create($this->validateRequest());
+        $licenta = ServiceLicenta::create($this->validateRequest());
 
         return redirect('/service/licente')->with('status',
             'Licența "' . $licenta->nume . '" a fost adăugată cu succes!');
@@ -53,10 +53,10 @@ class LicentaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Licenta  $licenta
+     * @param  \App\ServiceLicenta  $licenta
      * @return \Illuminate\Http\Response
      */
-    public function show(Licenta $licenta)
+    public function show(ServiceLicenta $licenta)
     {
         return view('service.licente.show', compact('licenta'));
     }
@@ -64,10 +64,10 @@ class LicentaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Licenta  $licenta
+     * @param  \App\ServiceLicenta  $licenta
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Licenta $licenta)
+    public function edit(Request $request, ServiceLicenta $licenta)
     {
         return view('service.licente.edit', compact('licenta'));
     }
@@ -76,10 +76,10 @@ class LicentaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Licenta  $licenta
+     * @param  \App\ServiceLicenta  $licenta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Licenta $licenta)
+    public function update(Request $request, ServiceLicenta $licenta)
     {
         $licenta->update($this->validateRequest());
 
@@ -90,10 +90,10 @@ class LicentaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Licenta  $licenta
+     * @param  \App\ServiceLicenta  $licenta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Licenta $licenta)
+    public function destroy(ServiceLicenta $licenta)
     {
         $licenta->delete();
 
@@ -116,7 +116,7 @@ class LicentaController extends Controller
         ]);
     }
 
-    public function schimbaCantitatea(Request $request, Licenta $licenta)
+    public function schimbaCantitatea(Request $request, ServiceLicenta $licenta)
     {
         switch ($request->input('action')) {
             case 'minus':

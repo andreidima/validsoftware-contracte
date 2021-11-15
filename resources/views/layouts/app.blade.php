@@ -126,6 +126,10 @@
                                         <a class="nav-link text-dark" href="{{ route('service.componente_pc.categorii.index') }}">
                                             <i class="fas fa-object-group mr-1"></i>Categorii
                                         </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ route('service.licente.index') }}">
+                                            <i class="fab fa-windows mr-1"></i>Licențe
+                                        </a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown active mr-4">
@@ -154,34 +158,31 @@
                                             <i class="fas fa-file mr-1"></i>Fișe
                                         </a>
                                 </li>
-                                <li class="nav-item dropdown active mr-4">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-file-alt mr-1"></i>Servicii
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
-                                            <i class="fas fa-file-alt mr-1"></i>Servicii
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="nav-link text-dark" href="{{ route('service.servicii.categorii.index') }}">
-                                            <i class="fas fa-file-alt mr-1"></i>Categorii
-                                        </a>
-                                    </div>
-                                </li>
                                 <li class="nav-item active mr-4">
                                         <a class="nav-link" href="{{ route('service.anydeskuri.index') }}">
                                             <i class="fas fa-network-wired mr-1"></i>AnyDesk
                                         </a>
                                 </li>
+                                <li class="nav-item active mr-4">
+                                    <a class="nav-link" href="{{ route('service.licente.index') }}">
+                                        <i class="fab fa-windows mr-1"></i>Licențe
+                                    </a>
+                                </li>
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-desktop mr-1"></i>Componente Pc
+                                        <i class="fas fa-th mr-1"></i>Diverse
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Servicii
+                                        </a>
+                                        <a class="nav-link text-dark" href="{{ route('service.servicii.categorii.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Categorii
+                                        </a>
+                                        <div class="dropdown-divider"></div>
                                         <a class="nav-link text-dark" href="{{ route('service.componente_pc.index') }}">
                                             <i class="fas fa-desktop mr-1"></i>Componente Pc
                                         </a>
-                                        <div class="dropdown-divider"></div>
                                         <a class="nav-link text-dark" href="{{ route('service.componente_pc.categorii.index') }}">
                                             <i class="fas fa-object-group mr-1"></i>Categorii
                                         </a>
