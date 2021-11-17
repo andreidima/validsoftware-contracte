@@ -231,6 +231,46 @@ if (document.querySelector('#fisa-service')) {
     });
 }
 
+if (document.querySelector('#ofertare')) {
+    const app = new Vue({
+        el: '#ofertare',
+        data: {
+            client_id: clientVechi,
+            clienti: clientiExistenti,
+
+            client_nume: '',
+            clienti_lista: []
+        },
+        created: function () {
+            this.getNumeClient()
+        },
+        methods: {
+            getNumeClient: function () {
+                this.client_nume = '';
+                for (var i = 0; i < this.clienti.length; i++) {
+                    if (this.clienti[i].id == this.client_id) {
+                        this.client_nume = this.clienti[i].nume;
+                        return true;
+                    }
+                }
+            },
+            // Autocomplete pentru datele clientului folosind clientii trimisi din start in vuejs
+            autoComplete: function () {
+                this.clienti_lista = [];
+                if (this.client_nume.length > 2) {
+                    for (var i = 0; i < this.clienti.length; i++) {
+                        if (this.clienti[i].nume && this.clienti[i].nume.toLowerCase().includes(this.client_nume.toLowerCase())) {
+                            this.clienti_lista.push(this.clienti[i]);
+                        } else if (this.clienti[i].telefon && this.clienti[i].telefon.toLowerCase().includes(this.client_nume.toLowerCase())) {
+                            this.clienti_lista.push(this.clienti[i]);
+                        }
+                    }
+                }
+            },
+        }
+    });
+}
+
 if (document.querySelector('#sms-personalizat')) {
     const app = new Vue({
         el: '#sms-personalizat',

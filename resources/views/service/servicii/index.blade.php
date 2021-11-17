@@ -36,7 +36,7 @@
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="small" style="padding:2rem">
-                            <th>Nr. Crt.</th>
+                            <th>Nr. de ordine</th>
                             <th>Serviciu service</th>
                             <th>Categoria</th>
                             <th>Preț</th>
@@ -47,7 +47,7 @@
                         @forelse ($servicii as $serviciu)
                             <tr>
                                 <td align="">
-                                    {{ ($servicii ->currentpage()-1) * $servicii ->perpage() + $loop->index + 1 }}
+                                    {{ $serviciu->nr_de_ordine }}
                                 </td>
                                 <td align="">
                                     {{ $serviciu->nume }}

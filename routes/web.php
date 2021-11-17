@@ -42,6 +42,19 @@ Route::middleware('role:service,admin')->group(function () {
     Route::patch('service/fise/{fise}/deschide-inchide', 'ServiceFisaController@deschideInchide');
     Route::post('service/fise/{fisa}/{tip_fisa}/trimite-email', 'ServiceFisaController@trimiteEmail');
     Route::resource('service/fise', 'ServiceFisaController', ['names' => 'service.fise']);
+
+    Route::get('service/servicii/reordonare/{serviciu?}', 'ServiceServiciuController@reordonareIndex')->name('service_servicii_reordonare_index');
+    Route::post('service/servicii/reordonare/serviciu/pozitie', 'ServiceServiciuController@reordonareUpdate')->name('service_servicii_reordonare_update');
+    // Route::any('service/servicii/reordonare', function () {
+    //     $servicii = App\ServiceServiciu::
+    //         orderBy('id')
+    //         ->latest()
+    //         ->get();
+    //     foreach ($servicii as $serviciu){
+    //         $serviciu->nr_de_ordine = $serviciu->id;
+    //         $serviciu->save();
+    //     }
+    // })->name('service_servicii_reordonare');
     Route::resource('service/servicii/categorii', 'ServiceServiciuCategorieController', ['names' => 'service.servicii.categorii', 'parameters' => ['categorii' => 'categorie']]);
     Route::resource('service/servicii', 'ServiceServiciuController', ['names' => 'service.servicii']);
     Route::resource('service/anydeskuri', 'ServiceAnydeskController', ['names' => 'service.anydeskuri', 'parameters' => ['anydeskuri' => 'anydesk']]);

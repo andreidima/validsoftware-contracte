@@ -87,7 +87,7 @@
                     <select name="client_deja_inregistrat"
                         class="custom-select custom-select-sm rounded-pill {{ $errors->has('client_deja_inregistrat') ? 'is-invalid' : '' }}"
                         v-model="client_deja_inregistrat"
-                        @change="changeDateClient();"
+                        @change="changeNumeClient();"
                     >
                             <option value='' selected>Selectează client</option>
                         @foreach ($clienti as $client)
@@ -101,56 +101,6 @@
             <div class="form-group col-lg-1 mb-2 d-flex justify-content-center align-items-center">
                 <label for="" class="mb-0 pl-2">sau</label>
             </div>
-            {{-- <div class="form-group col-lg-4 mb-2">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <label for="client_nume_autocomplete" class="mb-0 pl-2">
-                            Caută clientul
-                            <small>
-                                (introdu minim 3 litere din nume)
-                            </small>
-                            :
-                        </label>
-                        <input
-                            type="text"
-                            v-model="client_nume_autocomplete"
-                            v-on:keyup="autoComplete()"
-                            class="form-control form-control-sm rounded-pill {{ $errors->has('client_nume_autocomplete') ? 'is-invalid' : '' }}"
-                            name="client_nume_autocomplete"
-                            placeholder=""
-                            value="{{ old('client_nume_autocomplete') }}"
-                            autocomplete="off"
-                            required>
-                        <div v-cloak v-if="clienti_lista_autocomplete.length" class="panel-footer">
-                            <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item list-group-item-action py-0"
-                                        v-for="client in clienti_lista_autocomplete"
-                                        v-on:click="
-                                            client_nume_autocomplete = client.nume;
-
-                                            client_deja_inregistrat = client.id;
-                                            client_nume = client.nume;
-                                            client_nr_ord_reg_com = client.nr_ord_reg_com;
-                                            client_cui = client.cui;
-                                            client_adresa = client.adresa;
-                                            client_iban = client.iban;
-                                            client_banca = client.banca;
-                                            client_reprezentant = client.reprezentant;
-                                            client_reprezentant_functie = client.reprezentant_functie;
-                                            client_telefon = client.telefon;
-                                            client_email = client.email;
-                                            client_site_web = client.site_web;
-
-                                            clienti_lista_autocomplete = ''
-                                        ">
-                                            @{{ client.nume }}
-                                    </a>
-                                </li>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="form-group col-lg-4 mb-2">
                 <div class="panel panel-default">
                     <div class="panel-body">

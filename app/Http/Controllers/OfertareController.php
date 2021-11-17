@@ -38,7 +38,7 @@ class OfertareController extends Controller
         // foreach ($ofertari as $ofertare){
         //     foreach ($ofertare->servicii as $serviciu) {
         //         $html .= $serviciu->nume;
-        //     } 
+        //     }
         // }
         // dd($html);
 
@@ -52,7 +52,7 @@ class OfertareController extends Controller
      */
     public function create()
     {
-        $clienti = Client::select('id', 'nume')
+        $clienti = Client::select('id', 'nume', 'telefon')
             ->orderBy('nume')
             ->get();
 
@@ -83,7 +83,7 @@ class OfertareController extends Controller
         $ofertare->servicii()->attach($request->input('servicii_selectate'));
         // $ofertare->servicii()->attach([1, 2]);
 
-        return redirect($ofertare->path())->with('status', 
+        return redirect($ofertare->path())->with('status',
             'Ofertarea Nr."' . $ofertare->nr_document . '", pentru clientul "' . ($ofertare->client->nume ?? '') . '", a fost adăugată cu succes!');
     }
 
@@ -106,7 +106,7 @@ class OfertareController extends Controller
      */
     public function edit(Ofertare $ofertari)
     {
-        $clienti = Client::select('id', 'nume')
+        $clienti = Client::select('id', 'nume', 'telefon')
             ->orderBy('nume')
             ->get();
 
@@ -132,7 +132,7 @@ class OfertareController extends Controller
         $ofertari->update($this->validateRequest($request, $ofertari));
         $ofertari->servicii()->sync($request->input('servicii_selectate'));
 
-        return redirect($ofertari->path())->with('status', 
+        return redirect($ofertari->path())->with('status',
             'Ofertarea Nr."' . $ofertari->nr_document . '", pentru clientul "' . ($ofertari->client->nume ?? '') . '", a fost modificată cu succes!');
     }
 
@@ -143,10 +143,10 @@ class OfertareController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Ofertare $ofertari)
-    {        
+    {
         $ofertari->delete();
-        return redirect('/ofertari')->with('status', 
-            'Ofertarea Nr."' . $ofertari->nr_document . '", pentru clientul "' . ($ofertari->client->nume ?? '') . '", a fost ștearsă cu succes!');  
+        return redirect('/ofertari')->with('status',
+            'Ofertarea Nr."' . $ofertari->nr_document . '", pentru clientul "' . ($ofertari->client->nume ?? '') . '", a fost ștearsă cu succes!');
     }
 
     /**
@@ -254,7 +254,7 @@ class OfertareController extends Controller
             // $header->addImage('images/contract-header.jpg', array('width' => 80, 'height' => 80));
             // $header->addImage('images/contract-header.jpg');
             $header->addImage(
-                'images/contract-header.jpg', 
+                'images/contract-header.jpg',
                 array(
                     'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
                     // 'height'           => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
@@ -267,18 +267,18 @@ class OfertareController extends Controller
                     // 'marginBottom'     => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
                 )
             );
-            
-           
 
-            $html = '<p style="text-align: center;">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' . 
+
+
+            $html = '<p style="text-align: center;">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' .
                     (isset($ofertari->data_emitere) ? (' din <b>' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
                 '</p><br />';
 
             $html .= '<b>Introducere</b>';
 
             $html .= '<p style="text-align: justify;">' .
-                        '          Documentul curent reprezintă răspunsul <b>Dima P. Valentin PFA</b> la cererea de servicii primită de la <b>' . 
-                        $ofertari->client->nume . '</b>, în data de <b>' . 
+                        '          Documentul curent reprezintă răspunsul <b>Dima P. Valentin PFA</b> la cererea de servicii primită de la <b>' .
+                        $ofertari->client->nume . '</b>, în data de <b>' .
                         (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
                     '</p>' .
                 '<br />';
@@ -300,7 +300,7 @@ class OfertareController extends Controller
                 '<br />';
 
             $html .= '<p style="text-align: left;">' .
-                        '<b>Tehnologie</b>' .                    
+                        '<b>Tehnologie</b>' .
                     '</p>';
 
             $html .= '<p style="text-align: justify;">' .
@@ -309,20 +309,20 @@ class OfertareController extends Controller
                 '<br />';
 
             $html .= '<p style="text-align: left;">' .
-                        '<b>Ce vă oferim</b>' .                    
+                        '<b>Ce vă oferim</b>' .
                     '</p>';
 
             $html .= '<p style="text-align: justify;">' .
                     '          Venim în întâmpinarea nevoilor dumneavoastră prin servicii de achiziționare și găzduire domenii, realizare site-uri web, dezvoltare software personalizat, promovare online, consultanță IT, precum și servicii multimedia, utilizând tehnologii de actualitate.' .
                     '</p>' .
-                '<br />';  
-                
+                '<br />';
+
             $html .= '
                     <table align="center" style="width: 100%">
                         <tr>
                             <td style="width:70%" align="center">
                             &nbsp;
-                            </td>                            
+                            </td>
                             <td style="width:30%; text-align: center;" align="center">
                                 Dima P. Valentin PFA
                                 <br/>
@@ -330,29 +330,29 @@ class OfertareController extends Controller
                             </td>
                         </tr>
                     </table>
-                ';      
+                ';
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
-            $section->addPageBreak();            
+            $section->addPageBreak();
 
             $html = '<br />' .
                     '<p style="text-align: left;">' .
-                        '<b>Descriere solicitare</b>' .                    
+                        '<b>Descriere solicitare</b>' .
                     '</p>';
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
             $descriere_solicitare = str_replace('<br>', '<br/>', $ofertari->descriere_solicitare);
-            
+
             $descriere_solicitare = str_replace('class="ql-align-right ql-direction-rtl"', 'dir="rtl"', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('class', 'style', $descriere_solicitare);  
-            
-            $descriere_solicitare = str_replace('ql-size-small', 'font-size:10px;', $descriere_solicitare);  
-            $descriere_solicitare = str_replace('ql-size-large', 'font-size:20px;', $descriere_solicitare);  
-            $descriere_solicitare = str_replace('ql-size-huge', 'font-size:26px;', $descriere_solicitare);  
+            $descriere_solicitare = str_replace('class', 'style', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('ql-align-justify', 'text-align:justify;', $descriere_solicitare);            
+            $descriere_solicitare = str_replace('ql-size-small', 'font-size:10px;', $descriere_solicitare);
+            $descriere_solicitare = str_replace('ql-size-large', 'font-size:20px;', $descriere_solicitare);
+            $descriere_solicitare = str_replace('ql-size-huge', 'font-size:26px;', $descriere_solicitare);
+
+            $descriere_solicitare = str_replace('ql-align-justify', 'text-align:justify;', $descriere_solicitare);
             $descriere_solicitare = str_replace('ql-align-center', 'text-align:center;', $descriere_solicitare);
             $descriere_solicitare = str_replace('ql-align-right', 'text-align:right;', $descriere_solicitare);
 
@@ -432,26 +432,26 @@ class OfertareController extends Controller
             $descriere_solicitare = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $descriere_solicitare);
             $descriere_solicitare = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $descriere_solicitare);
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);   
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);
 
 
             $html = '<br />' .
                     '<p style="text-align: left;">' .
-                        '<b>Propunere tehnică și comercială</b>' .                    
+                        '<b>Propunere tehnică și comercială</b>' .
                     '</p>';
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
             $propunere_tehnica_si_comerciala = str_replace('<br>', '<br/>', $ofertari->propunere_tehnica_si_comerciala);
-            
+
             $propunere_tehnica_si_comerciala = str_replace('class="ql-align-right ql-direction-rtl"', 'dir="rtl"', $propunere_tehnica_si_comerciala);
 
-            $propunere_tehnica_si_comerciala = str_replace('class', 'style', $propunere_tehnica_si_comerciala);  
-            
-            $propunere_tehnica_si_comerciala = str_replace('ql-size-small', 'font-size:10px;', $propunere_tehnica_si_comerciala);  
-            $propunere_tehnica_si_comerciala = str_replace('ql-size-large', 'font-size:20px;', $propunere_tehnica_si_comerciala);  
-            $propunere_tehnica_si_comerciala = str_replace('ql-size-huge', 'font-size:26px;', $propunere_tehnica_si_comerciala);  
+            $propunere_tehnica_si_comerciala = str_replace('class', 'style', $propunere_tehnica_si_comerciala);
 
-            $propunere_tehnica_si_comerciala = str_replace('ql-align-justify', 'text-align:justify;', $propunere_tehnica_si_comerciala);            
+            $propunere_tehnica_si_comerciala = str_replace('ql-size-small', 'font-size:10px;', $propunere_tehnica_si_comerciala);
+            $propunere_tehnica_si_comerciala = str_replace('ql-size-large', 'font-size:20px;', $propunere_tehnica_si_comerciala);
+            $propunere_tehnica_si_comerciala = str_replace('ql-size-huge', 'font-size:26px;', $propunere_tehnica_si_comerciala);
+
+            $propunere_tehnica_si_comerciala = str_replace('ql-align-justify', 'text-align:justify;', $propunere_tehnica_si_comerciala);
             $propunere_tehnica_si_comerciala = str_replace('ql-align-center', 'text-align:center;', $propunere_tehnica_si_comerciala);
             $propunere_tehnica_si_comerciala = str_replace('ql-align-right', 'text-align:right;', $propunere_tehnica_si_comerciala);
 
@@ -548,14 +548,14 @@ class OfertareController extends Controller
             $html .='</ul>';
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
-                
+
             $html = '
                 <br /><br />
                     <table align="center" style="width: 100%">
                         <tr>
                             <td style="width:70%" align="center">
                             &nbsp;
-                            </td>                            
+                            </td>
                             <td style="width:30%; text-align: center;" align="center">
                                 Dima P. Valentin PFA
                                 <br/>
@@ -563,14 +563,14 @@ class OfertareController extends Controller
                             </td>
                         </tr>
                     </table>
-                ';      
+                ';
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
             $footer = $section->addFooter();
             $footer->addPreserveText('Pagina {PAGE} din {NUMPAGES}', null, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER));
 
-            
+
         if ($request->view_type === 'ofertare-html') {
             echo $html;
         } elseif ($request->view_type === 'ofertare-word') {
@@ -579,7 +579,7 @@ class OfertareController extends Controller
                 Storage::makeDirectory('fisiere_temporare');
                 $objWriter->save(storage_path(
                     'app/fisiere_temporare/' .
-                    'Ofertarea nr. ' . $ofertari->nr_document . 
+                    'Ofertarea nr. ' . $ofertari->nr_document .
                     (isset($ofertari->data_emitere) ? (' din data de ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                     ' - ' . ($ofertari->client->nume ?? '') . '.docx'
                 ));
@@ -587,10 +587,10 @@ class OfertareController extends Controller
 
             return response()->download(storage_path(
                 'app/fisiere_temporare/' .
-                    'Ofertarea nr. ' . $ofertari->nr_document . 
+                    'Ofertarea nr. ' . $ofertari->nr_document .
                     (isset($ofertari->data_emitere) ? (' din data de ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                     ' - ' . ($ofertari->client->nume ?? '') . '.docx'
-            ));     
+            ));
         }
     }
 }

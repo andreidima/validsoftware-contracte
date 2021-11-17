@@ -39,7 +39,7 @@
                         </select>
                     </div>
             </div>
-            <div class="form-group col-lg-7 mb-2">
+            <div class="form-group col-lg-5 mb-2">
                 <label for="link_review_site" class="mb-0 pl-3">Link review site:</label>
                 <input
                     type="text"
@@ -47,6 +47,16 @@
                     name="link_review_site"
                     placeholder=""
                     value="{{ old('link_review_site') ?? $servicii->link_review_site }}"
+                    required>
+            </div>
+            <div class="form-group col-lg-2 mb-2">
+                <label for="nr_de_ordine" class="mb-0 pl-3">Nr. de ordine:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('nr_de_ordine') ? 'is-invalid' : '' }}"
+                    name="nr_de_ordine"
+                    placeholder=""
+                    value="{{ old('nr_de_ordine') ?? $servicii->nr_de_ordine }}"
                     required>
             </div>
         </div>

@@ -22,8 +22,7 @@ class ServiceServiciuController extends Controller
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
-            // ->orderBy('nume')
-            ->latest()
+            ->orderBy('nr_de_ordine')
             ->simplePaginate(25);
 
         return view('service.servicii.index', compact('servicii', 'search_nume'));
@@ -49,6 +48,14 @@ class ServiceServiciuController extends Controller
      */
     public function store(Request $request)
     {
+        $servicii_vechi = ServiceServiciu::where('nr_de_ordine', '>=', $request->nr_de_ordine)->all();
+        $nr_de_ordine = $request->nr_de_ordine;
+        foreach ($servicii_vechi as $serviciu_vechi){
+            $nr_de_ordine ++;
+            $serviciu_vechi->nr_de_ordine = $nr_de_ordine;
+            $serviciu_vechi->save();
+        }
+
         $serviciu = ServiceServiciu::create($this->validateRequest($request));
 
         return redirect('/service/servicii')->with('status',
@@ -119,7 +126,17 @@ class ServiceServiciuController extends Controller
             'nume' => ['required', 'max:250'],
             'pret' => ['nullable', 'between:0.01,99999.99'],
             'categorie_id' => 'nullable',
-            'link_review_site' => ['nullable', 'max:250']
+            'link_review_site' => ['nullable', 'max:250'],
+            'nr_de_ordine' => 'numeric'
         ]);
+    }
+
+    public function reordonareIndex()
+    {
+        $servicii = ServiceServiciu::
+            orderBy('nr_de_ordine')
+            ->simplePaginate(25);
+
+        return view('service.servicii.diverse.reordonare', compact('servicii'));
     }
 }
