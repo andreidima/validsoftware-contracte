@@ -167,7 +167,7 @@
                 @php
                     $html ='<b>Servicii efectuate:</b>';
                     $html .='<ul style="margin:0px;">';
-                    foreach ($fisa->servicii as $serviciu) {
+                    foreach ($fisa->servicii->sortBy('nr_de_ordine') as $serviciu) {
                         $html .= '<li>' . $serviciu->nume;
                             // if ($serviciu->pret){
                             //     $html .= ' - ' . $serviciu->pret . ' RON';

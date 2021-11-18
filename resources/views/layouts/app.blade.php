@@ -112,9 +112,6 @@
                                         <a class="nav-link text-dark" href="{{ route('service.servicii.index') }}">
                                             <i class="fas fa-file-alt mr-1"></i>Servicii
                                         </a>
-                                        <a class="nav-link text-dark" href="{{ route('service_servicii_reordonare_index') }}">
-                                            <i class="fas fa-file-alt mr-1"></i>Reordonare servicii
-                                        </a>
                                         <a class="nav-link text-dark" href="{{ route('service.servicii.categorii.index') }}">
                                             <i class="fas fa-file-alt mr-1"></i>Categorii
                                         </a>

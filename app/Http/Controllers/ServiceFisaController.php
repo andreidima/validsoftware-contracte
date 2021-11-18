@@ -735,7 +735,7 @@ class ServiceFisaController extends Controller
 
             if (count($fise->servicii)){
                 $html .='<ul><b>Servicii efectuate:</b>';
-                foreach ($fise->servicii as $serviciu) {
+                foreach ($fise->servicii->sortBy('nr_de_ordine') as $serviciu) {
                     $html .= '<li>' . $serviciu->nume;
                         if ($serviciu->pret){
                             $html .= ' - ' . $serviciu->pret . ' RON';
