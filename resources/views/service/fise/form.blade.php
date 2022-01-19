@@ -87,7 +87,7 @@
                     <select name="client_deja_inregistrat"
                         class="custom-select custom-select-sm rounded-pill {{ $errors->has('client_deja_inregistrat') ? 'is-invalid' : '' }}"
                         v-model="client_deja_inregistrat"
-                        @change="changeNumeClient();"
+                        @change="changeDateClient();"
                     >
                             <option value='' selected>Selectează client</option>
                         @foreach ($clienti as $client)
