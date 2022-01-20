@@ -187,7 +187,7 @@ if (document.querySelector('#fisa-service')) {
                             // this.clienti_lista_autocomplete.push(this.clienti[i])
                             this.clienti_lista_autocomplete2.push(this.clienti[i]);
                             // this.clienti_lista_autocomplete2 = 'asd';
-                        } else if (this.clienti[i].telefon.toLowerCase().includes(this.client_nume_autocomplete2.toLowerCase())) {
+                        } else if (this.clienti[i].telefon && this.clienti[i].telefon.toLowerCase().includes(this.client_nume_autocomplete2.toLowerCase())) {
                             this.clienti_lista_autocomplete2.push(this.clienti[i]);
                         }
                     }
