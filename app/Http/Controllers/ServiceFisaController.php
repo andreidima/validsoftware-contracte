@@ -323,40 +323,40 @@ class ServiceFisaController extends Controller
     {
         // Verificare daca exista email CLIENT corect catre care sa se trimita mesajul.
         // In cazul in care se trimite email catre partener, emailul catre client nu este obligatoriu
-        if ($request->tip_fisa !== 'email-partener-si-client') {
-                $validator = Validator::make($fisa->client->toArray(), [
-                    'email' => ['email:rfc,dns']
-                ]);
+        // if ($request->tip_fisa !== 'email-partener-si-client') {
+        //         $validator = Validator::make($fisa->client->toArray(), [
+        //             'email' => ['email:rfc,dns']
+        //         ]);
 
-                if ($validator->fails()) {
-                    return back()
-                                ->withErrors($validator)
-                                ->withInput();
-                }
-        } else{
-            if(isset($fisa->client->email)){
-                $validator = Validator::make($fisa->client->toArray(), [
-                    'email' => ['email:rfc,dns']
-                ]);
+        //         if ($validator->fails()) {
+        //             return back()
+        //                         ->withErrors($validator)
+        //                         ->withInput();
+        //         }
+        // } else{
+        //     if(isset($fisa->client->email)){
+        //         $validator = Validator::make($fisa->client->toArray(), [
+        //             'email' => ['email:rfc,dns']
+        //         ]);
 
-                if ($validator->fails()) {
-                    return back()
-                                ->withErrors($validator)
-                                ->withInput();
-                }
-            }
+        //         if ($validator->fails()) {
+        //             return back()
+        //                         ->withErrors($validator)
+        //                         ->withInput();
+        //         }
+        //     }
 
-                // Verificare daca emailul partenerului este corect
-                $validator = Validator::make($fisa->partener->toArray(), [
-                    'email' => ['email:rfc,dns']
-                ]);
-                if ($validator->fails()) {
-                    return back()
-                        // ->withErrors($validator)
-                        ->withErrors('Emailul Partenerului nu este o adresă de e-mail validă.')
-                        ->withInput();
-                }
-        }
+        //         // Verificare daca emailul partenerului este corect
+        //         $validator = Validator::make($fisa->partener->toArray(), [
+        //             'email' => ['email:rfc,dns']
+        //         ]);
+        //         if ($validator->fails()) {
+        //             return back()
+        //                 // ->withErrors($validator)
+        //                 ->withErrors('Emailul Partenerului nu este o adresă de e-mail validă.')
+        //                 ->withInput();
+        //         }
+        // }
 
         // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
         $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
@@ -366,7 +366,7 @@ class ServiceFisaController extends Controller
         // Trimiterea mesajului
         if ($request->tip_fisa === 'fisa-intrare'){
             \Mail::mailer('service')
-                ->to($fisa->client->email)
+                ->to(explode(',', str_replace(' ', '', $fisa->client->email)))
                 ->bcc($emailuri_bcc)
                 ->send(
                     new FisaIntrareService($fisa)
@@ -382,7 +382,7 @@ class ServiceFisaController extends Controller
             $fisa->update(['inchisa'=>1]);
 
             \Mail::mailer('service')
-                ->to($fisa->client->email)
+                ->to(explode(',', str_replace(' ', '', $fisa->client->email)))
                 ->bcc($emailuri_bcc)
                 ->send(
                     new FisaIesireService($fisa)
@@ -396,7 +396,7 @@ class ServiceFisaController extends Controller
         } elseif ($request->tip_fisa === 'email-personalizat') {
             $email_text = $request->email_personalizat;
             \Mail::mailer('service')
-                ->to($fisa->client->email)
+                ->to(explode(',', str_replace(' ', '', $fisa->client->email)))
                 ->bcc($emailuri_bcc)
                 ->send(
                     new EmailPersonalizat($fisa, $email_text)
@@ -411,7 +411,7 @@ class ServiceFisaController extends Controller
         } elseif ($request->tip_fisa === 'email-partener-si-client') {
             //Trimitere email catre partener si salvarea actiunii in baza de date
             \Mail::mailer('service')
-                ->to($fisa->partener->email)
+                ->to(explode(',', str_replace(' ', '', $fisa->partener->email)))
                 ->bcc($emailuri_bcc)
                 ->send(
                     new EmailPartener($fisa)
@@ -425,7 +425,7 @@ class ServiceFisaController extends Controller
             //Trimitere email catre client si salvarea actiunii in baza de date
             if(isset($fisa->client->email)){
                 \Mail::mailer('service')
-                    ->to($fisa->client->email)
+                    ->to(explode(',', str_replace(' ', '', $fisa->client->email)))
                     ->bcc($emailuri_bcc)
                     ->send(
                         new EmailPartenerInstiintareClient($fisa)
