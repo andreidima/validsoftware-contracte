@@ -3,15 +3,17 @@
 @section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <h4 class=" mb-0"><a href="{{ route('service.licente.index') }}"><i class="fab fa-windows mr-1"></i>Licențe</a></h4>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.licente.index') }}">
                     @csrf
-                    <div class="row input-group custom-search-form">
-                        <input type="text" class="form-control form-control-sm col-md-12 border rounded-pill" id="search_nume" name="search_nume" placeholder="Licența" autofocus
+                    <div class="row mb-1 input-group custom-search-form">
+                        <input type="text" class="form-control form-control-sm col-md-6 border rounded-pill" id="search_nume" name="search_nume" placeholder="Licența" autofocus
                                 value="{{ $search_nume }}">
+                        <input type="text" class="form-control form-control-sm col-md-6 border rounded-pill" id="search_observatii" name="search_observatii" placeholder="Observații" autofocus
+                                value="{{ $search_observatii }}">
                     </div>
                     <div class="row input-group custom-search-form">
                         <button class="btn btn-sm btn-primary col-md-6 border border-dark rounded-pill" type="submit">

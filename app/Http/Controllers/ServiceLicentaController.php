@@ -15,15 +15,19 @@ class ServiceLicentaController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
+        $search_observatii = \Request::get('search_observatii');
 
         $licente = ServiceLicenta::
             when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
+            ->when($search_observatii, function ($query, $search_observatii) {
+                return $query->where('observatii', 'like', '%' . $search_observatii . '%');
+            })
             ->latest()
             ->simplePaginate(25);
 
-        return view('service.licente.index', compact('licente', 'search_nume'));
+        return view('service.licente.index', compact('licente', 'search_nume', 'search_observatii'));
     }
 
     /**
