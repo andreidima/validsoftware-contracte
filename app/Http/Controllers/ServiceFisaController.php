@@ -321,45 +321,47 @@ class ServiceFisaController extends Controller
      */
     protected function trimiteEmail(Request $request, ServiceFisa $fisa)
     {
-        // Verificare daca exista email CLIENT corect catre care sa se trimita mesajul.
-        // In cazul in care se trimite email catre partener, emailul catre client nu este obligatoriu
+        // Verificare daca emailul CLIENT este corect
+        if(isset($fisa->client->email)){
+            $emailuri = explode(',', str_replace(' ', '', $fisa->client->email)); // se sterg spatiile goale din string, si se creeaza un array de emailuri
+            $emailuri = array_combine(range(1, count($emailuri)), $emailuri); // se reporneste arrayul de la valoarea 1, pentru a fi mesajele de eroare mai explicite
+            $emailuri = array('email' => $emailuri); // se introduce intr-un array 'email', pentru a fi mesajele de eroare mai explicite
+
+            $validator = Validator::make($emailuri, [
+                'email.*' => ['email:rfc,dns']
+            ]);
+            if ($validator->fails()) {
+                return back()
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+        }
+
+        // Verificare daca exista email CLIENT catre care sa se trimita mesajul.
+        // In cazul in care se trimite email catre PARTENER, emailul catre client nu este obligatoriu
         if ($request->tip_fisa !== 'email-partener-si-client') {
-            // $fisa->client->email = explode(',', str_replace(' ', '', $fisa->client->email));
-            // dd($fisa->client->email);
-        // $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
-        // $emailuri_bcc = explode(',', $emailuri_bcc);
-                $validator = Validator::make(explode(',', str_replace(' ', '', $fisa->client->email)), [
-                    '*' => ['email:rfc,dns']
-                ]);
-
-                if ($validator->fails()) {
-                    return back()
-                                ->withErrors($validator)
-                                ->withInput();
-                }
+            if(!isset($fisa->client->email)){
+                return back()->with('error', 'Clientul nu are adresă de email');
+            }
         } else{
-            if(isset($fisa->client->email)){
-                $validator = Validator::make($fisa->client->toArray(), [
-                    'email' => ['email:rfc,dns']
-                ]);
-
-                if ($validator->fails()) {
-                    return back()
-                                ->withErrors($validator)
-                                ->withInput();
-                }
+            if(!isset($fisa->partener->email)){
+                return back()->with('error', 'Partenerul nu are adresă de email');
             }
 
-                // Verificare daca emailul partenerului este corect
-                $validator = Validator::make($fisa->partener->toArray(), [
-                    'email' => ['email:rfc,dns']
-                ]);
-                if ($validator->fails()) {
-                    return back()
-                        // ->withErrors($validator)
-                        ->withErrors('Emailul Partenerului nu este o adresă de e-mail validă.')
-                        ->withInput();
-                }
+            // Verificare daca emailul partenerului este corect
+            $emailuri = explode(',', str_replace(' ', '', $fisa->partener->email)); // se sterg spatiile goale din string, si se creeaza un array de emailuri
+            $emailuri = array_combine(range(1, count($emailuri)), $emailuri); // se reporneste arrayul de la valoarea 1, pentru a fi mesajele de eroare mai explicite
+            $emailuri = array('email' => $emailuri); // se introduce intr-un array 'email', pentru a fi mesajele de eroare mai explicite
+
+            $validator = Validator::make($emailuri, [
+                'email.*' => ['email:rfc,dns']
+            ]);
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withErrors('Emailul Partenerului nu este o adresă de e-mail validă.')
+                    ->withInput();
+            }
         }
 
         // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
