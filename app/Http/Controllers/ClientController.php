@@ -22,7 +22,7 @@ class ClientController extends Controller
             // ->where('tip', '!=', 'service')
             ->latest()
             ->Paginate(25);
-            
+
         return view('clienti.index', compact('clienti', 'search_nume'));
     }
 
