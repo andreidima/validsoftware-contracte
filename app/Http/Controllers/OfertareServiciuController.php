@@ -45,7 +45,7 @@ class OfertareServiciuController extends Controller
     {
         $ofertare_serviciu = OfertareServiciu::create($this->validateRequest($request));
 
-        return redirect('/ofertari-servicii')->with('status', 
+        return redirect('/ofertari-servicii')->with('status',
             'Serviciul "' . $ofertare_serviciu->nume . '", pentru ofertări, a fost adăugat cu succes!');
     }
 
@@ -83,7 +83,7 @@ class OfertareServiciuController extends Controller
         $this->validateRequest($request, $ofertari_servicii);
         $ofertari_servicii->update($request->all());
 
-        return redirect('/ofertari-servicii')->with('status', 
+        return redirect('/ofertari-servicii')->with('status',
             'Serviciul "' . $ofertari_servicii->nume . '" a fost modificat cu succes!');
     }
 
@@ -94,11 +94,11 @@ class OfertareServiciuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(OfertareServiciu $ofertari_servicii)
-    {        
+    {
         $ofertari_servicii->delete();
 
-        return redirect('/ofertari-servicii')->with('status', 
-            'Serviciul "' . $ofertari_servicii->nume . '" a fost șters cu succes!');  
+        return redirect('/ofertari-servicii')->with('status',
+            'Serviciul "' . $ofertari_servicii->nume . '" a fost șters cu succes!');
     }
 
     /**
@@ -109,7 +109,7 @@ class OfertareServiciuController extends Controller
     protected function validateRequest(Request $request)
     {
         return request()->validate([
-            'nume' => ['required', 'max:250'],
+            'nume' => ['required', 'max:1000'],
             'pret' => ['nullable', 'between:0.01,99999.99'],
             'recurenta' => ['nullable', 'max:100']
         ]);
