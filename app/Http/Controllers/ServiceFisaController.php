@@ -523,20 +523,20 @@ class ServiceFisaController extends Controller
             $header = $section->addHeader();
             // $header->addImage('images/contract-header.jpg', array('width' => 80, 'height' => 80));
             // $header->addImage('images/contract-header.jpg');
-            // $header->addImage(
-            //     'images/contract-header.jpg',
-            //     array(
-            //         'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
-            //         // 'height'           => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
-            //         'positioning'      => \PhpOffice\PhpWord\Style\Image::POSITION_ABSOLUTE,
-            //         'posHorizontal'    => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_CENTER,
-            //         'posHorizontalRel' => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
-            //         'posVerticalRel'   => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
-            //         'marginLeft'       => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
-            //         'marginTop'        => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
-            //         // 'marginBottom'     => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
-            //     )
-            // );
+            $header->addImage(
+                'images/contract-header.jpg',
+                array(
+                    'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
+                    // 'height'           => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
+                    'positioning'      => \PhpOffice\PhpWord\Style\Image::POSITION_ABSOLUTE,
+                    'posHorizontal'    => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_CENTER,
+                    'posHorizontalRel' => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
+                    'posVerticalRel'   => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
+                    'marginLeft'       => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
+                    'marginTop'        => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
+                    // 'marginBottom'     => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
+                )
+            );
 
             $html = '<br />';
 
