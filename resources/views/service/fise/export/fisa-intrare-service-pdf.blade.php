@@ -133,7 +133,7 @@
                         <br/>
                             {{ $fisa->tehnician_service }}
                         <br/>
-                        <img src="images/semnatura_stampila.png" width="100"/>
+                        <img src="images/semnatura_stampila.jpg" width="100"/>
                     </td>
                 </tr>
             </table>
