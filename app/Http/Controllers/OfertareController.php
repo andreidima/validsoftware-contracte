@@ -245,7 +245,7 @@ class OfertareController extends Controller
                     'marginRight'  => 1200,
                     'marginTop'    => 0,
                     'marginBottom' => 700,
-                    'headerHeight' => 1700,
+                    'headerHeight' => 3100,
                     'footerHeight' => 0,
                 )
             );
