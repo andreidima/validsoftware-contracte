@@ -183,12 +183,13 @@ class ContractController extends Controller
                     'marginRight'  => 1200,
                     'marginTop'    => 0,
                     'marginBottom' => 700,
-                    'headerHeight' => 1700,
+                    'headerHeight' => 3100,
                     'footerHeight' => 0,
                 )
             );
 
             $header = $section->addHeader();
+            // $section->setHeaderHeight(500);
             // $header->addImage('images/contract-header.jpg', array('width' => 80, 'height' => 80));
             // $header->addImage('images/contract-header.jpg');
             $header->addImage(
@@ -202,7 +203,7 @@ class ContractController extends Controller
                     'posVerticalRel'   => \PhpOffice\PhpWord\Style\Image::POSITION_RELATIVE_TO_PAGE,
                     'marginLeft'       => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
                     'marginTop'        => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(0),
-                    // 'marginBottom'     => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
+                    // 'marginBottom'     => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(20),
                 )
             );
 
