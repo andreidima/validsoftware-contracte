@@ -77,7 +77,7 @@ class ContractController extends Controller
         \App\Variabila::Nr_document();
         $contract = Contract::create($this->validateRequest($request));
 
-        return redirect($contract->path())->with('status', 
+        return redirect($contract->path())->with('status',
             'Contractul Nr."' . $contract->contract_nr . '", pentru clientul "' . ($contract->client->nume ?? '') . '", a fost adăugat cu succes!');
     }
 
@@ -119,7 +119,7 @@ class ContractController extends Controller
         $this->validateRequest($request, $contracte);
         $contracte->update($request->except(['date']));
 
-        return redirect($contracte->path())->with('status', 
+        return redirect($contracte->path())->with('status',
             'Contractul Nr."' . $contracte->contract_nr . '", pentru clientul "' . ($contracte->client->nume ?? '') . '", a fost modificat cu succes!');
     }
 
@@ -135,9 +135,9 @@ class ContractController extends Controller
             return back()->with('error', 'Contractul are fișiere atașate. Pentru a putea șterge contractul nr. "' . $contracte->contract_nr . '", ștergeți mai întâi fișierele atașate acestuia.');
         }else{
             $contracte->delete();
-            return redirect('/contracte')->with('status', 
+            return redirect('/contracte')->with('status',
                 'Contractul Nr."' . $contracte->contract_nr . '", pentru clientul "' . ($contracte->client->nume ?? '') . '", a fost șters cu succes!');
-        }               
+        }
 
     }
 
@@ -192,7 +192,7 @@ class ContractController extends Controller
             // $header->addImage('images/contract-header.jpg', array('width' => 80, 'height' => 80));
             // $header->addImage('images/contract-header.jpg');
             $header->addImage(
-                'images/contract-header.jpg', 
+                'images/contract-header.jpg',
                 array(
                     'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
                     // 'height'           => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
@@ -205,22 +205,22 @@ class ContractController extends Controller
                     // 'marginBottom'     => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
                 )
             );
-            
+
             // $section->
-            //     addText('CONTRACT DE FURNIZARE SERVICII INFORMATICE', 
+            //     addText('CONTRACT DE FURNIZARE SERVICII INFORMATICE',
             //         array('size' => 14, 'bold' => true),
             //         array('align' => 'center')
             //     );
             // $section->
             //     addText('Nr. '. $contracte->contract_nr .
-            //         (isset($contracte->contract_data) ? 
+            //         (isset($contracte->contract_data) ?
             //             (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : ''),
             //         array('bold' => true),
             //         array('align' => 'center')
             //     );
             // $section->addTextBreak(1);
             // $section->addText(
-            //     'Prezentul contract intră în vigoare începând cu data de ' . 
+            //     'Prezentul contract intră în vigoare începând cu data de ' .
             //     (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('D.MM.YYYY')) : '..........') .
             //     ' între ' . $contracte->client->nume .
             //     ', cu sediul în ' . $contracte->client->adresa .
@@ -245,12 +245,12 @@ class ContractController extends Controller
             // $section = $phpWord->addSection();
 
             $html = '<p style="text-align: center; font-weight: bold; font-size: 21px;">CONTRACT DE FURNIZARE SERVICII INFORMATICE</p>';
-            $html .= '<p style="text-align: center; font-weight: bold;">Nr. ' . $contracte->contract_nr . 
+            $html .= '<p style="text-align: center; font-weight: bold;">Nr. ' . $contracte->contract_nr .
                 (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
                 '</p>';
             $html .= '<br />';
             $html .= '<p style="text-align:justify;">' .
-                'Prezentul contract intră în vigoare începând cu data de ' . 
+                'Prezentul contract intră în vigoare începând cu data de ' .
                 (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '..........') .
                 ' între <b>' . $contracte->client->nume . '</b>' .
                 ', cu sediul în ' . $contracte->client->adresa .
@@ -283,7 +283,7 @@ class ContractController extends Controller
                                 <li>Calitatea serviciilor furnizate de <b>Dima P. Valentin PFA</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b>.</li>
                                 <li><b>Dima P. Valentin PFA</b> are obligaţia de a livra produsele şi de a presta serviciile prevăzute în contract cu profesionalismul şi promptitudinea cuvenite angajamentului asumat şi în conformitate cu propunerea sa tehnică.</li>
                                 <li><b>Dima P. Valentin PFA</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>';
-                
+
                     if (($contracte->abonament_lunar === 1) && ($contracte->pret != null)){
                         $html .= '<li><b>Dima P. Valentin PFA</b> va emite lunar o factură, în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>';
                     }
@@ -299,12 +299,12 @@ class ContractController extends Controller
                             <br/>
                         <li><p style="font-weight: bold;">Recepţie şi verificări</p></li>
                             <ol>
-                                <li><b>' . $contracte->client->nume . '</b> are dreptul de a verifica modul de prestare şi calitatea serviciilor.</li>';  
+                                <li><b>' . $contracte->client->nume . '</b> are dreptul de a verifica modul de prestare şi calitatea serviciilor.</li>';
 
                     if ($contracte->abonament_lunar === 1){
                         $html .= '<li><b>Dima P. Valentin</b> va genera lunar un raport de activitate, care va fi inaintat beneficiarului. </li>';
                     }
-                
+
                 $html .= '</ol>
                             <br/>
                         <li><p style="font-weight: bold;">Forţa majoră</p></li>
@@ -340,11 +340,11 @@ class ContractController extends Controller
                             <td style="width:50%" align="center"><b>Achizitor,</b>
                                 <br/>' . $contracte->client->nume .
                                 '<br /><br />' . $contracte->client->reprezentant_functie .
-                                '<br />' . $contracte->client->reprezentant . '</td>                            
+                                '<br />' . $contracte->client->reprezentant . '</td>
                             <td style="width:50%" align="center"><b>Prestator,</b>
                                 <br/>Dima P. Valentin PFA
                                 <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/></td>
+                                <img src="images/semnatura_stampila.jpg" width="100"/></td>
                         </tr>
                     </table>
                 ';
@@ -357,10 +357,10 @@ class ContractController extends Controller
 
             $html = '<p style="text-align: center; font-weight: bold; font-size: 21px;">Plan de lucru</p>
                     <br />
-                    <p style="font-weight: bold;">Anexa nr. 01 ' . 
+                    <p style="font-weight: bold;">Anexa nr. 01 ' .
                         (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : '') .
                         ' la CONTRACTUL DE PRESTARE DE SERVICII INFORMATICE Nr. ' .
-                        $contracte->contract_nr . 
+                        $contracte->contract_nr .
                         (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : '') .
                     '</p>
                     <br /><br />
@@ -380,16 +380,16 @@ class ContractController extends Controller
 
 
             $anexa = str_replace('<br>', '<br/>', $contracte->anexa);
-            
+
             $anexa = str_replace('class="ql-align-right ql-direction-rtl"', 'dir="rtl"', $anexa);
 
-            $anexa = str_replace('class', 'style', $anexa);  
-            
-            $anexa = str_replace('ql-size-small', 'font-size:10px;', $anexa);  
-            $anexa = str_replace('ql-size-large', 'font-size:20px;', $anexa);  
-            $anexa = str_replace('ql-size-huge', 'font-size:26px;', $anexa);  
+            $anexa = str_replace('class', 'style', $anexa);
 
-            $anexa = str_replace('ql-align-justify', 'text-align:justify;', $anexa);            
+            $anexa = str_replace('ql-size-small', 'font-size:10px;', $anexa);
+            $anexa = str_replace('ql-size-large', 'font-size:20px;', $anexa);
+            $anexa = str_replace('ql-size-huge', 'font-size:26px;', $anexa);
+
+            $anexa = str_replace('ql-align-justify', 'text-align:justify;', $anexa);
             $anexa = str_replace('ql-align-center', 'text-align:center;', $anexa);
             $anexa = str_replace('ql-align-right', 'text-align:right;', $anexa);
 
@@ -471,10 +471,10 @@ class ContractController extends Controller
 
             // if($anexa){
             //     $section->addPageBreak();
-                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $anexa, false, false); 
-            // }      
-            
-            
+                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $anexa, false, false);
+            // }
+
+
             $html = '<br /><br />';
             $html .= '
                     <table align="center" style="width: 100%">
@@ -482,11 +482,11 @@ class ContractController extends Controller
                             <td style="width:50%" align="center"><b>Achizitor,</b>
                                 <br/>' . $contracte->client->nume .
                 '<br /><br />' . $contracte->client->reprezentant_functie .
-                '<br />' . $contracte->client->reprezentant . '</td>                            
+                '<br />' . $contracte->client->reprezentant . '</td>
                             <td style="width:50%" align="center"><b>Prestator,</b>
                                 <br/>Dima P. Valentin PFA
                                 <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/></td>
+                                <img src="images/semnatura_stampila.jpg" width="100"/></td>
                         </tr>
                     </table>
                 ';
@@ -501,8 +501,8 @@ class ContractController extends Controller
                 Storage::makeDirectory('fisiere_temporare');
                 $objWriter->save(storage_path(
                     'app/fisiere_temporare/' .
-                    'Contract nr. ' . $contracte->contract_nr . 
-                    ' din data de ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') . 
+                    'Contract nr. ' . $contracte->contract_nr .
+                    ' din data de ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') .
                     ' - ' . ($contracte->client->nume ?? '') . '.docx'
                 ));
             } catch (Exception $e) { }
@@ -513,14 +513,14 @@ class ContractController extends Controller
                 ' din data de ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') .
                 ' - ' . ($contracte->client->nume ?? '') . '.docx'
             ));
-            
+
             // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
             // try {
             //     $objWriter->save(storage_path('Contract.html'));
             // } catch (Exception $e) { }
 
             // return response()->download(storage_path('Contract.html'));
-            
+
         }
     }
 
@@ -537,7 +537,7 @@ class ContractController extends Controller
 
         $fisier = request()->file('fisier');
         $fileName = pathinfo($fisier->getClientOriginalName(), PATHINFO_FILENAME) . ' ' .
-            \Carbon\Carbon::now()->isoFormat('HHMMSSDDMMYY') . '.' . 
+            \Carbon\Carbon::now()->isoFormat('HHMMSSDDMMYY') . '.' .
             $fisier->extension();
         // $filePath = "contracte/" . date("Y") . '/' . date("m");
         $filePath = "contracte/" . $contracte->contract_nr . '/';

@@ -6,11 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Ofertare</title>
     <style>
-        html { 
+        html {
             margin: 0px 0px;
         }
 
-        body { 
+        body {
             font-family: DejaVu Sans, sans-serif;
             /* font-family: Arial, Helvetica, sans-serif; */
             font-size: 14px;
@@ -32,18 +32,18 @@
             width: 100%;
             word-wrap:break-word;
         }
-        
+
         th, td {
             padding: 1px 10px;
             border-width: 0px;
             border-style: solid;
-            
+
         }
         tr {
             border-style: solid;
             border-width: 0px;
         }
-        hr { 
+        hr {
             display: block;
             margin-top: 0.5em;
             margin-bottom: 0.5em;
@@ -51,18 +51,18 @@
             margin-right: auto;
             border-style: inset;
             border-width: 0.5px;
-        } 
+        }
     </style>
 </head>
 
 <body>
-    {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}        
+    {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}
     <img src="{{ asset('images/contract-header.jpg') }}" width="800px">
 
     <div style="
         /* border:dashed #999; */
-        width:710px; 
-        min-height:500px;            
+        width:710px;
+        min-height:500px;
         padding: 0px 0px 0px 0px;
         margin:20px 50px;
             -moz-border-radius: 10px;
@@ -72,15 +72,15 @@
 
             @php
 
-            $html = '<p style="text-align: center;">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' . 
+            $html = '<p style="text-align: center;">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' .
                     (isset($ofertari->data_emitere) ? (' din <b>' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
                 '</p><br />';
 
             $html .= '<b>Introducere</b>';
 
             $html .= '<p style="text-align: justify;">' .
-                        '          Documentul curent reprezintă răspunsul <b>Dima P. Valentin PFA</b> la cererea de servicii primită de la <b>' . 
-                        $ofertari->client->nume . '</b>, în data de <b>' . 
+                        '          Documentul curent reprezintă răspunsul <b>Dima P. Valentin PFA</b> la cererea de servicii primită de la <b>' .
+                        $ofertari->client->nume . '</b>, în data de <b>' .
                         (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
                     '</p>' .
                 '<br />';
@@ -102,7 +102,7 @@
                 '<br />';
 
             $html .= '<p style="text-align: left;">' .
-                        '<b>Tehnologie</b>' .                    
+                        '<b>Tehnologie</b>' .
                     '</p>';
 
             $html .= '<p style="text-align: justify;">' .
@@ -111,28 +111,28 @@
                 '<br />';
 
             $html .= '<p style="text-align: left;">' .
-                        '<b>Ce vă oferim</b>' .                    
+                        '<b>Ce vă oferim</b>' .
                     '</p>';
 
             $html .= '<p style="text-align: justify;">' .
                     '          Venim în întâmpinarea nevoilor dumneavoastră prin servicii de achiziționare și găzduire domenii, realizare site-uri web, dezvoltare software personalizat, promovare online, consultanță IT, precum și servicii multimedia, utilizând tehnologii de actualitate.' .
                     '</p>' .
-                '<br />';  
-                
+                '<br />';
+
             $html .= '
                     <table align="center" style="width: 100%">
                         <tr>
                             <td style="width:70%" align="center">
                             &nbsp;
-                            </td>                            
+                            </td>
                             <td style="width:30%; text-align: center;" align="center">
                                 Dima P. Valentin PFA
                                 <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/>
+                                <img src="images/semnatura_stampila.jpg" width="100"/>
                             </td>
                         </tr>
                     </table>
-                ';      
+                ';
 
             $html .= '<div style="page-break-after: always;"></div>';
             $html .= '<div style="height:20px"></div>';
@@ -140,20 +140,20 @@
 
             $html .= '<br />' .
                     '<p style="text-align: left;">' .
-                        '<b>Descriere solicitare</b>' .                    
+                        '<b>Descriere solicitare</b>' .
                     '</p>';
 
             $descriere_solicitare = str_replace('<br>', '<br/>', $ofertari->descriere_solicitare);
-            
+
             $descriere_solicitare = str_replace('class="ql-align-right ql-direction-rtl"', 'dir="rtl"', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('class', 'style', $descriere_solicitare);  
-            
-            $descriere_solicitare = str_replace('ql-size-small', 'font-size:10px;', $descriere_solicitare);  
-            $descriere_solicitare = str_replace('ql-size-large', 'font-size:20px;', $descriere_solicitare);  
-            $descriere_solicitare = str_replace('ql-size-huge', 'font-size:26px;', $descriere_solicitare);  
+            $descriere_solicitare = str_replace('class', 'style', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('ql-align-justify', 'text-align:justify;', $descriere_solicitare);            
+            $descriere_solicitare = str_replace('ql-size-small', 'font-size:10px;', $descriere_solicitare);
+            $descriere_solicitare = str_replace('ql-size-large', 'font-size:20px;', $descriere_solicitare);
+            $descriere_solicitare = str_replace('ql-size-huge', 'font-size:26px;', $descriere_solicitare);
+
+            $descriere_solicitare = str_replace('ql-align-justify', 'text-align:justify;', $descriere_solicitare);
             $descriere_solicitare = str_replace('ql-align-center', 'text-align:center;', $descriere_solicitare);
             $descriere_solicitare = str_replace('ql-align-right', 'text-align:right;', $descriere_solicitare);
 
@@ -238,21 +238,21 @@
 
             $html .= '<br />' .
                     '<p style="text-align: left;">' .
-                        '<b>Propunere tehnică și comercială</b>' .                    
+                        '<b>Propunere tehnică și comercială</b>' .
                     '</p>';
-            
+
 
             $propunere_tehnica_si_comerciala = str_replace('<br>', '<br/>', $ofertari->propunere_tehnica_si_comerciala);
-            
+
             $propunere_tehnica_si_comerciala = str_replace('class="ql-align-right ql-direction-rtl"', 'dir="rtl"', $propunere_tehnica_si_comerciala);
 
-            $propunere_tehnica_si_comerciala = str_replace('class', 'style', $propunere_tehnica_si_comerciala);  
-            
-            $propunere_tehnica_si_comerciala = str_replace('ql-size-small', 'font-size:10px;', $propunere_tehnica_si_comerciala);  
-            $propunere_tehnica_si_comerciala = str_replace('ql-size-large', 'font-size:20px;', $propunere_tehnica_si_comerciala);  
-            $propunere_tehnica_si_comerciala = str_replace('ql-size-huge', 'font-size:26px;', $propunere_tehnica_si_comerciala);  
+            $propunere_tehnica_si_comerciala = str_replace('class', 'style', $propunere_tehnica_si_comerciala);
 
-            $propunere_tehnica_si_comerciala = str_replace('ql-align-justify', 'text-align:justify;', $propunere_tehnica_si_comerciala);            
+            $propunere_tehnica_si_comerciala = str_replace('ql-size-small', 'font-size:10px;', $propunere_tehnica_si_comerciala);
+            $propunere_tehnica_si_comerciala = str_replace('ql-size-large', 'font-size:20px;', $propunere_tehnica_si_comerciala);
+            $propunere_tehnica_si_comerciala = str_replace('ql-size-huge', 'font-size:26px;', $propunere_tehnica_si_comerciala);
+
+            $propunere_tehnica_si_comerciala = str_replace('ql-align-justify', 'text-align:justify;', $propunere_tehnica_si_comerciala);
             $propunere_tehnica_si_comerciala = str_replace('ql-align-center', 'text-align:center;', $propunere_tehnica_si_comerciala);
             $propunere_tehnica_si_comerciala = str_replace('ql-align-right', 'text-align:right;', $propunere_tehnica_si_comerciala);
 
@@ -348,29 +348,28 @@
             }
             $html .='</ul>';
 
-                
+
             $html .= '
                 <br /><br />
                     <table align="center" style="width: 100%">
                         <tr>
                             <td style="width:70%" align="center">
                             &nbsp;
-                            </td>                            
+                            </td>
                             <td style="width:30%; text-align: center;" align="center">
                                 Dima P. Valentin PFA
                                 <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/>
+                                <img src="images/semnatura_stampila.jpg" width="100"/>
                             </td>
                         </tr>
                     </table>
-                ';      
+                ';
 
             @endphp
 
             {!! $html !!}
-                    
+
     </div>
 </body>
 
 </html>
-    

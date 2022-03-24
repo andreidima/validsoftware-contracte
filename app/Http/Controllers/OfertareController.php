@@ -326,7 +326,7 @@ class OfertareController extends Controller
                             <td style="width:30%; text-align: center;" align="center">
                                 Dima P. Valentin PFA
                                 <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/>
+                                <img src="images/semnatura_stampila.jpg" width="100"/>
                             </td>
                         </tr>
                     </table>
@@ -559,7 +559,7 @@ class OfertareController extends Controller
                             <td style="width:30%; text-align: center;" align="center">
                                 Dima P. Valentin PFA
                                 <br/>
-                                <img src="images/semnatura si stampila.png" width="100"/>
+                                <img src="images/semnatura_stampila.jpg" width="100"/>
                             </td>
                         </tr>
                     </table>

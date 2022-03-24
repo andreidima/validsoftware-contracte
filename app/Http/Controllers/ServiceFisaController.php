@@ -596,7 +596,7 @@ class ServiceFisaController extends Controller
             //                     $fise->tehnician_service .
             //                     '
             //                     <br/>
-            //                     <img src="images/semnatura si stampila.png" width="100"/>
+            //                     <img src="images/semnatura_stampila.jpg" width="100"/>
             //                 </td>
             //             </tr>
             //         </table>
@@ -791,7 +791,7 @@ class ServiceFisaController extends Controller
             //                     $fise->tehnician_service .
             //                     '
             //                     <br/>
-            //                     <img src="images/semnatura si stampila.png" width="100"/>
+            //                     <img src="images/semnatura_stampila.jpg" width="100"/>
             //                 </td>
             //             </tr>
             //         </table>
