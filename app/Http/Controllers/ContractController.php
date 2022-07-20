@@ -166,6 +166,8 @@ class ContractController extends Controller
         } elseif ($request->view_type === 'contract-word') {
             $phpWord = new \PhpOffice\PhpWord\PhpWord();
 
+            \PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true); // pentru gestionare caracterelor speciale, altfel da eroare, gen la „&”
+
             $phpWord->setDefaultFontName('Times New Roman');
             $phpWord->setDefaultFontSize(12);
 
