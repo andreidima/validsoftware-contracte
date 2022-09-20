@@ -81,8 +81,21 @@ if (document.querySelector('#fisa-service')) {
             clienti_lista_autocomplete2: [],
 
             servicii: servicii,
-            servicii_selectate: serviciiSelectate
+            servicii_selectate: serviciiSelectate,
             // servicii_selectate: []
+
+            fise_vechi_client: [],
+            nume_camp: '',
+            valoare_camp: '',
+            fise_lista_autocomplete: [],
+
+            descriere_echipament: descriereEchipament,
+        },
+        watch: {
+            client_deja_inregistrat: function () {
+                this.getFiseVechi();
+                this.fise_lista_autocomplete = '';
+            },
         },
         created: function () {
             this.getDateClient()
@@ -192,6 +205,37 @@ if (document.querySelector('#fisa-service')) {
                         }
                     }
                 }
+            },
+
+            getFiseVechi: function () {
+                // console.log('here');
+                axios.get('/service/fise/axios/fise-vechi', {
+                    params: {
+                        request: 'fise_vechi',
+                        client_id: this.client_deja_inregistrat,
+                    }
+                })
+                    .then(function (response) {
+                        app.fise_vechi_client = response.data.raspuns;
+                        // console.log(response.data.raspuns);
+                    });
+                },
+            autocomplete() {
+                this.fise_lista_autocomplete = [];
+                var nume_camp = this.nume_camp;
+                var valoare_camp = this.valoare_camp;
+                // if (valoare_camp.length > 0) { // campul de cautare trebuie sa aiba minim 1 caracter
+                    for (var i = 0; i < this.fise_vechi_client.length; i++) { // se parcurg toate fisele vechi
+                        if (this.fise_vechi_client[i][nume_camp]) { // daca respectiva fisa are o valoare in respectivul camp
+                            if ((!valoare_camp) || (valoare_camp && this.fise_vechi_client[i][nume_camp].toLowerCase().includes(valoare_camp.toLowerCase()))) { // daca elementul are stringul de cautare
+                                if (!this.fise_lista_autocomplete.includes(this.fise_vechi_client[i][nume_camp])) { // daca elementul nu este deja inclus
+                                    this.fise_lista_autocomplete.push(this.fise_vechi_client[i][nume_camp]); // se adauga elementul in array
+                                }
+                            }
+                        }
+                    }
+                // }
+                this.fise_lista_autocomplete.sort();
             },
 
 

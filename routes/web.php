@@ -37,6 +37,7 @@ Route::middleware('role:service,admin')->group(function () {
 
     Route::resource('service/parteneri', 'ServicePartenerController', ['names' => 'service.parteneri', 'parameters' => ['parteneri' => 'partener']]);
 
+    Route::get('service/fise/axios/fise-vechi', 'ServiceFisaController@axiosFiseVechi');
     Route::get('/service/fise/{fise}/export/word/{view_type}', 'ServiceFisaController@wordExport');
     Route::get('/service/fise/{fise}/export/{view_type}', 'ServiceFisaController@pdfExport');
     Route::patch('service/fise/{fise}/deschide-inchide', 'ServiceFisaController@deschideInchide');

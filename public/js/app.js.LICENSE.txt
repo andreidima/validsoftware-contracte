@@ -1,24 +1,24 @@
 /*!
-    * tiptap v1.26.5
-    * (c) 2019 Scrumpy UG (limited liability)
+    * tiptap v1.32.1
+    * (c) 2021 überdosis GbR (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-commands v1.12.4
-    * (c) 2019 Scrumpy UG (limited liability)
+    * tiptap-commands v1.17.0
+    * (c) 2021 überdosis GbR (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-extensions v1.28.5
-    * (c) 2019 Scrumpy UG (limited liability)
+    * tiptap-extensions v1.35.1
+    * (c) 2021 überdosis GbR (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-utils v1.8.2
-    * (c) 2019 Scrumpy UG (limited liability)
+    * tiptap-utils v1.13.0
+    * (c) 2021 überdosis GbR (limited liability)
     * @license MIT
     */
 
@@ -106,3 +106,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+//! moment.js
+
+//! moment.js locale configuration

@@ -138,7 +138,7 @@
                                             client_email = client.email;
                                             client_site_web = client.site_web;
 
-                                            clienti_lista_autocomplete2 = ''
+                                            clienti_lista_autocomplete2 = '';
                                         ">
                                             @{{ client.nume }}
                                     </button>
@@ -350,11 +350,32 @@
             style="background-color:#FFE8E8; border-left:6px solid; border-color:#801515; border-radius: 0px 0px 0px 0px"
             >
             <div class="form-group col-lg-6">
+                {{-- <script type="application/javascript">
+                    fiseVechiClient={!! json_encode($fise_vechi_client) !!}
+                </script> --}}
                 <label for="descriere_echipament" class="mb-0 pl-3">Descriere echipament:</label>
                 <textarea class="form-control {{ $errors->has('descriere_echipament') ? 'is-invalid' : '' }}"
                     name="descriere_echipament"
+                    v-model="descriere_echipament"
+                    v-on:focus="nume_camp = 'descriere_echipament'; valoare_camp = $event.target.value; autocomplete();"
+                    v-on:input="nume_camp = 'descriere_echipament'; valoare_camp = $event.target.value; autocomplete();"
                     {{-- placeholder="Descriere echipament" --}}
                     >{{ old('descriere_echipament') == '' ? $fise->descriere_echipament : old('descriere_echipament') }}</textarea>
+                    {{-- <div v-cloak v-if="(nume_camp == 'autor') && (carti_lista_autocomplete.length > 0)" class="panel-footer overflow-auto" style="max-height: 100px;"> --}}
+                    <div class="panel-footer overflow-auto" style="max-height: 100px;">
+                        <div class="list-group">
+                            <button class="list-group-item list-group-item list-group-item-action py-0"
+                                type="reset"
+                                v-for="element in fise_lista_autocomplete"
+                                v-on:click="
+                                    descriere_echipament = element;
+
+                                    fise_lista_autocomplete = '';
+                                ">
+                                    @{{ element }}
+                            </button>
+                        </div>
+                    </div>
             </div>
             <div class="form-group col-lg-6">
                 <label for="defect_reclamat" class="mb-0 pl-3">Serviciu solicitat sau defect reclamat:</label>
@@ -583,3 +604,8 @@
         </div>
     </div>
 </div>
+
+
+<script type="application/javascript">
+    descriereEchipament = {!! json_encode(old('descriere_echipament', $fise->descriere_echipament) ?? '') !!}
+</script>

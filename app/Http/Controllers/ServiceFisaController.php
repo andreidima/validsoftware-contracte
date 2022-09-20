@@ -215,10 +215,13 @@ class ServiceFisaController extends Controller
         $parteneri = ServicePartener::orderBy('nume')->get();
         $servicii = ServiceServiciu::orderBy('nume')->get();
         $servicii_curente_selectate = $fise->servicii->pluck('id')->toArray();
-        // dd($servicii_curente_selectate);
         $categorii_servicii = ServiceServiciuCategorie::orderBy('nume')->get();
+        // $descrieri_echipamente_fise_vechi_client = ServiceFisa::where('client_id', $fise->client_id)->select('descriere_echipament')->get()->pluck('descriere_echipament')->toArray();
+        $fise_vechi_client = ServiceFisa::where('client_id', $fise->client_id)->get();
 
-        return view('service.fise.edit', compact('fise', 'clienti', 'parteneri', 'servicii', 'servicii_curente_selectate', 'categorii_servicii'));
+        // dd($descrieri_echipamente_fise_vechi_client);
+
+        return view('service.fise.edit', compact('fise', 'clienti', 'parteneri', 'servicii', 'servicii_curente_selectate', 'categorii_servicii', 'fise_vechi_client'));
     }
 
     /**
@@ -311,6 +314,22 @@ class ServiceFisaController extends Controller
             'donatie' => [''],
             'casare' => [''],
             'observatii_interne' => [''],
+        ]);
+    }
+
+
+    public function axiosFiseVechi(Request $request)
+    {
+        $raspuns = '';
+        switch ($_GET['request']) {
+            case 'fise_vechi':
+                $raspuns = ServiceFisa::where('client_id', $request->client_id)->get();
+                break;
+            default:
+                break;
+        }
+        return response()->json([
+            'raspuns' => $raspuns,
         ]);
     }
 
