@@ -26,7 +26,8 @@ Vue.component('vuejs-datepicker', require('./components/Vuejs-datepicker.vue').d
 
 Vue.component('vue2-editor', require('./components/Vue2Editor.vue').default);
 Vue.component('tiptap-editor', require('./components/TipTapEditor.vue').default);
-Vue.component('tinymce-editor', require('./components/Tinymce.vue').default);
+
+Vue.component('tinymce-vue', require('./components/TinyMCE.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -395,12 +395,16 @@
                     {{-- placeholder="Descriere defect" --}}
                     >{{ old('defect_constatat') == '' ? $fise->defect_constatat : old('defect_constatat') }}</textarea>
             </div>
-            <div class="form-group col-lg-6">
+            <div class="form-group col-lg-12">
                 <label for="rezultat_service" class="mb-0 pl-3">Rezultat service:</label>
-                <textarea class="form-control {{ $errors->has('rezultat_service') ? 'is-invalid' : '' }}"
+                {{-- <textarea class="form-control {{ $errors->has('rezultat_service') ? 'is-invalid' : '' }}"
                     name="rezultat_service"
-                    {{-- placeholder="Rezultat service" --}}
-                    >{{ old('rezultat_service') == '' ? $fise->rezultat_service : old('rezultat_service') }}</textarea>
+                    >{{ old('rezultat_service') == '' ? $fise->rezultat_service : old('rezultat_service') }}</textarea> --}}
+                <tinymce-vue
+                inputvalue="{{ old('rezultat_service') == '' ? $fise->rezultat_service : old('rezultat_service') }}"
+                height= 200
+                inputname="rezultat_service"
+                ></tinymce-vue>
             </div>
             {{-- <div class="form-group col-lg-6">
                 <label for="link_qr" class="mb-0 pl-3">Link QR:</label>
