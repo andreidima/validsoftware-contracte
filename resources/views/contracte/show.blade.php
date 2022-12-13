@@ -1,6 +1,6 @@
 @extends ('layouts.app')
 
-@section('content')   
+@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-7">
@@ -9,7 +9,7 @@
                     <h6 class="ml-4 my-0" style="color:white"><i class="fas fa-handshake mr-1"></i>Contracte / Nr. {{ $contracte->contract_nr }} - {{ $contracte->client->nume ?? '' }}</h6>
                 </div>
 
-                <div class="card-body py-2 border border-secondary" 
+                <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
                     id="app1"
                 >
@@ -23,13 +23,21 @@
                     <div class="table-responsive col-md-12 mx-auto">
                         <table class="table table-sm table-striped table-hover"
                                 {{-- style="background-color:#008282" --}}
-                        > 
+                        >
                             <tr>
                                 <td>
                                     Număr contract
                                 </td>
                                 <td>
                                     {{ $contracte->contract_nr }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Firma
+                                </td>
+                                <td>
+                                    {{ $contracte->firma->nume ?? '' }}
                                 </td>
                             </tr>
                             <tr>
@@ -65,7 +73,7 @@
                                     Data terminare
                                 </td>
                                 <td>
-                                    {{ $contracte->data_terminare ? \Carbon\Carbon::parse($contracte->data_terminare)->isoFormat('D.MM.YYYY') : '' }}                                    
+                                    {{ $contracte->data_terminare ? \Carbon\Carbon::parse($contracte->data_terminare)->isoFormat('D.MM.YYYY') : '' }}
                                 </td>
                             </tr>
                             <tr>
@@ -87,10 +95,10 @@
                             </tr>
                         </table>
                     </div>
-                                       
-                    <div class="form-row mb-2 px-2">                                    
-                        <div class="col-lg-12 d-flex justify-content-center">  
-                            <a class="btn btn-primary btn-sm rounded-pill" href="/contracte">Pagină Contracte</a> 
+
+                    <div class="form-row mb-2 px-2">
+                        <div class="col-lg-12 d-flex justify-content-center">
+                            <a class="btn btn-primary btn-sm rounded-pill" href="/contracte">Pagină Contracte</a>
                         </div>
                     </div>
 

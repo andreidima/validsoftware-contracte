@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contract;
+use App\Firma;
 use App\Client;
 use App\Fisier;
 
@@ -57,13 +58,12 @@ class ContractController extends Controller
      */
     public function create()
     {
-        $clienti = Client::select('id', 'nume')
-            ->orderBy('nume')
-            ->get();
-        // $urmatorul_contract_nr = Contract::max('contract_nr') + 1;
+        $firme = Firma::select('id', 'nume')->orderBy('nume')->get();
+        $clienti = Client::select('id', 'nume')->orderBy('nume')->get();
+
         $urmatorul_contract_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
-        return view('contracte.create', compact('clienti', 'urmatorul_contract_nr'));
+        return view('contracte.create', compact('firme', 'clienti', 'urmatorul_contract_nr'));
     }
 
     /**
@@ -100,11 +100,10 @@ class ContractController extends Controller
      */
     public function edit(Contract $contracte)
     {
-        $clienti = Client::select('id', 'nume')
-            ->orderBy('nume')
-            ->get();
+        $firme = Firma::select('id', 'nume')->orderBy('nume')->get();
+        $clienti = Client::select('id', 'nume')->orderBy('nume')->get();
 
-        return view('contracte.edit', compact('contracte', 'clienti'));
+        return view('contracte.edit', compact('firme', 'contracte', 'clienti'));
     }
 
     /**
@@ -149,6 +148,7 @@ class ContractController extends Controller
     protected function validateRequest(Request $request)
     {
         return request()->validate([
+            'firma_id' => ['required'],
             'client_id' => ['required'],
             'contract_nr' => ['required', 'numeric'],
             'contract_data' => [''],
@@ -262,42 +262,45 @@ class ContractController extends Controller
                 ', având funcţia de ' . $contracte->client->reprezentant_functie .
                 ' și' .
                 '</p><p>' .
-                '<b>Dima P. Valentin PFA</b>, ' .
-                'Nr. Reg. Comerțului F39/811/28.05.2012, CIF 30249594, cont IBAN RO 52BTRL RONC RT02 8243 7501, deschis la Banca Transilvania.' .
-                '</p>';
+                '<b>' . ($contracte->firma->nume ?? '') .  '</b>' .
+                ', Nr. Reg. Comerțului ' . ($contracte->firma->nr_reg_com ?? '') .
+                ', CIF ' . ($contracte->firma->cif ?? '') .
+                ', cont IBAN ' . ($contracte->firma->cont_iban ?? '') .
+                ', deschis la ' . ($contracte->firma->cont_deschis_la ?? '') .
+                '.</p>';
             $html .= '<br />';
             $html .= '<ol>
                         <li><p style="font-weight: bold;">Termeni generali</p></li>
                             <ol>
-                                <li>Contractul se referă la prestarea de servicii informatice de către <b>Dima P. Valentin PFA</b> în beneficiul <b>'. $contracte->client->nume . '</b>.</li>
+                                <li>Contractul se referă la prestarea de servicii informatice de către <b>' . ($contracte->firma->nume ?? '') . '</b> în beneficiul <b>'. $contracte->client->nume . '</b>.</li>
                                 <li>Contractul este valabil până la terminarea sa în conformitate cu condiţiile incluse mai jos în prezentul document.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Relaţie contractuală</p></li>
                             <ol>
-                                <li><b>Dima P. Valentin PFA</b> va desfăşura activităţile aferente prezentului contract la sediul <b>' . $contracte->client->nume . '</b> sau la sediul propriu.</li>
-                                <li><b>Dima P. Valentin PFA</b> nu are autoritatea de a-şi asuma responsabilităţi sau obligaţii în locul <b>' . $contracte->client->nume . '</b> şi nu poate reprezenta <b>' . $contracte->client->nume . '</b> în nici un fel de situaţii.</li>
+                                <li><b>' . ($contracte->firma->nume ?? '') . '</b> va desfăşura activităţile aferente prezentului contract la sediul <b>' . $contracte->client->nume . '</b> sau la sediul propriu.</li>
+                                <li><b></b> nu are autoritatea de a-şi asuma responsabilităţi sau obligaţii în locul <b>' . $contracte->client->nume . '</b> şi nu poate reprezenta <b>' . $contracte->client->nume . '</b> în nici un fel de situaţii.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Relaţie contractuală</p></li>
                             <ol>
-                                <li>Serviciile pe care <b>Dima P. Valentin PFA</b> se angajează să le efectueze în beneficiul <b>' . $contracte->client->nume . '</b> sunt specificate în “Planul de lucru – Anexa”, dar nu se limitează numai la acestea.</li>
-                                <li><b>' . $contracte->client->nume . '</b> şi <b>Dima P. Valentin PFA</b> vor cădea de acord asupra serviciilor suplimentare care trebuie efectuate sau asupra celor care nu mai sunt necesare.</li>
-                                <li>Calitatea serviciilor furnizate de <b>Dima P. Valentin PFA</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b>.</li>
-                                <li><b>Dima P. Valentin PFA</b> are obligaţia de a livra produsele şi de a presta serviciile prevăzute în contract cu profesionalismul şi promptitudinea cuvenite angajamentului asumat şi în conformitate cu propunerea sa tehnică.</li>
-                                <li><b>Dima P. Valentin PFA</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>';
+                                <li>Serviciile pe care <b></b> se angajează să le efectueze în beneficiul <b>' . $contracte->client->nume . '</b> sunt specificate în “Planul de lucru – Anexa”, dar nu se limitează numai la acestea.</li>
+                                <li><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor cădea de acord asupra serviciilor suplimentare care trebuie efectuate sau asupra celor care nu mai sunt necesare.</li>
+                                <li>Calitatea serviciilor furnizate de <b>' . ($contracte->firma->nume ?? '') . '</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b>.</li>
+                                <li><b>' . ($contracte->firma->nume ?? '') . '</b> are obligaţia de a livra produsele şi de a presta serviciile prevăzute în contract cu profesionalismul şi promptitudinea cuvenite angajamentului asumat şi în conformitate cu propunerea sa tehnică.</li>
+                                <li><b>' . ($contracte->firma->nume ?? '') . '</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>';
 
                     if (($contracte->abonament_lunar === 1) && ($contracte->pret != null)){
-                        $html .= '<li><b>Dima P. Valentin PFA</b> va emite lunar o factură, în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>';
+                        $html .= '<li><b>' . ($contracte->firma->nume ?? '') . '</b> va emite lunar o factură, în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>';
                     }
 
                 $html .= '</ol>
                             <br/>
                         <li><p style="font-weight: bold;">Responsabilităţile <b>' . $contracte->client->nume . '</b></p></li>
                             <ol>
-                                <li><b>' . $contracte->client->nume . '</b> are obligaţia de a pune la dispoziţia <b>Dima P. Valentin PFA</b> toate informaţiile pe care <b>Dima P. Valentin PFA</b> le consideră necesare în mod rezonabil pentru îndeplinirea contractului.</li>
-                                <li><b>' . $contracte->client->nume . '</b> are obligaţia de a efectua plata către <b>Dima P. Valentin PFA</b> în termen de 30 zile de la emiterea facturii de către acesta.</li>
-                                <li>În cazul în care <b>' . $contracte->client->nume . '</b> nu onorează facturile în termen de 30 zile de la expirarea perioadei prevăzute la clauza 4.b, <b>Dima P. Valentin PFA</b> are dreptul de a sista prestarea serviciilor sau de a diminua ritmul prestării. Imediat ce <b>' . $contracte->client->nume . '</b> onorează factura, <b>Dima P. Valentin PFA</b> va relua prestarea serviciilor în cel mai scurt timp posibil.</li>
+                                <li><b>' . $contracte->client->nume . '</b> are obligaţia de a pune la dispoziţia <b>' . ($contracte->firma->nume ?? '') . '</b> toate informaţiile pe care <b>' . ($contracte->firma->nume ?? '') . '</b> le consideră necesare în mod rezonabil pentru îndeplinirea contractului.</li>
+                                <li><b>' . $contracte->client->nume . '</b> are obligaţia de a efectua plata către <b>' . ($contracte->firma->nume ?? '') . '</b> în termen de 30 zile de la emiterea facturii de către acesta.</li>
+                                <li>În cazul în care <b>' . $contracte->client->nume . '</b> nu onorează facturile în termen de 30 zile de la expirarea perioadei prevăzute la clauza 4.b, <b>' . ($contracte->firma->nume ?? '') . '</b> are dreptul de a sista prestarea serviciilor sau de a diminua ritmul prestării. Imediat ce <b>' . $contracte->client->nume . '</b> onorează factura, <b>' . ($contracte->firma->nume ?? '') . '</b> va relua prestarea serviciilor în cel mai scurt timp posibil.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Recepţie şi verificări</p></li>
@@ -321,8 +324,8 @@ class ContractController extends Controller
                             <br/>
                         <li><p style="font-weight: bold;">Soluţionarea litigiilor</p></li>
                             <ol>
-                                <li><b>' . $contracte->client->nume . '</b> şi <b>Dima P. Valentin PFA</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
-                                <li>Dacă după 15 zile de la începerea acestor tratative <b>' . $contracte->client->nume . '</b> şi <b>Dima P. Valentin PFA</b> nu reuşesc să rezolve în mod amiabil o divergenţă contractuală, fiecare parte poate solicita ca disputa să se soluționeze de către instanțele judecătorești.</li>
+                                <li><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
+                                <li>Dacă după 15 zile de la începerea acestor tratative <b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> nu reuşesc să rezolve în mod amiabil o divergenţă contractuală, fiecare parte poate solicita ca disputa să se soluționeze de către instanțele judecătorești.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Modificări</p></li>
@@ -345,7 +348,7 @@ class ContractController extends Controller
                                 '<br /><br />' . $contracte->client->reprezentant_functie .
                                 '<br />' . $contracte->client->reprezentant . '</td>
                             <td style="width:50%" align="center"><b>Prestator,</b>
-                                <br/>Dima P. Valentin PFA
+                                <br/>' . ($contracte->firma->nume ?? '') . '
                                 <br/>
                                 <img src="images/semnatura_stampila.jpg" width="100"/></td>
                         </tr>
@@ -487,7 +490,7 @@ class ContractController extends Controller
                 '<br /><br />' . $contracte->client->reprezentant_functie .
                 '<br />' . $contracte->client->reprezentant . '</td>
                             <td style="width:50%" align="center"><b>Prestator,</b>
-                                <br/>Dima P. Valentin PFA
+                                <br/>' . ($contracte->firma->nume ?? '') . '
                                 <br/>
                                 <img src="images/semnatura_stampila.jpg" width="100"/></td>
                         </tr>

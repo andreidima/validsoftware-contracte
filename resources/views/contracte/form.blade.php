@@ -2,7 +2,7 @@
 
 <div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px">
     <div class="form-group col-lg-12 px-2 mb-0">
-        <div class="form-row px-2 py-2 mb-4">
+        <div class="form-row px-2 py-2 mb-4 justify-content-between">
             <div class="form-group col-lg-2 mb-0">
                 <label for="contract_nr" class="mb-0 pl-3">Nr. contract:</label>
                 <input
@@ -14,7 +14,21 @@
                     value="{{ old('contract_nr') == '' ? ($contracte->contract_nr ?? $urmatorul_contract_nr) : old('contract_nr') }}"
                     required>
             </div>
-            <div class="form-group col-lg-5 mb-0">
+            <div class="form-group col-lg-4 mb-0">
+                <label for="firma_id" class="mb-0 pl-3">Firma:</label>
+                <select name="firma_id"
+                    class="custom-select-sm custom-select rounded-pill {{ $errors->has('firma_id') ? 'is-invalid' : '' }}"
+                >
+                        <option value='' selected>Selectează</option>
+                    @foreach ($firme as $firma)
+                        <option
+                            value='{{ $firma->id }}'
+                            {{ ($firma->id == old('firma_id', $contracte->firma->id ?? '')) ? 'selected' : '' }}
+                        >{{ $firma->nume }} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group col-lg-4 mb-0">
                 <label for="client_id" class="mb-0 pl-3">Client:</label>
                 <select name="client_id"
                     class="custom-select-sm custom-select rounded-pill {{ $errors->has('client_id') ? 'is-invalid' : '' }}"
@@ -36,6 +50,8 @@
                     @endforeach
                 </select>
             </div>
+        </div>
+        <div class="form-row px-2 py-2 mb-5 justify-content-around">
             <div class="form-check form-check-inline col-lg-3 justify-content-center align-self-end mr-0">
                 <input type="hidden" name="abonament_lunar" value=0>
                 <input type="checkbox" class="form-check-input" name="abonament_lunar" value="1"
