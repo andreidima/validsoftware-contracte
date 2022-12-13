@@ -33,7 +33,7 @@
                     @foreach ($firme as $firma)
                         <option
                             value='{{ $firma->id }}'
-                            {{ ($firma->id == old('firma_id', $contracte->firma->id ?? '')) ? 'selected' : '' }}
+                            {{ ($firma->id == old('firma_id', $ofertari->firma->id ?? '')) ? 'selected' : '' }}
                         >{{ $firma->nume }} </option>
                     @endforeach
                 </select>
