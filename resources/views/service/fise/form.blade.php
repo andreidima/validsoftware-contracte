@@ -402,7 +402,7 @@
                     >{{ old('rezultat_service') == '' ? $fise->rezultat_service : old('rezultat_service') }}</textarea> --}}
                 <tinymce-vue
                 inputvalue="{{ old('rezultat_service') == '' ? $fise->rezultat_service : old('rezultat_service') }}"
-                height= 200
+                height= 300
                 inputname="rezultat_service"
                 ></tinymce-vue>
             </div>

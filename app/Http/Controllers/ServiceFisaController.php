@@ -753,9 +753,9 @@ class ServiceFisaController extends Controller
                     <br />
 
                     <p style="text-align:left; font-weight: bold;">Rezultat service</p>
-                    <p style="text-align:justify;">' .
+                    ' .
                         $fise->rezultat_service .
-                    '</p>
+                    '
                     <br />';
 
             if (count($fise->servicii)){

@@ -105,7 +105,7 @@
                                     Rezultat service
                                 </td>
                                 <td>
-                                    {{ $fise->rezultat_service }}
+                                    {!! $fise->rezultat_service !!}
                                 </td>
                             </tr>
                             {{-- <tr>
