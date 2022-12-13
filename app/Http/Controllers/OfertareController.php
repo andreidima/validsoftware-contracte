@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ofertare;
 use App\OfertareServiciu;
+use App\Firma;
 use App\Client;
 use DB;
 use Illuminate\Http\Request;
@@ -52,6 +53,8 @@ class OfertareController extends Controller
      */
     public function create()
     {
+        $firme = Firma::select('id', 'nume')->orderBy('nume')->get();
+
         $clienti = Client::select('id', 'nume', 'telefon')
             ->orderBy('nume')
             ->get();
@@ -62,7 +65,7 @@ class OfertareController extends Controller
 
         $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
-        return view('ofertari.create', compact('clienti', 'servicii', 'urmatorul_document_nr'));
+        return view('ofertari.create', compact('firme', 'clienti', 'servicii', 'urmatorul_document_nr'));
     }
 
     /**
@@ -106,6 +109,8 @@ class OfertareController extends Controller
      */
     public function edit(Ofertare $ofertari)
     {
+        $firme = Firma::select('id', 'nume')->orderBy('nume')->get();
+
         $clienti = Client::select('id', 'nume', 'telefon')
             ->orderBy('nume')
             ->get();
@@ -114,7 +119,7 @@ class OfertareController extends Controller
             orderBy('nume')
             ->get();
 
-        return view('ofertari.edit', compact('ofertari', 'clienti', 'servicii'));
+        return view('ofertari.edit', compact('ofertari', 'firme', 'clienti', 'servicii'));
     }
 
     /**
@@ -159,6 +164,7 @@ class OfertareController extends Controller
         return request()->validate([
             'nr_document' => ['required', 'numeric'],
             'data_emitere' => [''],
+            'firma_id' => ['required'],
             'client_id' => ['required'],
             'data_cerere' => [''],
             'descriere_solicitare' => [''],
@@ -277,7 +283,7 @@ class OfertareController extends Controller
             $html .= '<b>Introducere</b>';
 
             $html .= '<p style="text-align: justify;">' .
-                        '          Documentul curent reprezintă răspunsul <b>Dima P. Valentin PFA</b> la cererea de servicii primită de la <b>' .
+                        '          Documentul curent reprezintă răspunsul <b>' . ($ofertari->firma->nume ?? '') . '</b> la cererea de servicii primită de la <b>' .
                         $ofertari->client->nume . '</b>, în data de <b>' .
                         (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
                     '</p>' .
@@ -324,9 +330,11 @@ class OfertareController extends Controller
                             &nbsp;
                             </td>
                             <td style="width:30%; text-align: center;" align="center">
-                                Dima P. Valentin PFA
+                                ' . ($ofertari->firma->nume ?? '') . '
                                 <br/>
-                                <img src="images/semnatura_stampila.jpg" width="100"/>
+                                ' .
+                                ((isset($ofertari->firma->nume_semnatura) && file_exists('images/' . ($ofertari->firma->nume_semnatura ?? ''))) ? ('<img src="images/' . ($ofertari->firma->nume_semnatura ?? '') . '" width="100"/>') : '') .
+                                '
                             </td>
                         </tr>
                     </table>
@@ -557,9 +565,11 @@ class OfertareController extends Controller
                             &nbsp;
                             </td>
                             <td style="width:30%; text-align: center;" align="center">
-                                Dima P. Valentin PFA
+                                ' . ($ofertari->firma->nume ?? '') . '
                                 <br/>
-                                <img src="images/semnatura_stampila.jpg" width="100"/>
+                                ' .
+                                ((isset($ofertari->firma->nume_semnatura) && file_exists('images/' . ($ofertari->firma->nume_semnatura ?? ''))) ? ('<img src="images/' . ($ofertari->firma->nume_semnatura ?? '') . '" width="100"/>') : '') .
+                                '
                             </td>
                         </tr>
                     </table>

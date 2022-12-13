@@ -3,7 +3,7 @@
 <div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px">
     <div class="form-group col-lg-12 px-2 mb-0">
         <div class="form-row px-2 py-2 mb-2 justify-content-center">
-            <div class="form-group col-lg-2 mb-0">
+            <div class="form-group col-lg-2 mb-4">
                 <label for="nr_document" class="mb-0 pl-3">Nr. document:</label>
                 <input
                     type="text"
@@ -23,6 +23,20 @@
                     latime="150"
                     not-before="{{ \Carbon\Carbon::today() }}"
                 ></vue2-datepicker>
+            </div>
+            <div class="form-group col-lg-4 mb-0">
+                <label for="firma_id" class="mb-0 pl-3">Firma:</label>
+                <select name="firma_id"
+                    class="custom-select-sm custom-select rounded-pill {{ $errors->has('firma_id') ? 'is-invalid' : '' }}"
+                >
+                        <option value='' selected>Selectează</option>
+                    @foreach ($firme as $firma)
+                        <option
+                            value='{{ $firma->id }}'
+                            {{ ($firma->id == old('firma_id', $contracte->firma->id ?? '')) ? 'selected' : '' }}
+                        >{{ $firma->nume }} </option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="form-row px-2 py-2 mb-4 justify-content-center">

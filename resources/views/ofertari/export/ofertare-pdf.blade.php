@@ -79,7 +79,7 @@
             $html .= '<b>Introducere</b>';
 
             $html .= '<p style="text-align: justify;">' .
-                        '          Documentul curent reprezintă răspunsul <b>Dima P. Valentin PFA</b> la cererea de servicii primită de la <b>' .
+                        '          Documentul curent reprezintă răspunsul <b>' . ($ofertari->firma->nume ?? '') . '</b> la cererea de servicii primită de la <b>' .
                         $ofertari->client->nume . '</b>, în data de <b>' .
                         (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
                     '</p>' .
@@ -126,10 +126,10 @@
                             &nbsp;
                             </td>
                             <td style="width:30%; text-align: center;" align="center">
-                                Dima P. Valentin PFA
-                                <br/>
-                                <img src="images/semnatura_stampila.jpg" width="100"/>
-                            </td>
+                                ' . ($ofertari->firma->nume ?? '') . '
+                                <br/>' .
+                                ((isset($ofertari->firma->nume_semnatura) && file_exists('images/' . ($ofertari->firma->nume_semnatura ?? ''))) ? ('<img src="images/' . ($ofertari->firma->nume_semnatura ?? '') . '" width="100"/>') : '') .
+                            '</td>
                         </tr>
                     </table>
                 ';
@@ -357,10 +357,10 @@
                             &nbsp;
                             </td>
                             <td style="width:30%; text-align: center;" align="center">
-                                Dima P. Valentin PFA
-                                <br/>
-                                <img src="images/semnatura_stampila.jpg" width="100"/>
-                            </td>
+                                ' . ($ofertari->firma->nume ?? '') . '
+                                <br/>' .
+                                ((isset($ofertari->firma->nume_semnatura) && file_exists('images/' . ($ofertari->firma->nume_semnatura ?? ''))) ? ('<img src="images/' . ($ofertari->firma->nume_semnatura ?? '') . '" width="100"/>') : '') .
+                            '</td>
                         </tr>
                     </table>
                 ';

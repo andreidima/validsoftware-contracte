@@ -262,7 +262,7 @@ class ContractController extends Controller
                 ', având funcţia de ' . $contracte->client->reprezentant_functie .
                 ' și' .
                 '</p><p>' .
-                '<b>' . ($contracte->firma->nume ?? '') .  '</b>' .
+                '<b>' . ($contracte->firma->nume ?? '') . '</b>' .
                 ', Nr. Reg. Comerțului ' . ($contracte->firma->nr_reg_com ?? '') .
                 ', CIF ' . ($contracte->firma->cif ?? '') .
                 ', cont IBAN ' . ($contracte->firma->cont_iban ?? '') .
@@ -349,8 +349,10 @@ class ContractController extends Controller
                                 '<br />' . $contracte->client->reprezentant . '</td>
                             <td style="width:50%" align="center"><b>Prestator,</b>
                                 <br/>' . ($contracte->firma->nume ?? '') . '
-                                <br/>
-                                <img src="images/semnatura_stampila.jpg" width="100"/></td>
+                                <br/>' .
+                                ((isset($contracte->firma->nume_semnatura) && file_exists('images/' . ($contracte->firma->nume_semnatura ?? ''))) ? ('<img src="images/' . ($contracte->firma->nume_semnatura ?? '') . '" width="100"/>') : '') .
+                            '
+                            </td>
                         </tr>
                     </table>
                 ';
@@ -491,8 +493,10 @@ class ContractController extends Controller
                 '<br />' . $contracte->client->reprezentant . '</td>
                             <td style="width:50%" align="center"><b>Prestator,</b>
                                 <br/>' . ($contracte->firma->nume ?? '') . '
-                                <br/>
-                                <img src="images/semnatura_stampila.jpg" width="100"/></td>
+                                <br/>' .
+                                ((isset($contracte->firma->nume_semnatura) && file_exists('images/' . ($contracte->firma->nume_semnatura ?? ''))) ? ('<img src="images/' . ($contracte->firma->nume_semnatura ?? '') . '" width="100"/>') : '') .
+                            '
+                            </td>
                         </tr>
                     </table>
                 ';
