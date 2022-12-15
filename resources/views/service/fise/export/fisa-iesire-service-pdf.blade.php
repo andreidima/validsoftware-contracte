@@ -136,7 +136,8 @@
                         preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $fisa->rezultat_service, $urlurile_extrase);
                         // dd($urlurile_extrase[0]);
                     @endphp
-                    {!! $fisa->rezultat_service_cu_linkuri !!}
+                    {{-- {!! $fisa->rezultat_service_cu_linkuri !!} --}}
+                    {!! $fisa->rezultat_service !!}
                 </p>
                 <br />
             @endif
