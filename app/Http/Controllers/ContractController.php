@@ -185,7 +185,7 @@ class ContractController extends Controller
                     'marginRight'  => 1200,
                     'marginTop'    => 0,
                     'marginBottom' => 700,
-                    'headerHeight' => 3100,
+                    'headerHeight' => 2000,
                     'footerHeight' => 0,
                 )
             );
@@ -258,7 +258,7 @@ class ContractController extends Controller
                 ' între <b>' . $contracte->client->nume . '</b>' .
                 ', cu sediul în ' . $contracte->client->adresa .
                 ', Cod Unic de Înregistrare CUI ' . $contracte->client->cui .
-                ', reprezentată de ' . $contracte->client->reprezentant .
+                ', reprezentată de <b>' . $contracte->client->reprezentant . '</b>' .
                 ', având funcţia de ' . $contracte->client->reprezentant_functie .
                 ' și' .
                 '</p><p>' .
@@ -279,12 +279,8 @@ class ContractController extends Controller
                         <li><p style="font-weight: bold;">Relaţie contractuală</p></li>
                             <ol>
                                 <li><b>' . ($contracte->firma->nume ?? '') . '</b> va desfăşura activităţile aferente prezentului contract la sediul <b>' . $contracte->client->nume . '</b> sau la sediul propriu.</li>
-                                <li><b></b> nu are autoritatea de a-şi asuma responsabilităţi sau obligaţii în locul <b>' . $contracte->client->nume . '</b> şi nu poate reprezenta <b>' . $contracte->client->nume . '</b> în nici un fel de situaţii.</li>
-                            </ol>
-                            <br/>
-                        <li><p style="font-weight: bold;">Relaţie contractuală</p></li>
-                            <ol>
-                                <li>Serviciile pe care <b></b> se angajează să le efectueze în beneficiul <b>' . $contracte->client->nume . '</b> sunt specificate în “Planul de lucru – Anexa”, dar nu se limitează numai la acestea.</li>
+                                <li><b>' . ($contracte->firma->nume ?? '') . '</b> nu are autoritatea de a-şi asuma responsabilităţi sau obligaţii în locul <b>' . $contracte->client->nume . '</b> şi nu poate reprezenta <b>' . $contracte->client->nume . '</b> în nici un fel de situaţii.</li>
+                                <li>Serviciile pe care <b>' . ($contracte->firma->nume ?? '') . '</b> se angajează să le efectueze în beneficiul <b>' . $contracte->client->nume . '</b> sunt specificate în “Planul de lucru – Anexa”, dar nu se limitează numai la acestea.</li>
                                 <li><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor cădea de acord asupra serviciilor suplimentare care trebuie efectuate sau asupra celor care nu mai sunt necesare.</li>
                                 <li>Calitatea serviciilor furnizate de <b>' . ($contracte->firma->nume ?? '') . '</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b>.</li>
                                 <li><b>' . ($contracte->firma->nume ?? '') . '</b> are obligaţia de a livra produsele şi de a presta serviciile prevăzute în contract cu profesionalismul şi promptitudinea cuvenite angajamentului asumat şi în conformitate cu propunerea sa tehnică.</li>
@@ -308,7 +304,7 @@ class ContractController extends Controller
                                 <li><b>' . $contracte->client->nume . '</b> are dreptul de a verifica modul de prestare şi calitatea serviciilor.</li>';
 
                     if ($contracte->abonament_lunar === 1){
-                        $html .= '<li><b>Dima P. Valentin</b> va genera lunar un raport de activitate, care va fi inaintat beneficiarului. </li>';
+                        $html .= '<li><b>' . ($contracte->firma->nume ?? '') . '</b> va genera lunar un raport de activitate, care va fi inaintat beneficiarului. </li>';
                     }
 
                 $html .= '</ol>
@@ -326,6 +322,15 @@ class ContractController extends Controller
                             <ol>
                                 <li><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
                                 <li>Dacă după 15 zile de la începerea acestor tratative <b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> nu reuşesc să rezolve în mod amiabil o divergenţă contractuală, fiecare parte poate solicita ca disputa să se soluționeze de către instanțele judecătorești.</li>
+                            </ol>
+                            <br/>
+                        <li><p style="font-weight: bold;">Durata contractului</p></li>
+                            <ol>
+                                <li>Contractul este valabil în intervalul ' .
+                                (isset($contracte->data_incepere) ? (' din ' . \Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '') .
+                                ' - ' .
+                                (isset($contracte->data_terminare) ? (' din ' . \Carbon\Carbon::parse($contracte->data_terminare)->isoFormat('DD.MM.YYYY')) : '') .
+                                ' si poate fi prelungit prin acte adiționale, încheiate cu acordul ambelor părți contractente.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Modificări</p></li>
@@ -366,10 +371,10 @@ class ContractController extends Controller
             $html = '<p style="text-align: center; font-weight: bold; font-size: 21px;">Plan de lucru</p>
                     <br />
                     <p style="font-weight: bold;">Anexa nr. 01 ' .
-                        (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : '') .
+                        (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
                         ' la CONTRACTUL DE PRESTARE DE SERVICII INFORMATICE Nr. ' .
                         $contracte->contract_nr .
-                        (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : '') .
+                        (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
                     '</p>
                     <br /><br />
                 <ol>
