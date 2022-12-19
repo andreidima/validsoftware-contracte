@@ -6,8 +6,10 @@ use App\Contract;
 use App\Firma;
 use App\Client;
 use App\Fisier;
+use App\Variabila;
 
 use DB;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -74,7 +76,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        \App\Variabila::Nr_document();
+        Variabila::Nr_document();
         $contract = Contract::create($this->validateRequest($request));
 
         return redirect($contract->path())->with('status',
@@ -217,14 +219,14 @@ class ContractController extends Controller
             // $section->
             //     addText('Nr. '. $contracte->contract_nr .
             //         (isset($contracte->contract_data) ?
-            //             (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : ''),
+            //             (' din ' . Carbon::parse($contracte->contract_data)->isoFormat('D.MM.YYYY')) : ''),
             //         array('bold' => true),
             //         array('align' => 'center')
             //     );
             // $section->addTextBreak(1);
             // $section->addText(
             //     'Prezentul contract intră în vigoare începând cu data de ' .
-            //     (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('D.MM.YYYY')) : '..........') .
+            //     (isset($contracte->data_incepere) ? (Carbon::parse($contracte->data_incepere)->isoFormat('D.MM.YYYY')) : '..........') .
             //     ' între ' . $contracte->client->nume .
             //     ', cu sediul în ' . $contracte->client->adresa .
             //     ', Cod Unic de Înregistrare CUI ' . $contracte->client->cui .
@@ -249,12 +251,12 @@ class ContractController extends Controller
 
             $html = '<p style="text-align: center; font-weight: bold; font-size: 21px;">CONTRACT DE FURNIZARE SERVICII INFORMATICE</p>';
             $html .= '<p style="text-align: center; font-weight: bold;">Nr. ' . $contracte->contract_nr .
-                (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
+                (isset($contracte->contract_data) ? (' din ' . Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
                 '</p>';
             $html .= '<br />';
             $html .= '<p style="text-align:justify;">' .
                 'Prezentul contract intră în vigoare începând cu data de ' .
-                (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '..........') .
+                (isset($contracte->data_incepere) ? (Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '..........') .
                 ' între <b>' . $contracte->client->nume . '</b>' .
                 ', cu sediul în ' . $contracte->client->adresa .
                 ', Cod Unic de Înregistrare CUI ' . $contracte->client->cui .
@@ -327,9 +329,9 @@ class ContractController extends Controller
                         <li><p style="font-weight: bold;">Durata contractului</p></li>
                             <ol>
                                 <li>Contractul este valabil în intervalul ' .
-                                (isset($contracte->data_incepere) ? (' din ' . \Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '') .
+                                (isset($contracte->data_incepere) ? (' din ' . Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '') .
                                 ' - ' .
-                                (isset($contracte->data_terminare) ? (' din ' . \Carbon\Carbon::parse($contracte->data_terminare)->isoFormat('DD.MM.YYYY')) : '') .
+                                (isset($contracte->data_terminare) ? (' din ' . Carbon::parse($contracte->data_terminare)->isoFormat('DD.MM.YYYY')) : '') .
                                 ' si poate fi prelungit prin acte adiționale, încheiate cu acordul ambelor părți contractente.</li>
                             </ol>
                             <br/>
@@ -371,10 +373,10 @@ class ContractController extends Controller
             $html = '<p style="text-align: center; font-weight: bold; font-size: 21px;">Plan de lucru</p>
                     <br />
                     <p style="font-weight: bold;">Anexa nr. 01 ' .
-                        (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
+                        (isset($contracte->contract_data) ? (' din ' . Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
                         ' la CONTRACTUL DE PRESTARE DE SERVICII INFORMATICE Nr. ' .
                         $contracte->contract_nr .
-                        (isset($contracte->contract_data) ? (' din ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
+                        (isset($contracte->contract_data) ? (' din ' . Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
                     '</p>
                     <br /><br />
                 <ol>
@@ -517,7 +519,7 @@ class ContractController extends Controller
                 $objWriter->save(storage_path(
                     'app/fisiere_temporare/' .
                     'Contract nr. ' . $contracte->contract_nr .
-                    ' din data de ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') .
+                    ' din data de ' . Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') .
                     ' - ' . ($contracte->client->nume ?? '') . '.docx'
                 ));
             } catch (Exception $e) { }
@@ -525,7 +527,7 @@ class ContractController extends Controller
             return response()->download(storage_path(
                 'app/fisiere_temporare/' .
                 'Contract nr. ' . $contracte->contract_nr .
-                ' din data de ' . \Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') .
+                ' din data de ' . Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY') .
                 ' - ' . ($contracte->client->nume ?? '') . '.docx'
             ));
 
@@ -552,7 +554,7 @@ class ContractController extends Controller
 
         $fisier = request()->file('fisier');
         $fileName = pathinfo($fisier->getClientOriginalName(), PATHINFO_FILENAME) . ' ' .
-            \Carbon\Carbon::now()->isoFormat('HHMMSSDDMMYY') . '.' .
+            Carbon::now()->isoFormat('HHMMSSDDMMYY') . '.' .
             $fisier->extension();
         // $filePath = "contracte/" . date("Y") . '/' . date("m");
         $filePath = "contracte/" . $contracte->contract_nr . '/';
@@ -603,5 +605,24 @@ class ContractController extends Controller
         // );
 
         return Storage::delete($cale_si_fisier);
+    }
+
+    public function duplicaContract(Request $request, Contract $contract)
+    {
+        $contract = $contract->replicate();
+
+        $contract->contract_nr = Variabila::Nr_document(); // se da un nr nou contractului
+        $contract->created_at = Carbon::now();
+        $contract->updated_at = Carbon::now();
+
+        $contract->save();
+
+        return redirect()->action(
+            'ContractController@edit',
+            ['contracte' => $contract->id]
+        );
+
+        // return redirect('/contracte')->with('status',
+        //     'Contractul Nr."' . $contract->contract_nr . '", pentru clientul "' . ($contract->client->nume ?? '') . '", a fost duplicat cu succes!');
     }
 }

@@ -1,14 +1,14 @@
 @extends ('layouts.app')
 
-@section('content')   
+@section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class=" mb-0"><a href="{{ route('ofertari.index') }}"><i class="fas fa-file-alt mr-1"></i>Ofertări</a></h4>
-            </div> 
+            </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('ofertari.index') }}">
-                    @csrf                    
+                    @csrf
                     <div class="row input-group custom-search-form">
                         <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Client" autofocus
                                 value="{{ $search_nume }}">
@@ -25,7 +25,7 @@
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('ofertari.create') }}" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă ofertare
                 </a>
-            </div> 
+            </div>
         </div>
 
         <div class="card-body px-0 py-3">
@@ -33,7 +33,7 @@
             @include('errors')
 
             <div class="table-responsive rounded">
-                <table class="table table-striped table-hover table-sm rounded"> 
+                <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="small" style="padding:2rem">
                             <th>Nr. Document.</th>
@@ -44,12 +44,12 @@
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
-                    <tbody>               
-                        @forelse ($ofertari as $ofertare) 
-                            <tr>                  
+                    <tbody>
+                        @forelse ($ofertari as $ofertare)
+                            <tr>
                                 <td align="">
                                     {{ $ofertare->nr_document }}
-                                </td>             
+                                </td>
                                 <td>
                                     {{ $ofertare->client->nume ?? '' }}
                                 </td>
@@ -58,26 +58,26 @@
                                         {{ \Carbon\Carbon::parse($ofertare->data_emitere)->isoFormat('DD.MM.YYYY') }}
                                     @endisset
                                 </td>
-                                <td class="text-center">               
-                                    <div class="d-flex justify-content-center">                                
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center">
                                         <a href="{{ $ofertare->path() }}/export/ofertare-word"
                                             class="flex mr-1"
                                         >
                                             <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
-                                        </a> 
+                                        </a>
                                         <a href="{{ $ofertare->path() }}/export/pdf/ofertare-pdf"
-                                            class="flex"    
+                                            class="flex"
                                         >
                                             <span class="badge badge-light text-danger border border-danger">Pdf</span>
                                         </a>
                                     </div>
                                 </td>
-                                <td class="text-center">               
-                                    <div class="d-flex justify-content-center">  
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center">
                                         <div style="" class="text-center">
-                                            <a 
-                                                href="#" 
-                                                data-toggle="modal" 
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
                                                 data-target="#trimiteEmail{{ $ofertare->id }}"
                                                 title="trimite email"
                                                 class="mr-1"
@@ -102,40 +102,40 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                            
+
                                                             <form method="POST" action="{{ $ofertare->path() }}/trimite-email">
-                                                                @csrf   
-                                                                <button 
-                                                                    type="submit" 
-                                                                    class="btn btn-primary"  
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
                                                                     >
                                                                     Trimite email
-                                                                </button>                    
+                                                                </button>
                                                             </form>
-                                                        
+
                                                         </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </td>
-                                
+
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $ofertare->path() }}"
-                                        class="flex mr-1"    
+                                        class="flex mr-1"
                                     >
                                         <span class="badge badge-success">Vizualizează</span>
-                                    </a> 
+                                    </a>
                                     <a href="{{ $ofertare->path() }}/modifica"
-                                        class="flex"    
+                                        class="flex mr-1"
                                     >
                                         <span class="badge badge-primary">Modifică</span>
-                                    </a>                                   
-                                    <div style="flex" class="">
-                                        <a 
-                                            href="#" 
-                                            data-toggle="modal" 
+                                    </a>
+                                    <div style="flex" class="mr-1">
+                                        <a
+                                            href="#"
+                                            data-toggle="modal"
                                             data-target="#stergeOfertare{{ $ofertare->id }}"
                                             title="Șterge Ofertare"
                                             >
@@ -155,26 +155,31 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                        
+
                                                         <form method="POST" action="{{ $ofertare->path() }}">
-                                                            @method('DELETE')  
-                                                            @csrf   
-                                                            <button 
-                                                                type="submit" 
-                                                                class="btn btn-danger"  
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger"
                                                                 >
                                                                 Șterge Ofertarea
-                                                            </button>                    
+                                                            </button>
                                                         </form>
-                                                    
+
                                                     </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div> 
+                                    </div>
+                                    <a href="{{ $ofertare->path() }}/duplica"
+                                        class="flex"
+                                    >
+                                        <span class="badge badge-secondary">Duplică</span>
+                                    </a>
                                 </td>
-                            </tr>                             
-                            
+                            </tr>
+
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                         @endforelse

@@ -6,8 +6,11 @@ use App\Ofertare;
 use App\OfertareServiciu;
 use App\Firma;
 use App\Client;
+use App\Variabila;
 use DB;
 use Illuminate\Http\Request;
+
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -224,7 +227,7 @@ class OfertareController extends Controller
             $pdf = \PDF::loadView('ofertari.export.ofertare-pdf', compact('ofertari'))
                 ->setPaper('a4', 'portrait');
             return $pdf->download(
-                'Ofertarea nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din data de ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                'Ofertarea nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din data de ' . Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                     ' - ' . ($ofertari->client->nume ?? '') . '.pdf'
             );
         }
@@ -277,7 +280,7 @@ class OfertareController extends Controller
 
 
             $html = '<p style="text-align: center;">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' .
-                    (isset($ofertari->data_emitere) ? (' din <b>' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
+                    (isset($ofertari->data_emitere) ? (' din <b>' . Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
                 '</p><br />';
 
             $html .= '<b>Introducere</b>';
@@ -285,7 +288,7 @@ class OfertareController extends Controller
             $html .= '<p style="text-align: justify;">' .
                         '          Documentul curent reprezintă răspunsul <b>' . ($ofertari->firma->nume ?? '') . '</b> la cererea de servicii primită de la <b>' .
                         $ofertari->client->nume . '</b>, în data de <b>' .
-                        (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
+                        (isset($ofertari->data_cerere) ? (Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
                     '</p>' .
                 '<br />';
 
@@ -590,7 +593,7 @@ class OfertareController extends Controller
                 $objWriter->save(storage_path(
                     'app/fisiere_temporare/' .
                     'Ofertarea nr. ' . $ofertari->nr_document .
-                    (isset($ofertari->data_emitere) ? (' din data de ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                    (isset($ofertari->data_emitere) ? (' din data de ' . Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                     ' - ' . ($ofertari->client->nume ?? '') . '.docx'
                 ));
             } catch (Exception $e) { }
@@ -598,9 +601,28 @@ class OfertareController extends Controller
             return response()->download(storage_path(
                 'app/fisiere_temporare/' .
                     'Ofertarea nr. ' . $ofertari->nr_document .
-                    (isset($ofertari->data_emitere) ? (' din data de ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                    (isset($ofertari->data_emitere) ? (' din data de ' . Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                     ' - ' . ($ofertari->client->nume ?? '') . '.docx'
             ));
         }
+    }
+
+    public function duplicaOfertare(Request $request, Ofertare $ofertare)
+    {
+        $ofertare = $ofertare->replicate();
+
+        $ofertare->nr_document = Variabila::Nr_document(); // se da un nr nou ofertareului
+        $ofertare->created_at = Carbon::now();
+        $ofertare->updated_at = Carbon::now();
+
+        $ofertare->save();
+
+        return redirect()->action(
+            'OfertareController@edit',
+            ['ofertari' => $ofertare->id]
+        );
+
+        // return redirect('/contracte')->with('status',
+        //     'Contractul Nr."' . $contract->contract_nr . '", pentru clientul "' . ($contract->client->nume ?? '') . '", a fost duplicat cu succes!');
     }
 }

@@ -1,14 +1,14 @@
 @extends ('layouts.app')
 
-@section('content')   
+@section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class=" mb-0"><a href="{{ route('contracte.index') }}"><i class="fas fa-handshake mr-1"></i>Contracte</a></h4>
-            </div> 
+            </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('contracte.index') }}">
-                    @csrf                    
+                    @csrf
                     <div class="row input-group custom-search-form">
                         <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Client" autofocus
                                 value="{{ $search_nume }}">
@@ -25,7 +25,7 @@
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ route('contracte.create') }}" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă contract
                 </a>
-            </div> 
+            </div>
         </div>
 
         <div class="card-body px-0 py-3">
@@ -33,7 +33,7 @@
             @include('errors')
 
             <div class="table-responsive rounded">
-                <table class="table table-striped table-hover table-sm rounded"> 
+                <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="small" style="padding:2rem">
                             <th>Nr. Contract.</th>
@@ -46,12 +46,12 @@
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
-                    <tbody>               
-                        @forelse ($contracte as $contract) 
-                            <tr>                  
+                    <tbody>
+                        @forelse ($contracte as $contract)
+                            <tr>
                                 <td align="">
                                     {{ $contract->contract_nr }}
-                                </td>             
+                                </td>
                                 <td>
                                     {{ $contract->client->nume ?? '' }}
                                 </td>
@@ -59,7 +59,7 @@
                                     @isset($contract->contract_data)
                                         {{ \Carbon\Carbon::parse($contract->contract_data)->isoFormat('D.MM.YYYY') }}
                                     @endisset
-                                    {{-- <a class="" data-toggle="collapse" href="#collapse{{ $contract->id }}" role="button" 
+                                    {{-- <a class="" data-toggle="collapse" href="#collapse{{ $contract->id }}" role="button"
                                         aria-expanded="false" aria-controls="collapse{{ $contract->id }}">
                                         <b>{{ $contract->nume }}</b>
                                     </a> --}}
@@ -76,28 +76,28 @@
                                         <span class="badge badge-secondary">NU</span>
                                     @endisset
                                 </td>
-                                <td class="text-center">                                    
+                                <td class="text-center">
                                     <a href="{{ $contract->path() }}/export/contract-word"
-                                        class="flex"    
+                                        class="flex"
                                     >
                                         <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
-                                    </a> 
+                                    </a>
                                 </td>
-                                <td class="text-center">                              
+                                <td class="text-center">
                                     <div style="flex" class="">
-                                        @if ($contract->fisiere_count > 0)    
-                                            <a class="" data-toggle="collapse" href="#collapseFisiere{{ $contract->id }}" role="button" 
+                                        @if ($contract->fisiere_count > 0)
+                                            <a class="" data-toggle="collapse" href="#collapseFisiere{{ $contract->id }}" role="button"
                                                 aria-expanded="false" aria-controls="collapseFisiere{{ $contract->id }}">
                                                 <span class="badge badge-primary">{{ $contract->fisiere_count }}</span>
                                             </a>
                                         @else
                                             <span class="badge badge-secondary">0</span>
-                                        @endif  
-                                        <a 
+                                        @endif
+                                        <a
                                             {{-- class="btn btn-danger btn-sm"  --}}
-                                            href="#" 
+                                            href="#"
                                             {{-- role="button" --}}
-                                            data-toggle="modal" 
+                                            data-toggle="modal"
                                             data-target="#incarcaFisier{{ $contract->id }}"
                                             title="incarca Fisier"
                                             >
@@ -119,11 +119,11 @@
                                                         <form action="{{ route('file.upload.post', $contract->id) }}" method="POST" enctype="multipart/form-data">
                                                             @csrf
 
-                                                            <div class="row">                                                
+                                                            <div class="row">
                                                                 <div class="col-md-12 d-flex">
                                                                     <input type="file" name="fisier" class="form-control py-1">
                                                                     <button type="submit" class="btn btn-success">Upload</button>
-                                                                </div>                                                
+                                                                </div>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -134,20 +134,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div> 
+                                    </div>
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $contract->path() }}/modifica"
-                                        class="flex"    
+                                        class="flex mr-1"
                                     >
                                         <span class="badge badge-primary">Modifică</span>
-                                    </a>                                   
-                                    <div style="flex" class="">
-                                        <a 
+                                    </a>
+                                    <div style="flex" class="mr-1">
+                                        <a
                                             {{-- class="btn btn-danger btn-sm"  --}}
-                                            href="#" 
+                                            href="#"
                                             {{-- role="button" --}}
-                                            data-toggle="modal" 
+                                            data-toggle="modal"
                                             data-target="#stergeContract{{ $contract->id }}"
                                             title="Șterge Contract"
                                             >
@@ -168,26 +168,31 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                        
+
                                                         <form method="POST" action="{{ $contract->path() }}">
-                                                            @method('DELETE')  
-                                                            @csrf   
-                                                            <button 
-                                                                type="submit" 
-                                                                class="btn btn-danger"  
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger"
                                                                 >
                                                                 Șterge Contract
-                                                            </button>                    
+                                                            </button>
                                                         </form>
-                                                    
+
                                                     </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div> 
+                                    </div>
+                                    <a href="{{ $contract->path() }}/duplica"
+                                        class="flex"
+                                    >
+                                        <span class="badge badge-secondary">Duplică</span>
+                                    </a>
                                 </td>
-                            </tr>  
-                            <tr class="collapse bg-white" id="collapseFisiere{{ $contract->id }}" 
+                            </tr>
+                            <tr class="collapse bg-white" id="collapseFisiere{{ $contract->id }}"
                             >
                                 <td colspan="8">
                                     <table class="table table-sm table-striped table-hover col-lg-8 mx-auto border">
@@ -219,19 +224,19 @@
                                                     </a> --}}
                                                                     <form method="POST" action="{{ route('file.download', $fisier->id) }}">
                                                                         {{-- @method('DELETE')   --}}
-                                                                        @csrf   
-                                                                        <button 
-                                                                            type="submit" 
-                                                                            class="btn btn-link py-0"  
+                                                                        @csrf
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn btn-link py-0"
                                                                             >
                                                                             <span class="badge badge-success">Descarcă</span>
-                                                                        </button>                    
+                                                                        </button>
                                                                     </form>
-                                                    <a 
+                                                    <a
                                                         {{-- class="btn btn-danger btn-sm"  --}}
-                                                        href="#" 
+                                                        href="#"
                                                         {{-- role="button" --}}
-                                                        data-toggle="modal" 
+                                                        data-toggle="modal"
                                                         data-target="#stergeFisier{{ $fisier->id }}"
                                                         title="Șterge Fisier"
                                                         >
@@ -252,36 +257,36 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-                                                                    
+
                                                                     <form method="POST" action="{{ $fisier->path() }}">
-                                                                        @method('DELETE')  
-                                                                        @csrf   
-                                                                        <button 
-                                                                            type="submit" 
-                                                                            class="btn btn-danger"  
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn btn-danger"
                                                                             >
                                                                             Șterge Fișier
-                                                                        </button>                    
+                                                                        </button>
                                                                     </form>
-                                                                
+
                                                                 </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                 </td>
-                                            </tr>                                            
+                                            </tr>
                                         @empty
-                                            
+
                                         @endforelse
                                         </tbody>
                                     </table>
                                 </td>
-                            </tr> 
+                            </tr>
                             <tr class="collapse">
                                 <td colspan="8">
 
-                                </td>                                       
-                            </tr> 
+                                </td>
+                            </tr>
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                         @endforelse

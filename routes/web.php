@@ -87,6 +87,9 @@ Route::middleware('role:admin')->group(function () {
     // Activare/ dezactivare Cron Jobs
     Route::patch('/cron-jobs/{cron_job}/activare-dezactivare', 'CronJobController@activareDezactivare')->name('cronjob.activare.dezactivare');
 
+    Route::get('contracte/{contract}/duplica', 'ContractController@duplicaContract');
+    Route::get('ofertari/{ofertare}/duplica', 'OfertareController@duplicaOfertare');
+
     Route::resource('contracte', 'ContractController');
     Route::resource('fisiere', 'FisierController');
     Route::resource('cron-jobs', 'CronJobController');
