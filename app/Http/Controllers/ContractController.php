@@ -199,7 +199,8 @@ class ContractController extends Controller
             $header->addImage(
                 'images/contract-header.jpg',
                 array(
-                    'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
+                    // 'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
+                    'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(14.5),
                     // 'height'           => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
                     'positioning'      => \PhpOffice\PhpWord\Style\Image::POSITION_ABSOLUTE,
                     'posHorizontal'    => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_CENTER,
@@ -261,7 +262,7 @@ class ContractController extends Controller
                 ', cu sediul în ' . $contracte->client->adresa .
                 ', Cod Unic de Înregistrare CUI ' . $contracte->client->cui .
                 ', reprezentată de <b>' . $contracte->client->reprezentant . '</b>' .
-                ', având funcţia de ' . $contracte->client->reprezentant_functie .
+                ', având funcţia de <b>' . $contracte->client->reprezentant_functie . '</b>' .
                 ' și' .
                 '</p><p>' .
                 '<b>' . ($contracte->firma->nume ?? '') . '</b>' .
@@ -269,6 +270,10 @@ class ContractController extends Controller
                 ', CIF ' . ($contracte->firma->cif ?? '') .
                 ', cont IBAN ' . ($contracte->firma->cont_iban ?? '') .
                 ', deschis la ' . ($contracte->firma->cont_deschis_la ?? '') .
+                (isset($contracte->firma->cont_iban_trezorerie) ? (', cont trezorerie IBAN ' . ($contracte->firma->cont_iban_trezorerie ?? '')) : '') .
+                (isset($contracte->firma->cont_deschis_la_trezorerie) ? (', deschis la ' . ($contracte->firma->cont_deschis_la_trezorerie ?? '')) : '') .
+                ', reprezentată de <b>' . 'Valentin Dima' . '</b>' .
+                ', având funcţia de <b>' . 'Administrator' . '</b>' .
                 '.</p>';
             $html .= '<br />';
             $html .= '<ol>
@@ -281,7 +286,7 @@ class ContractController extends Controller
                         <li><p style="font-weight: bold;">Relaţie contractuală</p></li>
                             <ol>
                                 <li><b>' . ($contracte->firma->nume ?? '') . '</b> va desfăşura activităţile aferente prezentului contract la sediul <b>' . $contracte->client->nume . '</b> sau la sediul propriu.</li>
-                                <li><b>' . ($contracte->firma->nume ?? '') . '</b> nu are autoritatea de a-şi asuma responsabilităţi sau obligaţii în locul <b>' . $contracte->client->nume . '</b> şi nu poate reprezenta <b>' . $contracte->client->nume . '</b> în nici un fel de situaţii.</li>
+                                <li><b>' . ($contracte->firma->nume ?? '') . '</b> nu are autoritatea de a-şi asuma responsabilităţi sau obligaţii în locul <b>' . $contracte->client->nume . '</b>.</li>
                                 <li>Serviciile pe care <b>' . ($contracte->firma->nume ?? '') . '</b> se angajează să le efectueze în beneficiul <b>' . $contracte->client->nume . '</b> sunt specificate în “Planul de lucru – Anexa”, dar nu se limitează numai la acestea.</li>
                                 <li><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor cădea de acord asupra serviciilor suplimentare care trebuie efectuate sau asupra celor care nu mai sunt necesare.</li>
                                 <li>Calitatea serviciilor furnizate de <b>' . ($contracte->firma->nume ?? '') . '</b> va fi conformă cu cerinţele  <b>' . $contracte->client->nume . '</b>.</li>
@@ -289,7 +294,7 @@ class ContractController extends Controller
                                 <li><b>' . ($contracte->firma->nume ?? '') . '</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>';
 
                     if (($contracte->abonament_lunar === 1) && ($contracte->pret != null)){
-                        $html .= '<li><b>' . ($contracte->firma->nume ?? '') . '</b> va emite lunar o factură, în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>';
+                        $html .= '<li><b>' . ($contracte->firma->nume ?? '') . '</b> va emite lunar o factură în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>';
                     }
 
                 $html .= '</ol>
@@ -306,7 +311,7 @@ class ContractController extends Controller
                                 <li><b>' . $contracte->client->nume . '</b> are dreptul de a verifica modul de prestare şi calitatea serviciilor.</li>';
 
                     if ($contracte->abonament_lunar === 1){
-                        $html .= '<li><b>' . ($contracte->firma->nume ?? '') . '</b> va genera lunar un raport de activitate, care va fi inaintat beneficiarului. </li>';
+                        $html .= '<li>La cerere, <b>' . ($contracte->firma->nume ?? '') . '</b> poate genera lunar un raport de activitate, care va fi înaintat beneficiarului. </li>';
                     }
 
                 $html .= '</ol>
@@ -329,10 +334,10 @@ class ContractController extends Controller
                         <li><p style="font-weight: bold;">Durata contractului</p></li>
                             <ol>
                                 <li>Contractul este valabil în intervalul ' .
-                                (isset($contracte->data_incepere) ? (' din ' . Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '') .
+                                (isset($contracte->data_incepere) ? (Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '') .
                                 ' - ' .
-                                (isset($contracte->data_terminare) ? (' din ' . Carbon::parse($contracte->data_terminare)->isoFormat('DD.MM.YYYY')) : '') .
-                                ' si poate fi prelungit prin acte adiționale, încheiate cu acordul ambelor părți contractente.</li>
+                                (isset($contracte->data_terminare) ? (Carbon::parse($contracte->data_terminare)->isoFormat('DD.MM.YYYY')) : '') .
+                                ' și poate fi prelungit prin acte adiționale, încheiate cu acordul ambelor părți contractente.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Modificări</p></li>
