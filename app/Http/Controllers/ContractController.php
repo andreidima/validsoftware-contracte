@@ -187,7 +187,7 @@ class ContractController extends Controller
                     'marginRight'  => 1200,
                     'marginTop'    => 0,
                     'marginBottom' => 700,
-                    'headerHeight' => 2000,
+                    'headerHeight' => 1800,
                     'footerHeight' => 0,
                 )
             );
