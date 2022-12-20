@@ -329,6 +329,7 @@ class ContractController extends Controller
                             <ol>
                                 <li><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
                                 <li>Dacă după 15 zile de la începerea acestor tratative <b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> nu reuşesc să rezolve în mod amiabil o divergenţă contractuală, fiecare parte poate solicita ca disputa să se soluționeze de către instanțele judecătorești.</li>
+                                <li>În cazul în care achizitorul nu onorează facturile în termen de 30 de zile de la expirarea perioadei convenite, atunci acesta are obligaţia de a plăti ca penalităţi o sumă echivalentă cu 0,1% pe zi de întârziere din plata neefectuată, până la efectuarea plăţii.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Durata contractului</p></li>
