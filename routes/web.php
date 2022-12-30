@@ -102,6 +102,8 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('generator', 'GeneratorController@index')->name('generator.index');
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
+
+    Route::get('emailuri-clienti', 'EmailuriClientiController@index')->name('emailuriClienti');
 });
 
     Route::get('testare-cod/copy-to-clipboard', 'TestareCodController@CopyToClipboard')->name('copy.to.clipboard');

@@ -134,11 +134,15 @@
                                 </li>
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-cog mr-1"></i>Setări
+                                        <i class="fas fa-bars mr-1"></i>Utile
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('variabile.index') }}">
                                             <i class="fas fa-book mr-1"></i>Variabile
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('emailuriClienti') }}">
+                                            <i class="fas fa-envelope mr-1"></i>Emailuri clienți
                                         </a>
                                     </div>
                                 </li>
