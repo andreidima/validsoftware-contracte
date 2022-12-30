@@ -39,14 +39,24 @@
                         <tr>
                             <td>
                                 @foreach ($clienti as $client)
-                                    {{ $client->email }},
-                                    <br>
+                                @php
+                                    $client->email = str_replace(",", "<br>", $client->email);
+                                @endphp
+                                    @if (strpos($client->email, '@') && strpos($client->email, '.'))
+                                        {!! $client->email !!}
+                                        <br>
+                                    @endif
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($serviceClienti as $client)
-                                    {{ $client->email }},
-                                    <br>
+                                @php
+                                    $client->email = str_replace(",", "<br>", $client->email);
+                                @endphp
+                                    @if (strpos($client->email, '@') && strpos($client->email, '.'))
+                                        {!! $client->email !!}
+                                        <br>
+                                    @endif
                                 @endforeach
                             </td>
                         </tr>
