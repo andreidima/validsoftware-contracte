@@ -36,6 +36,7 @@ class Ofertare extends Mailable
 
         $pdf = \PDF::loadView('ofertari.export.ofertare-pdf', compact('ofertari'))
             ->setPaper('a4', 'portrait');
+        $pdf->getDomPDF()->set_option("enable_php", true);
 
         $message->subject( $ofertari->email_subiect ?? 'Ofertare ValidSoftware Servicii Informatice');
         $message->attachData(
