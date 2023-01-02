@@ -102,14 +102,17 @@
                     (isset($ofertari->data_emitere) ? (' din <b>' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
                 '</p><br />';
 
-            $html .= '<b>Introducere</b>';
 
-            $html .= '<p style="text-align: justify;">' .
-                        '          Documentul curent reprezintă răspunsul <b>' . ($ofertari->firma->nume ?? '') . '</b> la cererea de servicii primită de la <b>' .
-                        $ofertari->client->nume . '</b>, în data de <b>' .
-                        (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
-                    '</p>' .
-                '<br />';
+            if($ofertari->solicitata === 1){
+                $html .= '<b>Introducere</b>';
+
+                $html .= '<p style="text-align: justify;">' .
+                            '          Documentul curent reprezintă răspunsul <b>' . ($ofertari->firma->nume ?? '') . '</b> la cererea de servicii primită de la <b>' .
+                            $ofertari->client->nume . '</b>, în data de <b>' .
+                            (isset($ofertari->data_cerere) ? (\Carbon\Carbon::parse($ofertari->data_cerere)->isoFormat('DD.MM.YYYY')) : '..........') . '</b>.' .
+                        '</p>' .
+                    '<br />';
+            }
 
             $html .= '<b>Despre noi</b>';
 
