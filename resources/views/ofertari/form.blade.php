@@ -132,7 +132,7 @@
                 ></vue2-editor>
             </div>
         </div>
-        <div class="form-row px-2 py-2 mb-0">
+        <div class="form-row px-2 py-2 mb-4">
             <div class="form-group col-lg-12 mb-0">
                 <label for="propunere_tehnica_si_comerciala" class="mb-0 pl-1">Propunere tehnică și comercială:</label>
                 <vue2-editor
@@ -143,6 +143,7 @@
         </div>
         <div class="form-row px-2 py-2 mb-0">
             <div class="form-group col-lg-12 mb-0">
+                <label for="email_subiect" class="mb-0 pl-3">Email - subiect:</label>
                 <input
                     type="text"
                     class="form-control form-control-sm rounded-pill {{ $errors->has('email_subiect') ? 'is-invalid' : '' }}"
@@ -152,7 +153,7 @@
                     value="{{ old('email_subiect', $ofertari->email_subiect) }}">
             </div>
         </div>
-        <div class="form-row px-2 py-2 mb-0">
+        <div class="form-row px-2 py-2 mb-4">
             <div class="form-group col-lg-12 mb-0">
                 <label for="email_text" class="mb-0 pl-3">Email - text:</label>
                 <tinymce-vue
