@@ -119,7 +119,7 @@
             $html .= '<p style="text-align: justify;">' .
                     '          Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. ' .
                     'Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. ' .
-                    'Pentru mai multe detalii legate de activitatea noastră, vă invităm să accesați secțiunea <i>Portofoliu</i> de la adresa https://validsoftware.ro' .
+                    'Pentru mai multe detalii legate de activitatea noastră, vă invităm să accesați secțiunea <i>Portofoliu</i> de la adresa <a href="https://validsoftware.ro" target="_blank">https://validsoftware.ro</a>' .
                 '</p>' .
                 '<br />';
 
