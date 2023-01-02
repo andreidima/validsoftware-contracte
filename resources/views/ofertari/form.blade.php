@@ -38,6 +38,14 @@
                     @endforeach
                 </select>
             </div>
+            <div class="form-group col-lg-2 mb-0">
+                <label for="solicitata" class="mb-0 pl-3">Solicitată:</label>
+                <select name="solicitata" class="custom-select-sm custom-select rounded-pill {{ $errors->has('solicitata') ? 'is-invalid' : '' }}">
+                    <option value='' selected>Selectează</option>
+                    <option value='0' {{ (old('solicitata', $ofertari->solicitata ?? '') == 0 ) ? 'selected' : '' }}>NU</option>
+                    <option value='1' {{ (old('solicitata', $ofertari->solicitata ?? '') == 1 ) ? 'selected' : '' }}>DA</option>
+                </select>
+            </div>
         </div>
         <div class="form-row px-2 py-2 mb-4 justify-content-center">
             <script type="application/javascript">
@@ -133,6 +141,28 @@
                 ></vue2-editor>
             </div>
         </div>
+        <div class="form-row px-2 py-2 mb-0">
+            <div class="form-group col-lg-12 mb-0">
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('email_subiect') ? 'is-invalid' : '' }}"
+                    name="email_subiect"
+                    placeholder=""
+                    {{-- value="{{ old('email_subiect') == '' ? ($ofertari->email_subiect == '' ? $urmatorul_document_nr : '') : old('email_subiect') }}" --}}
+                    value="{{ old('email_subiect', $ofertari->email_subiect) }}">
+            </div>
+        </div>
+        <div class="form-row px-2 py-2 mb-0">
+            <div class="form-group col-lg-12 mb-0">
+                <label for="email_text" class="mb-0 pl-3">Email - text:</label>
+                <tinymce-vue
+                inputvalue="{{ old('email_text') == '' ? $ofertari->email_text : old('email_text') }}"
+                height= 300
+                inputname="email_text"
+                ></tinymce-vue>
+            </div>
+        </div>
+
         <div class="form-row px-2 py-2 mb-4">
             <div class="form-group col-lg-12 mb-0">
                 <label for="propunere_servicii" class="mb-0 pl-1">Propunere servicii:</label>

@@ -11,7 +11,7 @@ Multumim,<br>
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            ValidSoftware.ro - Servicii Informatice Focșani
+            ValidSoftware Servicii Informatice
         @endcomponent
     @endslot
 
@@ -26,7 +26,7 @@ Multumim,<br>
 <br><br>
 Mulțumim,
 <br>
-Echipa ValidSoftware.ro
+Echipa ValidSoftware
 <br>
 0744.761.451
 
@@ -50,10 +50,8 @@ Echipa ValidSoftware.ro
             <br>
             Service software calculatoare
             <br>
-            Consultanță IT
             <br>
-            <br>
-            © {{ date('Y') }} ValidSoftware.ro
+            © {{ date('Y') }} ValidSoftware
         @endcomponent
     @endslot
 @endcomponent

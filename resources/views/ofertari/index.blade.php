@@ -38,6 +38,7 @@
                         <tr class="small" style="padding:2rem">
                             <th>Nr. Document.</th>
                             <th>Client</th>
+                            <th>Solicitată</th>
                             <th class="text-center">Dată emitere</th>
                             <th class="text-center">Descarcă Ofertare</th>
                             <th class="text-center">Trimite</th>
@@ -52,6 +53,9 @@
                                 </td>
                                 <td>
                                     {{ $ofertare->client->nume ?? '' }}
+                                </td>
+                                <td class="text-center">
+                                    {{ ($ofertare->nume === 0) ? 'NU' : 'DA' }}
                                 </td>
                                 <td class="text-center">
                                     @isset($ofertare->data_emitere)

@@ -172,7 +172,10 @@ class OfertareController extends Controller
             'data_cerere' => [''],
             'descriere_solicitare' => [''],
             'propunere_tehnica_si_comerciala' => [''],
-            'pret' => ['nullable', 'numeric', 'max:99999']
+            'pret' => ['nullable', 'numeric', 'max:99999'],
+            'solicitata' => 'required',
+            'email_subiect' => 'required_if:solicitata,0',
+            'email_text' => 'required_if:solicitata,0',
         ]);
     }
 
@@ -184,24 +187,27 @@ class OfertareController extends Controller
     protected function trimiteEmail(Request $request, Ofertare $ofertari)
     {
         // Verificare daca exista email corect catre care sa se trimita mesajul
-        $validator = Validator::make($ofertari->client->toArray(), [
-            'email' => ['email:rfc,dns']
-        ]);
+        // $validator = Validator::make($ofertari->client->toArray(), [
+        //     'email' => ['email:rfc,dns']
+        // ]);
+        // if ($validator->fails()) {
+        //     return back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
 
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+        $emailuri_to = $ofertari->client->email ?? '';
+        $emailuri_to = str_replace(' ', '', $emailuri_to);
+        $emailuri_to = explode(',', $emailuri_to);
 
         // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
         $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
         $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
         $emailuri_bcc = explode(',', $emailuri_bcc);
-
+// dd($emailuri_to, $emailuri_bcc);
         // Trimiterea mesajului
         \Mail::mailer('comunicare')
-            ->to($ofertari->client->email)
+            ->to($emailuri_to)
             ->bcc($emailuri_bcc)
             ->send(
                 new \App\Mail\Ofertare($ofertari)
@@ -226,6 +232,7 @@ class OfertareController extends Controller
         } elseif ($request->view_type === 'ofertare-pdf') {
             $pdf = \PDF::loadView('ofertari.export.ofertare-pdf', compact('ofertari'))
                 ->setPaper('a4', 'portrait');
+            $pdf->getDomPDF()->set_option("enable_php", true);
             return $pdf->download(
                 'Ofertarea nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din data de ' . Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                     ' - ' . ($ofertari->client->nume ?? '') . '.pdf'
@@ -254,7 +261,7 @@ class OfertareController extends Controller
                     'marginRight'  => 1200,
                     'marginTop'    => 0,
                     'marginBottom' => 700,
-                    'headerHeight' => 3100,
+                    'headerHeight' => 2000,
                     'footerHeight' => 0,
                 )
             );
@@ -296,9 +303,18 @@ class OfertareController extends Controller
 
             $html .= '<p style="text-align: justify;">' .
                     '          Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. ' .
-                    'Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională (SUA, Franța, Belgia). ' .
+                    'Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. ' .
                     'Pentru mai multe detalii legate de activitatea noastră, vă invităm să accesați secțiunea <i>Portofoliu</i> de la adresa https://validsoftware.ro' .
                 '</p>' .
+                '<br />';
+
+            $html .= '<p style="text-align: left;">' .
+                        '<b>Ce vă oferim</b>' .
+                    '</p>';
+
+            $html .= '<p style="text-align: justify;">' .
+                    '          Venim în întâmpinarea nevoilor dumneavoastră prin servicii de achiziționare și găzduire domenii, realizare site-uri web, dezvoltare software personalizat, promovare online, consultanță IT, precum și servicii multimedia, utilizând tehnologii de actualitate.' .
+                    '</p>' .
                 '<br />';
 
             $html .= '<b>Echipă și scop</b>';
@@ -314,15 +330,6 @@ class OfertareController extends Controller
 
             $html .= '<p style="text-align: justify;">' .
                     '          Adoptăm tehnologii de ultimă oră și ne bazăm pe spiritul de inovație al colegilor noștri. Oferim calitate și eficiență, finalizând cu succes proiectele, indiferent dacă acestea implică soluții simple sau complexe.' .
-                    '</p>' .
-                '<br />';
-
-            $html .= '<p style="text-align: left;">' .
-                        '<b>Ce vă oferim</b>' .
-                    '</p>';
-
-            $html .= '<p style="text-align: justify;">' .
-                    '          Venim în întâmpinarea nevoilor dumneavoastră prin servicii de achiziționare și găzduire domenii, realizare site-uri web, dezvoltare software personalizat, promovare online, consultanță IT, precum și servicii multimedia, utilizând tehnologii de actualitate.' .
                     '</p>' .
                 '<br />';
 
@@ -347,103 +354,105 @@ class OfertareController extends Controller
 
             $section->addPageBreak();
 
-            $html = '<br />' .
-                    '<p style="text-align: left;">' .
-                        '<b>Descriere solicitare</b>' .
-                    '</p>';
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+            if ($ofertari->descriere_solicitare){
+                $html = '<br />' .
+                        '<p style="text-align: left;">' .
+                            '<b>Descriere solicitare</b>' .
+                        '</p>';
+                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
-            $descriere_solicitare = str_replace('<br>', '<br/>', $ofertari->descriere_solicitare);
+                $descriere_solicitare = str_replace('<br>', '<br/>', $ofertari->descriere_solicitare);
 
-            $descriere_solicitare = str_replace('class="ql-align-right ql-direction-rtl"', 'dir="rtl"', $descriere_solicitare);
+                $descriere_solicitare = str_replace('class="ql-align-right ql-direction-rtl"', 'dir="rtl"', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('class', 'style', $descriere_solicitare);
+                $descriere_solicitare = str_replace('class', 'style', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('ql-size-small', 'font-size:10px;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('ql-size-large', 'font-size:20px;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('ql-size-huge', 'font-size:26px;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-size-small', 'font-size:10px;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-size-large', 'font-size:20px;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-size-huge', 'font-size:26px;', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('ql-align-justify', 'text-align:justify;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('ql-align-center', 'text-align:center;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('ql-align-right', 'text-align:right;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-align-justify', 'text-align:justify;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-align-center', 'text-align:center;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-align-right', 'text-align:right;', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('ql-indent-1', 'text-indent: 40px;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('ql-indent-2', 'text-indent: 80px;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('ql-indent-3', 'text-indent: 120px;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('ql-indent-4', 'text-indent: 160px;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('ql-indent-5', 'text-indent: 200px;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-indent-1', 'text-indent: 40px;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-indent-2', 'text-indent: 80px;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-indent-3', 'text-indent: 120px;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-indent-4', 'text-indent: 160px;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('ql-indent-5', 'text-indent: 200px;', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('color: rgb(230, 0, 0);', 'color: #ff0000;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(255, 153, 0);', 'color: #ff9900;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(255, 255, 0);', 'color: #ffff00;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(0, 138, 0);', 'color: #008a00;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(0, 102, 204);', 'color: #0066cc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(153, 51, 255);', 'color: #9933ff;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(255, 255, 255);', 'color: #ffffff;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(250, 204, 204);', 'color: #facccc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(255, 235, 204);', 'color: #ffebcc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(255, 255, 204);', 'color: #ffffcc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(204, 232, 204);', 'color: #cce8cc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(204, 224, 245);', 'color: #cce0f5;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(235, 214, 255);', 'color: #ebd6ff;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(187, 187, 187);', 'color: #bbbbbb;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(240, 102, 102);', 'color: #f06666;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(255, 194, 102);', 'color: #ffc266;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(255, 255, 102);', 'color: #ffff66;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(102, 185, 102);', 'color: #66b966;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(102, 163, 224);', 'color: #66a3e0;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(194, 133, 255);', 'color: #c285ff;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(136, 136, 136);', 'color: #888888;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(161, 0, 0);', 'color: #a10000;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(178, 107, 0);', 'color: #b26b00;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(178, 178, 0);', 'color: #b2b200;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(0, 97, 0);', 'color: #006100;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(0, 71, 178);', 'color: #0047b2;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(107, 36, 178);', 'color: #6b24b2;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(68, 68, 68);', 'color: #444444;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(92, 0, 0);', 'color: #5c0000;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(102, 61, 0);', 'color: #663d00;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(102, 102, 0);', 'color: #666600;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(0, 55, 0);', 'color: #003700;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(0, 41, 102);', 'color: #002966;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('color: rgb(61, 20, 102);', 'color: #3d1466;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(230, 0, 0);', 'color: #ff0000;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(255, 153, 0);', 'color: #ff9900;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(255, 255, 0);', 'color: #ffff00;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(0, 138, 0);', 'color: #008a00;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(0, 102, 204);', 'color: #0066cc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(153, 51, 255);', 'color: #9933ff;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(255, 255, 255);', 'color: #ffffff;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(250, 204, 204);', 'color: #facccc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(255, 235, 204);', 'color: #ffebcc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(255, 255, 204);', 'color: #ffffcc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(204, 232, 204);', 'color: #cce8cc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(204, 224, 245);', 'color: #cce0f5;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(235, 214, 255);', 'color: #ebd6ff;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(187, 187, 187);', 'color: #bbbbbb;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(240, 102, 102);', 'color: #f06666;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(255, 194, 102);', 'color: #ffc266;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(255, 255, 102);', 'color: #ffff66;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(102, 185, 102);', 'color: #66b966;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(102, 163, 224);', 'color: #66a3e0;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(194, 133, 255);', 'color: #c285ff;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(136, 136, 136);', 'color: #888888;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(161, 0, 0);', 'color: #a10000;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(178, 107, 0);', 'color: #b26b00;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(178, 178, 0);', 'color: #b2b200;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(0, 97, 0);', 'color: #006100;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(0, 71, 178);', 'color: #0047b2;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(107, 36, 178);', 'color: #6b24b2;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(68, 68, 68);', 'color: #444444;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(92, 0, 0);', 'color: #5c0000;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(102, 61, 0);', 'color: #663d00;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(102, 102, 0);', 'color: #666600;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(0, 55, 0);', 'color: #003700;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(0, 41, 102);', 'color: #002966;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('color: rgb(61, 20, 102);', 'color: #3d1466;', $descriere_solicitare);
 
-            $descriere_solicitare = str_replace('background-color: rgb(230, 0, 0);', 'background-color: #ff0000;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(255, 153, 0);', 'background-color: #ff9900;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(255, 255, 0);', 'background-color: #ffff00;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(0, 138, 0);', 'background-color: #008a00;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(0, 102, 204);', 'background-color: #0066cc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(153, 51, 255);', 'background-color: #9933ff;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(255, 255, 255);', 'background-color: #ffffff;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(250, 204, 204);', 'background-color: #facccc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(255, 235, 204);', 'background-color: #ffebcc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(255, 255, 204);', 'background-color: #ffffcc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(204, 232, 204);', 'background-color: #cce8cc;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(204, 224, 245);', 'background-color: #cce0f5;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(235, 214, 255);', 'background-color: #ebd6ff;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(187, 187, 187);', 'background-color: #bbbbbb;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(240, 102, 102);', 'background-color: #f06666;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(255, 194, 102);', 'background-color: #ffc266;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(255, 255, 102);', 'background-color: #ffff66;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(102, 185, 102);', 'background-color: #66b966;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(102, 163, 224);', 'background-color: #66a3e0;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(194, 133, 255);', 'background-color: #c285ff;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(136, 136, 136);', 'background-color: #888888;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(161, 0, 0);', 'background-color: #a10000;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(178, 107, 0);', 'background-color: #b26b00;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(178, 178, 0);', 'background-color: #b2b200;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(0, 97, 0);', 'background-color: #006100;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(0, 71, 178);', 'background-color: #0047b2;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(107, 36, 178);', 'background-color: #6b24b2;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(68, 68, 68);', 'background-color: #444444;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(92, 0, 0);', 'background-color: #5c0000;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(102, 61, 0);', 'background-color: #663d00;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(102, 102, 0);', 'background-color: #666600;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(0, 55, 0);', 'background-color: #003700;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $descriere_solicitare);
-            $descriere_solicitare = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(230, 0, 0);', 'background-color: #ff0000;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(255, 153, 0);', 'background-color: #ff9900;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(255, 255, 0);', 'background-color: #ffff00;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(0, 138, 0);', 'background-color: #008a00;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(0, 102, 204);', 'background-color: #0066cc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(153, 51, 255);', 'background-color: #9933ff;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(255, 255, 255);', 'background-color: #ffffff;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(250, 204, 204);', 'background-color: #facccc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(255, 235, 204);', 'background-color: #ffebcc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(255, 255, 204);', 'background-color: #ffffcc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(204, 232, 204);', 'background-color: #cce8cc;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(204, 224, 245);', 'background-color: #cce0f5;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(235, 214, 255);', 'background-color: #ebd6ff;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(187, 187, 187);', 'background-color: #bbbbbb;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(240, 102, 102);', 'background-color: #f06666;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(255, 194, 102);', 'background-color: #ffc266;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(255, 255, 102);', 'background-color: #ffff66;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(102, 185, 102);', 'background-color: #66b966;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(102, 163, 224);', 'background-color: #66a3e0;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(194, 133, 255);', 'background-color: #c285ff;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(136, 136, 136);', 'background-color: #888888;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(161, 0, 0);', 'background-color: #a10000;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(178, 107, 0);', 'background-color: #b26b00;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(178, 178, 0);', 'background-color: #b2b200;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(0, 97, 0);', 'background-color: #006100;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(0, 71, 178);', 'background-color: #0047b2;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(107, 36, 178);', 'background-color: #6b24b2;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(68, 68, 68);', 'background-color: #444444;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(92, 0, 0);', 'background-color: #5c0000;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(102, 61, 0);', 'background-color: #663d00;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(102, 102, 0);', 'background-color: #666600;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(0, 55, 0);', 'background-color: #003700;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $descriere_solicitare);
+                $descriere_solicitare = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $descriere_solicitare);
 
-            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);
+                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);
+            }
 
 
             $html = '<br />' .
