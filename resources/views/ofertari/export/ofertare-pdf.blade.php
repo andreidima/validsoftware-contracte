@@ -100,7 +100,7 @@
 
             $html = '<p style="text-align: center; font-size: 14px">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' .
                     (isset($ofertari->data_emitere) ? (' din <b>' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
-                '</p><br />';
+                '</p><br /><br />';
 
 
             if($ofertari->solicitata === 1){
