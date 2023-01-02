@@ -42,8 +42,8 @@
                 <label for="solicitata" class="mb-0 pl-3">Solicitată:</label>
                 <select name="solicitata" class="custom-select-sm custom-select rounded-pill {{ $errors->has('solicitata') ? 'is-invalid' : '' }}">
                     <option value='' selected>Selectează</option>
-                    <option value='0' {{ (old('solicitata', $ofertari->solicitata ?? '') == 0 ) ? 'selected' : '' }}>NU</option>
-                    <option value='1' {{ (old('solicitata', $ofertari->solicitata ?? '') == 1 ) ? 'selected' : '' }}>DA</option>
+                    <option value='0' {{ (old('solicitata', $ofertari->solicitata ?? '') === 0 ) ? 'selected' : '' }}>NU</option>
+                    <option value='1' {{ (old('solicitata', $ofertari->solicitata ?? '') === 1 ) ? 'selected' : '' }}>DA</option>
                 </select>
             </div>
         </div>
