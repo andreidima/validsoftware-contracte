@@ -74,6 +74,8 @@ Route::middleware('role:admin')->group(function () {
     Route::get('/ofertari/{ofertari}/export/{view_type}', 'OfertareController@wordExport');
     Route::get('/ofertari/{ofertari}/export/pdf/{view_type}', 'OfertareController@pdfExport');
     Route::post('ofertari/{ofertari}/trimite-email', 'OfertareController@trimiteEmail');
+    Route::get('/procese-verbale/{procesVerbal}/export/{view_type}', 'ProcesVerbalController@pdfExport');
+    Route::post('procese-verbale/{procesVerbal}/trimite-email', 'ProcesVerbalController@trimiteEmail');
 
     // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
     Route::post('/fisiere/{contracte}/file-upload', 'FisierController@store')->name('file.upload.post');
@@ -89,6 +91,7 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('contracte/{contract}/duplica', 'ContractController@duplicaContract');
     Route::get('ofertari/{ofertare}/duplica', 'OfertareController@duplicaOfertare');
+    Route::get('procese-verbale/{procesVerbal}/duplica', 'ProcesVerbalController@duplicaProcesVerbal');
 
     Route::resource('contracte', 'ContractController');
     Route::resource('fisiere', 'FisierController');
@@ -99,6 +102,7 @@ Route::middleware('role:admin')->group(function () {
     Route::resource('variabile', 'VariabilaController');
     Route::resource('ofertari', 'OfertareController');
     Route::resource('ofertari-servicii', 'OfertareServiciuController');
+    Route::resource('procese-verbale', 'ProcesVerbalController', ['parameters' => ['procese-verbale' => 'procesVerbal']]);
 
     Route::get('generator', 'GeneratorController@index')->name('generator.index');
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
