@@ -186,24 +186,33 @@ class OfertareController extends Controller
      */
     protected function trimiteEmail(Request $request, Ofertare $ofertari)
     {
-        // Verificare daca exista email corect catre care sa se trimita mesajul
-        // $validator = Validator::make($ofertari->client->toArray(), [
-        //     'email' => ['email:rfc,dns']
-        // ]);
-        // if ($validator->fails()) {
-        //     return back()
-        //         ->withErrors($validator)
-        //         ->withInput();
-        // }
-
         $emailuri_to = $ofertari->client->email ?? '';
         $emailuri_to = str_replace(' ', '', $emailuri_to);
         $emailuri_to = explode(',', $emailuri_to);
+        // Verificare daca exista email corect catre care sa se trimita mesajul
+        $validator = Validator::make($emailuri_to, [
+            '*' => ['email:rfc,dns']
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
         $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
         $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
         $emailuri_bcc = explode(',', $emailuri_bcc);
+        // Verificare daca exista email corect catre care sa se trimita mesajul
+        $validator = Validator::make($emailuri_bcc, [
+            '*' => ['email:rfc,dns']
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
 // dd($emailuri_to, $emailuri_bcc);
         // Trimiterea mesajului
         \Mail::mailer('comunicare')
