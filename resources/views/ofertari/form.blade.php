@@ -40,7 +40,9 @@
             </div>
             <div class="form-group col-lg-2 mb-0">
                 <label for="solicitata" class="mb-0 pl-3">Solicitată:</label>
-                <select name="solicitata" class="custom-select-sm custom-select rounded-pill {{ $errors->has('solicitata') ? 'is-invalid' : '' }}">
+                <select name="solicitata"
+                        v-model="solicitata"
+                        class="custom-select-sm custom-select rounded-pill {{ $errors->has('solicitata') ? 'is-invalid' : '' }}">
                     <option value='' selected>Selectează</option>
                     <option value='0' {{ (old('solicitata', $ofertari->solicitata ?? '') === 0 ) ? 'selected' : '' }}>NU (Ofertă)</option>
                     <option value='1' {{ (old('solicitata', $ofertari->solicitata ?? '') === 1 ) ? 'selected' : '' }}>DA (Cerere)</option>
@@ -123,7 +125,7 @@
                 ></vue2-datepicker>
             </div>
         </div>
-        <div class="form-row px-2 py-2 mb-0">
+        <div v-if="solicitata == 1" class="form-row px-2 py-2 mb-0">
             <div class="form-group col-lg-12 mb-0">
                 <label for="descriere_solicitare" class="mb-0 pl-1">Descriere Solicitare (Valabil pentru cereri):</label>
                 <vue2-editor

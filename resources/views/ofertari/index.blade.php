@@ -55,7 +55,7 @@
                                     {{ $ofertare->client->nume ?? '' }}
                                 </td>
                                 <td class="text-center">
-                                    {{ ($ofertare->nume === 0) ? 'NU' : 'DA' }}
+                                    {{ (intval($ofertare->solicitata === 0)) ? 'Ofertă' : 'Cerere' }}
                                 </td>
                                 <td class="text-center">
                                     @isset($ofertare->data_emitere)
