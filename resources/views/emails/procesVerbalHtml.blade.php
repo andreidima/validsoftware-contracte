@@ -1,6 +1,7 @@
 <div style="display: flex; width: 100%; background-color:#C0271F; color:white;">
     <div style="width:50%;">
         <img src="/images/Logo-VSO-Site-Header.png" width="100"/>
+        <img src="{{ asset('images/contract-header.jpg') }}" width="800px">
         <br>
         Validsoftware
     </div>
