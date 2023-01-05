@@ -39,13 +39,16 @@
                 </select>
             </div>
             <div class="form-group col-lg-2 mb-0">
+                <script type="application/javascript">
+                    solicitata = {!! json_encode(old('solicitata', $ofertari->solicitata )) !!}
+                </script>
                 <label for="solicitata" class="mb-0 pl-3">Solicitată:</label>
                 <select name="solicitata"
                         v-model="solicitata"
                         class="custom-select-sm custom-select rounded-pill {{ $errors->has('solicitata') ? 'is-invalid' : '' }}">
                     <option value='' selected>Selectează</option>
-                    <option value='0' {{ (old('solicitata', $ofertari->solicitata ?? '') === 0 ) ? 'selected' : '' }}>NU (Ofertă)</option>
-                    <option value='1' {{ (old('solicitata', $ofertari->solicitata ?? '') === 1 ) ? 'selected' : '' }}>DA (Cerere)</option>
+                    <option value='0' {{ (intval(old('solicitata', $ofertari->solicitata ?? '')) === 0 ) ? 'selected' : '' }}>NU (Ofertă)</option>
+                    <option value='1' {{ (intval(old('solicitata', $ofertari->solicitata ?? '')) === 1 ) ? 'selected' : '' }}>DA (Cerere)</option>
                 </select>
             </div>
         </div>

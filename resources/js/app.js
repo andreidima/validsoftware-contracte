@@ -285,7 +285,7 @@ if (document.querySelector('#ofertare')) {
 
             client_nume: '',
             clienti_lista: [],
-            solicitata: ''
+            solicitata: solicitata,
         },
         created: function () {
             this.getNumeClient()
