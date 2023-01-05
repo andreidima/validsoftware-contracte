@@ -32,7 +32,8 @@ class Ofertare extends Mailable
     {
         $ofertari = $this->ofertari;
 
-        $message = $this->markdown('emails.ofertare');
+        // $message = $this->markdown('emails.ofertare');
+        $message = $this->view('emails.ofertareHtml');
 
         $pdf = \PDF::loadView('ofertari.export.ofertare-pdf', compact('ofertari'))
             ->setPaper('a4', 'portrait');

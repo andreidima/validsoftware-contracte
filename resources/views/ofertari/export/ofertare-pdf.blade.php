@@ -392,7 +392,7 @@
                 if (isset($pdf)) {
                     $text = "Pagina {PAGE_NUM} / {PAGE_COUNT}";
                     $size = 10;
-                    $font = $fontMetrics->getFont("DejaVu Sans");
+                    $font = $fontMetrics->getFont("helvetica");
                     $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
                     $x = ($pdf->get_width() - $width) / 2;
                     $y = $pdf->get_height() - 35;

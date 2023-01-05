@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Proces Verbal</title>
+    <title>Proces verbal</title>
     <style>
         /* html {
             margin: 0px 0px;
@@ -91,34 +91,19 @@
 
         {!! $procesVerbal->proces_verbal !!}
 
-            <br /><br />
-                <table align="center" style="width: 100%">
-                    <tr>
-                        <td style="width:70%" align="center">
-                        &nbsp;
-                        </td>
-                        <td style="width:30%; text-align: center;" align="center">
-                            {{ $procesVerbal->firma->nume ?? ''}}
-                            <br/>
-                            @if($procesVerbal->firma->nume_semnatura && file_exists('images/' . ($ofertari->firma->nume_semnatura ?? '')))
-                                <img src="images/{{ $procesVerbal->firma->nume_semnatura ?? '' }}" width="100"/>
-                            @endif
-                        </td>
-                    </tr>
-                </table>
-
             {{-- Here's the magic. This MUST be inside body tag. Page count / total, centered at bottom of page --}}
             <script type="text/php">
                 if (isset($pdf)) {
                     $text = "Pagina {PAGE_NUM} / {PAGE_COUNT}";
                     $size = 10;
-                    $font = $fontMetrics->getFont("DejaVu Sans");
+                    $font = $fontMetrics->getFont("helvetica");
                     $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
                     $x = ($pdf->get_width() - $width) / 2;
                     $y = $pdf->get_height() - 35;
                     $pdf->page_text($x, $y, $text, $font, $size);
                 }
             </script>
+
 
     {{-- </div> --}}
         </main>

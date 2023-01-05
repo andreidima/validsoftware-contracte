@@ -161,6 +161,7 @@ class ProcesVerbalController extends Controller
                 'Proces Verbal nr. ' . $procesVerbal->nr_document . (isset($procesVerbal->data_emitere) ? (' din data de ' . Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                     ' - ' . ($procesVerbal->client->nume ?? '') . '.pdf'
             );
+            // return $pdf->stream();
         }
     }
 
