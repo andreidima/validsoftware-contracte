@@ -1,6 +1,6 @@
 @include('emails.headerFooter.header')
 
-<div>
+<div style="width: 670px; margin:auto">
     {!! $procesVerbal->email_text !!}
 </div>
 
