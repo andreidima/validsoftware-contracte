@@ -19,7 +19,7 @@ Multumim,<br>
 @if ($ofertari->email_text)
     {!! $ofertari->email_text !!}
 @else
-# Bună, {{ $ofertari->client->nume }},
+# Bună, {{ $ofertari->client->nume ?? '' }},
 <br>
     Îți trimitem atașat Oferta noastră.
 <br><br>
