@@ -157,7 +157,6 @@ class ProcesVerbalController extends Controller
             // $pdf = \PDF::loadView('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'))
             //     ->setPaper('a4', 'portrait');
             $pdf = \PDF::loadHtml($procesVerbal->proces_verbal,'UTF-8')->setPaper('a4', 'portrait');
-            // $dompdf->loadHtml($html,'UTF-8');
             $pdf->getDomPDF()->set_option("enable_php", true);
             return $pdf->download(
                 'Proces Verbal nr. ' . $procesVerbal->nr_document . (isset($procesVerbal->data_emitere) ? (' din data de ' . Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
