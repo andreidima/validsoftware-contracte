@@ -57,7 +57,7 @@
                                 <td colspan="2">
                                     <b>Proces Verbal:</b>
                                     <br>
-                                    {!! $procesVerbal->proces_verbal !!}
+                                    {{ $procesVerbal->proces_verbal }}
                                 </td>
                             </tr>
                             <tr>

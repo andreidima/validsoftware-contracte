@@ -1,9 +1,9 @@
-@include('emails.headerFooter.header')
+{{-- @include('emails.headerFooter.header') --}}
 
-<div style="width: 670px; margin:auto">
+{{-- <div style="width: 100%; margin:auto"> --}}
     {!! $procesVerbal->email_text !!}
-</div>
+{{-- </div> --}}
 
-@include('emails.headerFooter.footer')
+{{-- @include('emails.headerFooter.footer') --}}
 
 

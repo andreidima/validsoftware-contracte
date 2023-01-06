@@ -192,7 +192,7 @@
 				</td>
 			</tr>
 		</tbody>
-	</table><!-- End -->
+	</table>
 	<br>
 </body>
 
