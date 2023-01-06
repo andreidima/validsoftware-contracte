@@ -116,7 +116,7 @@ class ClientController extends Controller
             'reprezentant' => ['max:100'],
             'reprezentant_functie' => ['max:100'],
             'telefon' => ['max:100'],
-            'email' => ['nullable', 'max:180'],
+            'email' => ['nullable'],
             'email_dpo' => ['nullable', 'max:100'],
             'site_web' => ['nullable', 'max:180']
         ]);
