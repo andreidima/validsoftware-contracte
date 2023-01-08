@@ -37,6 +37,8 @@ class ProcesVerbal extends Mailable
 
         // $pdf = \PDF::loadView('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'))
         //     ->setPaper('a4', 'portrait');
+        $procesVerbal->proces_verbal = str_replace('$id', $procesVerbal->id, $procesVerbal->proces_verbal);
+        $procesVerbal->proces_verbal = str_replace('$data_emitere', (isset($procesVerbal->data_emitere) ? (Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : ''), $procesVerbal->proces_verbal);
         $pdf = \PDF::loadHtml($procesVerbal->proces_verbal,'UTF-8')->setPaper('a4', 'portrait');
         $pdf->getDomPDF()->set_option("enable_php", true);
 

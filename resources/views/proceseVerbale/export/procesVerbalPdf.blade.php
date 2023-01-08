@@ -6,10 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Proces verbal</title>
     <style>
-        /* html {
-            margin: 0px 0px;
-        } */
-        /** Define the margins of your page **/
         @page {
             margin: 0px 0px;
         }
@@ -24,7 +20,6 @@
 
         body {
             font-family: DejaVu Sans, sans-serif;
-            /* font-family: Arial, Helvetica, sans-serif; */
             font-size: 12px;
             margin-top: 4cm;
             margin-left: 2cm;
@@ -33,7 +28,6 @@
         }
 
         * {
-            /* padding: 0; */
             text-indent: 0;
         }
 
@@ -71,27 +65,15 @@
 </head>
 
 <body>
-    {{-- <div style="width:730px; height: 1030px; border-style: dashed ; border-width:2px; border-radius: 15px;">      --}}
-    {{-- <img src="{{ asset('images/contract-header.jpg') }}" width="800px"> --}}
 
     <header>
         <img src="{{ asset('images/contract-header.jpg') }}" width="800px">
     </header>
 
-    {{-- <div style="
-        /* border:dashed #999; */
-        width:710px;
-        min-height:500px;
-        padding: 0px 0px 0px 0px;
-        margin:20px 50px;
-            -moz-border-radius: 10px;
-            -webkit-border-radius: 10px;
-            border-radius: 10px;"> --}}
     <main>
 
         {!! $procesVerbal->proces_verbal !!}
 
-            {{-- Here's the magic. This MUST be inside body tag. Page count / total, centered at bottom of page --}}
             <script type="text/php">
                 if (isset($pdf)) {
                     $text = "Pagina {PAGE_NUM} / {PAGE_COUNT}";
@@ -105,8 +87,8 @@
             </script>
 
 
-    {{-- </div> --}}
         </main>
 </body>
 
 </html>
+
