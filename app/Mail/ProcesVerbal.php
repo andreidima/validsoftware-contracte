@@ -7,6 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+use Carbon\Carbon;
+
 class ProcesVerbal extends Mailable
 {
     use Queueable, SerializesModels;
@@ -32,13 +34,16 @@ class ProcesVerbal extends Mailable
     {
         $procesVerbal = $this->procesVerbal;
 
+
         // $message = $this->markdown('emails.procesVerbal');
         $message = $this->view('emails.procesVerbalHtml');
 
         // $pdf = \PDF::loadView('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'))
         //     ->setPaper('a4', 'portrait');
-        $procesVerbal->proces_verbal = str_replace('$id', $procesVerbal->id, $procesVerbal->proces_verbal);
+
+        $procesVerbal->proces_verbal = str_replace('$nr_document', $procesVerbal->nr_document, $procesVerbal->proces_verbal);
         $procesVerbal->proces_verbal = str_replace('$data_emitere', (isset($procesVerbal->data_emitere) ? (Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : ''), $procesVerbal->proces_verbal);
+
         $pdf = \PDF::loadHtml($procesVerbal->proces_verbal,'UTF-8')->setPaper('a4', 'portrait');
         $pdf->getDomPDF()->set_option("enable_php", true);
 
