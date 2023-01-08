@@ -153,6 +153,8 @@ class ProcesVerbalController extends Controller
     {
         $procesVerbal->proces_verbal = str_replace('$nr_document', $procesVerbal->nr_document, $procesVerbal->proces_verbal);
         $procesVerbal->proces_verbal = str_replace('$data_emitere', (isset($procesVerbal->data_emitere) ? (Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : ''), $procesVerbal->proces_verbal);
+        $procesVerbal->proces_verbal = str_replace('$client_nume', ($procesVerbal->client->nume ?? ''), $procesVerbal->proces_verbal);
+
 
         if ($request->view_type === 'html') {
             return view('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'));
