@@ -21,7 +21,7 @@
         <hr style="height: 1px; background-image: linear-gradient(to right, red, blue); margin:0px 20px;">
 
         <div style="padding:20px 20px; max-width:760px!important;margin:0 auto; font-size:18px">
-            Bună, <b>{{ $procesVerbal->client->nume ?? '' }}</b>,
+            Bun găsit <b>{{ $procesVerbal->client->nume ?? '' }}</b>,
             <br><br>
             Îți trimitem atașat Procesul verbal nr. {{ $procesVerbal->nr_document }}, din data de
                 {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}.

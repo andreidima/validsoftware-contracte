@@ -113,7 +113,7 @@
         {{-- Here's the magic. This MUST be inside body tag. Page count / total, centered at bottom of page --}}
         <script type="text/php">
             if (isset($pdf)) {
-                $text = "Nr. Pagina {PAGE_NUM} / {PAGE_COUNT}";
+                $text = "Pagina {PAGE_NUM} / {PAGE_COUNT}";
                 $size = 10;
                 $font = $fontMetrics->getFont("helvetica");
                 $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
