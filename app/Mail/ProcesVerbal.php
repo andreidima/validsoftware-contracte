@@ -36,7 +36,8 @@ class ProcesVerbal extends Mailable
 
 
         // $message = $this->markdown('emails.procesVerbal');
-        $message = $this->view('emails.procesVerbalHtml');
+        // $message = $this->view('emails.procesVerbalHtml');
+        $message = $this->view('emails.procesVerbalHtml2');
 
         // $pdf = \PDF::loadView('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'))
         //     ->setPaper('a4', 'portrait');
