@@ -6,6 +6,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Proces verbal</title>
     <style>
+        /* html {
+            margin: 0px 0px;
+        } */
+        /** Define the margins of your page **/
         @page {
             margin: 0px 0px;
         }
@@ -20,14 +24,16 @@
 
         body {
             font-family: DejaVu Sans, sans-serif;
+            /* font-family: Arial, Helvetica, sans-serif; */
             font-size: 12px;
-            margin-top: 4cm;
+            margin-top: 4.3cm;
             margin-left: 2cm;
             margin-right: 2cm;
             margin-bottom: 2cm;
         }
 
         * {
+            /* padding: 0; */
             text-indent: 0;
         }
 
@@ -65,30 +71,60 @@
 </head>
 
 <body>
-
     <header>
         <img src="{{ asset('images/contract-header.jpg') }}" width="800px">
     </header>
 
     <main>
 
-        {!! $procesVerbal->proces_verbal !!}
+        <p style="padding:0rem; margin:0rem; text-align:center; font-size:16px">
+            Proces Verbal
+            <br />
+            nr. {{ $procesVerbal->nr_document }} /
+                {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}
+            <br />
+            - {{ $procesVerbal->client->nume ?? '' }} -
+        </p>
 
-            <script type="text/php">
-                if (isset($pdf)) {
-                    $text = "Pagina {PAGE_NUM} / {PAGE_COUNT}";
-                    $size = 10;
-                    $font = $fontMetrics->getFont("helvetica");
-                    $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
-                    $x = ($pdf->get_width() - $width) / 2;
-                    $y = $pdf->get_height() - 35;
-                    $pdf->page_text($x, $y, $text, $font, $size);
-                }
-            </script>
+        <div style="height: 30px;"></div>
+
+        <div>
+            {!! $procesVerbal->proces_verbal !!}
+        </div>
 
 
-        </main>
+        <table style="margin:50px 0 0px 0">
+            <tr valign="top" style="">
+                <td style="border-width:0px; padding:0rem; margin:0rem; width:50%; text-align:center;">
+                    Data
+                    <br>
+                    {{ \Carbon\Carbon::now()->isoFormat('DD.MM.YYYY') }}
+                </td>
+                <td style="border-width:0px; padding:0rem; margin:0rem; width:50%; text-align:center;">
+                    {{ $procesVerbal->firma->nume ?? '' }}
+                    <br>
+                    @if(isset($procesVerbal->firma->nume_semnatura) && file_exists('images/' . ($procesVerbal->firma->nume_semnatura ?? '')))
+                        <img src="images/{{ $procesVerbal->firma->nume_semnatura ?? ''}}" width="100">
+                    @endif
+                </td>
+            </tr>
+        </table>
+
+        {{-- Here's the magic. This MUST be inside body tag. Page count / total, centered at bottom of page --}}
+        <script type="text/php">
+            if (isset($pdf)) {
+                $text = "Nr. Pagina {PAGE_NUM} / {PAGE_COUNT}";
+                $size = 10;
+                $font = $fontMetrics->getFont("helvetica");
+                $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+                $x = ($pdf->get_width() - $width) / 2;
+                $y = $pdf->get_height() - 35;
+                $pdf->page_text($x, $y, $text, $font, $size);
+            }
+        </script>
+
+
+    </main>
 </body>
 
 </html>
-

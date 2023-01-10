@@ -116,7 +116,7 @@ Route::middleware('role:admin')->group(function () {
     // Trimitere Cron joburi din Cpanel
     Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
-Route::view('/testare-design-email-proces-verbal', 'emails/procesVerbalHtml2', ['procesVerbal' => \App\ProcesVerbal::first()]);
+Route::view('/testare-design-email-proces-verbal', 'emails/procesVerbalHtml2', ['procesVerbal' => \App\ProcesVerbal::latest()->first()]);
 
 Route::get('backup', function() {
     // Artisan::call('backup:run'

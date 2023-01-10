@@ -151,18 +151,16 @@ class ProcesVerbalController extends Controller
      */
     protected function pdfExport(Request $request, ProcesVerbal $procesVerbal)
     {
-        $procesVerbal->proces_verbal = str_replace('$nr_document', $procesVerbal->nr_document, $procesVerbal->proces_verbal);
-        $procesVerbal->proces_verbal = str_replace('$data_emitere', (isset($procesVerbal->data_emitere) ? (Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : ''), $procesVerbal->proces_verbal);
-        $procesVerbal->proces_verbal = str_replace('$client_nume', ($procesVerbal->client->nume ?? ''), $procesVerbal->proces_verbal);
+        // $procesVerbal->proces_verbal = str_replace('$nr_document', $procesVerbal->nr_document, $procesVerbal->proces_verbal);
+        // $procesVerbal->proces_verbal = str_replace('$data_emitere', (isset($procesVerbal->data_emitere) ? (Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : ''), $procesVerbal->proces_verbal);
+        // $procesVerbal->proces_verbal = str_replace('$client_nume', ($procesVerbal->client->nume ?? ''), $procesVerbal->proces_verbal);
 
 
         if ($request->view_type === 'html') {
             return view('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'));
         } elseif ($request->view_type === 'pdf') {
-            // $pdf = \PDF::loadView('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'))
-            //     ->setPaper('a4', 'portrait');
-            $pdf = \PDF::loadHtml($procesVerbal->proces_verbal,'UTF-8')->setPaper('a4', 'portrait');
-            // dd($pdf);
+            $pdf = \PDF::loadView('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'))
+                ->setPaper('a4', 'portrait');
             $pdf->getDomPDF()->set_option("enable_php", true);
             return $pdf->download(
                 'Proces Verbal nr. ' . $procesVerbal->nr_document . (isset($procesVerbal->data_emitere) ? (' din data de ' . Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
@@ -175,6 +173,10 @@ class ProcesVerbalController extends Controller
     protected function trimiteEmail(Request $request, ProcesVerbal $procesVerbal)
     {
         $emailuri_to = $procesVerbal->client->email ?? '';
+        if(empty($emailuri_to)) {
+            return back()->with('error', 'Clientul ' . $procesVerbal->client->nume . ' nu are email completat.');
+        };
+
         $emailuri_to = str_replace(' ', '', $emailuri_to);
         $emailuri_to = explode(',', $emailuri_to);
         // Verificare daca exista email corect catre care sa se trimita mesajul

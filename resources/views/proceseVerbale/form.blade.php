@@ -107,16 +107,16 @@
         <div class="form-row px-2 py-2 mb-4">
             <div class="form-group col-lg-12 mb-0">
                 <label for="proces_verbal" class="mb-0 pl-3">Proces verbal:</label>
-                {{-- <tinymce-vue
+                <tinymce-vue
                 inputvalue="{{ old('proces_verbal', $procesVerbal->proces_verbal) }}"
                 height= 300
                 inputname="proces_verbal"
-                ></tinymce-vue> --}}
-                <textarea class="form-control {{ $errors->has('proces_verbal') ? 'is-invalid' : '' }}"
+                ></tinymce-vue>
+                {{-- <textarea class="form-control {{ $errors->has('proces_verbal') ? 'is-invalid' : '' }}"
                     name="proces_verbal"
                     rows="20">
                     {{ old('proces_verbal', $procesVerbal->proces_verbal) }}
-                </textarea>
+                </textarea> --}}
             </div>
         </div>
         <div class="form-row px-2 py-2 mb-0">
@@ -133,16 +133,21 @@
         <div class="form-row px-2 py-2 mb-4">
             <div class="form-group col-lg-12 mb-0">
                 <label for="email_text" class="mb-0 pl-3">Email - text:</label>
-                {{-- <tinymce-vue
-                inputvalue="{{ old('email_text', $procesVerbal->email_text) }}"
+                <tinymce-vue
+                inputvalue="{{ old('email_text', $procesVerbal->email_text ?? 'Mulțumim,<br>Echipa ValidSoftware<br>0744.761.451') }}"
                 height= 300
                 inputname="email_text"
-                ></tinymce-vue> --}}
-                <textarea class="form-control {{ $errors->has('email_text') ? 'is-invalid' : '' }}"
+                ></tinymce-vue>
+                {{-- <textarea class="form-control {{ $errors->has('email_text') ? 'is-invalid' : '' }}"
                     name="email_text"
                     rows="20"
-                    {{-- placeholder="Observații" --}}
-                    >{{ old('email_text') == '' ? $procesVerbal->email_text : old('email_text') }}</textarea>
+                    >{{ old('email_text', ($procesVerbal->email_text ??
+'Mulțumim,
+<br>
+Echipa ValidSoftware
+<br>
+0744.761.451')) }}
+                </textarea> --}}
             </div>
         </div>
 
