@@ -16,7 +16,7 @@
                 background-color: white;
                 ">
 
-        <img src="{{ asset('images/email/logo-red1-260x65.png') }}" style="width:269px; height:65px; padding:20px 0px;">
+        <img src="{{ asset('images/email/logo-red1-260x65.png') }}" style="padding:20px 0px;">
 
         <hr style="height: 1px; background-image: linear-gradient(to right, red, blue); margin:0px 20px;">
 
