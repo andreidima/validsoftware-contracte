@@ -25,7 +25,7 @@
             <br><br>
             Îți trimitem atașat Procesul verbal nr. {{ $procesVerbal->nr_document }}, din data de
                 {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}.
-            <br>
+            <br><br>
             {!! $procesVerbal->email_text !!}
             {{-- Mulțumim,
             <br>
