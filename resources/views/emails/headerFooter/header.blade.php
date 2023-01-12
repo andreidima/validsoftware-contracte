@@ -1,4 +1,3 @@
-<div style="background-color:#c3261e">
-    <img src="{{ asset('images/email/Logo-VSO-Site-Header.jpg') }}" style="height:50px; padding:10px;">
-    {{-- <br><br><br><br><br><br><br> --}}
-</div>
+<img src="{{ asset('images/email/logo-email.jpg') }}" style="padding:20px 0px;">
+
+<hr style="height: 1px; background-image: linear-gradient(to right, red, blue); margin:0px 20px;">

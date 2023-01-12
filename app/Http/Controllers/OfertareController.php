@@ -243,8 +243,10 @@ class OfertareController extends Controller
                 ->setPaper('a4', 'portrait');
             $pdf->getDomPDF()->set_option("enable_php", true);
             return $pdf->download(
-                'Ofertarea nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din data de ' . Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
-                    ' - ' . ($ofertari->client->nume ?? '') . '.pdf'
+                ((intval($ofertari->solicitata) === 0) ? 'Ofertarea' : 'Cererea') .
+                ' Validsoftware nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din ' . Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                    // ' - ' . ($ofertari->client->nume ?? '') . '.pdf'
+                    '.pdf'
             );
         }
     }

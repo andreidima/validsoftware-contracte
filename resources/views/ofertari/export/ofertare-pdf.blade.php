@@ -4,7 +4,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Ofertare</title>
+    <title>
+        @if (intval($ofertari->solicitata) === 0)
+            Ofertare
+        @else
+            Cerere
+        @endif
+    </title>
     <style>
         /* html {
             margin: 0px 0px;
@@ -92,14 +98,16 @@
 
             @php
 
-            $html = '<p style="text-align: center; font-size: 14px">Ofertarea Nr. <b>' . $ofertari->nr_document . '</b>' .
-                    (isset($ofertari->data_emitere) ? (' din <b>' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) . '</b>' : '') .
+            $html = '<p style="text-align: center; font-size: 16px">' .
+                        ((intval($ofertari->solicitata) === 0) ? 'Ofertarea' : 'Cererea') .
+                        '<br />' .
+                        'nr. ' . $ofertari->nr_document . ' / ' . (isset($ofertari->data_emitere) ? (\Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                        '<br />' .
+                        '- ' . ($ofertari->firma->nume ?? '') . ' -' .
                 '</p><br /><br />';
 
 
             if($ofertari->solicitata === 1){
-                $html .= '<b>Introducere</b>';
-
                 $html .= '<p style="text-align: justify;">' .
                             '          Documentul curent reprezintă răspunsul <b>' . ($ofertari->firma->nume ?? '') . '</b> la cererea de servicii primită de la <b>' .
                             $ofertari->client->nume . '</b>, în data de <b>' .
@@ -108,53 +116,6 @@
                     '<br />';
             }
 
-            $html .= '<b>Despre noi</b>';
-
-            $html .= '<p style="text-align: justify;">' .
-                    '          Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. ' .
-                    'Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. ' .
-                    'Pentru mai multe detalii legate de activitatea noastră, vă invităm să accesați secțiunea <i>Portofoliu</i> de la adresa <a href="https://validsoftware.ro" target="_blank">https://validsoftware.ro</a>' .
-                '</p>' .
-                '<br />';
-
-            $html .= '<b>Ce vă oferim</b>';
-
-            $html .= '<p style="text-align: justify;">' .
-                    '          Venim în întâmpinarea nevoilor dumneavoastră prin servicii de achiziționare și găzduire domenii, realizare site-uri web, dezvoltare software personalizat, promovare online, consultanță IT, precum și servicii multimedia, utilizând tehnologii de actualitate.' .
-                    '</p>' .
-                '<br />';
-
-            $html .= '<b>Echipă și scop</b>';
-
-            $html .= '<p style="text-align: justify;">' .
-                    '          Echipa noastră este formată din specialiști, absolvenți de studii superioare în domeniul IT, dar și în domenii conexe. Scopul nostru este furnizarea de servicii integrate, pentru a oferi clienților noștri creșterea competitivității și performanței activităților pe care le desfășoară.' .
-                    '</p>' .
-                '<br />';
-
-            $html .= '<b>Tehnologie</b>';
-
-            $html .= '<p style="text-align: justify;">' .
-                    '          Adoptăm tehnologii de ultimă oră și ne bazăm pe spiritul de inovație al colegilor noștri. Oferim calitate și eficiență, finalizând cu succes proiectele, indiferent dacă acestea implică soluții simple sau complexe.' .
-                    '</p>' .
-                '<br />';
-
-            $html .= '
-                    <table align="center" style="width: 100%">
-                        <tr>
-                            <td style="width:70%" align="center">
-                            &nbsp;
-                            </td>
-                            <td style="width:30%; text-align: center;" align="center">
-                                ' . ($ofertari->firma->nume ?? '') . '
-                                <br/>' .
-                                ((isset($ofertari->firma->nume_semnatura) && file_exists('images/' . ($ofertari->firma->nume_semnatura ?? ''))) ? ('<img src="images/' . ($ofertari->firma->nume_semnatura ?? '') . '" width="100"/>') : '') .
-                            '</td>
-                        </tr>
-                    </table>
-                ';
-
-            $html .= '<div style="page-break-after: always;"></div>';
-            $html .= '<div style="height:20px"></div>';
             // $html .= '<br /><br /><br /><br /><br /><br />';
 
             if($ofertari->descriere_solicitare){
@@ -352,6 +313,8 @@
 
             $html .= $propunere_tehnica_si_comerciala;
 
+            $html .= '<br />' .
+                        '<b>Servicii</b>';
 
             $html .='<ul>';
             foreach ($ofertari->servicii as $serviciu) {
@@ -366,9 +329,56 @@
             }
             $html .='</ul>';
 
+            $html .= '
+                    <table align="center" style="width: 100%">
+                        <tr>
+                            <td style="width:70%" align="center">
+                            &nbsp;
+                            </td>
+                            <td style="width:30%; text-align: center;" align="center">
+                                ' . ($ofertari->firma->nume ?? '') . '
+                                <br/>' .
+                                ((isset($ofertari->firma->nume_semnatura) && file_exists('images/' . ($ofertari->firma->nume_semnatura ?? ''))) ? ('<img src="images/' . ($ofertari->firma->nume_semnatura ?? '') . '" width="100"/>') : '') .
+                            '</td>
+                        </tr>
+                    </table>
+                ';
+
+
+            $html .= '<div style="page-break-after: always;"></div>';
+            $html .= '<div style="height:20px"></div>';
+
+            $html .= '<b>Despre noi</b>';
+
+            $html .= '<p style="text-align: justify;">' .
+                    '          Suntem o firmă din Focșani, înființată în anul 2012, orientată pe dezvoltarea de servicii informatice și consultanță IT. ' .
+                    'Produsele informatice pe care le oferim acoperă atât clienți din sectorul public/ privat din România, cât și cei de pe piața internațională. ' .
+                    'Pentru mai multe detalii legate de activitatea noastră, vă invităm să accesați secțiunea <i>Portofoliu</i> de la adresa <a href="https://validsoftware.ro" target="_blank">https://validsoftware.ro</a>' .
+                '</p>' .
+                '<br />';
+
+            $html .= '<b>Ce vă oferim</b>';
+
+            $html .= '<p style="text-align: justify;">' .
+                    '          Venim în întâmpinarea nevoilor dumneavoastră prin servicii de achiziționare și găzduire domenii, realizare site-uri web, dezvoltare software personalizat, promovare online, consultanță IT, precum și servicii multimedia, utilizând tehnologii de actualitate.' .
+                    '</p>' .
+                '<br />';
+
+            $html .= '<b>Echipă și scop</b>';
+
+            $html .= '<p style="text-align: justify;">' .
+                    '          Echipa noastră este formată din specialiști, absolvenți de studii superioare în domeniul IT, dar și în domenii conexe. Scopul nostru este furnizarea de servicii integrate, pentru a oferi clienților noștri creșterea competitivității și performanței activităților pe care le desfășoară.' .
+                    '</p>' .
+                '<br />';
+
+            $html .= '<b>Tehnologie</b>';
+
+            $html .= '<p style="text-align: justify;">' .
+                    '          Adoptăm tehnologii de ultimă oră și ne bazăm pe spiritul de inovație al colegilor noștri. Oferim calitate și eficiență, finalizând cu succes proiectele, indiferent dacă acestea implică soluții simple sau complexe.' .
+                    '</p>' .
+                '<br />';
 
             $html .= '
-                <br /><br />
                     <table align="center" style="width: 100%">
                         <tr>
                             <td style="width:70%" align="center">

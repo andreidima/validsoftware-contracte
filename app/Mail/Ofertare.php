@@ -32,11 +32,12 @@ class Ofertare extends Mailable
     {
         $ofertari = $this->ofertari;
 
-        if (intval($ofertari->solicitata) === 0){
-            $message = $this->view('emails.ofertareHtml');
-        } else {
-            $message = $this->markdown('emails.ofertare');
-        }
+        // if (intval($ofertari->solicitata) === 0){
+        //     $message = $this->view('emails.ofertareHtml');
+        // } else {
+        //     $message = $this->markdown('emails.ofertare');
+        // }
+        $message = $this->view('emails.ofertareHtml');
 
         $pdf = \PDF::loadView('ofertari.export.ofertare-pdf', compact('ofertari'))
             ->setPaper('a4', 'portrait');
@@ -45,7 +46,10 @@ class Ofertare extends Mailable
         $message->subject( $ofertari->email_subiect ?? 'Ofertare ValidSoftware Servicii Informatice');
         $message->attachData(
             $pdf->output(),
-            'Ofertare nr. ' . $ofertari->nr_document . '.pdf'
+            ((intval($ofertari->solicitata) === 0) ? 'Ofertarea' : 'Cererea') .
+            ' Validsoftware nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                // ' - ' . ($ofertari->client->nume ?? '') . '.pdf'
+                '.pdf'
         );
 
         return $message;

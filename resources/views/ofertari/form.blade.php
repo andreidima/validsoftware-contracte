@@ -131,19 +131,29 @@
         <div v-if="solicitata == 1" class="form-row px-2 py-2 mb-0">
             <div class="form-group col-lg-12 mb-0">
                 <label for="descriere_solicitare" class="mb-0 pl-1">Descriere Solicitare (Valabil pentru cereri):</label>
-                <vue2-editor
+                {{-- <vue2-editor
                     text-vechi="{{ old('descriere_solicitare') == '' ? $ofertari->descriere_solicitare : old('descriere_solicitare') }}"
                     nume-camp-db="descriere_solicitare"
-                ></vue2-editor>
+                ></vue2-editor> --}}
+                <tinymce-vue
+                inputvalue="{{ old('descriere_solicitare', $ofertari->descriere_solicitare ?? '') }}"
+                height= 300
+                inputname="descriere_solicitare"
+                ></tinymce-vue>
             </div>
         </div>
         <div class="form-row px-2 py-2 mb-4">
             <div class="form-group col-lg-12 mb-0">
                 <label for="propunere_tehnica_si_comerciala" class="mb-0 pl-1">Propunere tehnică și comercială:</label>
-                <vue2-editor
+                {{-- <vue2-editor
                     text-vechi="{{ old('propunere_tehnica_si_comerciala', $ofertari->propunere_tehnica_si_comerciala) ?? "Conform solicitării dvs., vă trimitem următoarea propunere tehnică și comercială:" }}"
                     nume-camp-db="propunere_tehnica_si_comerciala"
-                ></vue2-editor>
+                ></vue2-editor> --}}
+                <tinymce-vue
+                inputvalue="{{ old('propunere_tehnica_si_comerciala', $ofertari->propunere_tehnica_si_comerciala ?? '') }}"
+                height= 300
+                inputname="propunere_tehnica_si_comerciala"
+                ></tinymce-vue>
             </div>
         </div>
         <div class="form-row px-2 py-2 mb-0">
@@ -162,7 +172,7 @@
             <div class="form-group col-lg-12 mb-0">
                 <label for="email_text" class="mb-0 pl-3">Email - text:</label>
                 <tinymce-vue
-                inputvalue="{{ old('email_text') == '' ? $ofertari->email_text : old('email_text') }}"
+                inputvalue="{{ old('email_text', $ofertari->email_text ?? 'Mulțumim,<br>Echipa ValidSoftware<br>0744.761.451') }}"
                 height= 300
                 inputname="email_text"
                 ></tinymce-vue>
