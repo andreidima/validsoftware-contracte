@@ -315,21 +315,22 @@
 
             $html .= $propunere_tehnica_si_comerciala;
 
-            $html .= '<br />' .
-                        '<b>Servicii</b>';
-
-            $html .='<ul>';
-            foreach ($ofertari->servicii as $serviciu) {
-                $html .= '<li>' . $serviciu->nume;
-                    if ($serviciu->pret){
-                        $html .= ' - ' . $serviciu->pret . ' RON';
-                    }
-                    if ($serviciu->recurenta){
-                        $html .= '/ ' . $serviciu->recurenta;
-                    }
-                $html .= '</li>';
+            if (count($ofertari->servicii) > 0){
+                $html .= '<br />' .
+                            '<b>Servicii</b>';
+                $html .='<ul>';
+                foreach ($ofertari->servicii as $serviciu) {
+                    $html .= '<li>' . $serviciu->nume;
+                        if ($serviciu->pret){
+                            $html .= ' - ' . $serviciu->pret . ' RON';
+                        }
+                        if ($serviciu->recurenta){
+                            $html .= '/ ' . $serviciu->recurenta;
+                        }
+                    $html .= '</li>';
+                }
+                $html .='</ul>';
             }
-            $html .='</ul>';
 
             $html .= '
                     <table align="center" style="width: 100%">
