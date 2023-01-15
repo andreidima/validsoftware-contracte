@@ -353,7 +353,7 @@
                 ';
 
 
-            if ($ofertari->solicitata === 1){
+            // if ($ofertari->solicitata === 1){
                 $html .= '<div style="page-break-after: always;"></div>';
                 $html .= '<div style="height:20px"></div>';
 
@@ -401,8 +401,8 @@
                             </tr>
                         </table>
                     ';
-            }
-// dd($html);
+            // }
+
             @endphp
 
             {!! $html !!}
