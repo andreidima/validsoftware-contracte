@@ -73,6 +73,9 @@
             border-style: inset;
             border-width: 0.5px;
         }
+        p {
+            margin:0px 0px;
+        }
     </style>
 </head>
 
@@ -104,7 +107,7 @@
                         'nr. ' . $ofertari->nr_document . ' / ' . (isset($ofertari->data_emitere) ? (\Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                         '<br />' .
                         '- ' . ($ofertari->firma->nume ?? '') . ' -' .
-                '</p><br /><br />';
+                '</p><br /><br /><br />';
 
 
             if($ofertari->solicitata === 1){
@@ -120,7 +123,7 @@
 
             if($ofertari->solicitata === 1){
                 $html .= '<br />' .
-                            '<b>Descriere solicitare</b>';
+                            '<p><b>Descriere solicitare</b></p>';
 
                 $descriere_solicitare = str_replace('<br>', '<br/>', $ofertari->descriere_solicitare);
 
@@ -218,7 +221,7 @@
 
 
             if($ofertari->solicitata === 1){
-                $html .= '<br />' .
+                $html .= '<br /><br />' .
                         '<b>Propunere tehnică și comercială</b>';
             }
 
@@ -319,7 +322,8 @@
                 $html .= '<br />' .
                             '<b>Servicii</b>';
                 $html .='<ul>';
-                foreach ($ofertari->servicii as $serviciu) {
+
+                foreach ($ofertari->servicii as $key=>$serviciu) {
                     $html .= '<li>' . $serviciu->nume;
                         if ($serviciu->pret){
                             $html .= ' - ' . $serviciu->pret . ' RON';
@@ -327,6 +331,7 @@
                         if ($serviciu->recurenta){
                             $html .= '/ ' . $serviciu->recurenta;
                         }
+                    $html .= ($key !== $ofertari->servicii->count()-1) ? ';' : '.'; // se pune caracterul de sfarsit la fiecare enumeratie
                     $html .= '</li>';
                 }
                 $html .='</ul>';
@@ -397,7 +402,7 @@
                         </table>
                     ';
             }
-
+// dd($html);
             @endphp
 
             {!! $html !!}

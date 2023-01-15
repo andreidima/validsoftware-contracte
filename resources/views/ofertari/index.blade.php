@@ -95,7 +95,7 @@
                                                 <div class="modal fade text-dark" id="trimiteEmail{{ $ofertare->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                        <div class="modal-header bg-danger">
+                                                        <div class="modal-header bg-warning">
                                                             <h5 class="modal-title text-white" id="exampleModalLabel">Oferta pentru: <b>{{ $ofertare->client->nume ?? '' }}</b></h5>
                                                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
