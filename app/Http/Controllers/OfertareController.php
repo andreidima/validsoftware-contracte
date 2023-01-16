@@ -215,19 +215,38 @@ class OfertareController extends Controller
         }
 
 // dd($emailuri_to, $emailuri_bcc);
-        // Trimiterea mesajului
-        \Mail::mailer('comunicare')
-            ->to($emailuri_to)
-            ->bcc($emailuri_bcc)
-            ->send(
-                new \App\Mail\Ofertare($ofertari)
-            );
-        $mesaj_trimis = new \App\MesajTrimis;
-        $mesaj_trimis->inregistrare_id = $ofertari->id;
-        $mesaj_trimis->categorie = 'Ofertare';
-        // $mesaj_trimis->subcategorie = '';
-        $mesaj_trimis->save();
-        return back()->with('status', 'Emailul a fost trimis către „' . $ofertari->client->email . '” cu succes!');
+            // Trimiterea mesajului
+        if (intval($ofertari->solicitata) === 1) {
+            \Mail::mailer('comunicare')
+                ->to($emailuri_to)
+                ->bcc($emailuri_bcc)
+                ->send(
+                    new \App\Mail\Ofertare($ofertari)
+                );
+            $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->inregistrare_id = $ofertari->id;
+            $mesaj_trimis->categorie = 'Ofertare';
+            // $mesaj_trimis->subcategorie = '';
+            $mesaj_trimis->save();
+            return back()->with('status', 'Emailul a fost trimis către „' . $ofertari->client->email . '” cu succes!');
+        }else if (intval($ofertari->solicitata) === 0){
+            // Trimiterea mesajului
+            \Mail::mailer('comunicare')
+                // ->to('contact@validsoftware.ro')
+                // ->to('')
+                ->bcc($emailuri_to)
+                ->send(
+                    new \App\Mail\Ofertare($ofertari)
+                );
+            $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->inregistrare_id = $ofertari->id;
+            $mesaj_trimis->categorie = 'Ofertare';
+            // $mesaj_trimis->subcategorie = '';
+            $mesaj_trimis->save();
+            return back()->with('status', 'Emailul a fost trimis către „' . $ofertari->client->email . '” cu succes!');
+        }else{
+            return back()->with('error', 'Emailul nu s-a putut trimite către „' . $ofertari->client->email . '”.');
+        }
     }
 
     /**

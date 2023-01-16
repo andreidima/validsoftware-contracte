@@ -106,8 +106,8 @@ class ClientController extends Controller
     protected function validateRequest(Request $request)
     {
         return request()->validate([
-            'nume' => ['required', 'max:100'],
-            'nume_scurt' => ['required', 'max:100'],
+            'nume' => ['required', 'max:200'],
+            'nume_scurt' => ['required', 'max:200'],
             'nr_ord_reg_com' => ['max:50'],
             'cui' => ['max:50'],
             'adresa' => ['max:180'],
