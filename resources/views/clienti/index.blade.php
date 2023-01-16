@@ -40,8 +40,9 @@
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th>Nr. Crt.</th>
+                            <th>#</th>
                             <th>Nume</th>
+                            <th class="text-center px-0">Nr. emailuri</th>
                             <th>Reprezentant</th>
                             <th>Telefon</th>
                             <th>Email</th>
@@ -62,6 +63,9 @@
                                         aria-expanded="false" aria-controls="collapse{{ $client->id }}">
                                         <b>{{ $client->nume }}</b>
                                     </a>
+                                </td>
+                                <td class="text-center">
+                                    {{ substr_count($client->email, ",") + 1 }}
                                 </td>
                                 <td>
                                     {{ $client->reprezentant }}
