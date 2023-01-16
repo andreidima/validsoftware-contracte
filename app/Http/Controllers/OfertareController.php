@@ -174,6 +174,7 @@ class OfertareController extends Controller
             'propunere_tehnica_si_comerciala' => [''],
             'pret' => ['nullable', 'numeric', 'max:99999'],
             'solicitata' => 'required',
+            'pdf_in_email' => 'required',
             'email_subiect' => 'required_if:solicitata,0',
             'email_text' => 'required_if:solicitata,0',
         ]);

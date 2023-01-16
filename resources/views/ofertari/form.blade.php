@@ -156,15 +156,35 @@
                 ></tinymce-vue>
             </div>
         </div>
+        <div class="form-row px-2 py-2 mb-4">
+            <div class="form-group col-lg-12 mb-0 pl-3">
+                {{-- <div class=""> --}}
+                    <div class="pl-1 rounded" style="border-left: 3px solid rgb(255, 50, 50);">
+                        <div class="form-check form-check-inline">
+                            Pdf în email:
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="1" name="pdf_in_email" id="pdf_in_email_da"
+                                {{ old('pdf_in_email', $ofertari->pdf_in_email) == '1' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="pdf_in_email_da">DA</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="0" name="pdf_in_email" id="pdf_in_email_nu"
+                                {{ old('pdf_in_email', $ofertari->pdf_in_email) == '0' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="pdf_in_email_nu">NU</label>
+                        </div>
+                    </div>
+                {{-- </div> --}}
+            </div>
+        </div>
         <div class="form-row px-2 py-2 mb-0">
-            <div class="form-group col-lg-12 mb-0">
+            <div class="form-group col-lg-12 mb-2">
                 <label for="email_subiect" class="mb-0 pl-3">Email - subiect:</label>
                 <input
                     type="text"
                     class="form-control form-control-sm rounded-pill {{ $errors->has('email_subiect') ? 'is-invalid' : '' }}"
                     name="email_subiect"
                     placeholder=""
-                    {{-- value="{{ old('email_subiect') == '' ? ($ofertari->email_subiect == '' ? $urmatorul_document_nr : '') : old('email_subiect') }}" --}}
                     value="{{ old('email_subiect', $ofertari->email_subiect) }}">
             </div>
         </div>

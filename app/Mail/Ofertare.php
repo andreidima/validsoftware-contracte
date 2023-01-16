@@ -39,18 +39,21 @@ class Ofertare extends Mailable
         // }
         $message = $this->view('emails.ofertareHtml');
 
-        $pdf = \PDF::loadView('ofertari.export.ofertare-pdf', compact('ofertari'))
-            ->setPaper('a4', 'portrait');
-        $pdf->getDomPDF()->set_option("enable_php", true);
-
         $message->subject( $ofertari->email_subiect ?? 'Ofertare ValidSoftware Servicii Informatice');
-        $message->attachData(
-            $pdf->output(),
-            ((intval($ofertari->solicitata) === 0) ? 'Ofertarea' : 'Cererea') .
-            ' Validsoftware nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
-                // ' - ' . ($ofertari->client->nume ?? '') . '.pdf'
-                '.pdf'
-        );
+
+        if ($ofertari->pdf_in_email === 1){
+            $pdf = \PDF::loadView('ofertari.export.ofertare-pdf', compact('ofertari'))
+                ->setPaper('a4', 'portrait');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+
+            $message->attachData(
+                $pdf->output(),
+                ((intval($ofertari->solicitata) === 0) ? 'Ofertarea' : 'Cererea') .
+                ' Validsoftware nr. ' . $ofertari->nr_document . (isset($ofertari->data_emitere) ? (' din ' . \Carbon\Carbon::parse($ofertari->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                    // ' - ' . ($ofertari->client->nume ?? '') . '.pdf'
+                    '.pdf'
+            );
+        }
 
         return $message;
     }
