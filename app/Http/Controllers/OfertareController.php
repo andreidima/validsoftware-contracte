@@ -233,7 +233,7 @@ class OfertareController extends Controller
             // Trimiterea mesajului
             \Mail::mailer('comunicare')
                 // ->to('contact@validsoftware.ro')
-                // ->to('')
+                ->to([])
                 ->bcc($emailuri_to)
                 ->send(
                     new \App\Mail\Ofertare($ofertari)
