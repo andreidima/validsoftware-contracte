@@ -157,6 +157,7 @@ class ContractController extends Controller
             'contract_nr' => ['required', 'numeric'],
             'contract_data' => [''],
             'data_incepere' => [''],
+            'data_terminare' => [''],
             'abonament_lunar' => [''],
             'pret' => ['nullable', 'numeric', 'max:99999'],
             'anexa' => ['']
