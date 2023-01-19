@@ -71,6 +71,8 @@ Route::middleware('role:admin')->group(function () {
     Route::resource('clienti', 'ClientController');
 
     Route::get('/contracte/{contracte}/export/{view_type}', 'ContractController@wordExport');
+    Route::get('/contracte/{contracte}/export/pdf/{view_type}', 'ContractController@pdfExport');
+    Route::post('contracte/{contracte}/trimite-email', 'ContractController@trimiteEmail');
     Route::get('/ofertari/{ofertari}/export/{view_type}', 'OfertareController@wordExport');
     Route::get('/ofertari/{ofertari}/export/pdf/{view_type}', 'OfertareController@pdfExport');
     Route::post('ofertari/{ofertari}/trimite-email', 'OfertareController@trimiteEmail');

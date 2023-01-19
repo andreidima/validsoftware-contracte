@@ -28,4 +28,9 @@ class Contract extends Model
     {
         return $this->hasMany('App\Fisier', 'contract_id');
     }
+
+    public function emailuri_trimise()
+    {
+        return $this->hasMany('App\MesajTrimis', 'inregistrare_id')->where('categorie', 'Contract');
+    }
 }

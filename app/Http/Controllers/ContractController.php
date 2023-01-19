@@ -12,6 +12,7 @@ use DB;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 
@@ -161,6 +162,75 @@ class ContractController extends Controller
         ]);
     }
 
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function trimiteEmail(Request $request, Contract $contracte)
+    {
+        $emailuri_to = $contracte->client->email ?? '';
+        $emailuri_to = str_replace(' ', '', $emailuri_to);
+        $emailuri_to = explode(',', $emailuri_to);
+        // Verificare daca exista email corect catre care sa se trimita mesajul
+        $validator = Validator::make($emailuri_to, [
+            '*' => ['email:rfc,dns']
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
+        $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
+        $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
+        $emailuri_bcc = explode(',', $emailuri_bcc);
+        // Verificare daca exista email corect catre care sa se trimita mesajul
+        $validator = Validator::make($emailuri_bcc, [
+            '*' => ['email:rfc,dns']
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Trimiterea mesajului
+        \Mail::mailer('comunicare')
+            ->to($emailuri_to)
+            ->bcc($emailuri_bcc)
+            ->send(new \App\Mail\Contract($contracte));
+
+            $mesaj_trimis = new \App\MesajTrimis;
+            $mesaj_trimis->inregistrare_id = $contracte->id;
+            $mesaj_trimis->categorie = 'Contract';
+            $mesaj_trimis->save();
+
+        return back()->with('status', 'Emailul a fost trimis către „' . $contracte->client->email . '” cu succes!');
+    }
+
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function pdfExport(Request $request, Contract $contracte)
+    {
+        if ($request->view_type === 'contract-html') {
+            return view('contracte.export.contract-pdf', compact('contracte'));
+        } elseif ($request->view_type === 'contract-pdf') {
+            $pdf = \PDF::loadView('contracte.export.contract-pdf', compact('contracte'))
+                ->setPaper('a4', 'portrait');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+            return $pdf->download(
+                    'Contract nr. ' . $contracte->contract_nr .
+                    (isset($contracte->contract_data) ? (' din data de ' . Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
+                    ' - ' . ($contracte->client->nume ?? '') . '.pdf'
+            );
+        }
+    }
+
     public function wordExport(Request $request, Contract $contracte)
     {
         if ($request->view_type === 'contract-html') {
@@ -183,8 +253,8 @@ class ContractController extends Controller
 
             $section = $phpWord->addSection(
                 array(
-                    'marginLeft'   => 1200,
-                    'marginRight'  => 1200,
+                    'marginLeft'   => 1000,
+                    'marginRight'  => 1000,
                     'marginTop'    => 0,
                     'marginBottom' => 700,
                     'headerHeight' => 1800,
@@ -199,8 +269,8 @@ class ContractController extends Controller
             $header->addImage(
                 'images/contract-header.jpg',
                 array(
-                    // 'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
-                    'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(14.5),
+                    'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(15.7),
+                    // 'width'            => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(14.5),
                     // 'height'           => \PhpOffice\PhpWord\Shared\Converter::cmToPixel(10),
                     'positioning'      => \PhpOffice\PhpWord\Style\Image::POSITION_ABSOLUTE,
                     'posHorizontal'    => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_CENTER,
@@ -384,18 +454,18 @@ class ContractController extends Controller
                         $contracte->contract_nr .
                         (isset($contracte->contract_data) ? (' din ' . Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') .
                     '</p>
-                    <br /><br />
-                <ol>
-                        <li><b>Durata</b>: prezentul Plan de lucru acoperă toată perioada de valabilitate a prezentului contract.</li>
-                        <li>Următoarele servicii vor fi acoperite de Planul de lucru</li>
-                            <ol>
-                                <li>Analiză specificații tehnice și implementare soluții informatice;</li>
-                                <li>Integrare servicii ale unor terți;</li>
-                                <li>suport și consultanță prin email/ telefon.</li>
-                            </ol>
-                </ol>
-            ';
-            $html .= '<br />';
+                    <br /><br />';
+
+            // $html .= '<ol>
+            //             <li><b>Durata</b>: prezentul Plan de lucru acoperă toată perioada de valabilitate a prezentului contract.</li>
+            //             <li>Următoarele servicii vor fi acoperite de Planul de lucru</li>
+            //                 <ol>
+            //                     <li>Analiză specificații tehnice și implementare soluții informatice;</li>
+            //                     <li>Integrare servicii ale unor terți;</li>
+            //                     <li>suport și consultanță prin email/ telefon.</li>
+            //                 </ol>
+            //     </ol>';
+            // $html .= '<br />';
 
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 

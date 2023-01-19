@@ -42,6 +42,7 @@
                             <th class="text-center">Dată începere</th>
                             <th class="text-center">Anexa</th>
                             <th class="text-center">Descarcă Contract</th>
+                            <th class="text-center">Trimite</th>
                             <th class="text-center">Fișiere atașate</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
@@ -57,7 +58,7 @@
                                 </td>
                                 <td class="text-center">
                                     @isset($contract->contract_data)
-                                        {{ \Carbon\Carbon::parse($contract->contract_data)->isoFormat('D.MM.YYYY') }}
+                                        {{ \Carbon\Carbon::parse($contract->contract_data)->isoFormat('DD.MM.YYYY') }}
                                     @endisset
                                     {{-- <a class="" data-toggle="collapse" href="#collapse{{ $contract->id }}" role="button"
                                         aria-expanded="false" aria-controls="collapse{{ $contract->id }}">
@@ -66,7 +67,7 @@
                                 </td>
                                 <td class="text-center">
                                     @isset($contract->data_incepere)
-                                        {{ \Carbon\Carbon::parse($contract->data_incepere)->isoFormat('D.MM.YYYY') }}
+                                        {{ \Carbon\Carbon::parse($contract->data_incepere)->isoFormat('DD.MM.YYYY') }}
                                     @endisset
                                 </td>
                                 <td class="text-center">
@@ -82,6 +83,59 @@
                                     >
                                         <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
                                     </a>
+                                    <a href="{{ $contract->path() }}/export/pdf/contract-pdf"
+                                        class="flex"
+                                    >
+                                        <span class="badge badge-light text-danger border border-danger">Pdf</span>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center">
+                                        <div style="" class="text-center">
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
+                                                data-target="#trimiteEmail{{ $contract->id }}"
+                                                title="trimite email"
+                                                class="mr-1"
+                                                >
+                                                <span class="badge badge-primary">Email
+                                                    <span class="badge badge-light" title="Emailuri trimise până acum">
+                                                        {{ $contract->emailuri_trimise()->count() }}
+                                                    </span>
+                                                </span>
+                                            </a>
+                                                <div class="modal fade text-dark" id="trimiteEmail{{ $contract->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-success">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Oferta pentru: <b>{{ $contract->client->nume ?? '' }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            Ești sigur ca vrei să trimiți emailul?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
+
+                                                            <form method="POST" action="{{ $contract->path() }}/trimite-email">
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
+                                                                    >
+                                                                    Trimite email
+                                                                </button>
+                                                            </form>
+
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="text-center">
                                     <div style="flex" class="">
