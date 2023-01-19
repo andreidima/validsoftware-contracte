@@ -118,8 +118,9 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contracte)
     {
-        $this->validateRequest($request, $contracte);
-        $contracte->update($request->except(['date']));
+        // $this->validateRequest($request, $contracte);
+        // $contracte->update($request->except(['date']));
+        $contracte->update($this->validateRequest($request, $contracte));
 
         return redirect($contracte->path())->with('status',
             'Contractul Nr."' . $contracte->contract_nr . '", pentru clientul "' . ($contracte->client->nume ?? '') . '", a fost modificat cu succes!');

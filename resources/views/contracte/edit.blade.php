@@ -13,7 +13,7 @@
 
                 <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
-                    id="app1"
+                    id="ofertare"
                 >
                     <form  class="needs-validation" novalidate method="POST" action="{{ $contracte->path() }}">
                         @method('PATCH')
