@@ -28,7 +28,7 @@
             font-family: DejaVu Sans, sans-serif;
             /* font-family: Arial, Helvetica, sans-serif; */
             font-size: 13px;
-            margin-top: 4cm;
+            margin-top: 4.5cm;
             margin-left: 2cm;
             margin-right: 2cm;
             margin-bottom: 2cm;
@@ -124,13 +124,13 @@
             $html .= '<br />';
             $html .= '<ol>
                         <li><p style="font-weight: bold;">Termeni generali</p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;">Contractul se referă la prestarea de servicii informatice de către <b>' . ($contracte->firma->nume ?? '') . '</b> în beneficiul <b>'. $contracte->client->nume . '</b>.</li>
                                 <li style="text-align:justify;">Contractul este valabil până la terminarea sa în conformitate cu condiţiile incluse mai jos în prezentul document.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Relaţie contractuală</p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;"><b>' . ($contracte->firma->nume ?? '') . '</b> va desfăşura activităţile aferente prezentului contract la sediul <b>' . $contracte->client->nume . '</b> sau la sediul propriu.</li>
                                 <li style="text-align:justify;"><b>' . ($contracte->firma->nume ?? '') . '</b> nu are autoritatea de a-şi asuma responsabilităţi sau obligaţii în locul <b>' . $contracte->client->nume . '</b>.</li>
                                 <li style="text-align:justify;">Serviciile pe care <b>' . ($contracte->firma->nume ?? '') . '</b> se angajează să le efectueze în beneficiul <b>' . $contracte->client->nume . '</b> sunt specificate în “Planul de lucru – Anexa”, dar nu se limitează numai la acestea.</li>
@@ -146,14 +146,14 @@
                 $html .= '</ol>
                             <br/>
                         <li><p style="font-weight: bold;">Responsabilităţile <b>' . $contracte->client->nume . '</b></p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;"><b>' . $contracte->client->nume . '</b> are obligaţia de a pune la dispoziţia <b>' . ($contracte->firma->nume ?? '') . '</b> toate informaţiile pe care <b>' . ($contracte->firma->nume ?? '') . '</b> le consideră necesare în mod rezonabil pentru îndeplinirea contractului.</li>
                                 <li style="text-align:justify;"><b>' . $contracte->client->nume . '</b> are obligaţia de a efectua plata către <b>' . ($contracte->firma->nume ?? '') . '</b> în termen de 30 zile de la emiterea facturii de către acesta.</li>
                                 <li style="text-align:justify;">În cazul în care <b>' . $contracte->client->nume . '</b> nu onorează facturile în termen de 30 zile de la expirarea perioadei prevăzute la clauza 4.b, <b>' . ($contracte->firma->nume ?? '') . '</b> are dreptul de a sista prestarea serviciilor sau de a diminua ritmul prestării. Imediat ce <b>' . $contracte->client->nume . '</b> onorează factura, <b>' . ($contracte->firma->nume ?? '') . '</b> va relua prestarea serviciilor în cel mai scurt timp posibil.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Recepţie şi verificări</p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;"><b>' . $contracte->client->nume . '</b> are dreptul de a verifica modul de prestare şi calitatea serviciilor.</li>';
 
                     if ($contracte->abonament_lunar === 1){
@@ -163,7 +163,7 @@
                 $html .= '</ol>
                             <br/>
                         <li><p style="font-weight: bold;">Forţa majoră</p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;">Forţa majoră este constatată de o autoritate competentă.</li>
                                 <li style="text-align:justify;">Forţa majoră exonerează părţile contractante de îndeplinirea obligaţiilor asumate prin prezentul contract, pe toată perioada în care aceasta acţionează.</li>
                                 <li style="text-align:justify;">Îndeplinirea contractului va fi suspendată în perioada de acţiune a forţei majore, dar fără a prejudicia drepturile ce li se cuveneau părţilor până la apariţia acesteia.</li>
@@ -172,14 +172,14 @@
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Soluţionarea litigiilor</p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;"><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
                                 <li style="text-align:justify;">Dacă după 15 zile de la începerea acestor tratative <b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> nu reuşesc să rezolve în mod amiabil o divergenţă contractuală, fiecare parte poate solicita ca disputa să se soluționeze de către instanțele judecătorești.</li>
                                 <li style="text-align:justify;">În cazul în care achizitorul nu onorează facturile în termen de 30 de zile de la expirarea perioadei convenite, atunci acesta are obligaţia de a plăti ca penalităţi o sumă echivalentă cu 0,1% pe zi de întârziere din plata neefectuată, până la efectuarea plăţii.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Durata contractului</p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;">Contractul este valabil în intervalul ' .
                                 (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '') .
                                 ' - ' .
@@ -188,12 +188,12 @@
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Modificări</p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;">Orice modificare a prezentului contract trebuie să fie făcută în scris, sub formă de act adiţional.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Legea aplicabilă contractului</p></li>
-                            <ol>
+                            <ol type="a">
                                 <li style="text-align:justify;">Contractul va fi interpretat conform legilor din România.</li>
                             </ol>
                     </ol>

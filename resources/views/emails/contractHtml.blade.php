@@ -3,9 +3,9 @@
         @include ('emails.headerFooter.header')
 
         <div style="padding:20px 20px; max-width:760px!important;margin:0 auto; font-size:18px">
-            Bun găsit, <b>{{ $contracte->client->nume ?? '' }}</b>,
+            Bun ziua, <b>{{ $contracte->client->nume ?? '' }}</b>,
             <br><br>
-            Îți trimitem atașat Contractul nr. {{ $contracte->nr_document }} din
+            Vă trimitem atașat Contractul nr. {{ $contracte->contract_nr }} din
                 {{ (isset($contracte->contract_data) ? (\Carbon\Carbon::parse($contracte->contract_data)->isoFormat('DD.MM.YYYY')) : '') }}.
         </div>
 
