@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Casa de Marcat'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -166,9 +166,9 @@ return [
          * Package Service Providers...
          */
 
-        App\Providers\GoogleDriveServiceProvider::class,
+        // App\Providers\GoogleDriveServiceProvider::class,
 
-        Intervention\Image\ImageServiceProvider::class,
+        // Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,7 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Image' => Intervention\Image\Facades\Image::class,
+        // 'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 
