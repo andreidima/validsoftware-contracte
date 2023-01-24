@@ -12,9 +12,9 @@
 
                     Bine ai venit <b>{{ auth()->user()->name ?? '' }}</b>!
                     <br><br><br>
-                        <p class="text-center">
+                        {{-- <p class="text-center">
                             {{ \Illuminate\Foundation\Inspiring::quote() }}
-                        </p>
+                        </p> --}}
                 </div>
             </div>
         </div>
