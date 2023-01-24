@@ -39,7 +39,7 @@ class ContractController extends Controller
             })
             ->latest()
             ->withCount('fisiere')
-            ->Paginate(25);
+            ->simplePaginate(25);
 
         // $contracte = DB::table('contracte')
         //     ->leftJoin('clienti', 'contracte.client_id', '=', 'clienti.id')

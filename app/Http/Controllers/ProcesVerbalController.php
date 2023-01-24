@@ -25,13 +25,14 @@ class ProcesVerbalController extends Controller
     {
         $search_nume = \Request::get('search_nume');
 
-        $proceseVerbale = ProcesVerbal::
-            leftJoin('clienti', 'procese_verbale.client_id', '=', 'clienti.id')
+        $proceseVerbale = ProcesVerbal::with('fisiere')
+            ->leftJoin('clienti', 'procese_verbale.client_id', '=', 'clienti.id')
             ->select('procese_verbale.*', 'clienti.nume')
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('clienti.nume', 'like', '%' . $search_nume . '%');
             })
             ->latest('procese_verbale.created_at')
+            ->withCount('fisiere')
             ->simplePaginate(25);
 
         return view('proceseVerbale.index', compact('proceseVerbale', 'search_nume'));
@@ -138,6 +139,7 @@ class ProcesVerbalController extends Controller
             'data_emitere' => ['required'],
             'firma_id' => ['required'],
             'client_id' => ['required'],
+            'titlu_document' => 'required|max:200',
             'proces_verbal' => ['required'],
             'email_subiect' => 'required',
             'email_text' => 'required',
@@ -163,7 +165,7 @@ class ProcesVerbalController extends Controller
                 ->setPaper('a4', 'portrait');
             $pdf->getDomPDF()->set_option("enable_php", true);
             return $pdf->download(
-                'Proces Verbal nr. ' . $procesVerbal->nr_document . (isset($procesVerbal->data_emitere) ? (' din data de ' . Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                $procesVerbal->titlu_document . ' nr. ' . $procesVerbal->nr_document . (isset($procesVerbal->data_emitere) ? (' din data de ' . Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
                     ' - ' . ($procesVerbal->client->nume ?? '') . '.pdf'
             );
             // return $pdf->stream();

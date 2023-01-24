@@ -1,6 +1,12 @@
 @csrf
 
-<div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px">
+<script type="application/javascript">
+    solicitata = {!! json_encode(old('solicitata', $ofertari->solicitata )) !!}
+    clientVechi={!! json_encode(old('client_id', $ofertari->client_id )) !!}
+    clientiExistenti={!! json_encode($clienti) !!}
+</script>
+
+<div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px" id="ofertare">
     <div class="form-group col-lg-12 px-2 mb-0">
         <div class="form-row px-2 py-2 mb-2 justify-content-center">
             <div class="form-group col-lg-2 mb-4">
@@ -16,13 +22,14 @@
             </div>
             <div class="form-group col-lg-3 mb-0 text-center">
                 <label for="data_emitere" class="mb-0 pl-1">Data emitere:</label>
-                <vue2-datepicker
+                <vue-datepicker-next
                     data-veche="{{ old('data_emitere') ?? $ofertari->data_emitere ?? \Carbon\Carbon::today() }}"
                     nume-camp-db="data_emitere"
-                    tip="date"
-                    latime="150"
+                    value-type="YYYY-MM-DD"
+                    format="DD-MM-YYYY"
+                    :latime="{ width: '125px' }"
                     not-before="{{ \Carbon\Carbon::today() }}"
-                ></vue2-datepicker>
+                ></vue-datepicker-next>
             </div>
             <div class="form-group col-lg-4 mb-0">
                 <label for="firma_id" class="mb-0 pl-3">Firma:</label>
@@ -39,9 +46,6 @@
                 </select>
             </div>
             <div class="form-group col-lg-2 mb-0">
-                <script type="application/javascript">
-                    solicitata = {!! json_encode(old('solicitata', $ofertari->solicitata )) !!}
-                </script>
                 <label for="solicitata" class="mb-0 pl-3">Solicitată:</label>
                 <select name="solicitata"
                         v-model="solicitata"
@@ -53,10 +57,6 @@
             </div>
         </div>
         <div class="form-row px-2 py-2 mb-4 justify-content-center">
-            <script type="application/javascript">
-                clientVechi={!! json_encode(old('client_id', $ofertari->client_id )) !!}
-                clientiExistenti={!! json_encode($clienti) !!}
-            </script>
             <div class="form-group col-lg-4 mb-2">
                 <label for="client_id" class="mb-0 pl-2">Selectează clientul:</label>
                 <div class="">
@@ -92,7 +92,7 @@
                             class="form-control form-control-sm rounded-pill {{ $errors->has('client_nume') ? 'is-invalid' : '' }}"
                             name="client_nume"
                             placeholder=""
-                            value="{{ old('client_nume') }}"
+                            {{-- value="{{ old('client_nume') }}" --}}
                             autocomplete="off"
                             required>
                         <div v-cloak v-if="clienti_lista.length" class="panel-footer">
@@ -119,13 +119,14 @@
             </div>
             <div class="form-group col-lg-3 mb-0 text-center">
                 <label for="data_cerere" class="mb-0 pl-1">Data cerere:</label>
-                <vue2-datepicker
+                <vue-datepicker-next
                     data-veche="{{ old('data_cerere') ?? $ofertari->data_cerere ?? \Carbon\Carbon::today() }}"
                     nume-camp-db="data_cerere"
-                    tip="date"
-                    latime="150"
+                    value-type="YYYY-MM-DD"
+                    format="DD-MM-YYYY"
+                    :latime="{ width: '125px' }"
                     not-before="{{ \Carbon\Carbon::today() }}"
-                ></vue2-datepicker>
+                ></vue-datepicker-next>
             </div>
         </div>
         <div v-if="solicitata == 1" class="form-row px-2 py-2 mb-0">

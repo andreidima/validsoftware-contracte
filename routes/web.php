@@ -88,6 +88,10 @@ Route::middleware('role:admin')->group(function () {
     Route::post('/cron-jobs-files/{cron_job}/file-upload', 'CronJobFileController@store')->name('cronjob.file.upload.post');
     Route::post('/cron-jobs-files/file-download/{file}', 'CronJobFileController@fileDownload')->name('cronjob.file.download');
 
+    // Incarcare/ descarcare/ stergere - fisiere atasate la documente diverse
+    Route::post('/documente-diverse-fisiere/{procesVerbal}/file-upload', 'DocumentDiversFisierController@store')->name('documentDivers.file.upload.post');
+    Route::post('/documente-diverse-fisiere/file-download/{fisier}', 'DocumentDiversFisierController@fileDownload')->name('documentDivers.file.download');
+
     // Activare/ dezactivare Cron Jobs
     Route::patch('/cron-jobs/{cron_job}/activare-dezactivare', 'CronJobController@activareDezactivare')->name('cronjob.activare.dezactivare');
 
@@ -105,6 +109,7 @@ Route::middleware('role:admin')->group(function () {
     Route::resource('ofertari', 'OfertareController');
     Route::resource('ofertari-servicii', 'OfertareServiciuController');
     Route::resource('procese-verbale', 'ProcesVerbalController', ['parameters' => ['procese-verbale' => 'procesVerbal']]);
+    Route::resource('documente-diverse-fisiere', 'DocumentDiversFisierController', ['parameters' => ['documente-diverse-fisiere' => 'fisier']]);
 
     Route::get('generator', 'GeneratorController@index')->name('generator.index');
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');

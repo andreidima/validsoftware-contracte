@@ -4,9 +4,16 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
+import './bootstrap';
+
+import '../sass/app.scss'
+import '../css/andrei.css'
+
+
+import { createApp } from 'vue/dist/vue.esm-bundler.js'
 
 /**
  * The following block of code may be used to automatically register your
@@ -16,81 +23,87 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('vue2-datepicker-miercuri', require('./components/DatePickerMiercuri.vue').default);
-Vue.component('vue2-datepicker-duminica', require('./components/DatePickerDuminica.vue').default);
-Vue.component('vue2-datepicker-buletin', require('./components/DatePickerBuletin.vue').default);
-Vue.component('vue2-datepicker', require('./components/DatePicker.vue').default);
-Vue.component('vue2-datepicker-time', require('./components/DatePickerTime.vue').default);
-Vue.component('vuejs-datepicker', require('./components/Vuejs-datepicker.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('vue2-datepicker-miercuri', require('./components/DatePickerMiercuri.vue').default);
+// Vue.component('vue2-datepicker-duminica', require('./components/DatePickerDuminica.vue').default);
+// Vue.component('vue2-datepicker-buletin', require('./components/DatePickerBuletin.vue').default);
+// Vue.component('vue2-datepicker', require('./components/DatePicker.vue').default);
+// Vue.component('vue2-datepicker-time', require('./components/DatePickerTime.vue').default);
+// Vue.component('vuejs-datepicker', require('./components/Vuejs-datepicker.vue').default);
 
-Vue.component('vue2-editor', require('./components/Vue2Editor.vue').default);
-Vue.component('tiptap-editor', require('./components/TipTapEditor.vue').default);
+// Vue.component('vue2-editor', require('./components/Vue2Editor.vue').default);
+// Vue.component('tiptap-editor', require('./components/TipTapEditor.vue').default);
 
-Vue.component('tinymce-vue', require('./components/TinyMCE.vue').default);
+// Vue.component('tinymce-vue', require('./components/TinyMCE.vue').default);
+
+import VueDatepickerNext from './components/VueDatepickerNext.vue';
+import Tinymce from './components/TinyMCE.vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-if (document.querySelector('#app1')) {
-    const app1 = new Vue({
-        el: '#app1'
-    });
-}
-
-if (document.querySelector('#produse')) {
-    const app = new Vue({
-        el: '#produse',
-        methods: {
-            formfocus() {
-                document.getElementById("search_cod_de_bare").focus();
+if (document.getElementById('app1') != null) {
+    const app1 = createApp({
+        el: '#app1',
+        data() {
+            return {
             }
         },
-        mounted() {
-            this.formfocus()
-        }
+        components: {
+            'vue-datepicker-next': VueDatepickerNext,
+            'tinymce-vue': Tinymce,
+            // 'example-component-2': VueDatepickerNext,
+        },
     });
+
+    app1.mount('#app1');
 }
 
-if (document.querySelector('#fisa-service')) {
-    const app = new Vue({
-        el: '#fisa-service',
-        data: {
-            client_deja_inregistrat: clientVechi,
-            clienti: clientiExistenti,
-            client_nume: clientVechi_nume,
-            // client_nume_scurt: clientVechi_nume_scurt,
-            client_nr_ord_reg_com: clientVechi_nr_ord_reg_com,
-            client_cui: clientVechi_cui,
-            client_adresa: clientVechi_adresa,
-            client_iban: clientVechi_iban,
-            client_banca: clientVechi_banca,
-            client_reprezentant: clientVechi_reprezentant,
-            client_reprezentant_functie: clientVechi_reprezentant_functie,
-            client_telefon: clientVechi_telefon,
-            client_email: clientVechi_email,
-            // client_email_dpo: clientVechi_email_dpo,
-            client_site_web: clientVechi_site_web,
+if (document.getElementById('fisaService') != null) {
+    const fisaService = createApp({
+        el: '#fisaService',
+        data() {
+            return {
+                client_deja_inregistrat: clientVechi,
+                clienti: clientiExistenti,
+                client_nume: clientVechi_nume,
+                // client_nume_scurt: clientVechi_nume_scurt,
+                client_nr_ord_reg_com: clientVechi_nr_ord_reg_com,
+                client_cui: clientVechi_cui,
+                client_adresa: clientVechi_adresa,
+                client_iban: clientVechi_iban,
+                client_banca: clientVechi_banca,
+                client_reprezentant: clientVechi_reprezentant,
+                client_reprezentant_functie: clientVechi_reprezentant_functie,
+                client_telefon: clientVechi_telefon,
+                client_email: clientVechi_email,
+                // client_email_dpo: clientVechi_email_dpo,
+                client_site_web: clientVechi_site_web,
 
-            // client_nume_autocomplete: '',
-            // clienti_lista_autocomplete: '',
+                // client_nume_autocomplete: '',
+                // clienti_lista_autocomplete: '',
 
-            client_nume_autocomplete2: '',
-            clienti_lista_autocomplete2: [],
+                client_nume_autocomplete2: '',
+                clienti_lista_autocomplete2: [],
 
-            servicii: servicii,
-            servicii_selectate: serviciiSelectate,
-            // servicii_selectate: []
+                servicii: servicii,
+                servicii_selectate: serviciiSelectate,
+                // servicii_selectate: []
 
-            fise_vechi_client: [],
-            nume_camp: '',
-            valoare_camp: '',
-            fise_lista_autocomplete: [],
+                fise_vechi_client: [],
+                nume_camp: '',
+                valoare_camp: '',
+                fise_lista_autocomplete: [],
 
-            descriere_echipament: descriereEchipament,
+                descriere_echipament: descriereEchipament,
+            }
+        },
+        components: {
+            'vue-datepicker-next': VueDatepickerNext,
+            'tinymce-vue': Tinymce,
+            // 'example-component-2': VueDatepickerNext,
         },
         watch: {
             client_deja_inregistrat: function () {
@@ -274,18 +287,27 @@ if (document.querySelector('#fisa-service')) {
             // this.formfocus()
         }
     });
+
+    fisaService.mount('#fisaService');
 }
 
-if (document.querySelector('#ofertare')) {
-    const app = new Vue({
+if (document.getElementById('ofertare') != null) {
+    const ofertare = createApp({
         el: '#ofertare',
-        data: {
-            client_id: clientVechi,
-            clienti: clientiExistenti,
+        data() {
+            return {
+                client_id: clientVechi,
+                clienti: clientiExistenti,
 
-            client_nume: '',
-            clienti_lista: [],
-            solicitata: ((typeof solicitata !== 'undefined') ? solicitata : '') ,
+                client_nume: '',
+                clienti_lista: [],
+                solicitata: ((typeof solicitata !== 'undefined') ? solicitata : '') ,
+            }
+        },
+        components: {
+            'vue-datepicker-next': VueDatepickerNext,
+            'tinymce-vue': Tinymce,
+            // 'example-component-2': VueDatepickerNext,
         },
         created: function () {
             this.getNumeClient()
@@ -315,14 +337,18 @@ if (document.querySelector('#ofertare')) {
             },
         }
     });
+
+    ofertare.mount('#ofertare');
 }
 
-if (document.querySelector('#sms-personalizat')) {
-    const app = new Vue({
-        el: '#sms-personalizat',
-        data: {
-            sms_personalizat: '',
-            nr_caractere: 0
+if (document.getElementById('smsPersonalizat') != null) {
+    const smsPersonalizat = createApp({
+        el: '#smsPersonalizat',
+        data() {
+            return{
+                sms_personalizat: '',
+                nr_caractere: 0
+            }
         },
         computed: {
             caractere() {
@@ -331,16 +357,20 @@ if (document.querySelector('#sms-personalizat')) {
             }
         }
     });
+
+    smsPersonalizat.mount('#smsPersonalizat');
 }
 
-if (document.querySelector('#copy_to_clipboard')) {
-    const app = new Vue({
-        el: '#copy_to_clipboard',
-        data: {
-            appId1: ((typeof appIdVechi !== 'undefined') ? appIdVechi : ''),
-            appId: '3493993048904',
-            appToken: 'dksklq33lkj21kjl12lkdsasd21jk',
-            canCopy: false
+if (document.getElementById('copyToClipboard') != null) {
+    const copyToClipboard = createApp({
+        el: '#copyToClipboard',
+        data() {
+            return {
+                appId1: ((typeof appIdVechi !== 'undefined') ? appIdVechi : ''),
+                appId: '3493993048904',
+                appToken: 'dksklq33lkj21kjl12lkdsasd21jk',
+                canCopy: false
+            }
         },
         created() {
             this.canCopy = !!navigator.clipboard;
@@ -352,17 +382,21 @@ if (document.querySelector('#copy_to_clipboard')) {
             }
         }
     });
+
+    copyToClipboard.mount('#copyToClipboard');
 }
 
-if (document.querySelector('#fise')) {
-    const app = new Vue({
+if (document.getElementById('fise') != null) {
+    const fise = createApp({
         el: '#fise',
-        data: {
-            sms_personalizat: '',
-            nr_caractere: 0,
+        data() {
+            return {
+                sms_personalizat: '',
+                nr_caractere: 0,
 
-            canCopy: false, // pentru copy paste
-            flag: false // pentru tooltip
+                canCopy: false, // pentru copy paste
+                flag: false // pentru tooltip
+            }
         },
 
         // Pentru copy paste
@@ -390,5 +424,5 @@ if (document.querySelector('#fise')) {
         }
     });
 
-
+    fise.mount('#fise');
 }

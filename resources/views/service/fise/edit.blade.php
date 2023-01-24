@@ -5,24 +5,21 @@
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
-                <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">                     
+                <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
                     <h6 class="ml-4 my-0" style="color:white"><i class="fas fa-file-invoice mr-1"></i>Schimbă datele fișei</h6>
                 </div>
-                
-                @include ('errors')                
 
-                <div class="card-body py-2 border border-secondary" 
-                    style="border-radius: 0px 0px 40px 40px;"
-                    id="fisa-service"
-                >
+                @include ('errors')
+
+                <div class="card-body py-2 border border-secondary" style="border-radius: 0px 0px 40px 40px;">
                     <form  class="needs-validation" novalidate method="POST" action="{{ $fise->path() }}">
                         @method('PATCH')
-                            
-                                
+
+
                                 @include ('service.fise.form', [
                                     'buttonText' => 'Modifică Fișa Service'
                                 ])
-                                
+
                     </form>
                 </div>
             </div>

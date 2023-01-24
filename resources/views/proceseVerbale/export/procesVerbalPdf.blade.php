@@ -78,7 +78,7 @@
     <main>
 
         <p style="padding:0rem; margin:0rem; text-align:center; font-size:16px">
-            Proces Verbal
+            {{ $procesVerbal->titlu_document }}
             <br />
             nr. {{ $procesVerbal->nr_document }} /
                 {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}

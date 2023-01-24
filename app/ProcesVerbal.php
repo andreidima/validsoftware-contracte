@@ -24,6 +24,11 @@ class ProcesVerbal extends Model
         return $this->belongsTo('App\Client', 'client_id');
     }
 
+    public function fisiere()
+    {
+        return $this->hasMany('App\DocumentDiversFisier', 'document_divers_id');
+    }
+
     public function emailuri_trimise()
     {
         return $this->hasMany('App\MesajTrimis', 'inregistrare_id')->where('categorie', 'Proces verbal');

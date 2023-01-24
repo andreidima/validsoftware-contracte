@@ -7,14 +7,14 @@
          height: (height ? height : 500),
          menubar: false,
          plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
+            'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+            'media', 'table', 'emoticons', 'template', 'help'
          ],
          toolbar:
-           'undo redo | formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | link | removeformat | help'
+            'undo redo fontSize bold italic underline link | forecolor backcolor | ' +
+            'outdent indent align | bullist numlist fullscreen ' +
+            'help'
        }"
        v-model="content"
      />

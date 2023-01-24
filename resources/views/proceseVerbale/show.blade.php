@@ -72,7 +72,7 @@
                                 <td colspan="2">
                                     <b>Email text:</b>
                                     <br>
-                                    {!! $procesVerbal->email_text  !!}
+                                    {{ $procesVerbal->email_text }}
                                 </td>
                             </tr>
                         </table>

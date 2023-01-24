@@ -1,6 +1,25 @@
 @csrf
 
-<div class="form-row mb-0 py-3 d-flex border-radius: 0px 0px 40px 40px">
+<script type="application/javascript">
+    clientVechi_iban={!! json_encode(old('iban', $fise->iban)) !!}
+    clientVechi={!! json_encode(old('client_deja_inregistrat', ($fise->client_id ?? ""))) !!}
+    clientiExistenti={!! json_encode($clienti) !!}
+    clientVechi_nume={!! json_encode(old('nume', $fise->nume)) !!}
+    clientVechi_adresa={!! json_encode(old('adresa', $fise->adresa)) !!}
+    clientVechi_nr_ord_reg_com={!! json_encode(old('nr_ord_reg_com', $fise->nr_ord_reg_com)) !!}
+    clientVechi_cui={!! json_encode(old('cui', $fise->cui)) !!}
+    clientVechi_banca={!! json_encode(old('banca', $fise->banca)) !!}
+    clientVechi_reprezentant={!! json_encode(old('reprezentant', $fise->reprezentant)) !!}
+    clientVechi_reprezentant_functie={!! json_encode(old('reprezentant_functie', $fise->reprezentant_functie)) !!}
+    clientVechi_telefon={!! json_encode(old('telefon', $fise->telefon)) !!}
+    clientVechi_email={!! json_encode(old('email', $fise->email)) !!}
+    clientVechi_site_web={!! json_encode(old('site_web', $fise->site_web)) !!}
+    servicii={!! json_encode($servicii) !!}
+    serviciiSelectate={!! json_encode(old('servicii_selectate', $servicii_curente_selectate ?? [])) !!}
+    descriereEchipament = {!! json_encode(old('descriere_echipament', $fise->descriere_echipament) ?? '') !!}
+</script>
+
+<div class="form-row mb-0 py-3 d-flex border-radius: 0px 0px 40px 40px" id="fisaService">
     <div class="form-group col-lg-12 px-2 mb-0">
         <div class="form-row px-2 py-2 mb-0 justify-content-center"
             style="background-color:lightyellow; border-left:6px solid; border-color:goldenrod"
@@ -46,13 +65,15 @@
             @endphp --}}
             <div class="form-group col-lg-2 mb-0">
                 <label for="data_receptie" class="mb-0 pl-1">Dată recepție:</label>
-                <vue2-datepicker
+                <vue-datepicker-next
                     data-veche="{{ old('data_receptie') == '' ? ($fise->data_receptie ?? \Carbon\Carbon::today() ) : old('data_receptie') }}"
                     nume-camp-db="data_receptie"
                     tip="date"
-                    latime="150"
+                    value-type="YYYY-MM-DD"
+                    format="DD-MM-YYYY"
+                    :latime="{ width: '125px' }"
                     {{-- not-before="{{ \Carbon\Carbon::today() }}" --}}
-                ></vue2-datepicker>
+                ></vue-datepicker-next>
             </div>
             <div class="form-group col-lg-2 mb-0 pl-4 d-flex align-items-center">
                 <div>
@@ -80,10 +101,6 @@
             <div class="form-group col-lg-4 mb-2">
                 <label for="client_deja_inregistrat" class="mb-0 pl-2">Selectează clientul dacă este deja înregistrat:</label>
                 <div class="">
-                    <script type="application/javascript">
-                        clientVechi={!! json_encode(old('client_deja_inregistrat', ($fise->client_id ?? ""))) !!}
-                        clientiExistenti={!! json_encode($clienti) !!}
-                    </script>
                     <select name="client_deja_inregistrat"
                         class="custom-select custom-select-sm rounded-pill {{ $errors->has('client_deja_inregistrat') ? 'is-invalid' : '' }}"
                         v-model="client_deja_inregistrat"
@@ -115,7 +132,7 @@
                             class="form-control form-control-sm rounded-pill {{ $errors->has('client_nume_autocomplete2') ? 'is-invalid' : '' }}"
                             name="client_nume_autocomplete2"
                             placeholder=""
-                            value="{{ old('client_nume_autocomplete2') }}"
+                            {{-- value="{{ old('client_nume_autocomplete2') }}" --}}
                             autocomplete="off"
                             required>
                         <div v-cloak v-if="clienti_lista_autocomplete2.length" class="panel-footer">
@@ -156,9 +173,6 @@
             style="background-color:#ddffff; border-left:6px solid; border-color:#2196F3; border-radius: 0px 0px 0px 0px"
         >
             <div class="form-group col-lg-5 mb-4">
-                <script type="application/javascript">
-                    clientVechi_nume={!! json_encode(old('nume', $fise->nume)) !!}
-                </script>
                 <label for="nume" class="mb-0 pl-3">Nume:</label>
                 <input
                     type="text"
@@ -166,27 +180,10 @@
                     name="nume"
                     placeholder=""
                     v-model="client_nume"
-                    value="{{ old('nume') == '' ? $fise->nume : old('nume') }}"
+                    {{-- value="{{ old('nume') == '' ? $fise->nume : old('nume') }}" --}}
                     required>
             </div>
-            {{-- <div class="form-group col-lg-4 mb-4">
-                <script type="application/javascript">
-                    clientVechi_nume_scurt={!! json_encode(old('nume_scurt', $fise->nume_scurt)) !!}
-                </script>
-                <label for="nume_scurt" class="mb-0 pl-3">Nume scurt:</label>
-                <input
-                    type="text"
-                    class="form-control form-control-sm rounded-pill {{ $errors->has('nume_scurt') ? 'is-invalid' : '' }}"
-                    name="nume_scurt"
-                    placeholder=""
-                    v-model="client_nume_scurt"
-                    value="{{ old('nume_scurt') == '' ? $fise->nume_scurt : old('nume_scurt') }}"
-                    required>
-            </div>                             --}}
             <div class="form-group col-lg-7 mb-4">
-                <script type="application/javascript">
-                    clientVechi_adresa={!! json_encode(old('adresa', $fise->adresa)) !!}
-                </script>
                 <label for="adresa" class="mb-0 pl-3">Adresa:</label>
                 <input
                     type="text"
@@ -194,13 +191,10 @@
                     name="adresa"
                     placeholder=""
                     v-model="client_adresa"
-                    value="{{ old('adresa') == '' ? $fise->adresa : old('adresa') }}"
+                    {{-- value="{{ old('adresa') == '' ? $fise->adresa : old('adresa') }}" --}}
                     required>
             </div>
             <div class="form-group col-lg-3 mb-4">
-                <script type="application/javascript">
-                    clientVechi_nr_ord_reg_com={!! json_encode(old('nr_ord_reg_com', $fise->nr_ord_reg_com)) !!}
-                </script>
                 <label for="nr_ord_reg_com" class="mb-0 pl-3">Nr. Reg. com.:</label>
                 <input
                     type="text"
@@ -208,13 +202,10 @@
                     name="nr_ord_reg_com"
                     placeholder=""
                     v-model="client_nr_ord_reg_com"
-                    value="{{ old('nr_ord_reg_com') == '' ? $fise->nr_ord_reg_com : old('nr_ord_reg_com') }}"
+                    {{-- value="{{ old('nr_ord_reg_com') == '' ? $fise->nr_ord_reg_com : old('nr_ord_reg_com') }}" --}}
                     required>
             </div>
             <div class="form-group col-lg-3 mb-4">
-                <script type="application/javascript">
-                    clientVechi_cui={!! json_encode(old('cui', $fise->cui)) !!}
-                </script>
                 <label for="cui" class="mb-0 pl-3">CUI/CNP:</label>
                 <input
                     type="text"
@@ -222,13 +213,10 @@
                     name="cui"
                     placeholder=""
                     v-model="client_cui"
-                    value="{{ old('cui') == '' ? $fise->cui : old('cui') }}"
+                    {{-- value="{{ old('cui') == '' ? $fise->cui : old('cui') }}" --}}
                     required>
             </div>
             <div class="form-group col-lg-3 mb-4">
-                <script type="application/javascript">
-                    clientVechi_iban={!! json_encode(old('iban', $fise->iban)) !!}
-                </script>
                 <label for="iban" class="mb-0 pl-3">Iban:</label>
                 <input
                     type="text"
@@ -236,13 +224,10 @@
                     name="iban"
                     placeholder=""
                     v-model="client_iban"
-                    value="{{ old('iban') == '' ? $fise->iban : old('iban') }}"
+                    {{-- value="{{ old('iban') == '' ? $fise->iban : old('iban') }}" --}}
                     required>
             </div>
             <div class="form-group col-lg-3 mb-4">
-                <script type="application/javascript">
-                    clientVechi_banca={!! json_encode(old('banca', $fise->banca)) !!}
-                </script>
                 <label for="banca" class="mb-0 pl-3">Banca:</label>
                 <input
                     type="text"
@@ -250,13 +235,10 @@
                     name="banca"
                     placeholder=""
                     v-model="client_banca"
-                    value="{{ old('banca') == '' ? $fise->banca : old('banca') }}"
+                    {{-- value="{{ old('banca') == '' ? $fise->banca : old('banca') }}" --}}
                     required>
             </div>
             <div class="form-group col-lg-3 mb-0">
-                <script type="application/javascript">
-                    clientVechi_reprezentant={!! json_encode(old('reprezentant', $fise->reprezentant)) !!}
-                </script>
                 <label for="reprezentant" class="mb-0 pl-3">Reprezentant:</label>
                 <input
                     type="text"
@@ -264,13 +246,10 @@
                     name="reprezentant"
                     placeholder=""
                     v-model="client_reprezentant"
-                    value="{{ old('reprezentant') == '' ? $fise->reprezentant : old('reprezentant') }}"
+                    {{-- value="{{ old('reprezentant') == '' ? $fise->reprezentant : old('reprezentant') }}" --}}
                     required>
             </div>
             <div class="form-group col-lg-3 mb-0">
-                <script type="application/javascript">
-                    clientVechi_reprezentant_functie={!! json_encode(old('reprezentant_functie', $fise->reprezentant_functie)) !!}
-                </script>
                 <label for="reprezentant_functie" class="mb-0 pl-3"><small>Reprezentant funcție:</small></label>
                 <input
                     type="text"
@@ -278,13 +257,10 @@
                     name="reprezentant_functie"
                     placeholder=""
                     v-model="client_reprezentant_functie"
-                    value="{{ old('reprezentant_functie') == '' ? $fise->reprezentant_functie : old('reprezentant_functie') }}"
+                    {{-- value="{{ old('reprezentant_functie') == '' ? $fise->reprezentant_functie : old('reprezentant_functie') }}" --}}
                     required>
             </div>
             <div class="form-group col-lg-2 mb-0">
-                <script type="application/javascript">
-                    clientVechi_telefon={!! json_encode(old('telefon', $fise->telefon)) !!}
-                </script>
                 <label for="telefon" class="mb-0 pl-3">Telefon:</label>
                 <input
                     type="text"
@@ -292,14 +268,11 @@
                     name="telefon"
                     placeholder="Ex: 07xyzzzzzz"
                     v-model="client_telefon"
-                    value="{{ old('telefon') == '' ? $fise->telefon : old('telefon') }}"
+                    {{-- value="{{ old('telefon') == '' ? $fise->telefon : old('telefon') }}" --}}
                     required>
                 {{ old('telefon') }}
             </div>
             <div class="form-group col-lg-2 mb-0">
-                <script type="application/javascript">
-                    clientVechi_email={!! json_encode(old('email', $fise->email)) !!}
-                </script>
                 <label for="email" class="mb-0 pl-3">Email:</label>
                 <input
                     type="text"
@@ -307,27 +280,10 @@
                     name="email"
                     placeholder=""
                     v-model="client_email"
-                    value="{{ old('email') == '' ? $fise->email : old('email') }}"
+                    {{-- value="{{ old('email') == '' ? $fise->email : old('email') }}" --}}
                     required>
             </div>
-            {{-- <div class="form-group col-lg-2 mb-0">
-                <script type="application/javascript">
-                    clientVechi_email_dpo={!! json_encode(old('email_dpo', $fise->email_dpo)) !!}
-                </script>
-                <label for="email_dpo" class="mb-0 pl-3">Email dpo:</label>
-                <input
-                    type="text"
-                    class="form-control form-control-sm rounded-pill {{ $errors->has('email_dpo') ? 'is-invalid' : '' }}"
-                    name="email_dpo"
-                    placeholder=""
-                    v-model="client_email_dpo"
-                    value="{{ old('email_dpo') == '' ? $fise->email_dpo : old('email_dpo') }}"
-                    required>
-            </div> --}}
             <div class="form-group col-lg-2 mb-1">
-                <script type="application/javascript">
-                    clientVechi_site_web={!! json_encode(old('site_web', $fise->site_web)) !!}
-                </script>
                 <label for="site_web" class="mb-0 pl-3">Site web:</label>
                 <input
                     type="text"
@@ -335,7 +291,7 @@
                     name="site_web"
                     placeholder=""
                     v-model="client_site_web"
-                    value="{{ old('site_web') == '' ? $fise->site_web : old('site_web') }}"
+                    {{-- value="{{ old('site_web') == '' ? $fise->site_web : old('site_web') }}" --}}
                     required>
             </div>
             <div class="form-group col-lg-12 mb-0">
@@ -350,9 +306,6 @@
             style="background-color:#FFE8E8; border-left:6px solid; border-color:#801515; border-radius: 0px 0px 0px 0px"
             >
             <div class="form-group col-lg-6">
-                {{-- <script type="application/javascript">
-                    fiseVechiClient={!! json_encode($fise_vechi_client) !!}
-                </script> --}}
                 <label for="descriere_echipament" class="mb-0 pl-3">Descriere echipament:</label>
                 <textarea class="form-control {{ $errors->has('descriere_echipament') ? 'is-invalid' : '' }}"
                     name="descriere_echipament"
@@ -420,11 +373,6 @@
             </div> --}}
             <div class="form-group col-lg-12 mb-2">
                 <label for="servicii_efectuate" class="mb-0 pl-1">Categorii Servicii efectuate:</label>
-                        <script type="application/javascript">
-                            // clientVechi={!! json_encode(old('client_deja_inregistrat', ($fise->client_id ?? ""))) !!}
-                            servicii={!! json_encode($servicii) !!}
-                            serviciiSelectate={!! json_encode(old('servicii_selectate', $servicii_curente_selectate ?? [])) !!}
-                        </script>
                     <div class="form-row mb-2">
                         @foreach ($categorii_servicii as $categorie)
                             <div class="col-lg-6 mb-2 rounded-pill">
@@ -502,13 +450,15 @@
             <div class="form-group col-lg-6 mb-0 d-flex justify-content-center align-items-center">
                 <div>
                     <label for="data_ridicare" class="mb-0 pl-1">Dată ridicare:</label>
-                    <vue2-datepicker
+                    <vue-datepicker-next
                         data-veche="{{ old('data_ridicare') == '' ? $fise->data_ridicare : old('data_ridicare') }}"
                         nume-camp-db="data_ridicare"
                         tip="date"
-                        latime="150"
+                        value-type="YYYY-MM-DD"
+                        format="DD-MM-YYYY"
+                        :latime="{ width: '125px' }"
                         {{-- not-before="{{ \Carbon\Carbon::today() }}" --}}
-                    ></vue2-datepicker>
+                    ></vue-datepicker-next>
                 </div>
             </div>
             <div class="form-group col-lg-6">
@@ -534,13 +484,15 @@
                 <span for="durata_interventie" class="d-flex align-items-center mr-2">
                     Durata intervenție:
                 </span>
-                <vue2-datepicker-time
+                <vue-datepicker-next
                     data-veche="{{ old('durata_interventie') == '' ? ($fise->durata_interventie ?? \Carbon\Carbon::today() ) : old('durata_interventie') }}"
                     nume-camp-db="durata_interventie"
                     tip="time"
-                    latime="150"
+                    value-type="HH:mm"
+                    format="HH:mm"
+                    :latime="{ width: '80px' }"
                     {{-- not-before="{{ \Carbon\Carbon::today() }}" --}}
-                ></vue2-datepicker-time>
+                ></vue-datepicker-next>
             </div>
             <div class="form-group col-lg-2 mb-0 d-flex justify-content-center">
                 <div class="d-flex align-items-center" style="width:150px">
@@ -610,6 +562,3 @@
 </div>
 
 
-<script type="application/javascript">
-    descriereEchipament = {!! json_encode(old('descriere_echipament', $fise->descriere_echipament) ?? '') !!}
-</script>

@@ -52,9 +52,14 @@ class ProcesVerbal extends Mailable
         $message->subject($procesVerbal->email_subiect);
         $message->attachData(
             $pdf->output(),
-            'Proces Verbal ValidSoftware nr. ' . $procesVerbal->nr_document . ' din ' .
+            $procesVerbal->titlu_document . ' nr. ' . $procesVerbal->nr_document . ' din ' .
                 (isset($procesVerbal->data_emitere) ? (Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') . '.pdf'
         );
+
+        foreach ($procesVerbal->fisiere as $fisier){
+            // dd(storage_path($fisier->path . $fisier->nume));
+            $message->attach(storage_path('app/' . $fisier->path . $fisier->nume));
+        }
 
         return $message;
     }

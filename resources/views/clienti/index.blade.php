@@ -258,9 +258,10 @@
                 </table>
             </div>
 
+
                 <nav>
                     <ul class="pagination pagination-sm justify-content-center">
-                        {{$clienti->links()}}
+                        {{$clienti->appends(Request::except('page'))->links()}}
                     </ul>
                 </nav>
 

@@ -1,7 +1,7 @@
 @extends ('layouts.app')
 
 @section('content')
-    <div id="copy_to_clipboard" v-cloak>
+    <div id="copyToClipboard" v-cloak>
     <p>
     <label for="appId">App ID: </label>
     <input id="appId" v-model="appId">

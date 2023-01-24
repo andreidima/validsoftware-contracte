@@ -1055,7 +1055,6 @@
                                                                     }}">
 
                                                                 <div class="modal-body" style="text-align:left;">
-                                                                    {{-- <div class="form-group col-lg-12 mb-2" id="sms-personalizat"> --}}
                                                                     <div class="form-group col-lg-12 mb-2">
                                                                         <label for="sms_personalizat" class="mb-0 pl-3">Text SMS:</label>
                                                                         <textarea class="form-control mb-1 {{ $errors->has('sms_personalizat') ? 'is-invalid' : '' }}"
