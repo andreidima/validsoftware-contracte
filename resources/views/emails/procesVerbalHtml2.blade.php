@@ -6,8 +6,11 @@
             Bună ziua, <b>{{ $procesVerbal->client->nume ?? '' }}</b>,
             <br><br>
             @if ($procesVerbal->fisiere->count() === 0)
-                Îți trimitem atașat documentul {{ $procesVerbal->titlu_document }} nr. {{ $procesVerbal->nr_document }} din
+                Îți trimitem atașat documentul
+                <i>
+                    {{ $procesVerbal->titlu_document }} nr. {{ $procesVerbal->nr_document }} din
                     {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}.
+                </i>
             @else
                 Îți trimitem atașat documentele:
                     <ul>
