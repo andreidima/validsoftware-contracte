@@ -10,8 +10,12 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ route('procese-verbale.index') }}">
                     @csrf
                     <div class="row input-group custom-search-form">
-                        <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Client" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-6 mr-1 border rounded-pill" id="search_titlu_document" name="search_titlu_document" placeholder="Titlu document" autofocus
+                                value="{{ $search_titlu_document }}">
+                        <input type="text" class="form-control form-control-sm col-md-6 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Client" autofocus
                                 value="{{ $search_nume }}">
+                    </div>
+                    <div class="row input-group custom-search-form justify-content-center">
                         <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
                             <i class="fas fa-search text-white mr-1"></i>Caută
                         </button>
@@ -36,10 +40,11 @@
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="small" style="padding:2rem">
-                            <th>Nr. Document.</th>
+                            <th>Nr. Doc.</th>
+                            <th>Titlu dcument</th>
                             <th>Client</th>
                             <th class="text-center">Dată emitere</th>
-                            <th class="text-center">Descarcă Ofertare</th>
+                            <th class="text-center">PDF</th>
                             <th class="text-center">Trimite</th>
                             <th class="text-center">Fișiere atașate</th>
                             <th class="text-center">Acțiuni</th>
@@ -50,6 +55,9 @@
                             <tr>
                                 <td align="">
                                     {{ $procesVerbal->nr_document }}
+                                </td>
+                                <td>
+                                    {{ $procesVerbal->titlu_document }}
                                 </td>
                                 <td>
                                     {{ $procesVerbal->client->nume ?? '' }}

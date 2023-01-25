@@ -23,11 +23,15 @@ class ProcesVerbalController extends Controller
      */
     public function index()
     {
+        $search_titlu_document = \Request::get('search_titlu_document');
         $search_nume = \Request::get('search_nume');
 
         $proceseVerbale = ProcesVerbal::with('fisiere')
             ->leftJoin('clienti', 'procese_verbale.client_id', '=', 'clienti.id')
             ->select('procese_verbale.*', 'clienti.nume')
+            ->when($search_titlu_document, function ($query, $search_titlu_document) {
+                return $query->where('procese_verbale.titlu_document', 'like', '%' . $search_titlu_document . '%');
+            })
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('clienti.nume', 'like', '%' . $search_nume . '%');
             })
@@ -35,7 +39,7 @@ class ProcesVerbalController extends Controller
             ->withCount('fisiere')
             ->simplePaginate(25);
 
-        return view('proceseVerbale.index', compact('proceseVerbale', 'search_nume'));
+        return view('proceseVerbale.index', compact('proceseVerbale', 'search_titlu_document', 'search_nume'));
     }
 
     /**
