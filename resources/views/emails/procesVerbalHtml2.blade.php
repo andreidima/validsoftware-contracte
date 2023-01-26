@@ -15,17 +15,21 @@
                 Îți trimitem atașat documentele:
                     <ul>
                         <li>
+                            <i>
                             {{ $procesVerbal->titlu_document }} nr. {{ $procesVerbal->nr_document }} din
                             {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}.
+                            </i>
                         </li>
                         @foreach ($procesVerbal->fisiere as $fisier)
                             <li>
+                                <i>
                                 {{ substr(($fisier->nume ?? ''), 0, -4) }}
+                                </i>
                             </li>
                         @endforeach
                     </ul>
             @endif
-            <br><br>
+            <br>
             {!! $procesVerbal->email_text !!}
             {{-- Mulțumim,
             <br>
