@@ -44,7 +44,8 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $client = Client::create($this->validateRequest($request));
+        $client = Client::make($this->validateRequest($request));
+        $client->save();
 dd($client, $client->path());
         return redirect($client->path())->with('status', 'Clientul "' . $client->nume . '" a fost adăugat cu succes!');
     }
