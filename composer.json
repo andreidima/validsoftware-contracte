@@ -15,7 +15,7 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^9",
         "laravel/sanctum": "^2.8",
-        "laravel/telescope": "^4.9",
+        "laravel/telescope": "^4.12",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "phpoffice/phpword": "^1.0.0",
