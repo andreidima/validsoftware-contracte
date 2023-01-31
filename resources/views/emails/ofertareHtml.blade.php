@@ -1,6 +1,16 @@
 <div style="margin:0 auto;width:100%; background-color:#eff1f0;">
     <div style="margin:0 auto; max-width:800px!important; background-color: white;">
-        @include ('emails.headerFooter.header')
+
+        @switch (intval($ofertari->limba))
+            @case (1)
+                @include ('emails.headerFooter.header')
+                @break
+            @case (2)
+                @include ('emails.headerFooter.engleza.header')
+                @break
+            @default
+                @include ('emails.headerFooter.header')
+        @endswitch
 
         <div style="padding:20px 20px; max-width:760px!important;margin:0 auto; font-size:18px">
             @if (intval($ofertari->solicitata) === 0)
@@ -31,7 +41,17 @@
             @endif --}}
     </div>
 
-    @include ('emails.headerFooter.footer')
+
+    @switch (intval($ofertari->limba))
+        @case (1)
+            @include ('emails.headerFooter.footer')
+            @break
+        @case (2)
+            @include ('emails.headerFooter.engleza.footer')
+            @break
+        @default
+            @include ('emails.headerFooter.footer')
+    @endswitch
 </div>
 
 

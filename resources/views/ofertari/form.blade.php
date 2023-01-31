@@ -20,7 +20,7 @@
                     value="{{ old('nr_document') == '' ? ($ofertari->nr_document ?? $urmatorul_document_nr) : old('nr_document') }}"
                     required>
             </div>
-            <div class="form-group col-lg-3 mb-0 text-center">
+            <div class="form-group col-lg-2 mb-0 text-center">
                 <label for="data_emitere" class="mb-0 pl-1">Data emitere:</label>
                 <vue-datepicker-next
                     data-veche="{{ old('data_emitere') ?? $ofertari->data_emitere ?? \Carbon\Carbon::today() }}"
@@ -30,6 +30,14 @@
                     :latime="{ width: '125px' }"
                     not-before="{{ \Carbon\Carbon::today() }}"
                 ></vue-datepicker-next>
+            </div>
+            <div class="form-group col-lg-2 mb-0">
+                <label for="limba" class="mb-0 pl-3">Limba:</label>
+                <select name="limba" class="custom-select-sm custom-select rounded-pill {{ $errors->has('limba') ? 'is-invalid' : '' }}">
+                    <option value='1' selected>Română</option>
+                    {{-- <option value='1' {{ intval(old('limba', $procesVerbal->limba)) === 1 ? 'selected' : '' }}>Română</option> --}}
+                    <option value='2' {{ intval(old('limba', $ofertari->limba)) === 2 ? 'selected' : '' }}>Engleză</option>
+                </select>
             </div>
             <div class="form-group col-lg-4 mb-0">
                 <label for="firma_id" class="mb-0 pl-3">Firma:</label>

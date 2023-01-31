@@ -167,6 +167,7 @@ class OfertareController extends Controller
         return request()->validate([
             'nr_document' => ['required', 'numeric'],
             'data_emitere' => [''],
+            'limba' => ['required'],
             'firma_id' => ['required'],
             'client_id' => ['required'],
             'data_cerere' => [''],

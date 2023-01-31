@@ -44,6 +44,22 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Limba
+                                </td>
+                                <td>
+                                    @switch (intval($ofertari->limba))
+                                        @case (1)
+                                            Română
+                                            @break
+                                        @case (2)
+                                            Engleză
+                                            @break
+                                        @default
+                                    @endswitch
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Firma
                                 </td>
                                 <td>

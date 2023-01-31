@@ -39,6 +39,22 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Limba
+                                </td>
+                                <td>
+                                    @switch (intval($procesVerbal->limba))
+                                        @case (1)
+                                            Română
+                                            @break
+                                        @case (2)
+                                            Engleză
+                                            @break
+                                        @default
+                                    @endswitch
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Firma
                                 </td>
                                 <td>
