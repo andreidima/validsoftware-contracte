@@ -98,7 +98,8 @@
                 <td style="border-width:0px; padding:0rem; margin:0rem; width:50%; text-align:center;">
                     Data
                     <br>
-                    {{ \Carbon\Carbon::now()->isoFormat('DD.MM.YYYY') }}
+                    {{-- {{ \Carbon\Carbon::now()->isoFormat('DD.MM.YYYY') }} --}}
+                    {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}
                 </td>
                 <td style="border-width:0px; padding:0rem; margin:0rem; width:50%; text-align:center;">
                     {{ $procesVerbal->firma->nume ?? '' }}
