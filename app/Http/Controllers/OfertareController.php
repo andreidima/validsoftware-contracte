@@ -25,10 +25,13 @@ class OfertareController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
-        // $search_nume = 'a';
+        $search_email_subiect = \Request::get('search_email_subiect');
 
         $ofertari = Ofertare::
-            leftJoin('clienti', 'ofertari.client_id', '=', 'clienti.id')
+            when($search_email_subiect, function ($query, $search_email_subiect) {
+                return $query->where('email_subiect', 'like', '%' . $search_email_subiect . '%');
+            })
+            ->leftJoin('clienti', 'ofertari.client_id', '=', 'clienti.id')
             ->select('ofertari.*', 'clienti.nume')
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('clienti.nume', 'like', '%' . $search_nume . '%');
@@ -46,7 +49,7 @@ class OfertareController extends Controller
         // }
         // dd($html);
 
-        return view('ofertari.index', compact('ofertari', 'search_nume'));
+        return view('ofertari.index', compact('ofertari', 'search_nume', 'search_email_subiect'));
     }
 
     /**

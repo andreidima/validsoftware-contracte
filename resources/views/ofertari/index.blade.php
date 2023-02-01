@@ -10,8 +10,12 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ route('ofertari.index') }}">
                     @csrf
                     <div class="row input-group custom-search-form">
-                        <input type="text" class="form-control form-control-sm col-md-4 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Client" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-6 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Client" autofocus
                                 value="{{ $search_nume }}">
+                        <input type="text" class="form-control form-control-sm col-md-6 mr-1 border rounded-pill" id="search_email_subiect" name="search_email_subiect" placeholder="Email subiect"
+                                value="{{ $search_email_subiect }}">
+                    </div>
+                    <div class="row input-group custom-search-form justify-content-center">
                         <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
                             <i class="fas fa-search text-white mr-1"></i>Caută
                         </button>
@@ -38,7 +42,8 @@
                         <tr class="small" style="padding:2rem">
                             <th>#</th>
                             <th>Client</th>
-                            <th>Solicitată</th>
+                            <th>Email - subiect</th>
+                            <th class="text-center">Tip document</th>
                             <th class="text-center">Dată emitere</th>
                             <th class="text-center">Descarcă Ofertare</th>
                             <th class="text-center">Trimite</th>
@@ -54,6 +59,9 @@
                                 <td>
                                     {{ $ofertare->client->nume ?? '' }}
                                 </td>
+                                <td>
+                                    {{ $ofertare->email_subiect }}
+                                </td>
                                 <td class="text-center">
                                     {{ (intval($ofertare->solicitata === 0)) ? 'Ofertă' : 'Cerere' }}
                                 </td>
@@ -67,7 +75,8 @@
                                         <a href="{{ $ofertare->path() }}/export/ofertare-word"
                                             class="flex mr-1"
                                         >
-                                            <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
+                                            {{-- <span class="badge badge-success"><i class="fas fa-download fa-sm">&nbsp;</i>Word</span> --}}
+                                            <span class="badge badge-success">Word</span>
                                         </a>
                                     </div>
                                     <div class="d-flex justify-content-center">
@@ -86,7 +95,7 @@
                                                 data-toggle="modal"
                                                 data-target="#trimiteEmail{{ $ofertare->id }}"
                                                 title="trimite email"
-                                                class="mr-1"
+                                                class=""
                                                 >
                                                 <span class="badge badge-primary">Email
                                                     <span class="badge badge-light" title="Emailuri trimise până acum">
@@ -143,6 +152,7 @@
                                     <div class="d-flex justify-content-end">
                                         <a
                                             href="#"
+                                            class="flex mr-1"
                                             data-toggle="modal"
                                             data-target="#stergeOfertare{{ $ofertare->id }}"
                                             title="Șterge Ofertare"
@@ -179,12 +189,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        <a href="{{ $ofertare->path() }}/duplica"
+                                            class="flex"
+                                        >
+                                            <span class="badge badge-secondary">Duplică</span>
+                                        </a>
                                     </div>
-                                    <a href="{{ $ofertare->path() }}/duplica"
-                                        class="flex"
-                                    >
-                                        <span class="badge badge-secondary">Duplică</span>
-                                    </a>
                                 </td>
                             </tr>
 
