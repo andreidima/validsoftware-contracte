@@ -36,7 +36,7 @@
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="small" style="padding:2rem">
-                            <th>Nr. Document.</th>
+                            <th>#</th>
                             <th>Client</th>
                             <th>Solicitată</th>
                             <th class="text-center">Dată emitere</th>
@@ -69,6 +69,8 @@
                                         >
                                             <span class="badge badge-success"><i class="fas fa-download mr-1"></i>Word</span>
                                         </a>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
                                         <a href="{{ $ofertare->path() }}/export/pdf/ofertare-pdf"
                                             class="flex"
                                         >
@@ -125,18 +127,20 @@
                                     </div>
                                 </td>
 
-                                <td class="d-flex justify-content-end">
-                                    <a href="{{ $ofertare->path() }}"
-                                        class="flex mr-1"
-                                    >
-                                        <span class="badge badge-success">Vizualizează</span>
-                                    </a>
-                                    <a href="{{ $ofertare->path() }}/modifica"
-                                        class="flex mr-1"
-                                    >
-                                        <span class="badge badge-primary">Modifică</span>
-                                    </a>
-                                    <div style="flex" class="mr-1">
+                                <td class="">
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ $ofertare->path() }}"
+                                            class="flex mr-1"
+                                        >
+                                            <span class="badge badge-success">Vizualizează</span>
+                                        </a>
+                                        <a href="{{ $ofertare->path() }}/modifica"
+                                            class="flex"
+                                        >
+                                            <span class="badge badge-primary">Modifică</span>
+                                        </a>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
                                         <a
                                             href="#"
                                             data-toggle="modal"
