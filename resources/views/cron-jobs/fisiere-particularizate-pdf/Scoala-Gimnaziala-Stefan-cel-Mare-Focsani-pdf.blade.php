@@ -104,9 +104,12 @@
                             {{ \Carbon\Carbon::now()->isoFormat('DD.MM.YYYY') }}
                         </td>
                         <td style="border-width:0px; padding:0rem; margin:0rem; width:50%; text-align:center;">
-                            Dima P. Valentin PFA
+                            {{-- Dima P. Valentin PFA
                             <br>
-                            <img src="{{ asset('images/semnatura_stampila.jpg') }}" width="80px">
+                            <img src="{{ asset('images/semnatura_stampila.jpg') }}" width="80px"> --}}
+                            SC VALIDSOFTWARE SRL
+                            <br>
+                            <img src="images/semnatura_stampila_srl.jpeg" width="100">
                         </td>
                     </tr>
                 </table>

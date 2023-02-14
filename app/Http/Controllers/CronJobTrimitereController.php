@@ -33,8 +33,8 @@ class CronJobTrimitereController extends Controller
                     \Mail::
                         to($to_email)
                         // to('andrei.dima@usm.ro')
-                        ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])
-                        // ->bcc(['contact@validsoftware.ro'])
+                        // ->bcc(['contact@validsoftware.ro', 'adima@validsoftware.ro'])
+                        ->bcc(['contact@validsoftware.ro'])
                         ->send(new CronJobTrimitere($cron_job)
                     );
 
