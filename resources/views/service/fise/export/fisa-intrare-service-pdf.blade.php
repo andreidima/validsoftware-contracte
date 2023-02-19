@@ -126,14 +126,17 @@
                         <br /> {{ $fisa->client->reprezentant }}
                     </td>
                     <td style="width:50%" align="center"><b>Prestator,</b>
-                        <br/>Dima P. Valentin PFA
+                        {{-- <br/>Dima P. Valentin PFA
                         <br/>
                         <br/>
                         <b>Tehnician service</b>
                         <br/>
                             {{ $fisa->tehnician_service }}
                         <br/>
-                        <img src="images/semnatura_stampila.jpg" width="100"/>
+                        <img src="images/semnatura_stampila.jpg" width="100"/> --}}
+                        SC VALIDSOFTWARE SRL
+                        <br>
+                        <img src="images/semnatura_stampila_srl.jpeg" width="100">
                     </td>
                 </tr>
             </table>

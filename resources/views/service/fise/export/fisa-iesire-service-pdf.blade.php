@@ -208,10 +208,33 @@
                 </div>
             @endif
 
+            <table align="center" style="width: 100%; page-break-inside: avoid; padding-top:50px;">
+                <tr>
+                    <td style="width:50%" align="center"><b>Beneficiar,</b>
+                        <br/> {{ $fisa->client->nume }}
+                        <br /><br /> {{ $fisa->client->reprezentant_functie }}
+                        <br /> {{ $fisa->client->reprezentant }}
+                    </td>
+                    <td style="width:50%" align="center"><b>Prestator,</b>
+                        {{-- <br/>Dima P. Valentin PFA
+                        <br/>
+                        <br/>
+                        <b>Tehnician service</b>
+                        <br/>
+                            {{ $fisa->tehnician_service }}
+                        <br/>
+                        <img src="images/semnatura_stampila.jpg" width="100"/> --}}
+                        SC VALIDSOFTWARE SRL
+                        <br>
+                        <img src="images/semnatura_stampila_srl.jpeg" width="100">
+                    </td>
+                </tr>
+            </table>
+
 
 
             {{-- Page break --}}
-            <span style="page-break-after: always;"></span>
+            <p style="page-break-before: always;"></p>
 
             {{-- Pagină publicitara --}}
 
