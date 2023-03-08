@@ -8,6 +8,7 @@
     clientVechi_adresa={!! json_encode(old('adresa', $fise->adresa)) !!}
     clientVechi_nr_ord_reg_com={!! json_encode(old('nr_ord_reg_com', $fise->nr_ord_reg_com)) !!}
     clientVechi_cui={!! json_encode(old('cui', $fise->cui)) !!}
+    clientVechi_sex={!! json_encode(old('sex', $fise->sex)) !!}
     clientVechi_banca={!! json_encode(old('banca', $fise->banca)) !!}
     clientVechi_reprezentant={!! json_encode(old('reprezentant', $fise->reprezentant)) !!}
     clientVechi_reprezentant_functie={!! json_encode(old('reprezentant_functie', $fise->reprezentant_functie)) !!}
@@ -146,6 +147,7 @@
                                             client_nume = client.nume;
                                             client_nr_ord_reg_com = client.nr_ord_reg_com;
                                             client_cui = client.cui;
+                                            client_sex = client.sec;
                                             client_adresa = client.adresa;
                                             client_iban = client.iban;
                                             client_banca = client.banca;
@@ -215,6 +217,16 @@
                     v-model="client_cui"
                     {{-- value="{{ old('cui') == '' ? $fise->cui : old('cui') }}" --}}
                     required>
+            </div>
+            <div class="form-group col-lg-2 mb-4">
+                <label for="sex" class="mb-0 pl-3">Sex:</label>
+                <select name="sex" v-model="client_sex" class="custom-select-sm custom-select rounded-pill {{ $errors->has('sex') ? 'is-invalid' : '' }}">
+                    <option></option>
+                    {{-- <option value='1' {{ intval(old('sex', $fise->sex)) === 1 ? 'selected' : '' }}>Masculin</option> --}}
+                    {{-- <option value='2' {{ intval(old('sex', $fise->sex)) === 2 ? 'selected' : '' }}>Feminin</option> --}}
+                    <option value='1'>Masculin</option>
+                    <option value='2'>Feminin</option>
+                </select>
             </div>
             <div class="form-group col-lg-3 mb-4">
                 <label for="iban" class="mb-0 pl-3">Iban:</label>

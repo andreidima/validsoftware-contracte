@@ -9,6 +9,8 @@ use App\Mail\ClientCatrePartener;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+use Carbon\Carbon;
+
 class ServiceClientController extends Controller
 {
     /**
@@ -124,6 +126,7 @@ class ServiceClientController extends Controller
             'nume' => ['required', 'max:100'],
             'nr_ord_reg_com' => ['max:50'],
             'cui' => ['max:50'],
+            'sex' => 'nullable|between:1,2',
             'adresa' => ['max:180'],
             'iban' => ['max:100'],
             'banca' => ['max:100'],
@@ -195,5 +198,42 @@ class ServiceClientController extends Controller
             ->get();
 
         return view('service.clienti.diverse.emailuri', compact('clienti'));
+    }
+
+    // Afisarea tuturor emailurilor clientilor de service pentru folosirea lor externa. de trimitere mesaje in masă
+    public function dataNastere()
+    {
+        $clienti = ServiceClient::select('id', 'nume', 'cui')
+            ->where('cui', '<>' , null)
+            ->get();
+            // dd($clienti);
+
+        foreach($clienti as $key => $client){
+            if ($client->cui // se verifica sa fie de tip CNP
+                && (strlen($client->cui) === 13)
+                && is_numeric($client->cui)
+                && ((intval(substr($client->cui, 0, 1)) === 1) || (intval(substr($client->cui, 0, 1)) === 2)) // prima litera trebuie sa fie 1 sau 2
+            ){
+                // $client->dataNastere =
+                //     substr($client->cui, 5, 2) . '.' .
+                //     substr($client->cui, 3, 2) . '.' .
+                //     ((intval(substr($client->cui, 1, 2)) > 20) ? ('19' . substr($client->cui, 1, 2)) : ('20' . substr($client->cui, 1, 2)));
+
+                // $client->dataNastere = Carbon::createFromFormat('d.m.Y', $client->dataNastere ?? '');
+                // $client->dataNastere = Carbon::today();
+                $client->dataNastereZiua = substr($client->cui, 5, 2);
+                $client->dataNastereLuna = substr($client->cui, 3, 2);
+                $client->dataNastereAn = (intval(substr($client->cui, 1, 2)) > 20) ? ('19' . substr($client->cui, 1, 2)) : ('20' . substr($client->cui, 1, 2));
+
+                // echo $client->cui . ' -> ' . intval(substr($client->cui, 0, 1)) . '=' . $client->dataNastere . '<br>';
+
+            } else {
+                unset($clienti[$key]); // se sterge din array clientul care nu are CNP
+            }
+
+            $clienti = $clienti->sortBy('dataNastereZiua')->sortBy('dataNastereLuna');
+        }
+
+        return view('service.clienti.diverse.dataNastere', compact('clienti'));
     }
 }

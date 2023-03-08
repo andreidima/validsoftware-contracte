@@ -7,10 +7,12 @@
                 <h4 class=" mb-0"><a href="{{ route('service.clienti.index') }}"><i class="fas fa-building mr-1"></i>Clienți</a></h4>
                 @if (auth()->user()->isAdmin())
                     <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="{{ route('service.clienti.emailuri') }}" role="button">
-                    {{-- <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="/service/clienti/emailuri" role="button"> --}}
                         Emailuri clienți
                     </a>
                 @endif
+                    <a class="btn btn-sm btn-primary border border-dark rounded-pill col-md-8" href="{{ route('service.clienti.dataNastere') }}" role="button">
+                        Date de naștere
+                    </a>
             </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ route('service.clienti.index') }}">

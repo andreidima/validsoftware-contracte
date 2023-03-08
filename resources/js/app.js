@@ -72,6 +72,7 @@ if (document.getElementById('fisaService') != null) {
                 // client_nume_scurt: clientVechi_nume_scurt,
                 client_nr_ord_reg_com: clientVechi_nr_ord_reg_com,
                 client_cui: clientVechi_cui,
+                client_sex: clientVechi_sex,
                 client_adresa: clientVechi_adresa,
                 client_iban: clientVechi_iban,
                 client_banca: clientVechi_banca,
@@ -125,6 +126,7 @@ if (document.getElementById('fisaService') != null) {
                         // this.client_nume_scurt = this.clienti[i].nume_scurt;
                         this.client_nr_ord_reg_com = this.clienti[i].nr_ord_reg_com;
                         this.client_cui = this.clienti[i].cui;
+                        this.client_sex = this.clienti[i].sex;
                         this.client_adresa = this.clienti[i].adresa;
                         this.client_iban = this.clienti[i].iban;
                         this.client_banca = this.clienti[i].banca;
@@ -160,6 +162,7 @@ if (document.getElementById('fisaService') != null) {
                         // this.client_nume_scurt = this.clienti[i].nume_scurt;
                         this.client_nr_ord_reg_com = this.clienti[i].nr_ord_reg_com;
                         this.client_cui = this.clienti[i].cui;
+                        this.client_sex = this.clienti[i].sex;
                         this.client_adresa = this.clienti[i].adresa;
                         this.client_iban = this.clienti[i].iban;
                         this.client_banca = this.clienti[i].banca;
@@ -175,6 +178,7 @@ if (document.getElementById('fisaService') != null) {
                 this.client_nume = '';
                 this.client_nr_ord_reg_com = '';
                 this.client_cui = '';
+                this.client_sex = '';
                 this.client_adresa = '';
                 this.client_iban = '';
                 this.client_banca = '';

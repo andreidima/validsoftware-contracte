@@ -275,6 +275,7 @@ class ServiceFisaController extends Controller
             'nume' => ['required', 'max:100'],
             'nr_ord_reg_com' => ['max:50'],
             'cui' => ['max:50'],
+            'sex' => 'nullable|between:1,2',
             'adresa' => ['max:180'],
             'iban' => ['max:100'],
             'banca' => ['max:100'],
