@@ -12,7 +12,7 @@
             'media', 'table', 'emoticons', 'template', 'help'
          ],
          toolbar:
-            'undo redo fontSize bold italic underline link | forecolor backcolor | ' +
+            'undo redo fontSize bold italic underline link | forecolor backcolor | table | ' +
             'outdent indent align | bullist numlist fullscreen ' +
             'help'
        }"
