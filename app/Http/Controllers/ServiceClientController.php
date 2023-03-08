@@ -31,7 +31,7 @@ class ServiceClientController extends Controller
             })
             // ->where('tip', 'service')
             ->latest()
-            ->Paginate(25);
+            ->simplepaginate(25);
 
         $parteneri = ServicePartener::orderBy('nume')->get();
 
@@ -192,7 +192,7 @@ class ServiceClientController extends Controller
     // Afisarea tuturor emailurilor clientilor de service pentru folosirea lor externa. de trimitere mesaje in masă
     public function emailuri()
     {
-        $clienti = ServiceClient::select('email')
+        $clienti = ServiceClient::select('email', 'sex')
             ->where('email', '<>' , null)
             ->orderBy('email', 'asc')
             ->get();

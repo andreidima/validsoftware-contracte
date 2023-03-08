@@ -339,7 +339,7 @@
 
                 <nav>
                     <ul class="pagination pagination-sm justify-content-center">
-                        {{$clienti->links()}}
+                        {!! $clienti->links() !!}
                     </ul>
                 </nav>
 
