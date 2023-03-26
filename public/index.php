@@ -1,4 +1,5 @@
 <?php
+ob_start();
 
 /**a
  * Laravel - A PHP Framework For Web Artisans
