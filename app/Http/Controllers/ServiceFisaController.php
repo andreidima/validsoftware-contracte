@@ -237,6 +237,8 @@ class ServiceFisaController extends Controller
         $client = ServiceClient::where('id', $request->client_deja_inregistrat)->first();
         if (isset($client)){
             $client->update($this->validateRequestClient($request));
+
+        // dd($request);
         } else {
             $client = ServiceClient::make($this->validateRequestClient($request));
             $client->save();
