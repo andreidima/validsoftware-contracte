@@ -83,7 +83,7 @@ class ServiceClientController extends Controller
     public function edit(ServiceClient $clienti)
     {
         $servicii = ServiceServiciu::orderBy('nume')->get();
-dd($clienti);
+
         return view('service.clienti.edit', compact('clienti', 'servicii'));
     }
 
