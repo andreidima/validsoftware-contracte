@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Proces verbal</title>
+    <title>Document</title>
     <style>
         /* html {
             margin: 0px 0px;
@@ -78,18 +78,18 @@
     <main>
 
         <p style="padding:0rem; margin:0rem; text-align:center; font-size:16px">
-            {{ $procesVerbal->titlu_document }}
+            {{ $documentUniversal->titlu_document }}
             <br />
-            nr. {{ $procesVerbal->nr_document }} /
-                {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}
+            nr. {{ $documentUniversal->nr_document }} /
+                {{ (isset($documentUniversal->data_emitere) ? (\Carbon\Carbon::parse($documentUniversal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}
             <br />
-            - {{ $procesVerbal->client->nume ?? '' }} -
+            - {{ $documentUniversal->client->nume ?? '' }} -
         </p>
 
         <div style="height: 30px;"></div>
 
         <div>
-            {!! $procesVerbal->proces_verbal !!}
+            {!! $documentUniversal->document_universal !!}
         </div>
 
 
@@ -99,13 +99,13 @@
                     Data
                     <br>
                     {{-- {{ \Carbon\Carbon::now()->isoFormat('DD.MM.YYYY') }} --}}
-                    {{ (isset($procesVerbal->data_emitere) ? (\Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}
+                    {{ (isset($documentUniversal->data_emitere) ? (\Carbon\Carbon::parse($documentUniversal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') }}
                 </td>
                 <td style="border-width:0px; padding:0rem; margin:0rem; width:50%; text-align:center;">
-                    {{ $procesVerbal->firma->nume ?? '' }}
+                    {{ $documentUniversal->firma->nume ?? '' }}
                     <br>
-                    @if(isset($procesVerbal->firma->nume_semnatura) && file_exists('images/' . ($procesVerbal->firma->nume_semnatura ?? '')))
-                        <img src="images/{{ $procesVerbal->firma->nume_semnatura ?? ''}}" width="100">
+                    @if(isset($documentUniversal->firma->nume_semnatura) && file_exists('images/' . ($documentUniversal->firma->nume_semnatura ?? '')))
+                        <img src="images/{{ $documentUniversal->firma->nume_semnatura ?? ''}}" width="100">
                     @endif
                 </td>
             </tr>

@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProcesVerbal extends Model
+class DocumentUniversal extends Model
 {
-    protected $table = 'procese_verbale';
+    protected $table = 'documente_universale';
     protected $guarded = [];
 
     public function path()
     {
-        return "/procese-verbale/{$this->id}";
+        return "/documente-universale/{$this->id}";
     }
 
     public function firma()
@@ -31,6 +31,6 @@ class ProcesVerbal extends Model
 
     public function emailuri_trimise()
     {
-        return $this->hasMany('App\MesajTrimis', 'inregistrare_id')->where('categorie', 'Proces verbal');
+        return $this->hasMany('App\MesajTrimis', 'inregistrare_id')->where('categorie', 'Document universal');
     }
 }

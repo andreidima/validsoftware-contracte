@@ -6,7 +6,7 @@
         <div class="col-md-7">
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
-                    <h6 class="ml-4 my-0" style="color:white">Procese verbale / Nr. {{ $procesVerbal->nr_document }} - {{ $procesVerbal->client->nume ?? '' }}</h6>
+                    <h6 class="ml-4 my-0" style="color:white">Documente universale / Nr. {{ $documentUniversal->nr_document }} - {{ $documentUniversal->client->nume ?? '' }}</h6>
                 </div>
 
                 <div class="card-body py-2 border border-secondary"
@@ -21,10 +21,10 @@
                         >
                             <tr>
                                 <td>
-                                    Număr Proces Verbal
+                                    Număr Document universal
                                 </td>
                                 <td>
-                                    {{ $procesVerbal->nr_document }}
+                                    {{ $documentUniversal->nr_document }}
                                 </td>
                             </tr>
                             <tr>
@@ -32,8 +32,8 @@
                                     Data emitere
                                 </td>
                                 <td>
-                                    @isset($procesVerbal->data_emitere)
-                                        {{ \Carbon\Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY') }}
+                                    @isset($documentUniversal->data_emitere)
+                                        {{ \Carbon\Carbon::parse($documentUniversal->data_emitere)->isoFormat('DD.MM.YYYY') }}
                                     @endisset
                                 </td>
                             </tr>
@@ -42,7 +42,7 @@
                                     Limba
                                 </td>
                                 <td>
-                                    @switch (intval($procesVerbal->limba))
+                                    @switch (intval($documentUniversal->limba))
                                         @case (1)
                                             Română
                                             @break
@@ -58,7 +58,7 @@
                                     Firma
                                 </td>
                                 <td>
-                                    {{ $procesVerbal->firma->nume ?? '' }}
+                                    {{ $documentUniversal->firma->nume ?? '' }}
                                 </td>
                             </tr>
                             <tr>
@@ -66,14 +66,14 @@
                                     Client
                                 </td>
                                 <td>
-                                    {{ $procesVerbal->client->nume ?? '' }}
+                                    {{ $documentUniversal->client->nume ?? '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <b>Proces Verbal:</b>
+                                    <b>Document universal:</b>
                                     <br>
-                                    {{ $procesVerbal->proces_verbal }}
+                                    {{ $documentUniversal->document_universal }}
                                 </td>
                             </tr>
                             <tr>
@@ -81,14 +81,14 @@
                                     Email Subiect
                                 </td>
                                 <td>
-                                    {{ $procesVerbal->email_subiect  }}
+                                    {{ $documentUniversal->email_subiect  }}
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <b>Email text:</b>
                                     <br>
-                                    {{ $procesVerbal->email_text }}
+                                    {{ $documentUniversal->email_text }}
                                 </td>
                             </tr>
                         </table>
@@ -96,7 +96,7 @@
 
                     <div class="form-row mb-2 px-2">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <a class="btn btn-primary btn-sm rounded-pill" href="/procese-verbale">Pagină Procese Verbale</a>
+                            <a class="btn btn-primary btn-sm rounded-pill" href="/documente-universale">Pagină Documente universale</a>
                         </div>
                     </div>
 

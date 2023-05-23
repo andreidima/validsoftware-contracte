@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ProcesVerbal;
+use App\DocumentUniversal;
 use App\Firma;
 use App\Client;
 use App\Variabila;
@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class ProcesVerbalController extends Controller
+class DocumentUniversalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,20 +26,20 @@ class ProcesVerbalController extends Controller
         $search_titlu_document = \Request::get('search_titlu_document');
         $search_nume = \Request::get('search_nume');
 
-        $proceseVerbale = ProcesVerbal::with('fisiere')
-            ->leftJoin('clienti', 'procese_verbale.client_id', '=', 'clienti.id')
-            ->select('procese_verbale.*', 'clienti.nume')
+        $documenteUniversale = DocumentUniversal::with('fisiere')
+            ->leftJoin('clienti', 'documente_universale.client_id', '=', 'clienti.id')
+            ->select('documente_universale.*', 'clienti.nume')
             ->when($search_titlu_document, function ($query, $search_titlu_document) {
-                return $query->where('procese_verbale.titlu_document', 'like', '%' . $search_titlu_document . '%');
+                return $query->where('documente_universale.titlu_document', 'like', '%' . $search_titlu_document . '%');
             })
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('clienti.nume', 'like', '%' . $search_nume . '%');
             })
-            ->latest('procese_verbale.created_at')
+            ->latest('documente_universale.created_at')
             ->withCount('fisiere')
             ->simplePaginate(25);
 
-        return view('proceseVerbale.index', compact('proceseVerbale', 'search_titlu_document', 'search_nume'));
+        return view('documenteUniversale.index', compact('documenteUniversale', 'search_titlu_document', 'search_nume'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ProcesVerbalController extends Controller
 
         $urmatorul_document_nr = \DB::table('variabile')->where('nume', 'nr_document')->first()->valoare;
 
-        return view('proceseVerbale.create', compact('firme', 'clienti', 'urmatorul_document_nr'));
+        return view('documenteUniversale.create', compact('firme', 'clienti', 'urmatorul_document_nr'));
     }
 
     /**
@@ -69,30 +69,30 @@ class ProcesVerbalController extends Controller
     public function store(Request $request)
     {
         \App\Variabila::Nr_document();
-        $procesVerbal = ProcesVerbal::create($this->validateRequest($request));
+        $documentUniversal = DocumentUniversal::create($this->validateRequest($request));
 
-        return redirect($procesVerbal->path())->with('status',
-            'Procesul Verbal Nr."' . $procesVerbal->nr_document . '", pentru clientul "' . ($procesVerbal->client->nume ?? '') . '", a fost adăugat cu succes!');
+        return redirect($documentUniversal->path())->with('status',
+            'Documentul Nr."' . $documentUniversal->nr_document . '", pentru clientul "' . ($documentUniversal->client->nume ?? '') . '", a fost adăugat cu succes!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ProcesVerbal  $ofertare
+     * @param  \App\DocumentUniversal  $ofertare
      * @return \Illuminate\Http\Response
      */
-    public function show(ProcesVerbal $procesVerbal)
+    public function show(DocumentUniversal $documentUniversal)
     {
-        return view('proceseVerbale.show', compact('procesVerbal'));
+        return view('documenteUniversale.show', compact('documentUniversal'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ProcesVerbal  $procesVerbal
+     * @param  \App\DocumentUniversal  $documentUniversal
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProcesVerbal $procesVerbal)
+    public function edit(DocumentUniversal $documentUniversal)
     {
         $firme = Firma::select('id', 'nume')->orderBy('nume')->get();
 
@@ -100,35 +100,35 @@ class ProcesVerbalController extends Controller
             ->orderBy('nume')
             ->get();
 
-        return view('proceseVerbale.edit', compact('procesVerbal', 'firme', 'clienti'));
+        return view('documenteUniversale.edit', compact('documentUniversal', 'firme', 'clienti'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ProcesVerbal  $procesVerbal
+     * @param  \App\DocumentUniversal  $documentUniversal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProcesVerbal $procesVerbal)
+    public function update(Request $request, DocumentUniversal $documentUniversal)
     {
-        $procesVerbal->update($this->validateRequest($request, $procesVerbal));
+        $documentUniversal->update($this->validateRequest($request, $documentUniversal));
 
-        return redirect($procesVerbal->path())->with('status',
-            'Procesul Verbal Nr."' . $procesVerbal->nr_document . '", pentru clientul "' . ($procesVerbal->client->nume ?? '') . '", a fost modificat cu succes!');
+        return redirect($documentUniversal->path())->with('status',
+            'Documentul Nr."' . $documentUniversal->nr_document . '", pentru clientul "' . ($documentUniversal->client->nume ?? '') . '", a fost modificat cu succes!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ProcesVerbal  $procesVerbal
+     * @param  \App\DocumentUniversal  $documentUniversal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProcesVerbal $procesVerbal)
+    public function destroy(DocumentUniversal $documentUniversal)
     {
-        $procesVerbal->delete();
-        return redirect('/procese-verbale')->with('status',
-            'Procesul Verbal Nr."' . $procesVerbal->nr_document . '", pentru clientul "' . ($procesVerbal->client->nume ?? '') . '", a fost șters cu succes!');
+        $documentUniversal->delete();
+        return redirect('/documente-universale')->with('status',
+            'Documentul Nr."' . $documentUniversal->nr_document . '", pentru clientul "' . ($documentUniversal->client->nume ?? '') . '", a fost șters cu succes!');
     }
 
     /**
@@ -144,7 +144,7 @@ class ProcesVerbalController extends Controller
             'firma_id' => ['required'],
             'client_id' => ['required'],
             'titlu_document' => 'required|max:200',
-            'proces_verbal' => ['required'],
+            'document_universal' => ['required'],
             'email_subiect' => 'required',
             'email_text' => 'required',
         ]);
@@ -155,32 +155,32 @@ class ProcesVerbalController extends Controller
      *
      * @return array
      */
-    protected function pdfExport(Request $request, ProcesVerbal $procesVerbal)
+    protected function pdfExport(Request $request, DocumentUniversal $documentUniversal)
     {
-        // $procesVerbal->proces_verbal = str_replace('$nr_document', $procesVerbal->nr_document, $procesVerbal->proces_verbal);
-        // $procesVerbal->proces_verbal = str_replace('$data_emitere', (isset($procesVerbal->data_emitere) ? (Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : ''), $procesVerbal->proces_verbal);
-        // $procesVerbal->proces_verbal = str_replace('$client_nume', ($procesVerbal->client->nume ?? ''), $procesVerbal->proces_verbal);
+        // $documentUniversal->document_universal = str_replace('$nr_document', $documentUniversal->nr_document, $documentUniversal->document_universal);
+        // $documentUniversal->document_universal = str_replace('$data_emitere', (isset($documentUniversal->data_emitere) ? (Carbon::parse($documentUniversal->data_emitere)->isoFormat('DD.MM.YYYY')) : ''), $documentUniversal->document_universal);
+        // $documentUniversal->document_universal = str_replace('$client_nume', ($documentUniversal->client->nume ?? ''), $documentUniversal->document_universal);
 
 
         if ($request->view_type === 'html') {
-            return view('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'));
+            return view('documenteUniversale.export.documentUniversalPdf', compact('documentUniversal'));
         } elseif ($request->view_type === 'pdf') {
-            $pdf = \PDF::loadView('proceseVerbale.export.procesVerbalPdf', compact('procesVerbal'))
+            $pdf = \PDF::loadView('documenteUniversale.export.documentUniversalPdf', compact('documentUniversal'))
                 ->setPaper('a4', 'portrait');
             $pdf->getDomPDF()->set_option("enable_php", true);
             return $pdf->download(
-                $procesVerbal->titlu_document . ' nr. ' . $procesVerbal->nr_document . (isset($procesVerbal->data_emitere) ? (' din data de ' . Carbon::parse($procesVerbal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
-                    ' - ' . ($procesVerbal->client->nume ?? '') . '.pdf'
+                $documentUniversal->titlu_document . ' nr. ' . $documentUniversal->nr_document . (isset($documentUniversal->data_emitere) ? (' din data de ' . Carbon::parse($documentUniversal->data_emitere)->isoFormat('DD.MM.YYYY')) : '') .
+                    ' - ' . ($documentUniversal->client->nume ?? '') . '.pdf'
             );
             // return $pdf->stream();
         }
     }
 
-    protected function trimiteEmail(Request $request, ProcesVerbal $procesVerbal)
+    protected function trimiteEmail(Request $request, DocumentUniversal $documentUniversal)
     {
-        $emailuri_to = $procesVerbal->client->email ?? '';
+        $emailuri_to = $documentUniversal->client->email ?? '';
         if(empty($emailuri_to)) {
-            return back()->with('error', 'Clientul ' . $procesVerbal->client->nume . ' nu are email completat.');
+            return back()->with('error', 'Clientul ' . $documentUniversal->client->nume . ' nu are email completat.');
         };
 
         $emailuri_to = str_replace(' ', '', $emailuri_to);
@@ -215,29 +215,29 @@ class ProcesVerbalController extends Controller
             ->to($emailuri_to)
             ->bcc($emailuri_bcc)
             ->send(
-                new \App\Mail\ProcesVerbal($procesVerbal)
+                new \App\Mail\DocumentUniversal($documentUniversal)
             );
         $mesaj_trimis = new \App\MesajTrimis;
-        $mesaj_trimis->inregistrare_id = $procesVerbal->id;
-        $mesaj_trimis->categorie = 'Proces verbal';
+        $mesaj_trimis->inregistrare_id = $documentUniversal->id;
+        $mesaj_trimis->categorie = 'Document universal';
         // $mesaj_trimis->subcategorie = '';
         $mesaj_trimis->save();
-        return back()->with('status', 'Emailul a fost trimis către „' . ($procesVerbal->client->email ?? '') . '” cu succes!');
+        return back()->with('status', 'Emailul a fost trimis către „' . ($documentUniversal->client->email ?? '') . '” cu succes!');
     }
 
-    public function duplicaProcesVerbal(Request $request, ProcesVerbal $procesVerbal)
+    public function duplicaDocumentUniversal(Request $request, DocumentUniversal $documentUniversal)
     {
-        $procesVerbal = $procesVerbal->replicate();
+        $documentUniversal = $documentUniversal->replicate();
 
-        $procesVerbal->nr_document = Variabila::Nr_document(); // se da un nr nou
-        $procesVerbal->created_at = Carbon::now();
-        $procesVerbal->updated_at = Carbon::now();
+        $documentUniversal->nr_document = Variabila::Nr_document(); // se da un nr nou
+        $documentUniversal->created_at = Carbon::now();
+        $documentUniversal->updated_at = Carbon::now();
 
-        $procesVerbal->save();
+        $documentUniversal->save();
 
         return redirect()->action(
-            'ProcesVerbalController@edit',
-            ['procesVerbal' => $procesVerbal->id]
+            'DocumentUniversalController@edit',
+            ['documentUniversal' => $documentUniversal->id]
         );
     }
 }

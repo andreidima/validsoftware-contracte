@@ -77,8 +77,8 @@ Route::middleware('role:admin')->group(function () {
     Route::get('/ofertari/{ofertari}/export/{view_type}', 'OfertareController@wordExport');
     Route::get('/ofertari/{ofertari}/export/pdf/{view_type}', 'OfertareController@pdfExport');
     Route::post('ofertari/{ofertari}/trimite-email', 'OfertareController@trimiteEmail');
-    Route::get('/procese-verbale/{procesVerbal}/export/{view_type}', 'ProcesVerbalController@pdfExport');
-    Route::post('procese-verbale/{procesVerbal}/trimite-email', 'ProcesVerbalController@trimiteEmail');
+    Route::get('/documente-universale/{documentUniversal}/export/{view_type}', 'DocumentUniversalController@pdfExport');
+    Route::post('documente-universale/{documentUniversal}/trimite-email', 'DocumentUniversalController@trimiteEmail');
 
     // Incarcare/ descarcare/ stergere - fisiere atasate la contracte
     Route::post('/fisiere/{contracte}/file-upload', 'FisierController@store')->name('file.upload.post');
@@ -90,7 +90,7 @@ Route::middleware('role:admin')->group(function () {
     Route::post('/cron-jobs-files/file-download/{file}', 'CronJobFileController@fileDownload')->name('cronjob.file.download');
 
     // Incarcare/ descarcare/ stergere - fisiere atasate la documente diverse
-    Route::post('/documente-diverse-fisiere/{procesVerbal}/file-upload', 'DocumentDiversFisierController@store')->name('documentDivers.file.upload.post');
+    Route::post('/documente-diverse-fisiere/{documentUniversal}/file-upload', 'DocumentDiversFisierController@store')->name('documentDivers.file.upload.post');
     Route::post('/documente-diverse-fisiere/file-download/{fisier}', 'DocumentDiversFisierController@fileDownload')->name('documentDivers.file.download');
 
     // Activare/ dezactivare Cron Jobs
@@ -98,7 +98,7 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('contracte/{contract}/duplica', 'ContractController@duplicaContract');
     Route::get('ofertari/{ofertare}/duplica', 'OfertareController@duplicaOfertare');
-    Route::get('procese-verbale/{procesVerbal}/duplica', 'ProcesVerbalController@duplicaProcesVerbal');
+    Route::get('documente-universale/{documentUniversal}/duplica', 'DocumentUniversalController@duplicaDocumentUniversal');
 
     Route::resource('contracte', 'ContractController');
     Route::resource('fisiere', 'FisierController');
@@ -109,7 +109,7 @@ Route::middleware('role:admin')->group(function () {
     Route::resource('variabile', 'VariabilaController');
     Route::resource('ofertari', 'OfertareController');
     Route::resource('ofertari-servicii', 'OfertareServiciuController');
-    Route::resource('procese-verbale', 'ProcesVerbalController', ['parameters' => ['procese-verbale' => 'procesVerbal']]);
+    Route::resource('documente-universale', 'DocumentUniversalController', ['parameters' => ['documente-universale' => 'documentUniversal']]);
     Route::resource('documente-diverse-fisiere', 'DocumentDiversFisierController', ['parameters' => ['documente-diverse-fisiere' => 'fisier']]);
 
     Route::get('generator', 'GeneratorController@index')->name('generator.index');
@@ -124,7 +124,7 @@ Route::middleware('role:admin')->group(function () {
     // Trimitere Cron joburi din Cpanel
     Route::any('/cron-jobs/trimitere-automata/{key}', 'CronJobTrimitereController@trimitere')->name('cronjob.trimitere.automata');
 
-Route::view('/testare-design-email-proces-verbal', 'emails/procesVerbalHtml2', ['procesVerbal' => \App\ProcesVerbal::latest()->first()]);
+Route::view('/testare-design-email-document-universal', 'emails/documentUniversal', ['documentUniversal' => \App\DocumentUniversal::latest()->first()]);
 
 Route::get('backup', function() {
     // Artisan::call('backup:run'

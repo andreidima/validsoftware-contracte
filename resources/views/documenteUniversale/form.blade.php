@@ -1,7 +1,7 @@
 @csrf
 
 <script type="application/javascript">
-    clientVechi={!! json_encode(old('client_id', $procesVerbal->client_id )) !!}
+    clientVechi={!! json_encode(old('client_id', $documentUniversal->client_id )) !!}
     clientiExistenti={!! json_encode($clienti) !!}
 </script>
 
@@ -15,13 +15,13 @@
                     class="form-control form-control-sm rounded-pill {{ $errors->has('nr_document') ? 'is-invalid' : '' }}"
                     name="nr_document"
                     placeholder=""
-                    value="{{ old('nr_document' ,$procesVerbal->nr_document) ?? $urmatorul_document_nr }}"
+                    value="{{ old('nr_document' ,$documentUniversal->nr_document) ?? $urmatorul_document_nr }}"
                     required>
             </div>
             <div class="form-group col-lg-3 mb-0 text-center">
                 <label for="data_emitere" class="mb-0 pl-1">Data emitere:</label>
                 <vue-datepicker-next
-                    data-veche="{{ old('data_emitere', ($procesVerbal->data_emitere ?? \Carbon\Carbon::today())) }}"
+                    data-veche="{{ old('data_emitere', ($documentUniversal->data_emitere ?? \Carbon\Carbon::today())) }}"
                     nume-camp-db="data_emitere"
                     value-type="YYYY-MM-DD"
                     format="DD-MM-YYYY"
@@ -38,7 +38,7 @@
                     @foreach ($firme as $firma)
                         <option
                             value='{{ $firma->id }}'
-                            {{ ($firma->id == old('firma_id', $procesVerbal->firma->id ?? '')) ? 'selected' : '' }}
+                            {{ ($firma->id == old('firma_id', $documentUniversal->firma->id ?? '')) ? 'selected' : '' }}
                         >{{ $firma->nume }} </option>
                     @endforeach
                 </select>
@@ -57,7 +57,7 @@
                         @foreach ($clienti as $client)
                             <option
                                 value='{{ $client->id }}'
-                                {{ ($client->id == old('client_id', $procesVerbal->client_id)) ? 'selected' : '' }}
+                                {{ ($client->id == old('client_id', $documentUniversal->client_id)) ? 'selected' : '' }}
                             >{{ $client->nume }} </option>
                         @endforeach
                     </select>
@@ -114,21 +114,21 @@
                     class="form-control form-control-sm rounded-pill {{ $errors->has('titlu_document') ? 'is-invalid' : '' }}"
                     name="titlu_document"
                     placeholder=""
-                    value="{{ old('titlu_document', $procesVerbal->titlu_document) }}">
+                    value="{{ old('titlu_document', $documentUniversal->titlu_document) }}">
             </div>
         </div>
         <div class="form-row px-2 py-2 mb-4">
             <div class="form-group col-lg-12 mb-0">
-                <label for="proces_verbal" class="mb-0 pl-3">Proces verbal:</label>
+                <label for="document_universal" class="mb-0 pl-3">Document universal:</label>
                 <tinymce-vue
-                inputvalue="{{ old('proces_verbal', $procesVerbal->proces_verbal) }}"
+                inputvalue="{{ old('document_universal', $documentUniversal->document_universal) }}"
                 height= 300
-                inputname="proces_verbal"
+                inputname="document_universal"
                 ></tinymce-vue>
-                {{-- <textarea class="form-control {{ $errors->has('proces_verbal') ? 'is-invalid' : '' }}"
-                    name="proces_verbal"
+                {{-- <textarea class="form-control {{ $errors->has('document_universal') ? 'is-invalid' : '' }}"
+                    name="document_universal"
                     rows="20">
-                    {{ old('proces_verbal', $procesVerbal->proces_verbal) }}
+                    {{ old('document_universal', $documentUniversal->document_universal) }}
                 </textarea> --}}
             </div>
         </div>
@@ -140,21 +140,21 @@
                     class="form-control form-control-sm rounded-pill {{ $errors->has('email_subiect') ? 'is-invalid' : '' }}"
                     name="email_subiect"
                     placeholder=""
-                    value="{{ old('email_subiect', $procesVerbal->email_subiect) }}">
+                    value="{{ old('email_subiect', $documentUniversal->email_subiect) }}">
             </div>
         </div>
         <div class="form-row px-2 py-2 mb-4">
             <div class="form-group col-lg-12 mb-0">
                 <label for="email_text" class="mb-0 pl-3">Email - text:</label>
                 <tinymce-vue
-                inputvalue="{{ old('email_text', $procesVerbal->email_text ?? 'Mulțumim,<br>Echipa ValidSoftware<br>0744.761.451') }}"
+                inputvalue="{{ old('email_text', $documentUniversal->email_text ?? 'Mulțumim,<br>Echipa ValidSoftware<br>0744.761.451') }}"
                 height= 300
                 inputname="email_text"
                 ></tinymce-vue>
                 {{-- <textarea class="form-control {{ $errors->has('email_text') ? 'is-invalid' : '' }}"
                     name="email_text"
                     rows="20"
-                    >{{ old('email_text', ($procesVerbal->email_text ??
+                    >{{ old('email_text', ($documentUniversal->email_text ??
 'Mulțumim,
 <br>
 Echipa ValidSoftware
@@ -167,7 +167,7 @@ Echipa ValidSoftware
         <div class="form-row mb-3 px-2 justify-content-center">
             <div class="col-lg-8 d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary btn-sm mr-2 rounded-pill">{{ $buttonText }}</button>
-                <a class="btn btn-secondary btn-sm mr-4 rounded-pill" href="/procese-verbale">Renunță</a>
+                <a class="btn btn-secondary btn-sm mr-4 rounded-pill" href="/documente-universale">Renunță</a>
             </div>
         </div>
     </div>

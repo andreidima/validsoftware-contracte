@@ -35,7 +35,6 @@
                 <label for="limba" class="mb-0 pl-3">Limba:</label>
                 <select name="limba" class="custom-select-sm custom-select rounded-pill {{ $errors->has('limba') ? 'is-invalid' : '' }}">
                     <option value='1' selected>Română</option>
-                    {{-- <option value='1' {{ intval(old('limba', $procesVerbal->limba)) === 1 ? 'selected' : '' }}>Română</option> --}}
                     <option value='2' {{ intval(old('limba', $ofertari->limba)) === 2 ? 'selected' : '' }}>Engleză</option>
                 </select>
             </div>

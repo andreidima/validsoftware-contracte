@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DocumentDiversFisier;
-use App\ProcesVerbal;
+use App\DocumentUniversal;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +36,7 @@ class DocumentDiversFisierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ProcesVerbal $procesVerbal)
+    public function store(Request $request, DocumentUniversal $documentUniversal)
     {
         $request->validate([
             'fisier' => 'required|mimes:pdf,xlx,csv,doc,docx,xml|max:2048',
@@ -47,8 +47,8 @@ class DocumentDiversFisierController extends Controller
             // ' ' . \Carbon\Carbon::now()->isoFormat('HHMMSSDDMMYY') .
             '.' .
             $fisier->extension();
-        // $filePath = "procesVerbal/" . date("Y") . '/' . date("m");
-        $filePath = "Procese verbale/" . $procesVerbal->id . '/';
+        // $filePath = "documentUniversal/" . date("Y") . '/' . date("m");
+        $filePath = "Documente universale/" . $documentUniversal->id . '/';
         // dd($fisier, $fileName, $filePath);
         $fisier->storeAs($filePath, $fileName);
         // $request->fisier->move(public_path($filePath), $fileName);
@@ -56,7 +56,7 @@ class DocumentDiversFisierController extends Controller
         // Storage::disk('local')->put($filePath, $fileName);
 
         $fisier_database = new DocumentDiversFisier;
-        $fisier_database->document_divers_id = $procesVerbal->id;
+        $fisier_database->document_divers_id = $documentUniversal->id;
         $fisier_database->path = $filePath;
         $fisier_database->nume = $fileName;
         $fisier_database->save();

@@ -67,8 +67,8 @@
                                             <i class="fas fa-file-alt mr-1"></i>Ofertări - servicii
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="nav-link text-dark" href="{{ route('procese-verbale.index') }}">
-                                            <i class="fas fa-file-alt mr-1"></i>Procese verbale
+                                        <a class="nav-link text-dark" href="{{ route('documente-universale.index') }}">
+                                            <i class="fas fa-file-alt mr-1"></i>Documente universale
                                         </a>
                                     </div>
                                 </li>
