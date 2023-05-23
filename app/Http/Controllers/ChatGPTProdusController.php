@@ -126,4 +126,9 @@ class ChatGPTProdusController extends Controller
             'descriere' => '',
         ]);
     }
+
+    protected function interogareOAI(Request $request, ChatGPTProdus $produs)
+    {
+        return view('chatGPT.produse.diverse.interogareOAI', compact('produs'));
+    }
 }

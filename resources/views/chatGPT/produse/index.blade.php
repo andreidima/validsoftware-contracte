@@ -42,7 +42,7 @@
                             <th>Site</th>
                             <th>Nume</th>
                             <th>Url</th>
-                            {{-- <th>Descriere</th> --}}
+                            <th class="text-center">Interogare OAI</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -61,61 +61,64 @@
                                 <td>
                                     <a href="{{ $produs->url }}" target="_blank">{{ $produs->url }}
                                 </td>
-                                {{-- <td>
-                                    {{ $produs->descriere }}
-                                </td> --}}
+                                <td class="d-flex justify-content-center">
+                                    <a href="{{ $produs->path() }}/interogare-oai">
+                                        <span class="badge badge-primary">Interogare OAI</span>
+                                    </a>
+                                </td>
 
-                                <td class="d-flex justify-content-end">
-                                    <a href="{{ $produs->path() }}"
-                                        class="flex mr-1"
-                                    >
-                                        <span class="badge badge-success">Vizualizează</span>
-                                    </a>
-                                    <a href="{{ $produs->path() }}/modifica"
-                                        class="flex mr-1"
-                                    >
-                                        <span class="badge badge-primary">Modifică</span>
-                                    </a>
-                                    <div style="flex" class="mr-1">
-                                        <a
-                                            href="#"
-                                            data-toggle="modal"
-                                            data-target="#stergeSite{{ $produs->id }}"
-                                            title="Șterge Site"
-                                            >
-                                            <span class="badge badge-danger">Șterge</span>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ $produs->path() }}"
+                                            class="flex mr-1"
+                                        >
+                                            <span class="badge badge-success">Vizualizează</span>
                                         </a>
-                                            <div class="modal fade text-dark" id="stergeSite{{ $produs->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header bg-danger">
-                                                        <h5 class="modal-title text-white" id="exampleModalLabel">Site: <b>{{ $produs->nume }}</b></h5>
-                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body" style="text-align:left;">
-                                                        Ești sigur ca vrei să ștergi Siteul?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
-
-                                                        <form method="POST" action="{{ $produs->path() }}">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button
-                                                                type="submit"
-                                                                class="btn btn-danger"
-                                                                >
-                                                                Șterge Siteul
+                                        <a href="{{ $produs->path() }}/modifica"
+                                            class="flex mr-1"
+                                        >
+                                            <span class="badge badge-primary">Modifică</span>
+                                        </a>
+                                        <div style="flex">
+                                            <a
+                                                href="#"
+                                                data-toggle="modal"
+                                                data-target="#stergeSite{{ $produs->id }}"
+                                                title="Șterge Site"
+                                                >
+                                                <span class="badge badge-danger">Șterge</span>
+                                            </a>
+                                                <div class="modal fade text-dark" id="stergeSite{{ $produs->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Site: <b>{{ $produs->nume }}</b></h5>
+                                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
                                                             </button>
-                                                        </form>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:left;">
+                                                            Ești sigur ca vrei să ștergi Siteul?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
 
-                                                    </div>
+                                                            <form method="POST" action="{{ $produs->path() }}">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-danger"
+                                                                    >
+                                                                    Șterge Siteul
+                                                                </button>
+                                                            </form>
+
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                    </div>
+                                    </div></div>
                                 </td>
                             </tr>
 
