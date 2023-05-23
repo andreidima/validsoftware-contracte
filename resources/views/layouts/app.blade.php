@@ -201,6 +201,28 @@
                                         </a>
                                     </div>
                                 </li>
+                                <li class="nav-item dropdown active mr-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fab fa-rocketchat mr-1"></i>Chat GPT
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/siteuri' }}">
+                                            <i class=" mr-1"></i>Siteuri
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/produse' }}">
+                                            <i class=" mr-1"></i>Produse
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/prompturi' }}">
+                                            <i class=" mr-1"></i>Prompturi
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/raspunsuri-oai' }}">
+                                            <i class=" mr-1"></i>Răspunsuri OAI
+                                        </a>
+                                    </div>
+                                </li>
                             @elseif(auth()->user()->role === "service_voluntar")
                                 <li class="nav-item active mr-4">
                                         <a class="nav-link" href="{{ route('service.componente_pc.index') }}">
