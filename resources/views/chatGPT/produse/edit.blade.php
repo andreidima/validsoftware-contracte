@@ -16,7 +16,7 @@
                         @method('PATCH')
 
 
-                                @include ('chatGpt.produse.form', [
+                                @include ('chatGPT.produse.form', [
                                     'buttonText' => 'Modifică produsul'
                                 ])
 

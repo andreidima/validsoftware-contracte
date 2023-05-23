@@ -26,7 +26,7 @@
     <!-- Font Awesome links -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
-<body>
+<body class="d-flex flex-column h-100">
     <div id="app">
         @auth
             <nav class="navbar navbar-expand-md navbar-dark shadow py-0" style="background-color:darkcyan">

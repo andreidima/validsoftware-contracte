@@ -15,7 +15,7 @@
                     <form  class="needs-validation" novalidate method="POST" action="/chat-gpt/produse">
 
 
-                                @include ('chatGpt.produse.form', [
+                                @include ('chatGPT.produse.form', [
                                     'produs' => new App\ChatGPTProdus,
                                     'buttonText' => 'Adaugă Produs'
                                 ])

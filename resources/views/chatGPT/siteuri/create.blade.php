@@ -15,7 +15,7 @@
                     <form  class="needs-validation" novalidate method="POST" action="/chat-gpt/siteuri">
 
 
-                                @include ('chatGpt.siteuri.form', [
+                                @include ('chatGPT.siteuri.form', [
                                     'site' => new App\ChatGPTSite,
                                     'buttonText' => 'Adaugă Site'
                                 ])

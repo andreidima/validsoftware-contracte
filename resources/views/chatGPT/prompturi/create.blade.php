@@ -15,7 +15,7 @@
                     <form  class="needs-validation" novalidate method="POST" action="/chat-gpt/prompturi">
 
 
-                                @include ('chatGpt.prompturi.form', [
+                                @include ('chatGPT.prompturi.form', [
                                     'prompt' => new App\ChatGPTPrompt,
                                     'buttonText' => 'Adaugă Prompt'
                                 ])
