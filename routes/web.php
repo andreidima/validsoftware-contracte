@@ -116,6 +116,11 @@ Route::middleware('role:admin')->group(function () {
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
 
     Route::get('emailuri-clienti', 'EmailuriClientiController@index')->name('emailuriClienti');
+
+    Route::resource('chat-gpt/siteuri', 'ChatGPTSiteController', ['parameters' => ['siteuri' => 'site']]);
+    Route::resource('chat-gpt/produse', 'ChatGPTProdusController', ['parameters' => ['produse' => 'produs']]);
+    Route::resource('chat-gpt/prompturi', 'ChatGPTPromptController', ['parameters' => ['prompturi' => 'prompt']]);
+    Route::resource('chat-gpt/raspunsuri-oai', 'ChatGPTRaspunsOAIController', ['parameters' => ['raspunsuri-oai' => 'raspuns']]);
 });
 
     Route::get('testare-cod/copy-to-clipboard', 'TestareCodController@CopyToClipboard')->name('copy.to.clipboard');

@@ -74,29 +74,26 @@
                                 </li>
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-file mr-1"></i>Cron Jobs
+                                        <i class="fab fa-rocketchat mr-1"></i>Chat GPT
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="nav-link text-dark" href="{{ route('cron-jobs.index') }}">
-                                            <i class="fas fa-calendar-check mr-1"></i>Cron Jobs
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/siteuri' }}">
+                                            <i class=" mr-1"></i>Siteuri
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="nav-link text-dark" href="{{ route('cron-jobs-trimise.index') }}">
-                                            <i class="fas fa-calendar-check mr-1"></i>Cron Jobs trimise
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/produse' }}">
+                                            <i class=" mr-1"></i>Produse
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/prompturi' }}">
+                                            <i class=" mr-1"></i>Prompturi
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/raspunsuri-oai' }}">
+                                            <i class=" mr-1"></i>Răspunsuri OAI
                                         </a>
                                     </div>
                                 </li>
-                                {{-- <li class="nav-item active mr-4 btn-group">
-                                    <a class="nav-link" href="{{ route('cron-jobs.index') }}">
-                                        <i class="fas fa-calendar-check mr-1"></i>Cron Jobs
-                                    </a>
-                                    <button class="btn dropdown-toggle dropdown-toggle-split p-0 text-white" data-toggle="dropdown"></button>
-                                    <div class="dropdown-menu">
-                                        <a class="nav-link text-dark" href="{{ route('cron-jobs-trimise.index') }}">
-                                            <i class="fas fa-calendar-check mr-1"></i>Cron Jobs trimise
-                                        </a>
-                                    </div>
-                                </li> --}}
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-tools mr-1"></i>Service
@@ -148,6 +145,13 @@
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('emailuriClienti') }}">
                                             <i class="fas fa-envelope mr-1"></i>Emailuri clienți
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('cron-jobs.index') }}">
+                                            <i class="fas fa-calendar-check mr-1"></i>Cron Jobs
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('cron-jobs-trimise.index') }}">
+                                            <i class="fas fa-calendar-check mr-1"></i>Cron Jobs trimise
                                         </a>
                                     </div>
                                 </li>
