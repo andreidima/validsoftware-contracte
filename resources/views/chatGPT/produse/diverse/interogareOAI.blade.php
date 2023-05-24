@@ -25,6 +25,8 @@
                                     <div class="form-group col-lg-4 mb-4">
                                         <label for="nume" class="mb-0 pl-3">Produs:</label>
                                         <input type="hidden" name="produs_id" value="{{ $produs->id }}">
+                                        <input type="hidden" name="produs_url" value="{{ $produs->url }}">
+                                        <input type="hidden" name="produs_descriere" value="{{ $produs->descriere }}">
                                         <input
                                             type="text"
                                             class="form-control form-control-sm rounded-pill {{ $errors->has('nume') ? 'is-invalid' : '' }}"

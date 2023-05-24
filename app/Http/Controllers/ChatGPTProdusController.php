@@ -136,10 +136,57 @@ class ChatGPTProdusController extends Controller
         return view('chatGPT.produse.diverse.interogareOAI', compact('produs', 'prompturiCategorii', 'prompturi'));
     }
 
+    function callOpenAI($prompt) {
+        $url = "https://api.openai.com/v1/chat/completions";
+        $headers = [
+            "Content-Type: application/json",
+            // "Authorization: Bearer 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"
+            "Authorization: Bearer " . \Config::get('variabile.chat_gpt_oai_key')
+        ];
+        $data = [
+            "model" => "gpt-3.5-turbo",
+            "messages" => [
+                [
+                    "role" => "user",
+                    "content" => $prompt
+                ]
+            ]
+        ];
+
+        $options = [
+            "http" => [
+                "method" => "POST",
+                "header" => $headers,
+                "content" => json_encode($data)
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+
+        return json_decode($result);
+    }
+
     protected function postInterogareOAI(Request $request)
     {
-        dd($request);
+        // dd($request);
+        // dd(\Config::get('variabile.cron_job_key'));
+        // dd(\Config::get('variabile.chat_gpt_oai_key'));
+        // Build prompt with product data
+        $fullPrompt = $request->prompt;
+        $fullPrompt .= "\nNume produs: " . $request->produs_nume;
+        $fullPrompt .= "\nLink Produs: " . $request->produs_url;
+        $fullPrompt .= "\nDescriere produs: " . $request->produs_descriere;
 
-        return view('chatGPT.produse.diverse.interogareOAI', compact('produs', 'prompturiCategorii', 'prompturi'));
+        // $fullPrompt .= "Link Magazin Online: https://supermarketitalian.ro/
+        // Link Magazin Engross: https://distribuitori.supermarketitalian.ro/
+        // Telefon: 0742 040 402
+        // Email: contact@supermarketitalian.ro";
+
+        // Call OpenAI API
+        $response = $this->callOpenAI($fullPrompt);
+
+        // Print response
+        echo $response->choices[0]->message->content;
     }
 }
