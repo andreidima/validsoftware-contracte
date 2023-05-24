@@ -430,3 +430,38 @@ if (document.getElementById('fise') != null) {
 
     fise.mount('#fise');
 }
+
+
+
+if (document.getElementById('chatGPTInterogareOAI') != null) {
+    const chatGPTInterogareOAI = createApp({
+        el: '#chatGPTInterogareOAI',
+        data() {
+            return {
+                prompturi: prompturi,
+                categoriePrompt: '',
+                prompturiPerCategorie: [],
+                prompt: '',
+                promptText: '',
+            }
+        },
+        components: {
+            // 'vue-datepicker-next': VueDatepickerNext,
+            'tinymce-vue': Tinymce,
+        },
+        methods: {
+            getPrompturiPerCategorie: function () {
+                this.prompturiPerCategorie = [];
+                this.prompt= '',
+                this.promptText= '';
+                for (var i = 0; i < this.prompturi.length; i++) {
+                    if (this.prompturi[i].categorie === this.categoriePrompt) {
+                        this.prompturiPerCategorie.push(this.prompturi[i]);
+                    }
+                }
+            },
+        }
+    });
+
+    chatGPTInterogareOAI.mount('#chatGPTInterogareOAI');
+}

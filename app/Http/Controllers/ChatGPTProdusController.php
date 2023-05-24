@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ChatGPTSite;
 use App\ChatGPTProdus;
+use App\ChatGPTPrompt;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
@@ -129,6 +130,16 @@ class ChatGPTProdusController extends Controller
 
     protected function interogareOAI(Request $request, ChatGPTProdus $produs)
     {
-        return view('chatGPT.produse.diverse.interogareOAI', compact('produs'));
+        $prompturiCategorii = ChatGPTPrompt::select('categorie')->distinct()->orderBy('categorie')->get();
+        $prompturi = ChatGPTPrompt::get();
+
+        return view('chatGPT.produse.diverse.interogareOAI', compact('produs', 'prompturiCategorii', 'prompturi'));
+    }
+
+    protected function postInterogareOAI(Request $request)
+    {
+        dd($request);
+
+        return view('chatGPT.produse.diverse.interogareOAI', compact('produs', 'prompturiCategorii', 'prompturi'));
     }
 }
