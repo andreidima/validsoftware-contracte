@@ -47,14 +47,14 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-4 mb-4">
-                                        <label for="prompt" class="mb-0 pl-3">Prompt:</label>
+                                        <label for="prompt_id" class="mb-0 pl-3">Prompt:</label>
                                         <select class="custom-select-sm custom-select rounded-pill {{ $errors->has('prompt') ? 'is-invalid' : '' }}"
-                                            name="prompt"
-                                            v-model="prompt"
-                                            @change="promptText = $event.target.value"
+                                            name="prompt_id"
+                                            v-model="prompt_id"
+                                            @change="setpromptText($event)"
                                         >
                                             <option selected></option>
-                                            <option v-for="prompt in prompturiPerCategorie" :value='prompt.text'>
+                                            <option v-for="prompt in prompturiPerCategorie" :value='prompt.id'>
                                                 @{{prompt.nume}}
                                             </option>
                                         </select>

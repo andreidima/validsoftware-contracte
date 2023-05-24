@@ -168,7 +168,7 @@ class ChatGPTProdusController extends Controller
 
     protected function postInterogareOAI(Request $request)
     {
-        // dd($request);
+        dd($request);
         // dd(\Config::get('variabile.cron_job_key'));
         // dd(\Config::get('variabile.chat_gpt_oai_key'));
         // Build prompt with product data

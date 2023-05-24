@@ -460,6 +460,14 @@ if (document.getElementById('chatGPTInterogareOAI') != null) {
                     }
                 }
             },
+            setpromptText: function (event) {
+                // console.log (event.target.value);
+                for (var i = 0; i < this.prompturi.length; i++) {
+                    if (this.prompturi[i].id == event.target.value) {
+                        this.promptText = this.prompturi[i].text;
+                    }
+                }
+            },
         }
     });
 
