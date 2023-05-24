@@ -123,6 +123,11 @@ Route::middleware('role:admin')->group(function () {
     Route::get('generator/{client}/{director}/{fisier}', 'GeneratorController@genereaza')->name('generator.genereaza');
 
     Route::get('emailuri-clienti', 'EmailuriClientiController@index')->name('emailuriClienti');
+
+    Route::get('/config-cache', function() {
+        Artisan::call('config:cache');
+        return 'Configuration cached successfully.';
+    });
 });
 
     Route::get('testare-cod/copy-to-clipboard', 'TestareCodController@CopyToClipboard')->name('copy.to.clipboard');
