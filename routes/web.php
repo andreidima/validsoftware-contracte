@@ -64,12 +64,18 @@ Route::middleware('role:service,admin')->group(function () {
     Route::get('vuejs/autocomplete', 'VueJSController@autocomplete');
     Route::get('vuejs/autocomplete/search', 'VueJSController@autocompleteSearch');
 
+
+    // ChatGPT OAI
     Route::resource('/chat-gpt/siteuri', 'ChatGPTSiteController', ['parameters' => ['siteuri' => 'site']]);
     Route::resource('/chat-gpt/produse', 'ChatGPTProdusController', ['parameters' => ['produse' => 'produs']]);
     Route::resource('/chat-gpt/prompturi', 'ChatGPTPromptController', ['parameters' => ['prompturi' => 'prompt']]);
     Route::resource('/chat-gpt/raspunsuri-oai', 'ChatGPTRaspunsOAIController', ['parameters' => ['raspunsuri-oai' => 'raspuns']]);
     Route::get('/chat-gpt/produse/{produs}/interogare-oai', 'ChatGPTProdusController@interogareOAI');
     Route::post('/chat-gpt/produse/interogare-oai', 'ChatGPTProdusController@postInterogareOAI');
+
+    Route::get('/chat-gpt/interogare-oai', 'ChatGPTInterogareOAIController@interogareOAI');
+
+
 });
 
 // Route::middleware(['auth', 'admin'])->group(function () {

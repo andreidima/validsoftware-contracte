@@ -28,6 +28,9 @@
                 height= 300
                 inputname="descriere"
                 ></tinymce-vue>
+                {{-- <textarea class="form-control {{ old('descriere', $site->descriere) }}" rows="5"
+                    name="descriere"
+                >{{ old('descriere', $site->descriere) }}</textarea> --}}
             </div>
         </div>
 

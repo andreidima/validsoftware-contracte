@@ -28,6 +28,9 @@
                 height= 300
                 inputname="text"
                 ></tinymce-vue>
+                {{-- <textarea class="form-control {{ old('text', $prompt->text) }}" rows="5"
+                    name="text"
+                >{{ old('text', $prompt->text) }}</textarea> --}}
             </div>
         </div>
 

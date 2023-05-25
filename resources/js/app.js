@@ -432,7 +432,6 @@ if (document.getElementById('fise') != null) {
 }
 
 
-
 if (document.getElementById('chatGPTInterogareOAI') != null) {
     const chatGPTInterogareOAI = createApp({
         el: '#chatGPTInterogareOAI',
@@ -447,7 +446,7 @@ if (document.getElementById('chatGPTInterogareOAI') != null) {
         },
         components: {
             // 'vue-datepicker-next': VueDatepickerNext,
-            'tinymce-vue': Tinymce,
+            // 'tinymce-vue': Tinymce,
         },
         methods: {
             getPrompturiPerCategorie: function () {
@@ -472,4 +471,56 @@ if (document.getElementById('chatGPTInterogareOAI') != null) {
     });
 
     chatGPTInterogareOAI.mount('#chatGPTInterogareOAI');
+}
+
+
+if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
+    const chatGPTInterogareOAISeparata = createApp({
+        el: '#chatGPTInterogareOAISeparata',
+        data() {
+            return {
+                siteuri: siteuri,
+
+                siteAles: '',
+                siteuriAlese: [],
+                // prompturi: prompturi,
+                // categoriePrompt: '',
+                // prompturiPerCategorie: [],
+                // prompt: '',
+                // promptText: '',
+            }
+        },
+        components: {
+            // 'vue-datepicker-next': VueDatepickerNext,
+            // 'tinymce-vue': Tinymce,
+        },
+        methods: {
+            adaugaSiteAles: function () {
+                for (var i = 0; i < this.siteuri.length; i++) {
+                    if (this.siteuri[i].id == this.siteAles) {
+                        this.siteuriAlese.push(this.siteuri[i])
+                    }
+                }
+            },
+            // getPrompturiPerCategorie: function () {
+            //     this.prompturiPerCategorie = [];
+            //     this.prompt = '',
+            //         this.promptText = '';
+            //     for (var i = 0; i < this.prompturi.length; i++) {
+            //         if (this.prompturi[i].categorie === this.categoriePrompt) {
+            //             this.prompturiPerCategorie.push(this.prompturi[i]);
+            //         }
+            //     }
+            // },
+            // setpromptText: function (event) {
+            //     for (var i = 0; i < this.prompturi.length; i++) {
+            //         if (this.prompturi[i].id == event.target.value) {
+            //             this.promptText = this.prompturi[i].text;
+            //         }
+            //     }
+            // },
+        }
+    });
+
+    chatGPTInterogareOAISeparata.mount('#chatGPTInterogareOAISeparata');
 }

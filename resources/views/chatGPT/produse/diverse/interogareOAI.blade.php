@@ -64,9 +64,7 @@
                                             <textarea class="form-control {{ $errors->has('promptText') ? 'is-invalid' : '' }}" rows="5"
                                                 name="promptText"
                                                 v-model="promptText"
-                                            >
-                                                {{ old('promptText') }}
-                                            </textarea>
+                                            >{{ old('promptText') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-row mb-3 px-2 justify-content-center">

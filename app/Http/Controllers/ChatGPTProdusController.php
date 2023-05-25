@@ -172,20 +172,24 @@ class ChatGPTProdusController extends Controller
         // dd(\Config::get('variabile.cron_job_key'));
         // dd(\Config::get('variabile.chat_gpt_oai_key'));
         // Build prompt with product data
-        $fullPrompt = $request->prompt;
+        $fullPrompt = $request->promptText;
         $fullPrompt .= "\nNume produs: " . $request->produs_nume;
         $fullPrompt .= "\nLink Produs: " . $request->produs_url;
         $fullPrompt .= "\nDescriere produs: " . $request->produs_descriere;
 
-        // $fullPrompt .= "Link Magazin Online: https://supermarketitalian.ro/
-        // Link Magazin Engross: https://distribuitori.supermarketitalian.ro/
-        // Telefon: 0742 040 402
-        // Email: contact@supermarketitalian.ro";
+        $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
 
+        $fullPrompt .= "\n" . $produs->site->descriere ?? '';
+// dd($request->promptText, $fullPrompt);
         // Call OpenAI API
         $response = $this->callOpenAI($fullPrompt);
 
         // Print response
+        // dd($response);
+        echo 'Prompt:<br>';
+        echo $fullPrompt;
+        echo '<br><br><br><br><br><br>';
+        echo 'Rășpuns:<br>';
         echo $response->choices[0]->message->content;
     }
 }
