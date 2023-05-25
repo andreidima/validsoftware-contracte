@@ -173,41 +173,42 @@ class ChatGPTProdusController extends Controller
         // dd(\Config::get('variabile.cron_job_key'));
         // dd(\Config::get('variabile.chat_gpt_oai_key'));
         // Build prompt with product data
-        $fullPrompt = $request->promptText;
-        $fullPrompt .= "\nNume produs: " . $request->produs_nume;
-        $fullPrompt .= "\nLink Produs: " . $request->produs_url;
-        $fullPrompt .= "\nDescriere produs: " . $request->produs_descriere;
+        // $fullPrompt = $request->promptText;
+        // $fullPrompt .= "\nNume produs: " . $request->produs_nume;
+        // $fullPrompt .= "\nLink Produs: " . $request->produs_url;
+        // $fullPrompt .= "\nDescriere produs: " . $request->produs_descriere;
 
-        $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
+        // $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
 
-        $fullPrompt .= "\n" . $produs->site->descriere ?? '';
+        // $fullPrompt .= "\n" . $produs->site->descriere ?? '';
 
 
         $messages[] = [
             'role' => "system",
-            'content' => $request->promptText
+            'content' => strip_tags($request->promptText)
         ];
 
         $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
         $messages[] = [
             'role' => "user",
-            'content' => $produs->site->descriere ?? ''
+            'content' => strip_tags($produs->site->descriere ?? '')
         ];
 
         $messages[] = [
             'role' => "user",
-            'content' => "Nume produs: " . $request->produs_nume
+            'content' => "Nume produs: " . strip_tags($request->produs_nume)
         ];
 
         $messages[] = [
             'role' => "user",
-            'content' => "Link Produs: " . $request->produs_url
+            'content' => "Link Produs: " . strip_tags($request->produs_url)
         ];
 
         $messages[] = [
             'role' => "user",
-            'content' => "Descriere produs: " . $request->produs_url
+            'content' => "Descriere produs: " . strip_tags($request->produs_url)
         ];
+    
 
         // $messages[1]['user'] = "user";
         // $messages[1]['content'] = $produs->site->descriere ?? '';
@@ -232,12 +233,14 @@ class ChatGPTProdusController extends Controller
 // dd($messages);
         // Call OpenAI API
         // $response = $this->callOpenAI($fullPrompt);
+        // echo $messages;
+        
         $response = $this->callOpenAI($messages);
 
         // Print response
         // dd($response);
         echo 'Prompt:<br>';
-        echo $fullPrompt;
+        echo '<pre>'; print_r($messages); echo '</pre>';
         echo '<br><br><br><br><br><br>';
         echo 'Rășpuns:<br>';
         echo $response->choices[0]->message->content;

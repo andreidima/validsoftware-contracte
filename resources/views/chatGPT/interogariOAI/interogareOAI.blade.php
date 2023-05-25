@@ -27,11 +27,7 @@
                                     <div class="form-group col-lg-4 mb-4">
                                         <label for="site_id" class="mb-0 pl-3">Siteuri:</label>
                                         <div class="d-flex">
-                                            <select class="custom-select rounded-3"
-                                                {{-- name="site_id" --}}
-                                                v-model="siteAles"
-                                                {{-- @change="setpromptText($event)" --}}
-                                            >
+                                            <select class="custom-select rounded-3" v-model="siteAles" @change="produseSelectate">
                                                 <option selected></option>
                                                 <option v-for="site in siteuri" :value='site.id'>
                                                     @{{site.nume}}
@@ -55,7 +51,9 @@
                                             <div class="card-body p-0">
                                                 <li v-for="site in siteuriAlese" class="list-group-item d-flex justify-content-between align-items-center">
                                                     @{{site.nume}}
-                                                    <span type="button" class="badge badge-white badge-3" @click="stergeSiteAles()" title="Șterge site"><i class="fas fa-minus-square text-danger fa-2x"></i></span>
+                                                    <span type="button" class="badge badge-white badge-3" title="Șterge site"
+                                                        @click="stergeSiteAles(site.id)"
+                                                    ><i class="fas fa-minus-square text-danger fa-2x"></i></span>
                                                 </li>
                                             </div>
                                         </div>

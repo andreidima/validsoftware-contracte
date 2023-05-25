@@ -496,9 +496,23 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
         },
         methods: {
             adaugaSiteAles: function () {
+                for (var i = 0; i < this.siteuriAlese.length; i++) {
+                    if (this.siteuriAlese[i].id == this.siteAles) {
+                        return;
+                    }
+                }
                 for (var i = 0; i < this.siteuri.length; i++) {
+                    // console.log(this.siteuriAlese['id'].indexof(this.siteAles));
                     if (this.siteuri[i].id == this.siteAles) {
                         this.siteuriAlese.push(this.siteuri[i])
+                    }
+                }
+            },
+            stergeSiteAles: function (siteId) {
+                for (var i = 0; i < this.siteuriAlese.length; i++) {
+                    if (this.siteuriAlese[i].id == siteId) {
+                        this.siteuriAlese.splice(i, 1);
+                        break;
                     }
                 }
             },
