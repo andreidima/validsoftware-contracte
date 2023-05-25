@@ -169,20 +169,6 @@ class ChatGPTProdusController extends Controller
 
     protected function postInterogareOAI(Request $request)
     {
-        // dd($request);
-        // dd(\Config::get('variabile.cron_job_key'));
-        // dd(\Config::get('variabile.chat_gpt_oai_key'));
-        // Build prompt with product data
-        // $fullPrompt = $request->promptText;
-        // $fullPrompt .= "\nNume produs: " . $request->produs_nume;
-        // $fullPrompt .= "\nLink Produs: " . $request->produs_url;
-        // $fullPrompt .= "\nDescriere produs: " . $request->produs_descriere;
-
-        // $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
-
-        // $fullPrompt .= "\n" . $produs->site->descriere ?? '';
-
-
         $messages[] = [
             'role' => "system",
             'content' => strip_tags($request->promptText)
@@ -208,41 +194,22 @@ class ChatGPTProdusController extends Controller
             'role' => "user",
             'content' => "Descriere produs: " . strip_tags($request->produs_url)
         ];
-    
 
-        // $messages[1]['user'] = "user";
-        // $messages[1]['content'] = $produs->site->descriere ?? '';
-
-        // $messages[2]['user'] = "user";
-        // $messages[2]['content'] = "Nume produs: " . $request->produs_nume;
-
-        // $messages[3]['user'] = "user";
-        // $messages[3]['content'] = "Link Produs: " . $request->produs_url;
-
-        // $messages[4]['user'] = "user";
-        // $messages[4]['content'] = "Descriere produs: " . $request->produs_url;
-
-        // $fullPrompt = $request->promptText;
-        // $fullPrompt .= "\nNume produs: " . $request->produs_nume;
-        // $fullPrompt .= "\nLink Produs: " . $request->produs_url;
-        // $fullPrompt .= "\nDescriere produs: " . $request->produs_descriere;
-
-        // $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
-
-        // $fullPrompt .= "\n" . $produs->site->descriere ?? '';
-// dd($messages);
-        // Call OpenAI API
-        // $response = $this->callOpenAI($fullPrompt);
-        // echo $messages;
-        
         $response = $this->callOpenAI($messages);
 
         // Print response
         // dd($response);
-        echo 'Prompt:<br>';
+        echo '<h3>Prompt:</h3><br>';
         echo '<pre>'; print_r($messages); echo '</pre>';
         echo '<br><br><br><br><br><br>';
-        echo 'Rășpuns:<br>';
+
+        echo '<h3>Prompt content:</h3><br>';
+        foreach ($messages as $mesaj) {
+            echo $mesaj['content'] . '<br><br>';
+        }
+        echo '<br><br><br><br><br><br>';
+
+        echo '<h3>Răspuns:</h3><br>';
         echo $response->choices[0]->message->content;
     }
 }
