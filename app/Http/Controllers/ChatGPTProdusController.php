@@ -136,7 +136,7 @@ class ChatGPTProdusController extends Controller
         return view('chatGPT.produse.diverse.interogareOAI', compact('produs', 'prompturiCategorii', 'prompturi'));
     }
 
-    function callOpenAI($prompt) {
+    function callOpenAI($messages) {
         $url = "https://api.openai.com/v1/chat/completions";
         $headers = [
             "Content-Type: application/json",
@@ -144,14 +144,15 @@ class ChatGPTProdusController extends Controller
         ];
         $data = [
             "model" => "gpt-3.5-turbo",
-            "messages" => [
-                [
-                    "role" => "user",
-                    "content" => $prompt
-                ]
-            ]
+            // "messages" => [
+            //     [
+            //         "role" => "user",
+            //         "content" => $prompt
+            //     ]
+            // ]
+            "messages" => $messages
         ];
-
+// dd($messages, json_encode($data));
         $options = [
             "http" => [
                 "method" => "POST",
@@ -180,9 +181,58 @@ class ChatGPTProdusController extends Controller
         $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
 
         $fullPrompt .= "\n" . $produs->site->descriere ?? '';
-// dd($request->promptText, $fullPrompt);
+
+
+        $messages[] = [
+            'role' => "system",
+            'content' => $request->promptText
+        ];
+
+        $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
+        $messages[] = [
+            'role' => "user",
+            'content' => $produs->site->descriere ?? ''
+        ];
+
+        $messages[] = [
+            'role' => "user",
+            'content' => "Nume produs: " . $request->produs_nume
+        ];
+
+        $messages[] = [
+            'role' => "user",
+            'content' => "Link Produs: " . $request->produs_url
+        ];
+
+        $messages[] = [
+            'role' => "user",
+            'content' => "Descriere produs: " . $request->produs_url
+        ];
+
+        // $messages[1]['user'] = "user";
+        // $messages[1]['content'] = $produs->site->descriere ?? '';
+
+        // $messages[2]['user'] = "user";
+        // $messages[2]['content'] = "Nume produs: " . $request->produs_nume;
+
+        // $messages[3]['user'] = "user";
+        // $messages[3]['content'] = "Link Produs: " . $request->produs_url;
+
+        // $messages[4]['user'] = "user";
+        // $messages[4]['content'] = "Descriere produs: " . $request->produs_url;
+
+        // $fullPrompt = $request->promptText;
+        // $fullPrompt .= "\nNume produs: " . $request->produs_nume;
+        // $fullPrompt .= "\nLink Produs: " . $request->produs_url;
+        // $fullPrompt .= "\nDescriere produs: " . $request->produs_descriere;
+
+        // $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
+
+        // $fullPrompt .= "\n" . $produs->site->descriere ?? '';
+// dd($messages);
         // Call OpenAI API
-        $response = $this->callOpenAI($fullPrompt);
+        // $response = $this->callOpenAI($fullPrompt);
+        $response = $this->callOpenAI($messages);
 
         // Print response
         // dd($response);

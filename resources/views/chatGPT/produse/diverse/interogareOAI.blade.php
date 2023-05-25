@@ -1,10 +1,11 @@
 @extends ('layouts.app')
 
+@section('content')
+
 <script type="application/javascript">
     prompturi={!! json_encode($prompturi) !!}
 </script>
 
-@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -50,7 +51,7 @@
                                         <label for="prompt_id" class="mb-0 pl-3">Prompt:</label>
                                         <select class="custom-select-sm custom-select rounded-pill {{ $errors->has('prompt') ? 'is-invalid' : '' }}"
                                             name="prompt_id"
-                                            v-model="prompt_id"
+                                            {{-- v-model="prompt_id" --}}
                                             @change="setpromptText($event)"
                                         >
                                             <option selected></option>
@@ -61,6 +62,12 @@
                                     </div>
                                     <div class="form-group col-lg-12 mb-4">
                                         <label for="promptText" class="mb-0 pl-3">Text prompt:</label>
+                                            {{-- <tinymce-vue
+                                                inputvalue="promptText"
+                                                height= 300
+                                                inputname="promptText"
+                                                name="promptText"
+                                            ></tinymce-vue> --}}
                                             <textarea class="form-control {{ $errors->has('promptText') ? 'is-invalid' : '' }}" rows="5"
                                                 name="promptText"
                                                 v-model="promptText"

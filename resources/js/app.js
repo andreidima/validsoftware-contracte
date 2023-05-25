@@ -446,7 +446,7 @@ if (document.getElementById('chatGPTInterogareOAI') != null) {
         },
         components: {
             // 'vue-datepicker-next': VueDatepickerNext,
-            // 'tinymce-vue': Tinymce,
+            'tinymce-vue': Tinymce,
         },
         methods: {
             getPrompturiPerCategorie: function () {

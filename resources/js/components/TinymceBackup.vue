@@ -9,7 +9,7 @@
          plugins: [
             'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
             'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-            'media', 'table', 'emoticons', 'Advanced Template', 'help'
+            'media', 'table', 'emoticons', 'help'
          ],
          toolbar:
             'undo redo fontSize bold italic underline link | forecolor backcolor | table | ' +

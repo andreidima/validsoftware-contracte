@@ -23,14 +23,14 @@
             </div>
             <div class="form-group col-lg-12 mb-4">
                 <label for="text" class="mb-0 pl-3">Text:</label>
-                <tinymce-vue
+                {{-- <tinymce-vue
                 inputvalue="{{ old('text', $prompt->text) }}"
                 height= 300
                 inputname="text"
-                ></tinymce-vue>
-                {{-- <textarea class="form-control {{ old('text', $prompt->text) }}" rows="5"
+                ></tinymce-vue> --}}
+                <textarea class="form-control {{ old('text', $prompt->text) }}" rows="5"
                     name="text"
-                >{{ old('text', $prompt->text) }}</textarea> --}}
+                >{{ old('text', $prompt->text) }}</textarea>
             </div>
         </div>
 
