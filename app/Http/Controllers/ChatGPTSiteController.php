@@ -116,6 +116,7 @@ class ChatGPTSiteController extends Controller
     {
         return request()->validate([
             'nume' => 'max:500',
+            'tip' => 'max:500',
             'url' => 'max:500',
             'descriere' => '',
         ]);

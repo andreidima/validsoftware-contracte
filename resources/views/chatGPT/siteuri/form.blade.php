@@ -3,7 +3,7 @@
 <div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px" id="app1">
     <div class="form-group col-lg-12 px-2 mb-0">
         <div class="form-row px-2 py-2 mb-0">
-            <div class="form-group col-lg-12 mb-4">
+            <div class="form-group col-lg-8 mb-4">
                 <label for="nume" class="mb-0 pl-3">Nume:</label>
                 <input
                     type="text"
@@ -11,6 +11,15 @@
                     name="nume"
                     placeholder=""
                     value="{{ old('nume', $site->nume) }}">
+            </div>
+            <div class="form-group col-lg-4 mb-4">
+                <label for="tip" class="mb-0 pl-3">Tip:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('tip') ? 'is-invalid' : '' }}"
+                    name="tip"
+                    placeholder=""
+                    value="{{ old('tip', $site->tip) }}">
             </div>
             <div class="form-group col-lg-12 mb-4">
                 <label for="url" class="mb-0 pl-3">URL:</label>

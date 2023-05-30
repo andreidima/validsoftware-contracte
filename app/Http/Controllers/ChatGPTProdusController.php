@@ -122,8 +122,9 @@ class ChatGPTProdusController extends Controller
     {
         return request()->validate([
             'site_id' => 'required',
-            'nume' => '',
-            'url' => '',
+            'nume' => 'max:500',
+            'categorie' => 'max:500',
+            'url' => 'max:500',
             'descriere' => '',
         ]);
     }
@@ -210,6 +211,9 @@ class ChatGPTProdusController extends Controller
         echo '<br><br><br><br><br><br>';
 
         echo '<h3>Răspuns:</h3><br>';
+        $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
         echo $response->choices[0]->message->content;
+
+        dd($response->choices[0]->message->content);
     }
 }

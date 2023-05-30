@@ -29,6 +29,14 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Tip
+                                </td>
+                                <td>
+                                    {{ $site->tip }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Url
                                 </td>
                                 <td>

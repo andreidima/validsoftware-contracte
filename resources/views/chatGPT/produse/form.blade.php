@@ -21,7 +21,16 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-lg-12 mb-4">
+            <div class="form-group col-lg-4 mb-4">
+                <label for="categorie" class="mb-0 pl-3">Categorie:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('categorie') ? 'is-invalid' : '' }}"
+                    name="categorie"
+                    placeholder=""
+                    value="{{ old('categorie', $produs->categorie) }}">
+            </div>
+            <div class="form-group col-lg-8 mb-4">
                 <label for="url" class="mb-0 pl-3">URL:</label>
                 <input
                     type="text"

@@ -83,22 +83,22 @@
                                             <a
                                                 href="#"
                                                 data-toggle="modal"
-                                                data-target="#stergeSite{{ $produs->id }}"
-                                                title="Șterge Site"
+                                                data-target="#stergeProdus{{ $produs->id }}"
+                                                title="Șterge Produs"
                                                 >
                                                 <span class="badge badge-danger">Șterge</span>
                                             </a>
-                                                <div class="modal fade text-dark" id="stergeSite{{ $produs->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade text-dark" id="stergeProdus{{ $produs->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                         <div class="modal-header bg-danger">
-                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Site: <b>{{ $produs->nume }}</b></h5>
+                                                            <h5 class="modal-title text-white" id="exampleModalLabel">Produs: <b>{{ $produs->nume }}</b></h5>
                                                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
                                                         <div class="modal-body" style="text-align:left;">
-                                                            Ești sigur ca vrei să ștergi Siteul?
+                                                            Ești sigur ca vrei să ștergi Produsul?
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Renunță</button>
@@ -110,7 +110,7 @@
                                                                     type="submit"
                                                                     class="btn btn-danger"
                                                                     >
-                                                                    Șterge Siteul
+                                                                    Șterge Produsul
                                                                 </button>
                                                             </form>
 

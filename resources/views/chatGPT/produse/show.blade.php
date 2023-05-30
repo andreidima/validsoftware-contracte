@@ -37,6 +37,14 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Categorie
+                                </td>
+                                <td>
+                                    {{ $produs->categorie }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Url
                                 </td>
                                 <td>
