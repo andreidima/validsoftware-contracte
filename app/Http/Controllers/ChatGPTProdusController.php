@@ -214,6 +214,6 @@ class ChatGPTProdusController extends Controller
         $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
         echo $response->choices[0]->message->content;
 
-        dd($response->choices[0]->message->content);
+        // dd($response->choices[0]->message->content);
     }
 }
