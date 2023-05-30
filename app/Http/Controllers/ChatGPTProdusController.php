@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ChatGPTSite;
 use App\ChatGPTProdus;
 use App\ChatGPTPrompt;
+use App\ChatGPTRaspunsOAI;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
@@ -196,6 +197,14 @@ class ChatGPTProdusController extends Controller
             'content' => "Descriere produs: " . strip_tags($request->produs_url)
         ];
 
+        // dd($request);
+        // $raspunsOAI = new ChatGPTRaspunsOAI;
+        // $raspunsOAI->prompt_id = $request->prompt_id;
+        // $raspunsOAI->prompt_trimis = $request->promptText;
+        // $raspunsOAI->prompt_id = $response->choices[0]->message->content;
+        // $raspunsOAI->context = '';
+        // dd($raspunsOAI);
+
         $response = $this->callOpenAI($messages);
 
         // Print response
@@ -214,6 +223,9 @@ class ChatGPTProdusController extends Controller
         $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
         echo $response->choices[0]->message->content;
 
+        $raspunsOAI = new ChatGPTRaspunsOAI;
         // dd($response->choices[0]->message->content);
+
+
     }
 }

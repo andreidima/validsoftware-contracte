@@ -14,12 +14,11 @@
             </div>
             <div class="form-group col-lg-4 mb-4">
                 <label for="tip" class="mb-0 pl-3">Tip:</label>
-                <input
-                    type="text"
-                    class="form-control form-control-sm rounded-pill {{ $errors->has('tip') ? 'is-invalid' : '' }}"
-                    name="tip"
-                    placeholder=""
-                    value="{{ old('tip', $site->tip) }}">
+                <select name="tip" class="custom-select-sm custom-select rounded-pill {{ $errors->has('tip') ? 'is-invalid' : '' }}">
+                    <option selected></option>
+                        <option value="1" {{ (intval(old('tip', $site->tip ?? '')) === 1) ? 'selected' : '' }}>Site de prezentare</option>
+                        <option value="2" {{ (intval(old('tip', $site->tip ?? '')) === 2) ? 'selected' : '' }}>Magazin online</option>
+                </select>
             </div>
             <div class="form-group col-lg-12 mb-4">
                 <label for="url" class="mb-0 pl-3">URL:</label>
@@ -29,6 +28,24 @@
                     name="url"
                     placeholder=""
                     value="{{ old('url', $site->url) }}">
+            </div>
+            <div class="form-group col-lg-12 mb-4">
+                <label for="feed_produse" class="mb-0 pl-3">Feed produse:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('feed_produse') ? 'is-invalid' : '' }}"
+                    name="feed_produse"
+                    placeholder=""
+                    value="{{ old('feed_produse', $site->feed_produse) }}">
+            </div>
+            <div class="form-group col-lg-12 mb-4">
+                <label for="feed_vanzari" class="mb-0 pl-3">Feed vânzări:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('feed_vanzari') ? 'is-invalid' : '' }}"
+                    name="feed_vanzari"
+                    placeholder=""
+                    value="{{ old('feed_vanzari', $site->feed_vanzari) }}">
             </div>
             <div class="form-group col-lg-12 mb-4">
                 <label for="descriere" class="mb-0 pl-3">Descriere:</label>
