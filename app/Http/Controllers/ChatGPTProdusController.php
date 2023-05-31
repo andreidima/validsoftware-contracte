@@ -194,7 +194,7 @@ class ChatGPTProdusController extends Controller
 
         $messages[] = [
             'role' => "user",
-            'content' => "Descriere produs: " . strip_tags($request->produs_url)
+            'content' => "Descriere produs: " . strip_tags($request->descriere)
         ];
 
         // dd($request);
