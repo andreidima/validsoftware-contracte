@@ -26,6 +26,7 @@
                                     <div class="form-group col-lg-4 mb-4">
                                         <label for="nume" class="mb-0 pl-3">Produs:</label>
                                         <input type="hidden" name="produs_id" value="{{ $produs->id }}">
+                                        <input type="hidden" name="produs_categorie" value="{{ $produs->categorie }}">
                                         <input type="hidden" name="produs_url" value="{{ $produs->url }}">
                                         <input type="hidden" name="produs_descriere" value="{{ $produs->descriere }}">
                                         <input

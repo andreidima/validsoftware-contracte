@@ -44,4 +44,14 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    /**
+     * Get all of the roles for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function roles()
+    {
+        return $this->hasMany(UserRole::class, 'user_id', 'id');
+    }
 }
