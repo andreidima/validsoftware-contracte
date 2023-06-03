@@ -39,8 +39,20 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        if ((auth()->user()->role === 'superadmin') || (auth()->user()->role === 'admin')){
+        foreach (auth()->user()->roles as $role) {
+            if (($role->role === 'superadmin') || ($role->role === 'admin')){
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasRole($role)
+    {
+        foreach (auth()->user()->roles as $userRole) {
+            if ($userRole->role === $role){
+                return true;
+            }
         }
         return false;
     }

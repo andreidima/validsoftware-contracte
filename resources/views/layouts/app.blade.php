@@ -159,7 +159,9 @@
                                         </a>
                                     </div>
                                 </li>
-                            @elseif(auth()->user()->role === "service")
+                            @endif
+                            {{-- @elseif(auth()->user()->role === "service") --}}
+                            @if(auth()->user()->hasRole('service'))
                                 <li class="nav-item active mr-4">
                                         <a class="nav-link" href="{{ route('service.clienti.index') }}">
                                             <i class="fas fa-users mr-1"></i>Clienți
@@ -205,6 +207,11 @@
                                         </a>
                                     </div>
                                 </li>
+                            @endif
+
+                            {{-- Chatgpt Open AI --}}
+                            {{-- Nu se afiseaza pentru 'superadmin' sau 'admin', pentru ca se afiseaza deja odata mai sus  --}}
+                            @if(auth()->user()->hasRole('chatgpt') && !auth()->user()->hasRole('superadmin') && !auth()->user()->hasRole('admin'))
                                 <li class="nav-item dropdown active mr-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fab fa-rocketchat mr-1"></i>Chat GPT
@@ -227,7 +234,8 @@
                                         </a>
                                     </div>
                                 </li>
-                            @elseif(auth()->user()->role === "service_voluntar")
+                            @endif
+                            @if(auth()->user()->hasRole('service_voluntar'))
                                 <li class="nav-item active mr-4">
                                         <a class="nav-link" href="{{ route('service.componente_pc.index') }}">
                                             <i class="fas fa-desktop mr-1"></i>Componente Pc

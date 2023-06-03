@@ -22,7 +22,7 @@ class Role
 
         $user = Auth::user();
 
-        if($user->role === 'superadmin')
+        if($user->roles->first()->role === 'superadmin')
             return $next($request);
 
         foreach($roles as $role) {
