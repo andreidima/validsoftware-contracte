@@ -51,17 +51,18 @@
             <div class="table-responsive rounded">
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
-                        <tr>
+                        {{-- <tr>
                             <th colspan="6">
                                 Total rezultate = {{ $produseNrTotal }}
                             </th>
-                        </tr>
+                        </tr> --}}
                         <tr class="small" style="padding:2rem">
                             <th>#</th>
                             <th>Site</th>
                             <th>Nume</th>
                             <th>Url</th>
-                            <th class="text-center">OAI</th>
+                            <th class="text-center">Răspunsuri OAI</th>
+                            <th class="text-center">Interogare OAI</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -79,6 +80,17 @@
                                 </td>
                                 <td>
                                     <a href="{{ $produs->url }}" target="_blank">{{ $produs->url }}
+                                </td>
+                                <td class="text-center">
+                                    <form class="needs-validation" novalidate method="GET" action="/chat-gpt/raspunsuri-oai">
+                                        @csrf
+                                        <input type="hidden" id="searchProdusId" name="searchProdusId" value="{{ $produs->id }}">
+                                        <button type="submit" class="btn btn-link p-0">
+                                            {{ $produs->raspunsuriOAI->count() }}
+                                        </button>
+                                    </form>
+
+                                    {{-- {{ $produs->raspunsuriOAI->count() }} --}}
                                 </td>
                                 <td class="d-flex justify-content-center">
                                     <a href="{{ $produs->path() }}/interogare-oai">

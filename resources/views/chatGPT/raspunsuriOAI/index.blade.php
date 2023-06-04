@@ -6,12 +6,13 @@
             <div class="col-lg-3">
                 <h6>Chat GPT - raspunsuri OAI</h6>
             </div>
-            {{-- <div class="col-lg-6">
+            <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ url()->current()  }}">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form d-flex justify-content-center">
-                        <input type="text" class="form-control form-control-sm col-md-8 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
-                                value="{{ $search_nume }}">
+                        <input type="hidden" id="searchProdusId" name="searchProdusId" value="">
+                        <input type="text" class="form-control form-control-sm col-md-8 mr-1 border rounded-pill" id="search_produs" name="search_produs" placeholder="Produs" autofocus
+                                value="{{ $search_produs }}">
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
                         <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
@@ -23,7 +24,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-3 text-right">
+            {{-- <div class="col-lg-3 text-right">
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ url()->current() }}/adauga" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă produs
                 </a>

@@ -19,16 +19,24 @@ class ChatGPTRaspunsOAIController extends Controller
     {
         $request->session()->forget('chatGPTRaspunsOAIReturnUrl');
 
-        // $search_nume = \Request::get('search_nume');
+        $searchProdusId = \Request::get('searchProdusId');
+        $search_produs = \Request::get('search_produs');
 
         $raspunsuri = ChatGPTRaspunsOAI::with('prompt', 'produse')
-            // when($search_nume, function ($query, $search_nume) {
-            //     return $query->where('nume', 'like', '%' . $search_nume . '%');
-            // })
+            ->when($searchProdusId, function ($query, $searchProdusId) {
+                return $query->whereHas('produse', function ($query) use ($searchProdusId) {
+                    return $query->where('produs_id', $searchProdusId);
+                });
+            })
+            ->when($search_produs, function ($query, $search_produs) {
+                return $query->whereHas('produse', function ($query) use ($search_produs) {
+                    return $query->where('nume', 'like', '%' . $search_produs . '%');
+                });
+            })
             ->latest()
             ->simplePaginate(25);
 
-        return view('chatGPT.raspunsuriOAI.index', compact('raspunsuri'));
+        return view('chatGPT.raspunsuriOAI.index', compact('raspunsuri', 'search_produs', 'searchProdusId'));
     }
 
     /**
