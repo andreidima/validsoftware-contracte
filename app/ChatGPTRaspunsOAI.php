@@ -19,6 +19,16 @@ class ChatGPTRaspunsOAI extends Model
         return $this->belongsTo('App\ChatGPTPrompt', 'prompt_id');
     }
 
+    /**
+     * The produse that belong to the ChatGPTRaspunsOAI
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function produse()
+    {
+        return $this->belongsToMany(ChatGPTProdus::class, 'chatgpt_produse_raspunsuri_oai', 'raspuns_oai_id', 'produs_id');
+    }
+
     // public function client()
     // {
     //     return $this->belongsTo('App\Client', 'client_id');

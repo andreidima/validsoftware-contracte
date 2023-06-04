@@ -21,11 +21,12 @@ class ChatGPTRaspunsOAIController extends Controller
 
         // $search_nume = \Request::get('search_nume');
 
-        $raspunsuri = ChatGPTRaspunsOAI::
+        $raspunsuri = ChatGPTRaspunsOAI::with('prompt', 'produse')
             // when($search_nume, function ($query, $search_nume) {
             //     return $query->where('nume', 'like', '%' . $search_nume . '%');
             // })
-            simplePaginate(25);
+            ->latest()
+            ->simplePaginate(25);
 
         return view('chatGPT.raspunsuriOAI.index', compact('raspunsuri'));
     }
@@ -37,11 +38,11 @@ class ChatGPTRaspunsOAIController extends Controller
      */
     public function create(Request $request)
     {
-        $siteuri = ChatGPTSite::select('id', 'nume')->orderBy('nume')->get();
+        // $siteuri = ChatGPTSite::select('id', 'nume')->orderBy('nume')->get();
 
-        $request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? $request->session()->put('chatGPTRaspunsOAIReturnUrl', url()->previous());
+        // $request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? $request->session()->put('chatGPTRaspunsOAIReturnUrl', url()->previous());
 
-        return view('chatGPT.produse.create', compact('siteuri'));
+        // return view('chatGPT.produse.create', compact('siteuri'));
     }
 
     /**
@@ -52,22 +53,22 @@ class ChatGPTRaspunsOAIController extends Controller
      */
     public function store(Request $request)
     {
-        $produs = ChatGPTRaspunsOAI::create($this->validateRequest($request));
+        // $produs = ChatGPTRaspunsOAI::create($this->validateRequest($request));
 
-        return redirect($request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? ('/chat-gpt/produse'))->with('status', 'RaspunsOAIul "' . $produs->nume . '" a fost adăugat cu succes!');
+        // return redirect($request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? ('/chat-gpt/produse'))->with('status', 'RaspunsOAIul "' . $produs->nume . '" a fost adăugat cu succes!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ChatGPTRaspunsOAI  $produs
+     * @param  \App\ChatGPTRaspunsOAI  $raspuns
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, ChatGPTRaspunsOAI $produs)
+    public function show(Request $request, ChatGPTRaspunsOAI $raspuns)
     {
         $request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? $request->session()->put('chatGPTRaspunsOAIReturnUrl', url()->previous());
 
-        return view('chatGPT.produse.show', compact('produs'));
+        return view('chatGPT.raspunsuriOAI.show', compact('raspuns'));
     }
 
     /**
@@ -78,11 +79,11 @@ class ChatGPTRaspunsOAIController extends Controller
      */
     public function edit(Request $request, ChatGPTRaspunsOAI $produs)
     {
-        $siteuri = ChatGPTSite::select('id', 'nume')->orderBy('nume')->get();
+        // $siteuri = ChatGPTSite::select('id', 'nume')->orderBy('nume')->get();
 
-        $request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? $request->session()->put('chatGPTRaspunsOAIReturnUrl', url()->previous());
+        // $request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? $request->session()->put('chatGPTRaspunsOAIReturnUrl', url()->previous());
 
-        return view('chatGPT.produse.edit', compact('produs', 'siteuri'));
+        // return view('chatGPT.produse.edit', compact('produs', 'siteuri'));
     }
 
     /**
@@ -94,9 +95,9 @@ class ChatGPTRaspunsOAIController extends Controller
      */
     public function update(Request $request, ChatGPTRaspunsOAI $produs)
     {
-        $produs->update($this->validateRequest($request, $produs));
+        // $produs->update($this->validateRequest($request, $produs));
 
-        return redirect($request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? ('/chat-gpt/produse'))->with('status', 'RaspunsOAIul „' . ($produs->nume ?? '') . '” a fost modificat cu succes!');
+        // return redirect($request->session()->get('chatGPTRaspunsOAIReturnUrl') ?? ('/chat-gpt/produse'))->with('status', 'RaspunsOAIul „' . ($produs->nume ?? '') . '” a fost modificat cu succes!');
     }
 
     /**
@@ -107,9 +108,9 @@ class ChatGPTRaspunsOAIController extends Controller
      */
     public function destroy(ChatGPTRaspunsOAI $produs)
     {
-        $produs->delete();
+        // $produs->delete();
 
-        return back()->with('status', 'RaspunsOAIul „' . ($produs->nume ?? '') . '” a fost șters cu succes!');
+        // return back()->with('status', 'RaspunsOAIul „' . ($produs->nume ?? '') . '” a fost șters cu succes!');
     }
 
     /**
@@ -119,11 +120,11 @@ class ChatGPTRaspunsOAIController extends Controller
      */
     protected function validateRequest(Request $request)
     {
-        return request()->validate([
-            'site_id' => 'required',
-            'nume' => '',
-            'url' => '',
-            'descriere' => '',
-        ]);
+        // return request()->validate([
+        //     'site_id' => 'required',
+        //     'nume' => '',
+        //     'url' => '',
+        //     'descriere' => '',
+        // ]);
     }
 }

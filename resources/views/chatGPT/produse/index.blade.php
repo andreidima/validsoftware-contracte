@@ -4,14 +4,28 @@
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
-                <h6>Chat GPT - produse</h6>
+                <h6>
+                    Chat GPT - produse
+                    (<span class="text-info" title="Nr. total de produse în căutarea curentă">{{ $produseNrTotal }}</span>)
+                </h6>
             </div>
             <div class="col-lg-6">
                 <form class="needs-validation" novalidate method="GET" action="{{ url()->current()  }}">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form d-flex justify-content-center">
-                        <input type="text" class="form-control form-control-sm col-md-8 mr-1 border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
-                                value="{{ $search_nume }}">
+                        <div class="col-md-6 px-1">
+                            {{-- <label for="search_site" class="mb-0 pl-3">Site:<span class="text-danger">*</span></label> --}}
+                            <select name="search_site" class="custom-select-sm custom-select rounded-pill {{ $errors->has('search_site') ? 'is-invalid' : '' }}">
+                                <option value="" selected>Selectează site</option>
+                                @foreach ($siteuri as $site)
+                                    <option value="{{ $site->id }}" {{ ($site->id === intval($search_site)) ? 'selected' : '' }}>{{ $site->nume }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 px-1">
+                            <input type="text" class="form-control form-control-sm border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
+                                    value="{{ $search_nume }}">
+                        </div>
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
                         <button class="btn btn-sm btn-primary col-md-4 mr-1 border border-dark rounded-pill" type="submit">
@@ -37,12 +51,17 @@
             <div class="table-responsive rounded">
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
+                        <tr>
+                            <th colspan="6">
+                                Total rezultate = {{ $produseNrTotal }}
+                            </th>
+                        </tr>
                         <tr class="small" style="padding:2rem">
                             <th>#</th>
                             <th>Site</th>
                             <th>Nume</th>
                             <th>Url</th>
-                            <th class="text-center">Interogare OAI</th>
+                            <th class="text-center">OAI</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>

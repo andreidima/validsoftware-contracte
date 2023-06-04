@@ -39,11 +39,13 @@
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="small" style="padding:2rem">
                             <th>#</th>
-                            <th>Prompt trimis</th>
-                            <th>Răspuns primit</th>
-                            <th>Context</th>
-                            <th>Data</th>
-                            {{-- <th class="text-center">Acțiuni</th> --}}
+                            <th>Produse</th>
+                            <th>Prompt</th>
+                            {{-- <th>Prompt trimis</th> --}}
+                            {{-- <th>Răspuns primit</th> --}}
+                            {{-- <th>Context</th> --}}
+                            <th class="text-center">Data</th>
+                            <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,16 +55,39 @@
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>
-                                    {{ $raspuns->prompt_trimis }}
+                                    @foreach ($raspuns->produse as $produs)
+                                        <a href="{{ $produs->path() ?? '' }}">
+                                            {{ $produs->nume }}
+                                        </a>
+                                    @endforeach
                                 </td>
                                 <td>
-                                    {{ $raspuns->raspuns_primit }}
+                                    @if ($raspuns->prompt)
+                                        <a href="{{ $raspuns->prompt->path() ?? '' }}">
+                                            {{ $raspuns->prompt->nume ?? ''}}
+                                        </a>
+                                    @endif
                                 </td>
-                                <td>
+                                {{-- <td>
+                                    {!! $raspuns->prompt_trimis !!}
+                                </td> --}}
+                                {{-- <td>
+                                    {!! $raspuns->raspuns_primit !!}
+                                </td> --}}
+                                {{-- <td>
                                     {{ $raspuns->context }}
+                                </td> --}}
+                                <td class="text-center">
+                                    {{ $raspuns->created_at ? \Carbon\Carbon::parse($raspuns->created_at)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                                 <td>
-                                    {{ $raspuns->created_at ? \Carbon\Carbon::parse($raspuns->created_at)->isoFormat('DD.MM.YYYY HH:mm') : '' }}
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ $raspuns->path() }}"
+                                            class="flex mr-1"
+                                        >
+                                            <span class="badge badge-success">Vizualizează</span>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
 

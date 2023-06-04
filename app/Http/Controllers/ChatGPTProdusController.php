@@ -21,15 +21,26 @@ class ChatGPTProdusController extends Controller
     {
         $request->session()->forget('chatGPTProdusReturnUrl');
 
+        $search_site = \Request::get('search_site');
         $search_nume = \Request::get('search_nume');
 
-        $produse = ChatGPTProdus::
-            when($search_nume, function ($query, $search_nume) {
+        $siteuri = ChatGPTSite::select('id', 'nume')->get();
+
+        $query = ChatGPTProdus::with('site')
+            ->when($search_site, function ($query, $search_site) {
+                return $query->whereHas('site', function ($query) use ($search_site) {
+                    return $query->where('id', $search_site);
+                });
+            })
+            ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
-            ->simplePaginate(25);
+            ->latest();
 
-        return view('chatGPT.produse.index', compact('produse', 'search_nume'));
+        $produseNrTotal = $query->count();
+        $produse = $query->simplePaginate(25);
+
+        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume'));
     }
 
     /**
@@ -206,31 +217,53 @@ class ChatGPTProdusController extends Controller
         // $raspunsOAI = new ChatGPTRaspunsOAI;
         // $raspunsOAI->prompt_id = $request->prompt_id;
         // $raspunsOAI->prompt_trimis = $request->promptText;
-        // $raspunsOAI->prompt_id = $response->choices[0]->message->content;
-        // $raspunsOAI->context = '';
-        // dd($raspunsOAI);
+        // $raspunsOAI->raspuns_primit = $response->choices[0]->message->content ?? '';
+        // $raspunsOAI->save();
+
+        // $raspunsOAI->produse()->attach($request->produs_id);
+        // echo "
+        //     <div style='text-align:center; padding: 20px'>
+        //         <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/produse'>Produse</a>
+        //         <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;' href='/chat-gpt/raspunsuri-oai'>Răspunsuri</a>
+        //     </div>
+        // ";
+        // dd('stop');
 
         $response = $this->callOpenAI($messages);
 
         // Print response
         // dd($response);
-        echo '<h3>Prompt:</h3><br>';
+        echo '<h3>Prompt:</h3>';
         echo '<pre>'; print_r($messages); echo '</pre>';
-        echo '<br><br><br><br><br><br>';
+        echo '<br><br><br><br>';
 
-        echo '<h3>Prompt content:</h3><br>';
+        echo '<h3>Prompt content:</h3>';
         foreach ($messages as $mesaj) {
             echo $mesaj['content'] . '<br><br>';
         }
-        echo '<br><br><br><br><br><br>';
+        echo '<br><br><br><br>';
 
-        echo '<h3>Răspuns:</h3><br>';
+        echo '<h3>Răspuns:</h3>';
         $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
         echo $response->choices[0]->message->content;
 
+
         $raspunsOAI = new ChatGPTRaspunsOAI;
-        // dd($response->choices[0]->message->content);
+        $raspunsOAI->prompt_id = $request->prompt_id;
+        $raspunsOAI->prompt_trimis = $request->promptText;
+        $raspunsOAI->raspuns_primit = $response->choices[0]->message->content ?? '';
+        $raspunsOAI->save();
 
-
+        $raspunsOAI->produse()->attach($request->produs_id);
+        // $user->roles()->attach($roleId);
+        // $raspunsOAI->context = '';
+        // dd($raspunsOAI);
+        echo "
+            <br>
+            <div style='text-align:center; padding: 20px'>
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/produse'>Produse</a>
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;' href='/chat-gpt/raspunsuri-oai'>Răspunsuri</a>
+            </div>
+        ";
     }
 }
