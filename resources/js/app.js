@@ -488,6 +488,17 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
                 // prompturiPerCategorie: [],
                 // prompt: '',
                 // promptText: '',
+
+
+                produse: produse,
+
+                categoriiProduse: [],
+                categorieAleasa: '',
+
+                produsePerCategorie: [],
+                produsAles: '',
+
+                produseAdaugateInContext: [],
             }
         },
         components: {
@@ -495,44 +506,70 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
             // 'tinymce-vue': Tinymce,
         },
         methods: {
-            adaugaSiteAles: function () {
-                for (var i = 0; i < this.siteuriAlese.length; i++) {
-                    if (this.siteuriAlese[i].id == this.siteAles) {
+            // adaugaSiteAles: function () {
+            //     for (var i = 0; i < this.siteuriAlese.length; i++) {
+            //         if (this.siteuriAlese[i].id == this.siteAles) {
+            //             return;
+            //         }
+            //     }
+            //     for (var i = 0; i < this.siteuri.length; i++) {
+            //         if (this.siteuri[i].id == this.siteAles) {
+            //             this.siteuriAlese.push(this.siteuri[i])
+            //         }
+            //     }
+            // },
+            // stergeSiteAles: function (siteId) {
+            //     for (var i = 0; i < this.siteuriAlese.length; i++) {
+            //         if (this.siteuriAlese[i].id == siteId) {
+            //             this.siteuriAlese.splice(i, 1);
+            //             break;
+            //         }
+            //     }
+            // },
+            siteSelectat: function () {
+                this.categoriiProduse = [];
+                for (var i = 0; i < this.produse.length; i++) {
+                    if (
+                        (this.produse[i].site_id == this.siteAles)
+                        &&
+                        !this.categoriiProduse.includes(this.produse[i].categorie)
+                        ) {
+                        this.categoriiProduse.push(this.produse[i].categorie);
+                    }
+                }
+                this.categoriiProduse.sort((a, b) => a.localeCompare(b, 'ro'));
+            },
+            categorieSelectata: function () {
+                this.produsePerCategorie = [];
+                for (var i = 0; i < this.produse.length; i++) {
+                    if (
+                        (this.produse[i].categorie == this.categorieAleasa)
+                    ) {
+                        this.produsePerCategorie.push(this.produse[i]);
+                    }
+                }
+                this.produsePerCategorie.sort();
+            },
+            adaugaProdusInContext: function () {
+                for (var i = 0; i < this.produseAdaugateInContext.length; i++) {
+                    if (this.produseAdaugateInContext[i].id == this.produsAles) {
                         return;
                     }
                 }
-                for (var i = 0; i < this.siteuri.length; i++) {
-                    // console.log(this.siteuriAlese['id'].indexof(this.siteAles));
-                    if (this.siteuri[i].id == this.siteAles) {
-                        this.siteuriAlese.push(this.siteuri[i])
+                for (var i = 0; i < this.produsePerCategorie.length; i++) {
+                    if (this.produsePerCategorie[i].id == this.produsAles) {
+                        this.produseAdaugateInContext.push(this.produsePerCategorie[i])
                     }
                 }
             },
-            stergeSiteAles: function (siteId) {
-                for (var i = 0; i < this.siteuriAlese.length; i++) {
-                    if (this.siteuriAlese[i].id == siteId) {
-                        this.siteuriAlese.splice(i, 1);
+            stergeProdusDinContext: function (produsId) {
+                for (var i = 0; i < this.produseAdaugateInContext.length; i++) {
+                    if (this.produseAdaugateInContext[i].id == produsId) {
+                        this.produseAdaugateInContext.splice(i, 1);
                         break;
                     }
                 }
             },
-            // getPrompturiPerCategorie: function () {
-            //     this.prompturiPerCategorie = [];
-            //     this.prompt = '',
-            //         this.promptText = '';
-            //     for (var i = 0; i < this.prompturi.length; i++) {
-            //         if (this.prompturi[i].categorie === this.categoriePrompt) {
-            //             this.prompturiPerCategorie.push(this.prompturi[i]);
-            //         }
-            //     }
-            // },
-            // setpromptText: function (event) {
-            //     for (var i = 0; i < this.prompturi.length; i++) {
-            //         if (this.prompturi[i].id == event.target.value) {
-            //             this.promptText = this.prompturi[i].text;
-            //         }
-            //     }
-            // },
         }
     });
 

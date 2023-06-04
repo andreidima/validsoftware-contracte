@@ -76,6 +76,7 @@ Route::middleware('role:chatgpt')->group(function () {
     Route::post('/chat-gpt/produse/interogare-oai', 'ChatGPTProdusController@postInterogareOAI');
 
     Route::get('/chat-gpt/interogare-oai', 'ChatGPTInterogareOAIController@interogareOAI');
+    Route::post('/chat-gpt/interogare-oai', 'ChatGPTInterogareOAIController@postInterogareOAI');
 });
 
 
