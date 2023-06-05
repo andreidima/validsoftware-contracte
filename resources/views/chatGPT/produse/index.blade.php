@@ -13,7 +13,7 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ url()->current()  }}">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form d-flex justify-content-center">
-                        <div class="col-md-6 px-1">
+                        <div class="col-md-8 px-1">
                             {{-- <label for="search_site" class="mb-0 pl-3">Site:<span class="text-danger">*</span></label> --}}
                             <select name="search_site" class="custom-select-sm custom-select rounded-pill {{ $errors->has('search_site') ? 'is-invalid' : '' }}">
                                 <option value="" selected>Selectează site</option>
@@ -22,7 +22,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6 px-1">
+                        <div class="col-md-4 px-1">
+                            <input type="text" class="form-control form-control-sm border rounded-pill" id="searchNrRaspunsuriOAI" name="searchNrRaspunsuriOAI" placeholder="Nr. răspunsuri"
+                                    value="{{ $searchNrRaspunsuriOAI }}">
+                        </div>
+                        <div class="col-md-12 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                     value="{{ $search_nume }}">
                         </div>
@@ -61,6 +65,7 @@
                             <th>Site</th>
                             <th>Nume</th>
                             <th>Url</th>
+                            <th class="text-center">Vânzări</th>
                             <th class="text-center">Răspunsuri OAI</th>
                             <th class="text-center">Interogare OAI</th>
                             <th class="text-center">Acțiuni</th>
@@ -82,11 +87,14 @@
                                     <a href="{{ $produs->url }}" target="_blank">{{ $produs->url }}
                                 </td>
                                 <td class="text-center">
+                                    {{ $produs->quantity }}
+                                </td>
+                                <td class="text-center">
                                     <form class="needs-validation" novalidate method="GET" action="/chat-gpt/raspunsuri-oai">
                                         @csrf
                                         <input type="hidden" id="searchProdusId" name="searchProdusId" value="{{ $produs->id }}">
                                         <button type="submit" class="btn btn-link p-0">
-                                            {{ $produs->raspunsuriOAI->count() }}
+                                            {{ $produs->raspunsuri_o_a_i_count }}
                                         </button>
                                     </form>
 

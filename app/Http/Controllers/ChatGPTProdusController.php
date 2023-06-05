@@ -23,6 +23,7 @@ class ChatGPTProdusController extends Controller
 
         $search_site = \Request::get('search_site');
         $search_nume = \Request::get('search_nume');
+        $searchNrRaspunsuriOAI = \Request::get('searchNrRaspunsuriOAI');
 
         $siteuri = ChatGPTSite::select('id', 'nume')->get();
 
@@ -35,12 +36,23 @@ class ChatGPTProdusController extends Controller
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
+            ->withCount('raspunsuriOAI')
+            ->when(!is_null($searchNrRaspunsuriOAI), function ($query, $searchNrRaspunsuriOAI) {
+                return $query->having('raspunsuri_o_a_i_count', request('searchNrRaspunsuriOAI'));
+            })
             ->latest();
+// dd($searchNrRaspunsuriOAI);
+        // if ($searchNrRaspunsuriOAI){
+        //     $query = $query->where('raspunsuri_o_a_i_count', $searchNrRaspunsuriOAI);
+        // }
 
+        // dd($query);
         $produseNrTotal = $query->count();
         $produse = $query->simplePaginate(25);
 
-        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume'));
+        // dd($produse);
+
+        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume', 'searchNrRaspunsuriOAI'));
     }
 
     /**
