@@ -25,7 +25,7 @@ class ChatGPTProdusController extends Controller
         $search_nume = \Request::get('search_nume');
         $searchNrRaspunsuriOAI = \Request::get('searchNrRaspunsuriOAI');
 
-        $siteuri = ChatGPTSite::select('id', 'nume')->get();
+        $siteuri = ChatGPTSite::select('id', 'nume')->where('tip', 2)->get();
 
         $query = ChatGPTProdus::with('site')
             ->when($search_site, function ($query, $search_site) {
@@ -33,6 +33,13 @@ class ChatGPTProdusController extends Controller
                     return $query->where('id', $search_site);
                 });
             })
+            // ->whereHas('site', function ($query) use ($search_site) {
+            //     return $query->when($search_site, function ($query, $search_site) {
+            //         return $query->where('id', $search_site);
+            //     },function ($query){
+            //         return $query->where('tip', 2);
+            //     });
+            // })
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
