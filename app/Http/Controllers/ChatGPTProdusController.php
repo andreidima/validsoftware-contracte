@@ -48,16 +48,9 @@ class ChatGPTProdusController extends Controller
                 return $query->having('raspunsuri_o_a_i_count', request('searchNrRaspunsuriOAI'));
             })
             ->latest();
-// dd($searchNrRaspunsuriOAI);
-        // if ($searchNrRaspunsuriOAI){
-        //     $query = $query->where('raspunsuri_o_a_i_count', $searchNrRaspunsuriOAI);
-        // }
 
-        // dd($query);
         $produseNrTotal = $query->count();
         $produse = $query->simplePaginate(25);
-
-        // dd($produse);
 
         return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume', 'searchNrRaspunsuriOAI'));
     }
