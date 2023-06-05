@@ -67,7 +67,8 @@ class ChatGPTInterogareOAIController extends Controller
         ];
 
         foreach ($request->produseAdaugateInContext as $produs_id) {
-            $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
+            $produs = ChatGPTProdus::with('site')->where('id', $produs_id)->first();
+
 
             $messages[] = [
                 'role' => "user",
