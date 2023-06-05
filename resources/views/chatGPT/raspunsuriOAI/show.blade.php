@@ -29,7 +29,7 @@
                                             {{ $produs->nume }}
                                         </a>
                                         @if (!$loop->last)
-                                            ,
+                                            <br>
                                         @endif
                                     @endforeach
                                 </td>

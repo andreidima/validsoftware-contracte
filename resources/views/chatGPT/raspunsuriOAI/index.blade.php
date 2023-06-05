@@ -60,6 +60,9 @@
                                         <a href="{{ $produs->path() ?? '' }}">
                                             {{ $produs->nume }}
                                         </a>
+                                        @if (!$loop->last)
+                                            <br>
+                                        @endif
                                     @endforeach
                                 </td>
                                 <td>

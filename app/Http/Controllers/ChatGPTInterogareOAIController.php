@@ -113,11 +113,11 @@ class ChatGPTInterogareOAIController extends Controller
         echo '<pre>'; print_r($messages); echo '</pre>';
         echo '<br><br><br><br>';
 
-        echo '<h3>Prompt content:</h3>';
-        foreach ($messages as $mesaj) {
-            echo $mesaj['content'] . '<br><br>';
-        }
-        echo '<br><br><br><br>';
+        // echo '<h3>Prompt content:</h3>';
+        // foreach ($messages as $mesaj) {
+        //     echo $mesaj['content'] . '<br><br>';
+        // }
+        // echo '<br><br><br><br>';
 
         echo '<h3>Răspuns:</h3>';
         $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
