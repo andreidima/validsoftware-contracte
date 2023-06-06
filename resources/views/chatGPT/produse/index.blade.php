@@ -39,7 +39,7 @@
                             <i class="far fa-trash-alt text-white mr-1"></i>Resetează căutarea
                         </a>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
             <div class="col-lg-3 text-right">
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ url()->current() }}/adauga" role="button">
@@ -65,12 +65,30 @@
                             <th>Site</th>
                             <th>Nume</th>
                             <th>Url</th>
-                            <th class="text-center">Vânzări</th>
+                            <th class="text-center">Vânzări
+                                <form class="needs-validation mb-0" novalidate method="GET" action="{{ route(Route::currentRouteName())  }}">
+                                    @csrf
+                                    {{-- Lansare --}}
+                                    @if ($sortareVanzari === "crescator")
+                                        <input type="hidden" id="sortareVanzari" name="sortareVanzari" placeholder="sortareVanzari"
+                                            value="{{ ($sortareVanzari === "crescator") ? "descrescator" : "crescator" }}">
+                                        <button class="btn btn-sm btn-primary text-white mx-1 border border-dark rounded-3" type="submit">
+                                            {{ ($sortareVanzari === "crescator") ? "descrescator" : "<i class="fas fa-sort-numeric-up"></i>" }}
+                                        </button>
+                                        <button class="btn btn-sm btn-primary text-white mx-1 border border-dark rounded-3" type="submit">
+                                            {{ ($sortareVanzari === "crescator") ? "descrescator" : "<i class="fas fa-sort-numeric-down-alt"></i>" }}
+                                        </button>
+                                    {{-- <a class="btn btn-sm btn-secondary text-white col-md-4 border border-dark rounded-3" href="{{ route(Route::currentRouteName())  }}" role="button">
+                                        <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
+                                    </a> --}}
+                                </form>
+                            </th>
                             <th class="text-center">Răspunsuri OAI</th>
                             <th class="text-center">Interogare OAI</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
+                </form>
                     <tbody>
                         @forelse ($produse as $produs)
                             <tr>

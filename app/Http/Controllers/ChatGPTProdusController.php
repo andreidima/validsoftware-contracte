@@ -24,6 +24,7 @@ class ChatGPTProdusController extends Controller
         $search_site = \Request::get('search_site');
         $search_nume = \Request::get('search_nume');
         $searchNrRaspunsuriOAI = \Request::get('searchNrRaspunsuriOAI');
+        $sortareVanzari = \Request::get('sortareVanzari');
 
         $siteuri = ChatGPTSite::select('id', 'nume')->where('tip', 2)->get();
 
@@ -52,7 +53,7 @@ class ChatGPTProdusController extends Controller
         $produseNrTotal = $query->count();
         $produse = $query->simplePaginate(25);
 
-        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume', 'searchNrRaspunsuriOAI'));
+        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume', 'searchNrRaspunsuriOAI', 'sortareVanzari'));
     }
 
     /**
