@@ -75,9 +75,9 @@ class ChatGPTInterogareOAIController extends Controller
                 'content' => "Nume produs: " . strip_tags($produs->nume) . ". " . "Categorie produs: " . strip_tags($produs->categorie) . ". " . "Link Produs: " . strip_tags($produs->url) . ". " . "Descriere produs: " . strip_tags($produs->descriere)
             ];
         }
-        echo '<h3>Prompt varianta 1:</h3>';
-        echo '<pre>'; print_r($messages); echo '</pre>';
-        echo '<br><br><br><br>';
+        // echo '<h3>Prompt varianta 1:</h3>';
+        // echo '<pre>'; print_r($messages); echo '</pre>';
+        // echo '<br><br><br><br>';
         // dd($request);
 
 
