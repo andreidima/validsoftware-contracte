@@ -69,14 +69,11 @@
                                 <form class="needs-validation mb-0" novalidate method="GET" action="{{ route(Route::currentRouteName())  }}">
                                     @csrf
                                     {{-- Lansare --}}
-                                    @if ($sortareVanzari === "crescator")
+                                    {{-- @if ($sortareVanzari === "crescator") --}}
                                         <input type="hidden" id="sortareVanzari" name="sortareVanzari" placeholder="sortareVanzari"
                                             value="{{ ($sortareVanzari === "crescator") ? "descrescator" : "crescator" }}">
-                                        <button class="btn btn-sm btn-primary text-white mx-1 border border-dark rounded-3" type="submit">
-                                            {{ ($sortareVanzari === "crescator") ? "descrescator" : "<i class="fas fa-sort-numeric-up"></i>" }}
-                                        </button>
-                                        <button class="btn btn-sm btn-primary text-white mx-1 border border-dark rounded-3" type="submit">
-                                            {{ ($sortareVanzari === "crescator") ? "descrescator" : "<i class="fas fa-sort-numeric-down-alt"></i>" }}
+                                        <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit">
+                                            {!! ($sortareVanzari === "crescator") ? "<i class='fas fa-sort-amount-up'></i>" : "<i class='fas fa-sort-amount-down'></i>" !!}
                                         </button>
                                     {{-- <a class="btn btn-sm btn-secondary text-white col-md-4 border border-dark rounded-3" href="{{ route(Route::currentRouteName())  }}" role="button">
                                         <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea

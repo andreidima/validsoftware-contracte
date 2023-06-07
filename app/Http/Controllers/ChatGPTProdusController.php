@@ -48,6 +48,11 @@ class ChatGPTProdusController extends Controller
             ->when(!is_null($searchNrRaspunsuriOAI), function ($query, $searchNrRaspunsuriOAI) {
                 return $query->having('raspunsuri_o_a_i_count', request('searchNrRaspunsuriOAI'));
             })
+            ->when($sortareVanzari === "crescator", function ($query){
+                return $query->orderBy('quantity');
+            }, function ($query){
+                return $query->orderBy('quantity', 'desc');
+            })
             ->latest();
 
         $produseNrTotal = $query->count();
