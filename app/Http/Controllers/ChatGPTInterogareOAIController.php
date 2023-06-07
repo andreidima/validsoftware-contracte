@@ -72,24 +72,42 @@ class ChatGPTInterogareOAIController extends Controller
 
             $messages[] = [
                 'role' => "user",
-                'content' => "Nume produs: " . strip_tags($produs->nume)
-            ];
-
-            $messages[] = [
-                'role' => "user",
-                'content' => "Categorie produs: " . strip_tags($produs->categorie)
-            ];
-
-            $messages[] = [
-                'role' => "user",
-                'content' => "Link Produs: " . strip_tags($produs->url)
-            ];
-
-            $messages[] = [
-                'role' => "user",
-                'content' => "Descriere produs: " . strip_tags($produs->descriere)
+                'content' => "Nume produs: " . strip_tags($produs->nume) . ". " . "Categorie produs: " . strip_tags($produs->categorie) . ". " . "Link Produs: " . strip_tags($produs->url) . ". " . "Descriere produs: " . strip_tags($produs->descriere)
             ];
         }
+        echo '<h3>Prompt varianta 1:</h3>';
+        echo '<pre>'; print_r($messages); echo '</pre>';
+        echo '<br><br><br><br>';
+        // dd($request);
+
+
+
+        // Prompt varianta 2
+        // unset ($messages);
+        // $messages[] = [
+        //     'role' => "system",
+        //     'content' => strip_tags($request->promptText)
+        // ];
+        // foreach ($request->produseAdaugateInContext as $produs_id) {
+        //     $produs = ChatGPTProdus::with('site')->where('id', $produs_id)->first();
+
+        //     unset ($array);
+        //     $array[] = "Nume produs: " . strip_tags($produs->nume);
+        //     $array[] = "Categorie produs: " . strip_tags($produs->categorie);
+        //     $array[] = "Link Produs: " . strip_tags($produs->url);
+        //     $array[] = "Descriere produs: " . strip_tags($produs->descriere);
+
+        //     $messages[] = [
+        //         'role' => "user",
+        //         'content' => $array
+        //     ];
+        // }
+        // echo '<h3>Prompt varianta 2:</h3>';
+        // echo '<pre>'; print_r($messages); echo '</pre>';
+        // echo '<br><br><br><br>';
+
+
+
         // dd($request);
         // $raspunsOAI = new ChatGPTRaspunsOAI;
         // $raspunsOAI->prompt_id = $request->prompt_id;
