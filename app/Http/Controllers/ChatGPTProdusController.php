@@ -156,6 +156,8 @@ class ChatGPTProdusController extends Controller
             'categorie' => 'max:500',
             'url' => 'max:500',
             'descriere' => '',
+            'link_imagine_fata' => 'max:500',
+            'link_imagine_spate' => 'max:500',
         ]);
     }
 
@@ -255,11 +257,11 @@ class ChatGPTProdusController extends Controller
         echo '<pre>'; print_r($messages); echo '</pre>';
         echo '<br><br><br><br>';
 
-        // echo '<h3>Prompt content:</h3>';
-        // foreach ($messages as $mesaj) {
-        //     echo $mesaj['content'] . '<br><br>';
-        // }
-        // echo '<br><br><br><br>';
+        echo '<h3>Prompt content:</h3>';
+        foreach ($messages as $mesaj) {
+            echo $mesaj['content'] . '<br><br>';
+        }
+        echo '<br><br><br><br>';
 
         echo '<h3>Răspuns:</h3>';
         $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
@@ -280,7 +282,9 @@ class ChatGPTProdusController extends Controller
             <br>
             <div style='text-align:center; padding: 20px'>
                 <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/produse'>Produse</a>
-                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;' href='/chat-gpt/raspunsuri-oai'>Răspunsuri</a>
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/raspunsuri-oai'>Răspunsuri</a>
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
+                    href='" . ($produs->site->link_chatgpt ?? '') . "' target='_blank'>Chat GPT</a>
             </div>
         ";
     }

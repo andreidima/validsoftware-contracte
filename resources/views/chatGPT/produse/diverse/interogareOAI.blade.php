@@ -23,7 +23,7 @@
                         <div class="form-row mb-0 d-flex border-radius: 0px 0px 40px 40px" id="chatGPTInterogareOAI">
                             <div class="form-group col-lg-12 px-2 mb-0">
                                 <div class="form-row px-2 py-2 mb-0">
-                                    <div class="form-group col-lg-4 mb-4">
+                                    <div class="form-group col-lg-12 mb-4">
                                         <label for="nume" class="mb-0 pl-3">Produs:</label>
                                         <input type="hidden" name="produs_id" value="{{ $produs->id }}">
                                         <input type="hidden" name="produs_categorie" value="{{ $produs->categorie }}">
@@ -37,7 +37,13 @@
                                             value="{{ old('nume', $produs->nume) }}"
                                             readonly>
                                     </div>
-                                    <div class="form-group col-lg-4 mb-4">
+                                    <div class="form-group col-lg-12 mb-5">
+                                        <label for="produs_descriere" class="mb-0 pl-3">Descriere:</label>
+                                        <textarea class="form-control {{ $errors->has('produs_descriere') ? 'is-invalid' : '' }}" rows="5"
+                                            name="produs_descriere"
+                                        >{{ old('produs_descriere', $produs->descriere) }}</textarea>
+                                    </div>
+                                    <div class="form-group col-lg-5 mb-4">
                                         <label for="categoriePrompt" class="mb-0 pl-3">Categorie prompt:</label>
                                         <select name="categoriePrompt" class="custom-select-sm custom-select rounded-pill {{ $errors->has('categoriePrompt') ? 'is-invalid' : '' }}"
                                             v-model="categoriePrompt"
@@ -48,7 +54,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group col-lg-4 mb-4">
+                                    <div class="form-group col-lg-7 mb-4">
                                         <label for="prompt_id" class="mb-0 pl-3">Prompt:</label>
                                         <select class="custom-select-sm custom-select rounded-pill {{ $errors->has('prompt') ? 'is-invalid' : '' }}"
                                             name="prompt_id"

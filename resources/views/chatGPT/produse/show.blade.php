@@ -59,6 +59,22 @@
                                     {{ $produs->descriere }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Link imagine față
+                                </td>
+                                <td>
+                                    {{ $produs->link_imagine_fata }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Link imagine spate
+                                </td>
+                                <td>
+                                    {{ $produs->link_imagine_spate }}
+                                </td>
+                            </tr>
                         </table>
                     </div>
 

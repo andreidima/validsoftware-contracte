@@ -48,6 +48,15 @@
                     value="{{ old('feed_vanzari', $site->feed_vanzari) }}">
             </div>
             <div class="form-group col-lg-12 mb-4">
+                <label for="link_chatgpt" class="mb-0 pl-3">Link ChatGPT:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('link_chatgpt') ? 'is-invalid' : '' }}"
+                    name="link_chatgpt"
+                    placeholder=""
+                    value="{{ old('link_chatgpt', $site->link_chatgpt) }}">
+            </div>
+            <div class="form-group col-lg-12 mb-4">
                 <label for="descriere" class="mb-0 pl-3">Descriere:</label>
                 {{-- <tinymce-vue
                 inputvalue="{{ old('descriere', $site->descriere) }}"

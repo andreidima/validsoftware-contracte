@@ -50,6 +50,24 @@
                     name="descriere"
                 >{{ old('descriere', $produs->descriere) }}</textarea>
             </div>
+            <div class="form-group col-lg-6 mb-4">
+                <label for="link_imagine_fata" class="mb-0 pl-3">Link imagine față:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('link_imagine_fata') ? 'is-invalid' : '' }}"
+                    name="link_imagine_fata"
+                    placeholder=""
+                    value="{{ old('link_imagine_fata', $produs->link_imagine_fata) }}">
+            </div>
+            <div class="form-group col-lg-6 mb-4">
+                <label for="link_imagine_spate" class="mb-0 pl-3">Link imagine spate:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('link_imagine_spate') ? 'is-invalid' : '' }}"
+                    name="link_imagine_spate"
+                    placeholder=""
+                    value="{{ old('link_imagine_spate', $produs->link_imagine_spate) }}">
+            </div>
         </div>
 
         <div class="form-row mb-3 px-2 justify-content-center">

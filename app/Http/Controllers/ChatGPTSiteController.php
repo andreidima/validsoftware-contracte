@@ -121,6 +121,7 @@ class ChatGPTSiteController extends Controller
             'feed_vanzari' => 'max:500',
             'url' => 'max:500',
             'descriere' => '',
+            'link_chatgpt' => 'max:500',
         ]);
     }
 }

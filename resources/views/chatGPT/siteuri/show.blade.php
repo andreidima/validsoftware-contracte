@@ -45,6 +45,30 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Feed produse
+                                </td>
+                                <td>
+                                    {{ $site->feed_produse }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Feed vânzări
+                                </td>
+                                <td>
+                                    {{ $site->feed_vanzari }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Link ChatGPT
+                                </td>
+                                <td>
+                                    {{ $site->link_chatgpt }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Descriere
                                 </td>
                                 <td>
