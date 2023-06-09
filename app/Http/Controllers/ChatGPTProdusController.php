@@ -294,7 +294,7 @@ class ChatGPTProdusController extends Controller
                 <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
                     href='" . ($produs->link_imagine_fata ?? '') . "' target='_blank'>Imagine față</a>";
         } else{
-            // echo "Imagine față"
+            echo "Fără imagine";
         }
         echo "</div>";
     }
