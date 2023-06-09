@@ -208,29 +208,30 @@ class ChatGPTProdusController extends Controller
         ];
 
         $produs = ChatGPTProdus::with('site')->where('id', $request->produs_id)->first();
+
+        $messages[] = [
+            'role' => "user",
+            'content' => 'Nume produs: ' . '"' . strip_tags($request->produs_nume) . '"'
+        ];
+
+        $messages[] = [
+            'role' => "user",
+            'content' => 'Categorie produs: ' . '"' . strip_tags($request->produs_categorie) . '"'
+        ];
+
+        $messages[] = [
+            'role' => "user",
+            'content' => 'Link Produs: ' . '"' . strip_tags($request->produs_url) . '"'
+        ];
+
+        $messages[] = [
+            'role' => "user",
+            'content' => 'Descriere produs: ' . '"' . strip_tags($request->produs_descriere) . '"'
+        ];
+
         $messages[] = [
             'role' => "user",
             'content' => strip_tags($produs->site->descriere ?? '')
-        ];
-
-        $messages[] = [
-            'role' => "user",
-            'content' => "Nume produs: " . strip_tags($request->produs_nume)
-        ];
-
-        $messages[] = [
-            'role' => "user",
-            'content' => "Categorie produs: " . strip_tags($request->produs_categorie)
-        ];
-
-        $messages[] = [
-            'role' => "user",
-            'content' => "Link Produs: " . strip_tags($request->produs_url)
-        ];
-
-        $messages[] = [
-            'role' => "user",
-            'content' => "Descriere produs: " . strip_tags($request->produs_descriere)
         ];
 
         // dd($request);
@@ -282,10 +283,19 @@ class ChatGPTProdusController extends Controller
             <br>
             <div style='text-align:center; padding: 20px'>
                 <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/produse'>Produse</a>
-                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/raspunsuri-oai'>Răspunsuri</a>
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/raspunsuri-oai'>Răspunsuri</a>";
+        if (isset($produs->site->link_chatgpt)){
+            echo "
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;'
+                    href='" . ($produs->site->link_chatgpt ?? '') . "' target='_blank'>Chat GPT</a>";
+        }
+        if (isset($produs->link_imagine_fata)){
+            echo "
                 <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
-                    href='" . ($produs->site->link_chatgpt ?? '') . "' target='_blank'>Chat GPT</a>
-            </div>
-        ";
+                    href='" . ($produs->link_imagine_fata ?? '') . "' target='_blank'>Imagine față</a>";
+        } else{
+            // echo "Imagine față"
+        }
+        echo "</div>";
     }
 }
