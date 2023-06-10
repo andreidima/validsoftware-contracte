@@ -23,6 +23,8 @@ class ChatGPTProdusController extends Controller
 
         $search_site = \Request::get('search_site');
         $search_nume = \Request::get('search_nume');
+        $searchVanzariMinim = \Request::get('searchVanzariMinim');
+        $searchVanzariMaxim = \Request::get('searchVanzariMaxim');
         $searchNrRaspunsuriOAI = \Request::get('searchNrRaspunsuriOAI');
         $sortareVanzari = \Request::get('sortareVanzari');
 
@@ -44,6 +46,12 @@ class ChatGPTProdusController extends Controller
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
+            ->when($searchVanzariMinim, function ($query, $searchVanzariMinim) {
+                return $query->where('quantity', '>=', $searchVanzariMinim);
+            })
+            ->when($searchVanzariMaxim, function ($query, $searchVanzariMaxim) {
+                return $query->where('quantity', '<=', $searchVanzariMaxim);
+            })
             ->withCount('raspunsuriOAI')
             ->when(!is_null($searchNrRaspunsuriOAI), function ($query, $searchNrRaspunsuriOAI) {
                 return $query->having('raspunsuri_o_a_i_count', request('searchNrRaspunsuriOAI'));
@@ -58,7 +66,7 @@ class ChatGPTProdusController extends Controller
         $produseNrTotal = $query->count();
         $produse = $query->simplePaginate(25);
 
-        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume', 'searchNrRaspunsuriOAI', 'sortareVanzari'));
+        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume', 'searchVanzariMinim', 'searchVanzariMaxim', 'searchNrRaspunsuriOAI', 'sortareVanzari'));
     }
 
     /**

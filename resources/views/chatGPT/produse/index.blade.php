@@ -13,7 +13,7 @@
                 <form class="needs-validation" novalidate method="GET" action="{{ url()->current()  }}">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form d-flex justify-content-center">
-                        <div class="col-md-8 px-1">
+                        <div class="col-md-5 px-1">
                             {{-- <label for="search_site" class="mb-0 pl-3">Site:<span class="text-danger">*</span></label> --}}
                             <select name="search_site" class="custom-select-sm custom-select rounded-pill {{ $errors->has('search_site') ? 'is-invalid' : '' }}">
                                 <option value="" selected>Selectează site</option>
@@ -22,13 +22,21 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col-md-7 px-1">
+                            <input type="text" class="form-control form-control-sm border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
+                                    value="{{ $search_nume }}">
+                        </div>
+                        <div class="col-md-8 px-1 d-flex align-items-center">
+                            <label class="mb-0" for="searchVanzari">Vânzări (interval):</label>
+                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchVanzariMinim" name="searchVanzariMinim" placeholder="" style="width:40px"
+                                    value="{{ $searchVanzariMinim }}">
+                            <->
+                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchVanzariMaxim" name="searchVanzariMaxim" placeholder="" style="width:40px"
+                                    value="{{ $searchVanzariMaxim }}">
+                        </div>
                         <div class="col-md-4 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill" id="searchNrRaspunsuriOAI" name="searchNrRaspunsuriOAI" placeholder="Nr. răspunsuri"
                                     value="{{ $searchNrRaspunsuriOAI }}">
-                        </div>
-                        <div class="col-md-12 px-1">
-                            <input type="text" class="form-control form-control-sm border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
-                                    value="{{ $search_nume }}">
                         </div>
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
