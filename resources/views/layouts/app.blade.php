@@ -229,6 +229,10 @@
                                             <i class=" mr-1"></i>Prompturi
                                         </a>
                                         <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-dark" href="{{ '/chat-gpt/interogare-oai' }}">
+                                            <i class=" mr-1"></i>Interogare OAI
+                                        </a>
+                                        <div class="dropdown-divider"></div>
                                         <a class="nav-link text-dark" href="{{ '/chat-gpt/raspunsuri-oai' }}">
                                             <i class=" mr-1"></i>Răspunsuri OAI
                                         </a>
