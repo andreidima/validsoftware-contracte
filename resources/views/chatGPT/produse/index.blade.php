@@ -28,18 +28,18 @@
                         </div>
                         <div class="col-md-5 mb-1 px-1 d-flex align-items-center">
                             <label class="mb-0" for="searchStoc">Stoc (interval):</label>
-                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchStocMinim" name="searchStocMinim" placeholder="" style="width:40px"
+                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchStocMinim" name="searchStocMinim" placeholder="" style="width:50px"
                                     value="{{ $searchStocMinim }}">
                             -
-                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchStocMaxim" name="searchStocMaxim" placeholder="" style="width:40px"
+                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchStocMaxim" name="searchStocMaxim" placeholder="" style="width:50px"
                                     value="{{ $searchStocMaxim }}">
                         </div>
                         <div class="col-md-5 mb-1 px-1 d-flex align-items-center">
                             <label class="mb-0" for="searchVanzari">Vânzări (interval):</label>
-                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchVanzariMinim" name="searchVanzariMinim" placeholder="" style="width:40px"
+                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchVanzariMinim" name="searchVanzariMinim" placeholder="" style="width:50px"
                                     value="{{ $searchVanzariMinim }}">
                             -
-                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchVanzariMaxim" name="searchVanzariMaxim" placeholder="" style="width:40px"
+                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchVanzariMaxim" name="searchVanzariMaxim" placeholder="" style="width:50px"
                                     value="{{ $searchVanzariMaxim }}">
                         </div>
                         <div class="col-md-2 mb-1 px-1">
