@@ -3,17 +3,17 @@
 @section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <h6>
-                    Chat GPT - produse
+                    Chat GPT<br>Produse<br>
                     (<span class="text-info" title="Nr. total de produse în căutarea curentă">{{ $produseNrTotal }}</span>)
                 </h6>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <form class="needs-validation" novalidate method="GET" action="{{ url()->current()  }}">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form d-flex justify-content-center">
-                        <div class="col-md-5 px-1">
+                        <div class="col-md-5 mb-1 px-1">
                             {{-- <label for="search_site" class="mb-0 pl-3">Site:<span class="text-danger">*</span></label> --}}
                             <select name="search_site" class="custom-select-sm custom-select rounded-pill {{ $errors->has('search_site') ? 'is-invalid' : '' }}">
                                 <option value="" selected>Selectează site</option>
@@ -22,19 +22,27 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-7 px-1">
+                        <div class="col-md-7 mb-1 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                     value="{{ $search_nume }}">
                         </div>
-                        <div class="col-md-8 px-1 d-flex align-items-center">
+                        <div class="col-md-5 mb-1 px-1 d-flex align-items-center">
+                            <label class="mb-0" for="searchStoc">Stoc (interval):</label>
+                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchStocMinim" name="searchStocMinim" placeholder="" style="width:40px"
+                                    value="{{ $searchStocMinim }}">
+                            -
+                            <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchStocMaxim" name="searchStocMaxim" placeholder="" style="width:40px"
+                                    value="{{ $searchStocMaxim }}">
+                        </div>
+                        <div class="col-md-5 mb-1 px-1 d-flex align-items-center">
                             <label class="mb-0" for="searchVanzari">Vânzări (interval):</label>
                             <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchVanzariMinim" name="searchVanzariMinim" placeholder="" style="width:40px"
                                     value="{{ $searchVanzariMinim }}">
-                            <->
+                            -
                             <input type="text" class="form-control form-control-sm border rounded-pill text-right" id="searchVanzariMaxim" name="searchVanzariMaxim" placeholder="" style="width:40px"
                                     value="{{ $searchVanzariMaxim }}">
                         </div>
-                        <div class="col-md-4 px-1">
+                        <div class="col-md-2 mb-1 px-1">
                             <input type="text" class="form-control form-control-sm border rounded-pill" id="searchNrRaspunsuriOAI" name="searchNrRaspunsuriOAI" placeholder="Nr. răspunsuri"
                                     value="{{ $searchNrRaspunsuriOAI }}">
                         </div>
@@ -49,7 +57,7 @@
                     </div>
                 {{-- </form> --}}
             </div>
-            <div class="col-lg-3 text-right">
+            <div class="col-lg-2 text-right">
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="{{ url()->current() }}/adauga" role="button">
                     <i class="fas fa-plus-square text-white mr-1"></i>Adaugă produs
                 </a>
@@ -73,20 +81,19 @@
                             <th>Site</th>
                             <th>Nume</th>
                             <th>Url</th>
+                            <th class="text-center">Stoc
+                                    <input type="hidden" id="sortareStoc" name="sortareStoc" placeholder="sortareStoc"
+                                        value="{{ $sortareStoc }}">
+                                    <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortareStoc">
+                                        {!! ($sortareStoc === "crescator") ? "<i class='fas fa-sort'></i>" : "<i class='fas fa-sort'></i>" !!}
+                                    </button>
+                            </th>
                             <th class="text-center">Vânzări
-                                <form class="needs-validation mb-0" novalidate method="GET" action="{{ route(Route::currentRouteName())  }}">
-                                    @csrf
-                                    {{-- Lansare --}}
-                                    {{-- @if ($sortareVanzari === "crescator") --}}
-                                        <input type="hidden" id="sortareVanzari" name="sortareVanzari" placeholder="sortareVanzari"
-                                            value="{{ ($sortareVanzari === "crescator") ? "descrescator" : "crescator" }}">
-                                        <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit">
-                                            {!! ($sortareVanzari === "crescator") ? "<i class='fas fa-sort-amount-up'></i>" : "<i class='fas fa-sort-amount-down'></i>" !!}
-                                        </button>
-                                    {{-- <a class="btn btn-sm btn-secondary text-white col-md-4 border border-dark rounded-3" href="{{ route(Route::currentRouteName())  }}" role="button">
-                                        <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
-                                    </a> --}}
-                                </form>
+                                    <input type="hidden" id="sortareVanzari" name="sortareVanzari" placeholder="sortareVanzari"
+                                        value="{{ $sortareVanzari }}">
+                                    <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortareVanzari">
+                                        {!! ($sortareVanzari === "crescator") ? "<i class='fas fa-sort'></i>" : "<i class='fas fa-sort'></i>" !!}
+                                    </button>
                             </th>
                             <th class="text-center">Răspunsuri OAI</th>
                             <th class="text-center">Interogare OAI</th>
@@ -108,6 +115,9 @@
                                 </td>
                                 <td>
                                     <a href="{{ $produs->url }}" target="_blank">{{ $produs->url }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $produs->stoc }}
                                 </td>
                                 <td class="text-center">
                                     {{ $produs->quantity }}

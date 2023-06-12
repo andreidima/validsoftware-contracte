@@ -23,9 +23,12 @@ class ChatGPTProdusController extends Controller
 
         $search_site = \Request::get('search_site');
         $search_nume = \Request::get('search_nume');
+        $searchStocMinim = \Request::get('searchStocMinim');
+        $searchStocMaxim = \Request::get('searchStocMaxim');
         $searchVanzariMinim = \Request::get('searchVanzariMinim');
         $searchVanzariMaxim = \Request::get('searchVanzariMaxim');
         $searchNrRaspunsuriOAI = \Request::get('searchNrRaspunsuriOAI');
+        $sortareStoc = \Request::get('sortareStoc');
         $sortareVanzari = \Request::get('sortareVanzari');
 
         $siteuri = ChatGPTSite::select('id', 'nume')->where('tip', 2)->get();
@@ -36,15 +39,14 @@ class ChatGPTProdusController extends Controller
                     return $query->where('id', $search_site);
                 });
             })
-            // ->whereHas('site', function ($query) use ($search_site) {
-            //     return $query->when($search_site, function ($query, $search_site) {
-            //         return $query->where('id', $search_site);
-            //     },function ($query){
-            //         return $query->where('tip', 2);
-            //     });
-            // })
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
+            })
+            ->when($searchStocMinim, function ($query, $searchStocMinim) {
+                return $query->where('stoc', '>=', $searchStocMinim);
+            })
+            ->when($searchStocMaxim, function ($query, $searchStocMaxim) {
+                return $query->where('stoc', '<=', $searchStocMaxim);
             })
             ->when($searchVanzariMinim, function ($query, $searchVanzariMinim) {
                 return $query->where('quantity', '>=', $searchVanzariMinim);
@@ -55,18 +57,30 @@ class ChatGPTProdusController extends Controller
             ->withCount('raspunsuriOAI')
             ->when(!is_null($searchNrRaspunsuriOAI), function ($query, $searchNrRaspunsuriOAI) {
                 return $query->having('raspunsuri_o_a_i_count', request('searchNrRaspunsuriOAI'));
-            })
-            ->when($sortareVanzari === "crescator", function ($query){
+            });
+
+        if (isset($_GET['butonSortareStoc'])) {
+            ($sortareStoc === "crescator") ? ($sortareStoc = "descrescator") : $sortareStoc = "crescator";
+            $query->when($sortareStoc === "crescator", function ($query){
+                return $query->orderBy('stoc');
+            }, function ($query){
+                return $query->orderBy('stoc', 'desc');
+            });
+        } else if (isset($_GET['butonSortareVanzari'])) {
+            ($sortareVanzari === "crescator") ? ($sortareVanzari = "descrescator") : $sortareVanzari = "crescator";
+            $query->when($sortareVanzari === "crescator", function ($query){
                 return $query->orderBy('quantity');
             }, function ($query){
                 return $query->orderBy('quantity', 'desc');
-            })
-            ->latest();
+            });
+        } else {
+            $query->latest();
+        }
 
         $produseNrTotal = $query->count();
         $produse = $query->simplePaginate(25);
 
-        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume', 'searchVanzariMinim', 'searchVanzariMaxim', 'searchNrRaspunsuriOAI', 'sortareVanzari'));
+        return view('chatGPT.produse.index', compact('siteuri', 'produse', 'produseNrTotal', 'search_site', 'search_nume', 'searchStocMinim', 'searchStocMaxim', 'searchVanzariMinim', 'searchVanzariMaxim', 'searchNrRaspunsuriOAI', 'sortareVanzari', 'sortareStoc'));
     }
 
     /**
