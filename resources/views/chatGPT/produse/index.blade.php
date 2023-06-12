@@ -97,7 +97,6 @@
                                     </button>
                             </th>
                             <th class="text-center">Răspunsuri OAI</th>
-                            <th class="text-center">Interogare OAI</th>
                             <th class="text-center">Acțiuni</th>
                         </tr>
                     </thead>
@@ -115,10 +114,13 @@
                                     {{ $produs->nume }}
                                 </td>
                                 <td>
-                                    <a href="{{ $produs->url }}" target="_blank">{{ $produs->url }}
+                                    <a href="{{ $produs->url }}" target="_blank"><i class="fas fa-link fa-lg"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ $produs->link_imagine_fata }}" target="_blank"><i class="fas fa-image fa-lg"></i>
+                                    <a href="{{ $produs->link_imagine_fata }}" target="_blank">
+                                        {{-- <i class="fas fa-image fa-lg"></i> --}}
+                                        <img src="{{ $produs->link_imagine_fata }}" width="60" height="60">
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     {{ $produs->stoc }}
@@ -137,13 +139,12 @@
 
                                     {{-- {{ $produs->raspunsuriOAI->count() }} --}}
                                 </td>
-                                <td class="d-flex justify-content-center">
-                                    <a href="{{ $produs->path() }}/interogare-oai">
-                                        <span class="badge badge-primary">Interogare OAI</span>
-                                    </a>
-                                </td>
-
                                 <td>
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ $produs->path() }}/interogare-oai">
+                                            <span class="badge badge-warning">Interogare OAI</span>
+                                        </a>
+                                    </div>
                                     <div class="d-flex justify-content-end">
                                         <a href="{{ $produs->path() }}"
                                             class="flex mr-1"
