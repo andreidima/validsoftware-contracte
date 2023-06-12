@@ -81,6 +81,7 @@
                             <th>Site</th>
                             <th>Nume</th>
                             <th>Url</th>
+                            <th class="text-center">Imagine front</th>
                             <th class="text-center">Stoc
                                     <input type="hidden" id="sortareStoc" name="sortareStoc" placeholder="sortareStoc"
                                         value="{{ $sortareStoc }}">
@@ -115,6 +116,9 @@
                                 </td>
                                 <td>
                                     <a href="{{ $produs->url }}" target="_blank">{{ $produs->url }}
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ $produs->link_imagine_fata }}" target="_blank"><i class="fas fa-image fa-lg"></i>
                                 </td>
                                 <td class="text-center">
                                     {{ $produs->stoc }}
