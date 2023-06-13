@@ -293,7 +293,11 @@ class ChatGPTProdusController extends Controller
 
         $raspunsOAI = new ChatGPTRaspunsOAI;
         $raspunsOAI->prompt_id = $request->prompt_id;
-        $raspunsOAI->prompt_trimis = $request->promptText;
+        $promptTrimis = '';
+        foreach ($messages as $mesaj) {
+            $promptTrimis .= $mesaj['content'] . '<br><br>';
+        }
+        $raspunsOAI->prompt_trimis = $promptTrimis;
         $raspunsOAI->raspuns_primit = $response->choices[0]->message->content ?? '';
         $raspunsOAI->save();
 
