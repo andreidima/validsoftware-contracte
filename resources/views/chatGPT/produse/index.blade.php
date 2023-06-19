@@ -69,6 +69,8 @@
             @include('errors')
 
             <div class="table-responsive rounded">
+                    <input type="hidden" name="campSortare" value="{{ $campSortare }}">
+                    <input type="hidden" name="ordineSortare" value="{{ $ordineSortare }}">
                 <table class="table table-striped table-hover table-sm rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         {{-- <tr>
@@ -83,17 +85,29 @@
                             <th>Url</th>
                             <th class="text-center">Imagine front</th>
                             <th class="text-center">Stoc
-                                    <input type="hidden" id="sortareStoc" name="sortareStoc" placeholder="sortareStoc"
-                                        value="{{ $sortareStoc }}">
-                                    <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortareStoc">
+                                    {{-- <input type="hidden" id="sortareStoc" name="sortareStoc" placeholder="sortareStoc"
+                                        value="{{ $sortareStoc }}"> --}}
+                                    {{-- <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortareStoc" value="">
                                         {!! ($sortareStoc === "crescator") ? "<i class='fas fa-sort'></i>" : "<i class='fas fa-sort'></i>" !!}
+                                    </button> --}}
+                                    <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortare" value="stoc.asc">
+                                        <i class='fas fa-sort-up'></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortare" value="stoc.desc">
+                                        <i class='fas fa-sort-down'></i>
                                     </button>
                             </th>
                             <th class="text-center">Vânzări
-                                    <input type="hidden" id="sortareVanzari" name="sortareVanzari" placeholder="sortareVanzari"
+                                    {{-- <input type="hidden" id="sortareVanzari" name="sortareVanzari" placeholder="sortareVanzari"
                                         value="{{ $sortareVanzari }}">
                                     <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortareVanzari">
                                         {!! ($sortareVanzari === "crescator") ? "<i class='fas fa-sort'></i>" : "<i class='fas fa-sort'></i>" !!}
+                                    </button> --}}
+                                    <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortare" value="quantity.asc">
+                                        <i class='fas fa-sort-up'></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortare" value="quantity.desc">
+                                        <i class='fas fa-sort-down'></i>
                                     </button>
                             </th>
                             <th class="text-center">Răspunsuri OAI</th>
@@ -105,7 +119,7 @@
                         @forelse ($produse as $produs)
                             <tr>
                                 <td align="">
-                                    {{ $loop->iteration }}
+                                    {{ ($produse ->currentpage()-1) * $produse ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
                                     {{ $produs->site->nume ?? '' }}
