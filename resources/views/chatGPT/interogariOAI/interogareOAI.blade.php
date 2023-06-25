@@ -53,7 +53,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-4 mb-4">
+                                    {{-- <div class="form-group col-lg-4 mb-4">
                                         <label for="" class="mb-0 pl-3">Categorii:</label>
                                         <div class="d-flex">
                                             <select class="custom-select rounded-3" v-model="categorieAleasa" @change="categorieSelectata">
@@ -63,14 +63,78 @@
                                                 </option>
                                             </select>
                                         </div>
+                                    </div> --}}
+                                    <div class="col-lg-8 mb-4" style="position:relative;"
+                                        v-click-out="() => categoriiListaAutocomplete = ''"
+                                        >
+                                        <label for="categorie_id" class="mb-0 pl-3">Categorie</label>
+                                        {{-- <input
+                                            type="hidden"
+                                            v-model="categorieID"
+                                            name="categorie_id"> --}}
+
+                                        <div class="input-group">
+                                            {{-- <div class="input-group-prepend d-flex align-items-center">
+                                                <div v-if="!firmaTransportatorId" class="input-group-text" id="firmaTransportatorNume">?</div>
+                                                <div v-if="firmaTransportatorId" class="input-group-text p-2 bg-success text-white" id="firmaTransportatorNume"><i class="fa-solid fa-check" style="height:100%"></i></div>
+                                            </div> --}}
+                                            <span class="input-group-text"><i class='fas fa-search'></i></span>
+                                            <input
+                                                type="text"
+                                                v-model="categorieAutocomplete"
+                                                v-on:focus="autocompleteCategorii();"
+                                                v-on:keyup="autocompleteCategorii();"
+                                                class="form-control bg-white rounded-3"
+                                                {{-- name="firmaTransportatorNume" --}}
+                                                placeholder="Caută categorie"
+                                                autocomplete="off"
+                                                {{-- aria-describedby="firmaTransportatorNume" --}}
+                                                {{-- required --}}
+                                                >
+                                            {{-- <div class="input-group-prepend d-flex align-items-center">
+                                                <div v-if="firmaTransportatorId" class="input-group-text p-2 text-danger" id="firmaTransportatorNume" v-on:click="firmaTransportatorId = null; firmaTransportatorNume = ''"><i class="fa-solid fa-xmark"></i></div>
+                                            </div> --}}
+                                            {{-- <div class="input-group-prepend ms-2 d-flex align-items-center">
+                                                <button type="submit" ref="submit" formaction="{{ $comanda->path() }}/adauga-resursa/transportator" class="btn btn-success text-white rounded-3 py-0 px-2"
+                                                    style="font-size: 30px; line-height: 1.2;" title="Adaugă transportator nou">+</button>
+                                            </div> --}}
+                                        </div>
+                                        <div v-cloak v-if="categoriiListaAutocomplete && categoriiListaAutocomplete.length" class="panel-footer" style="width:100%; position:absolute; z-index: 1000;">
+                                            <div class="list-group" style="max-height: 418px; overflow:auto;">
+                                                <button class="list-group-item list-group-item-action py-0"
+                                                    v-for="categorie in categoriiListaAutocomplete"
+                                                    v-on:click="
+                                                        categorieAleasa = categorie;
+                                                        categorieSelectata(categorie);
+
+                                                        categoriiListaAutocomplete = ''
+                                                    ">
+                                                        @{{ categorie }}
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-4 mb-4">
-                                        <label for="" class="mb-0 pl-3">Produse:</label>
+                                    <div class="form-group col-lg-12 mb-4">
+                                        <div class="d-flex align-items-center">
+                                            <label for="" class="mb-0 pl-3 pr-3">Produse:</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class='fas fa-search'></i></span>
+                                                <input
+                                                    type="text"
+                                                    v-model="produsSearch"
+                                                    class="form-control form-control-sm  col-lg-4 bg-white rounded-3"
+                                                    placeholder="Caută produs"
+                                                    placeholder=""
+                                                    autocomplete="off"
+                                                    >
+                                            </div>
+                                        </div>
                                         <div class="d-flex">
-                                            <select class="custom-select rounded-3" v-model="produsAles" @change="adaugaProdusInContext">
-                                                <option selected></option>
-                                                <option v-for="produs in produsePerCategorie" :value='produs.id'>
-                                                    @{{produs.nume}}
+                                            <select v-if="produsePerCategorie.length" class="custom-select rounded-3" v-model="produsAles" @change="adaugaProdusInContext" multiple size=8>
+                                                {{-- <option selected></option> --}}
+                                                <option v-for="produs in produsePerCategorie" :value='produs.id'
+                                                >
+                                                    @{{produs.nume}} @{{(produs.descriere && (produs.descriere !== " ")) ? '' : ' --- FĂRĂ DESCRIERE ---'}}
                                                 </option>
                                             </select>
                                         </div>
@@ -94,7 +158,7 @@
                                             <h5 class="card-header">Produse selectate</h5>
                                             <div class="card-body p-0">
                                                 <li v-for="produs in produseAdaugateInContext" class="list-group-item d-flex justify-content-between align-items-center">
-                                                    @{{produs.nume}}
+                                                    @{{produs.nume}} @{{(produs.descriere && (produs.descriere !== " ")) ? '' : ' --- FĂRĂ DESCRIERE ---'}}
                                                     <input type="hidden" name="produseAdaugateInContext[]" :value=produs.id>
                                                     <span type="button" class="badge badge-white badge-3" title="Șterge produs"
                                                         @click="stergeProdusDinContext(produs.id)"

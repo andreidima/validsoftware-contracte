@@ -483,51 +483,35 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
 
                 siteAles: '',
                 siteuriAlese: [],
-                // prompturi: prompturi,
-                // categoriePrompt: '',
-                // prompturiPerCategorie: [],
-                // prompt: '',
-                // promptText: '',
-
 
                 produse: produse,
 
                 categoriiProduse: [],
                 categorieAleasa: '',
+                categorieAutocomplete: '',
+                categoriiListaAutocomplete: [],
 
+                produsSearch: '',
                 produsePerCategorie: [],
-                produsAles: '',
+                produsAles: [],
 
                 produseAdaugateInContext: [],
+
             }
         },
         components: {
-            // 'vue-datepicker-next': VueDatepickerNext,
-            // 'tinymce-vue': Tinymce,
+        },
+        watch: {
+            produsSearch: function () {
+                this.categorieSelectata();
+            },
         },
         methods: {
-            // adaugaSiteAles: function () {
-            //     for (var i = 0; i < this.siteuriAlese.length; i++) {
-            //         if (this.siteuriAlese[i].id == this.siteAles) {
-            //             return;
-            //         }
-            //     }
-            //     for (var i = 0; i < this.siteuri.length; i++) {
-            //         if (this.siteuri[i].id == this.siteAles) {
-            //             this.siteuriAlese.push(this.siteuri[i])
-            //         }
-            //     }
-            // },
-            // stergeSiteAles: function (siteId) {
-            //     for (var i = 0; i < this.siteuriAlese.length; i++) {
-            //         if (this.siteuriAlese[i].id == siteId) {
-            //             this.siteuriAlese.splice(i, 1);
-            //             break;
-            //         }
-            //     }
-            // },
             siteSelectat: function () {
                 this.categoriiProduse = [];
+                this.categorieAleasa = '',
+                this.categoriiListaAutocomplete = [];
+
                 for (var i = 0; i < this.produse.length; i++) {
                     if (
                         (this.produse[i].site_id == this.siteAles)
@@ -539,13 +523,23 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
                 }
                 this.categoriiProduse.sort((a, b) => a.localeCompare(b, 'ro'));
             },
+            autocompleteCategorii() {
+                this.categoriiListaAutocomplete = [];
+
+                for (var i = 0; i < this.categoriiProduse.length; i++) {
+                    if (this.categoriiProduse[i] && this.categoriiProduse[i].toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(this.categorieAutocomplete.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))) {
+                        this.categoriiListaAutocomplete.push(this.categoriiProduse[i]);
+                    }
+                }
+            },
             categorieSelectata: function () {
                 this.produsePerCategorie = [];
                 for (var i = 0; i < this.produse.length; i++) {
-                    if (
-                        (this.produse[i].categorie == this.categorieAleasa)
-                    ) {
-                        this.produsePerCategorie.push(this.produse[i]);
+                    if (this.produse[i].categorie == this.categorieAleasa) {
+                        // if ((produsSearch.length === 0) || ((produsSearch.length > 0) && this.produse[i].includes(this.produsSearch))) {
+                        if (this.produse[i].nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(this.produsSearch.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))) {
+                            this.produsePerCategorie.push(this.produse[i]);
+                        }
                     }
                 }
                 this.produsePerCategorie.sort();
@@ -558,7 +552,7 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
                 }
                 for (var i = 0; i < this.produsePerCategorie.length; i++) {
                     if (this.produsePerCategorie[i].id == this.produsAles) {
-                        this.produseAdaugateInContext.push(this.produsePerCategorie[i])
+                        this.produseAdaugateInContext.unshift(this.produsePerCategorie[i])
                     }
                 }
             },
@@ -572,6 +566,22 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
             },
         }
     });
+
+    const clickOutside = {
+        beforeMount: (el, binding) => {
+            el.clickOutsideEvent = event => {
+                if (!(el == event.target || el.contains(event.target))) {
+                    binding.value();
+                }
+            };
+            document.addEventListener("click", el.clickOutsideEvent);
+        },
+        unmounted: el => {
+            document.removeEventListener("click", el.clickOutsideEvent);
+        },
+    };
+
+    chatGPTInterogareOAISeparata.directive("clickOut", clickOutside);
 
     chatGPTInterogareOAISeparata.mount('#chatGPTInterogareOAISeparata');
 }

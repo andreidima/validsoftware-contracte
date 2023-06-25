@@ -82,6 +82,7 @@
                             <th>#</th>
                             <th>Site</th>
                             <th>Nume</th>
+                            <th class="text-center"><small>Descriere</small></th>
                             <th>Url</th>
                             <th class="text-center">Imagine front</th>
                             <th class="text-center">Stoc
@@ -126,6 +127,13 @@
                                 </td>
                                 <td>
                                     {{ $produs->nume }}
+                                </td>
+                                <td class="text-center">
+                                    @if (!empty($produs->descriere) && ($produs->descriere !== "") && ($produs->descriere !== " "))
+                                        <span class="text-success">DA</span>
+                                    @else
+                                        <span class="text-danger">NU</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ $produs->url }}" target="_blank"><i class="fas fa-link fa-lg"></i></a>

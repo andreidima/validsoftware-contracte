@@ -14,7 +14,7 @@ class ChatGPTInterogareOAIController extends Controller
     public function interogareOAI(Request $request)
     {
         $siteuri = ChatGPTSite::select('id', 'nume')->where('tip', 2)->orderBy('nume')->get();
-        $produse = ChatGPTProdus::select('id' , 'site_id', 'nume', 'categorie')->orderBy('nume')->get();
+        $produse = ChatGPTProdus::select('id' , 'site_id', 'nume', 'categorie', 'descriere')->orderBy('nume')->get();
         $prompturiCategorii = ChatGPTPrompt::select('categorie')->distinct()->orderBy('categorie')->get();
         $prompturi = ChatGPTPrompt::get();
 
@@ -61,10 +61,6 @@ class ChatGPTInterogareOAIController extends Controller
         ];
 
         $produs = ChatGPTProdus::with('site')->where('id', $request->produseAdaugateInContext[0])->first();
-        $messages[] = [
-            'role' => "user",
-            'content' => strip_tags($produs->site->descriere ?? '')
-        ];
 
         foreach ($request->produseAdaugateInContext as $produs_id) {
             $produs = ChatGPTProdus::with('site')->where('id', $produs_id)->first();
@@ -72,9 +68,15 @@ class ChatGPTInterogareOAIController extends Controller
 
             $messages[] = [
                 'role' => "user",
-                'content' => "Nume produs: " . strip_tags($produs->nume) . ". " . "Categorie produs: " . strip_tags($produs->categorie) . ". " . "Link Produs: " . strip_tags($produs->url) . ". " . "Descriere produs: " . strip_tags($produs->descriere)
+                'content' => "Nume produs: " . strip_tags($produs->nume) . ". " . "Categorie produs: " . strip_tags($produs->categorie) . ". " . "Link Produs: " . strip_tags($produs->url) .
+                                ((($produs->descriere !== "") && ($produs->descriere !== " ")) ? ". " . "Descriere produs: " . strip_tags($produs->descriere) : "")
             ];
         }
+
+        $messages[] = [
+            'role' => "user",
+            'content' => strip_tags($produs->site->descriere ?? '')
+        ];
         // echo '<h3>Prompt varianta 1:</h3>';
         // echo '<pre>'; print_r($messages); echo '</pre>';
         // echo '<br><br><br><br>';
