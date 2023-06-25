@@ -534,8 +534,9 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
             },
             categorieSelectata: function () {
                 this.produsePerCategorie = [];
+
                 for (var i = 0; i < this.produse.length; i++) {
-                    if (this.produse[i].categorie == this.categorieAleasa) {
+                    if ((this.categorieAleasa === '') || (this.produse[i].categorie == this.categorieAleasa)) {
                         // if ((produsSearch.length === 0) || ((produsSearch.length > 0) && this.produse[i].includes(this.produsSearch))) {
                         if (this.produse[i].nume.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(this.produsSearch.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))) {
                             this.produsePerCategorie.push(this.produse[i]);

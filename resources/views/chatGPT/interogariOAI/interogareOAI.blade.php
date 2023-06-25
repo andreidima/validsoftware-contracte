@@ -68,16 +68,7 @@
                                         v-click-out="() => categoriiListaAutocomplete = ''"
                                         >
                                         <label for="categorie_id" class="mb-0 pl-3">Categorie</label>
-                                        {{-- <input
-                                            type="hidden"
-                                            v-model="categorieID"
-                                            name="categorie_id"> --}}
-
                                         <div class="input-group">
-                                            {{-- <div class="input-group-prepend d-flex align-items-center">
-                                                <div v-if="!firmaTransportatorId" class="input-group-text" id="firmaTransportatorNume">?</div>
-                                                <div v-if="firmaTransportatorId" class="input-group-text p-2 bg-success text-white" id="firmaTransportatorNume"><i class="fa-solid fa-check" style="height:100%"></i></div>
-                                            </div> --}}
                                             <span class="input-group-text"><i class='fas fa-search'></i></span>
                                             <input
                                                 type="text"
@@ -85,20 +76,18 @@
                                                 v-on:focus="autocompleteCategorii();"
                                                 v-on:keyup="autocompleteCategorii();"
                                                 class="form-control bg-white rounded-3"
-                                                {{-- name="firmaTransportatorNume" --}}
                                                 placeholder="Caută categorie"
-                                                autocomplete="off"
-                                                {{-- aria-describedby="firmaTransportatorNume" --}}
-                                                {{-- required --}}
-                                                >
-                                            {{-- <div class="input-group-prepend d-flex align-items-center">
-                                                <div v-if="firmaTransportatorId" class="input-group-text p-2 text-danger" id="firmaTransportatorNume" v-on:click="firmaTransportatorId = null; firmaTransportatorNume = ''"><i class="fa-solid fa-xmark"></i></div>
-                                            </div> --}}
-                                            {{-- <div class="input-group-prepend ms-2 d-flex align-items-center">
-                                                <button type="submit" ref="submit" formaction="{{ $comanda->path() }}/adauga-resursa/transportator" class="btn btn-success text-white rounded-3 py-0 px-2"
-                                                    style="font-size: 30px; line-height: 1.2;" title="Adaugă transportator nou">+</button>
-                                            </div> --}}
+                                                autocomplete="off">
                                         </div>
+                                        <div v-if="categorieAleasa" class="form-text pl-3">Categorie aleasă: @{{ categorieAleasa }}
+                                            <span type="button" class="badge badge-white badge-3" title="Șterge categorie"
+                                                        @click="categorieAleasa = ''; categorieSelectata()"
+                                                    ><i class="fas fa-minus-square text-danger fa-2x"></i></span>
+                                        </div>
+                                        <div v-else class="pl-3">Categorie aleasă: niciuna (daca veți căuta un produs, nu se va ține cont de categorie)
+                                        </div>
+
+
                                         <div v-cloak v-if="categoriiListaAutocomplete && categoriiListaAutocomplete.length" class="panel-footer" style="width:100%; position:absolute; z-index: 1000;">
                                             <div class="list-group" style="max-height: 418px; overflow:auto;">
                                                 <button class="list-group-item list-group-item-action py-0"
