@@ -140,6 +140,16 @@ class ChatGPTInterogareOAIController extends Controller
         }
         echo '<br><br><br><br>';
 
+        // Afisare linkuri imagini
+        echo '<h3>Linkuri Imagini:</h3>';
+        foreach ($request->produseAdaugateInContext as $produs_id) {
+            $produs = ChatGPTProdus::with('site')->where('id', $produs_id)->first();
+            if ($produs->link_imagine_fata) {
+                echo $produs->link_imagine_fata . '<br>';
+            }
+        }
+        echo '<br><br><br><br>';
+
         echo '<h3>Răspuns:</h3>';
         $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
         echo $response->choices[0]->message->content;
