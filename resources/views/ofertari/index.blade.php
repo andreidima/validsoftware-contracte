@@ -44,7 +44,7 @@
                             <th>Client</th>
                             <th>Email - subiect</th>
                             <th class="text-center">Tip document</th>
-                            <th class="text-center">Dată emitere</th>
+                            <th class="text-center">Dată creare/ emitere</th>
                             <th class="text-center">Descarcă Ofertare</th>
                             <th class="text-center">Trimite</th>
                             <th class="text-center">Acțiuni</th>
@@ -66,6 +66,10 @@
                                     {{ (intval($ofertare->solicitata === 0)) ? 'Ofertă' : 'Cerere' }}
                                 </td>
                                 <td class="text-center">
+                                    @isset($ofertare->created_at)
+                                        {{ \Carbon\Carbon::parse($ofertare->created_at)->isoFormat('DD.MM.YYYY') }}
+                                    @endisset
+                                    <br>
                                     @isset($ofertare->data_emitere)
                                         {{ \Carbon\Carbon::parse($ofertare->data_emitere)->isoFormat('DD.MM.YYYY') }}
                                     @endisset
