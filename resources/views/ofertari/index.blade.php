@@ -67,7 +67,9 @@
                                 </td>
                                 <td class="text-center">
                                     @isset($ofertare->created_at)
-                                        {{ \Carbon\Carbon::parse($ofertare->created_at)->isoFormat('DD.MM.YYYY') }}
+                                        <small style="white-space: nowrap;">
+                                            {{ \Carbon\Carbon::parse($ofertare->created_at)->isoFormat('DD.MM.YYYY HH:mm') }}
+                                        </small>
                                     @endisset
                                     <br>
                                     @isset($ofertare->data_emitere)
