@@ -144,7 +144,8 @@
                     }
 
                 $html .= '</ol>
-                            <br/><br/>';
+                            <br/>
+                            <div style="page-break-after: always;"></div>';
 
                 if ($contracte->obiectul_contractului){
                     $html .= '<li><p style="font-weight: bold;">Obiectul contractului</p></li> ' .
