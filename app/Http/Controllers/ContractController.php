@@ -371,6 +371,7 @@ class ContractController extends Controller
                     }
 
                 $html .= '</ol>
+                            <br/>
                             <div style="page-break-after: always;"></div>';
 
                 if ($contracte->obiectul_contractului){
