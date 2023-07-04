@@ -144,6 +144,21 @@
                     }
 
                 $html .= '</ol>
+                            <br/><br/>';
+
+                if ($contracte->obiectul_contractului){
+                    $html .= '<li><p style="font-weight: bold;">Obiectul contractului</p></li> ' .
+                                $contracte->obiectul_contractului .
+                            '<br/>';
+                }
+                $html .= '<li><p style="font-weight: bold;">Durata contractului</p></li>
+                            <ol type="a">
+                                <li style="text-align:justify;">Contractul este valabil în intervalul ' .
+                                (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '') .
+                                ' - ' .
+                                (isset($contracte->data_terminare) ? (\Carbon\Carbon::parse($contracte->data_terminare)->isoFormat('DD.MM.YYYY')) : '') .
+                                ' și poate fi prelungit prin acte adiționale, încheiate cu acordul ambelor părți contractente.</li>
+                            </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Responsabilităţile <b>' . $contracte->client->nume . '</b></p></li>
                             <ol type="a">
@@ -176,15 +191,6 @@
                                 <li style="text-align:justify;"><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
                                 <li style="text-align:justify;">Dacă după 15 zile de la începerea acestor tratative <b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> nu reuşesc să rezolve în mod amiabil o divergenţă contractuală, fiecare parte poate solicita ca disputa să se soluționeze de către instanțele judecătorești.</li>
                                 <li style="text-align:justify;">În cazul în care achizitorul nu onorează facturile în termen de 30 de zile de la expirarea perioadei convenite, atunci acesta are obligaţia de a plăti ca penalităţi o sumă echivalentă cu 0,1% pe zi de întârziere din plata neefectuată, până la efectuarea plăţii.</li>
-                            </ol>
-                            <br/>
-                        <li><p style="font-weight: bold;">Durata contractului</p></li>
-                            <ol type="a">
-                                <li style="text-align:justify;">Contractul este valabil în intervalul ' .
-                                (isset($contracte->data_incepere) ? (\Carbon\Carbon::parse($contracte->data_incepere)->isoFormat('DD.MM.YYYY')) : '') .
-                                ' - ' .
-                                (isset($contracte->data_terminare) ? (\Carbon\Carbon::parse($contracte->data_terminare)->isoFormat('DD.MM.YYYY')) : '') .
-                                ' și poate fi prelungit prin acte adiționale, încheiate cu acordul ambelor părți contractente.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Modificări</p></li>
