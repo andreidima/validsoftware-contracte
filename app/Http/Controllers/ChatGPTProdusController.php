@@ -291,10 +291,30 @@ class ChatGPTProdusController extends Controller
         echo '<pre>'; print_r($messages); echo '</pre>';
         echo '<br><br><br><br>';
 
-        echo '<h3>Prompt content:</h3>';
+        // echo '<h3>Prompt content:</h3>';
+        // foreach ($messages as $mesaj) {
+        //     echo $mesaj['content'] . '<br><br>';
+        // }
+        // echo '<br><br><br><br>';
+
+        $promptContent = '';
         foreach ($messages as $mesaj) {
-            echo $mesaj['content'] . '<br><br>';
+            $promptContent .= $mesaj['content'];
+            $promptContent .= '<br><br>';
         }
+        echo '<h3>
+                Prompt content:
+                <div id="copyPaste">
+                    <a class="btn btn-sm p-0 border-0"
+                        v-if="canCopy"
+                        @click="copy(' . $promptContent . ')">
+                        <small title="Copy to clipboard" id="appId" aria-describedby="">
+                            Hihi <i class="far fa-clone"></i>
+                        </small>
+                    </a>
+                </div>
+            </h3>';
+        echo $promptContent;
         echo '<br><br><br><br>';
 
         echo '<h3>Răspuns:</h3>';

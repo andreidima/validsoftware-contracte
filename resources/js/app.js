@@ -591,3 +591,31 @@ if (document.getElementById('chatGPTInterogareOAISeparata') != null) {
 
     chatGPTInterogareOAISeparata.mount('#chatGPTInterogareOAISeparata');
 }
+
+const copyPaste = createApp({
+    el: '#copyPaste',
+    data() {
+        return {
+            canCopy: false, // pentru copy paste
+            flag: false // pentru tooltip
+        }
+    },
+
+    created() {
+        this.canCopy = !!navigator.clipboard;
+    },
+    methods: {
+        async copy(s) {
+            await navigator.clipboard.writeText(s);
+            alert('Copied!');
+
+            // this.flag = true
+            // setTimeout(() => {
+            //     this.flag = false
+            // }, 3000)
+        }
+    },
+});
+if (document.getElementById('copyPaste') != null) {
+    copyPaste.mount('#copyPaste');
+}
