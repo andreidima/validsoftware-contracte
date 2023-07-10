@@ -233,9 +233,14 @@ if (document.getElementById('fisaService') != null) {
                         client_id: this.client_deja_inregistrat,
                     }
                 })
-                    .then(function (response) {
-                        app.fise_vechi_client = response.data.raspuns;
-                        // console.log(response.data.raspuns);
+                    // .then(function (response) {
+                    //     app.fise_vechi_client = response.data.raspuns;
+                    // });
+                    .then(response => {
+                        this.fise_vechi_client = response.data.raspuns;
+                    })
+                    .catch(error => {
+                        console.log(error);
                     });
                 },
             autocomplete() {

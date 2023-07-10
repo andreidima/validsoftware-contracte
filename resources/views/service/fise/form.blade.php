@@ -327,7 +327,7 @@
                     {{-- placeholder="Descriere echipament" --}}
                     >{{ old('descriere_echipament') == '' ? $fise->descriere_echipament : old('descriere_echipament') }}</textarea>
                     {{-- <div v-cloak v-if="(nume_camp == 'autor') && (carti_lista_autocomplete.length > 0)" class="panel-footer overflow-auto" style="max-height: 100px;"> --}}
-                    <div class="panel-footer overflow-auto" style="max-height: 100px;">
+                    <div class="panel-footer overflow-auto" style="max-height: 200px;">
                         <div class="list-group">
                             <button class="list-group-item list-group-item list-group-item-action py-0"
                                 type="reset"
