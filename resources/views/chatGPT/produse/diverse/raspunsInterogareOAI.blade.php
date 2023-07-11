@@ -16,18 +16,18 @@
         <pre style="display: block;">{{ print_r($messages, true) }}</pre>
         <br><br><br><br>
 
-        <h3>
-            Prompt content:
-            {{-- <div id="copyPaste"> --}}
-                <a class="btn btn-sm p-0 border-0"
-                    {{-- v-if="canCopy" --}}
-                    @click="copy()">
-                    <small title="Copy to clipboard" id="copyPaste" aria-describedby="">
-                        <i class="far fa-clone fa-2x"></i>
-                    </small>
-                </a>
-            {{-- </div> --}}
-        </h3>
+        <div id="copyPaste">
+            <h3>
+                Prompt content:
+                    <a class="btn btn-sm p-0 border-0"
+                        v-if="canCopy"
+                        @click="copy()">
+                        <small title="Copy to clipboard" aria-describedby="">
+                            <i class="far fa-clone fa-2x"></i>
+                        </small>
+                    </a>
+            </h3>
+        </div>
         {!! $promptTrimis !!}
         <br><br><br><br>
 
