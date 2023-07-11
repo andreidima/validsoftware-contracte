@@ -12,6 +12,9 @@
 
     @include ('errors')
     <div class="card-body py-2" style="border-radius: 0px 0px 40px 40px; display: block;">
+        @php
+            dd($pentruCopyToClipboard);
+        @endphp
         <h3>pentruCopyToClipboard:</h3>
         <pre style="display: block;">{{ print_r($pentruCopyToClipboard, true) }}</pre>
         <br><br><br><br>
