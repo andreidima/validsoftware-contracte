@@ -1,7 +1,7 @@
 @extends ('layouts.app')
 
 <script type="application/javascript">
-    deCopiat={!! json_encode($promptPentruCopyToClipboard) !!}
+    deCopiat={!! json_encode($promptTrimis) !!}
 </script>
 
 @section('content')

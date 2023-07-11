@@ -334,12 +334,7 @@ class ChatGPTProdusController extends Controller
 
         $raspunsOAI->produse()->attach($request->produs_id);
 
-        $promptPentruCopyToClipboard = 'testqwe';
-        foreach ($messages as $mesaj) {
-            $promptPentruCopyToClipboard .= $mesaj['content'] . '\n';
-        }
-
-        return view('chatGPT.produse.diverse.raspunsInterogareOAI', compact('messages', 'promptTrimis', 'promptPentruCopyToClipboard', 'response'));
+        return view('chatGPT.produse.diverse.raspunsInterogareOAI', compact('messages', 'promptTrimis', 'response'));
         // $user->roles()->attach($roleId);
         // $raspunsOAI->context = '';
         // dd($raspunsOAI);
