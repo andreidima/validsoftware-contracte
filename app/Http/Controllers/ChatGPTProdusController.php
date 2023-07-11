@@ -336,7 +336,7 @@ class ChatGPTProdusController extends Controller
 
         $pentruCopyToClipboard = '';
         foreach ($messages as $mesaj) {
-            $pentruCopyToClipboard .= $mesaj['content'] . '\n';
+            $pentruCopyToClipboard .= $mesaj['content'] . ' \n';
         }
 
         return view('chatGPT.produse.diverse.raspunsInterogareOAI', compact('produs', 'messages', 'promptTrimis', 'pentruCopyToClipboard', 'response'));
