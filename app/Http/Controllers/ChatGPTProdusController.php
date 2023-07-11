@@ -334,7 +334,7 @@ class ChatGPTProdusController extends Controller
 
         $raspunsOAI->produse()->attach($request->produs_id);
 
-        $promptPentruCopyToClipboard = '';
+        $promptPentruCopyToClipboard = 'testqwe';
         foreach ($messages as $mesaj) {
             $promptPentruCopyToClipboard .= $mesaj['content'] . '\n';
         }
