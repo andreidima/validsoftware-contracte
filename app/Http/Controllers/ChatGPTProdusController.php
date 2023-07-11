@@ -287,9 +287,9 @@ class ChatGPTProdusController extends Controller
 
         // Print response
         // dd($response);
-        echo '<h3>Prompt:</h3>';
-        echo '<pre>'; print_r($messages); echo '</pre>';
-        echo '<br><br><br><br>';
+        // echo '<h3>Prompt:</h3>';
+        // echo '<pre>'; print_r($messages); echo '</pre>';
+        // echo '<br><br><br><br>';
 
         // echo '<h3>Prompt content:</h3>';
         // foreach ($messages as $mesaj) {
@@ -297,29 +297,29 @@ class ChatGPTProdusController extends Controller
         // }
         // echo '<br><br><br><br>';
 
-        $promptContent = '';
-        foreach ($messages as $mesaj) {
-            $promptContent .= $mesaj['content'];
-            $promptContent .= '<br><br>';
-        }
-        echo '<h3>
-                Prompt content:
-                <div id="copyPaste">
-                    <a class="btn btn-sm p-0 border-0"
-                        v-if="canCopy"
-                        @click="copy(' . $promptContent . ')">
-                        <small title="Copy to clipboard" id="appId" aria-describedby="">
-                            Hihi <i class="far fa-clone"></i>
-                        </small>
-                    </a>
-                </div>
-            </h3>';
-        echo $promptContent;
-        echo '<br><br><br><br>';
+        // $promptContent = '';
+        // foreach ($messages as $mesaj) {
+        //     $promptContent .= $mesaj['content'];
+        //     $promptContent .= '<br><br>';
+        // }
+        // echo '<h3>
+        //         Prompt content:
+        //         <div id="copyPaste">
+        //             <a class="btn btn-sm p-0 border-0"
+        //                 v-if="canCopy"
+        //                 @click="copy(' . $promptContent . ')">
+        //                 <small title="Copy to clipboard" id="appId" aria-describedby="">
+        //                     Hihi <i class="far fa-clone"></i>
+        //                 </small>
+        //             </a>
+        //         </div>
+        //     </h3>';
+        // echo $promptContent;
+        // echo '<br><br><br><br>';
 
-        echo '<h3>Răspuns:</h3>';
-        $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
-        echo $response->choices[0]->message->content;
+        // echo '<h3>Răspuns:</h3>';
+        // $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
+        // echo $response->choices[0]->message->content;
 
 
         $raspunsOAI = new ChatGPTRaspunsOAI;
@@ -333,6 +333,8 @@ class ChatGPTProdusController extends Controller
         $raspunsOAI->save();
 
         $raspunsOAI->produse()->attach($request->produs_id);
+
+        return view('chatGPT.produse.diverse.raspunsInterogareOAI', compact('messages', 'promptTrimis', 'response'));
         // $user->roles()->attach($roleId);
         // $raspunsOAI->context = '';
         // dd($raspunsOAI);

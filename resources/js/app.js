@@ -596,6 +596,7 @@ const copyPaste = createApp({
     el: '#copyPaste',
     data() {
         return {
+            deCopiat: deCopiat,
             canCopy: false, // pentru copy paste
             flag: false // pentru tooltip
         }
@@ -605,8 +606,8 @@ const copyPaste = createApp({
         this.canCopy = !!navigator.clipboard;
     },
     methods: {
-        async copy(s) {
-            await navigator.clipboard.writeText(s);
+        async copy() {
+            await navigator.clipboard.writeText(deCopiat);
             alert('Copied!');
 
             // this.flag = true
