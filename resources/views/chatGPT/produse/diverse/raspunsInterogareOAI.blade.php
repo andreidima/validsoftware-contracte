@@ -1,7 +1,7 @@
 @extends ('layouts.app')
 
 <script type="application/javascript">
-    deCopiat={!! json_encode($promptTrimis) !!}
+    deCopiat={!! json_encode($promptPentruCopyToClipboard) !!}
 </script>
 
 @section('content')
@@ -18,15 +18,15 @@
 
         <h3>
             Prompt content:
-            <div id="copyPaste">
+            {{-- <div id="copyPaste"> --}}
                 <a class="btn btn-sm p-0 border-0"
                     {{-- v-if="canCopy" --}}
                     @click="copy()">
-                    <small title="Copy to clipboard" id="appId" aria-describedby="">
-                        Hihi <i class="far fa-clone"></i>
+                    <small title="Copy to clipboard" id="copyPaste" aria-describedby="">
+                        <i class="far fa-clone fa-2x"></i>
                     </small>
                 </a>
-            </div>
+            {{-- </div> --}}
         </h3>
         {!! $promptTrimis !!}
         <br><br><br><br>
