@@ -326,7 +326,7 @@ class ChatGPTProdusController extends Controller
         $raspunsOAI->prompt_id = $request->prompt_id;
         $promptTrimis = '';
         foreach ($messages as $mesaj) {
-            $promptTrimis .= $mesaj['content'] . '<br><br>';
+            $promptTrimis .= $mesaj['content'] . '<br /><br />';
         }
         $raspunsOAI->prompt_trimis = $promptTrimis;
         $raspunsOAI->raspuns_primit = $response->choices[0]->message->content ?? '';
@@ -334,7 +334,7 @@ class ChatGPTProdusController extends Controller
 
         $raspunsOAI->produse()->attach($request->produs_id);
 
-        return view('chatGPT.produse.diverse.raspunsInterogareOAI', compact('messages', 'promptTrimis', 'response'));
+        return view('chatGPT.produse.diverse.raspunsInterogareOAI', compact('produs', 'messages', 'promptTrimis', 'response'));
         // $user->roles()->attach($roleId);
         // $raspunsOAI->context = '';
         // dd($raspunsOAI);

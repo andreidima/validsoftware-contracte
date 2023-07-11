@@ -31,6 +31,28 @@
         {!! $promptTrimis !!}
         <br><br><br><br>
 
+        <h3>Răspuns:</h3>
+        @php
+            $response->choices[0]->message->content = str_replace("\n", "<br />", $response->choices[0]->message->content);
+        @endphp
+        {!! $response->choices[0]->message->content !!}
+
+        <br><br>
+
+        <div style='text-align:center; padding: 20px'>
+            <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/produse'>Produse</a>
+            <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/raspunsuri-oai'>Răspunsuri</a>
+             @if (isset($produs->site->link_chatgpt))
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;'
+                    href='{{ $produs->site->link_chatgpt ?? '' }}' target='_blank'>Chat GPT</a>
+            @endif
+            @if (isset($produs->link_imagine_fata))
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
+                    href='{{ $produs->link_imagine_fata ?? '' }}' target='_blank'>Imagine față</a>
+            @else
+                Fără imagine
+            @endif
+        </div>
     </div>
 </div>
 @endsection
