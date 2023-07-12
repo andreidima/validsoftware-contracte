@@ -608,7 +608,7 @@ const copyPaste = createApp({
     methods: {
         async copy() {
             await navigator.clipboard.writeText(deCopiat);
-            alert('Copied!');
+            // alert('Copied!');
 
             // this.flag = true
             // setTimeout(() => {
