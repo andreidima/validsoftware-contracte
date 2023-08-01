@@ -55,10 +55,16 @@
                     href='{{ $produs->site->link_chatgpt ?? '' }}' target='_blank'>Chat GPT</a>
             @endif
             @if (isset($produs->link_imagine_fata))
-                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;'
                     href='{{ $produs->link_imagine_fata ?? '' }}' target='_blank'>Imagine față</a>
             @else
                 Fără imagine
+            @endif
+            @if (isset($produs->url))
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
+                    href='{{ $produs->url ?? '' }}' target='_blank'>Link produs</a>
+            @else
+                Fără link produs
             @endif
         </div>
     </div>

@@ -186,11 +186,14 @@ class ChatGPTProdusController extends Controller
         return request()->validate([
             'site_id' => 'required',
             'nume' => 'max:500',
-            'categorie' => 'max:500',
             'url' => 'max:500',
             'descriere' => '',
             'link_imagine_fata' => 'max:500',
             'link_imagine_spate' => 'max:500',
+            'categorie' => 'max:500',
+            'url_categorie' => 'max:500',
+            'branduri' => 'max:500',
+            'url_brand' => 'max:500',
         ]);
     }
 
@@ -356,9 +359,16 @@ class ChatGPTProdusController extends Controller
         if (isset($produs->link_imagine_fata)){
             echo "
                 <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
-                    href='" . ($produs->link_imagine_fata ?? '') . "' target='_blank'>Imagine față</a>";
+                    href='" . ($produs->link_imagine_fata ?? '') . "' target='_blank'>Imagine față</a>asd";
         } else{
             echo "Fără imagine";
+        }
+        if (isset($produs->url)){
+            echo "
+                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;'
+                    href='" . ($produs->url) . "' target='_blank'>Link produs</a>";
+        } else{
+            echo "Fără link produs";
         }
         echo "</div>";
     }

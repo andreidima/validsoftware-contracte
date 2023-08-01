@@ -21,15 +21,6 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-lg-4 mb-4">
-                <label for="categorie" class="mb-0 pl-3">Categorie:</label>
-                <input
-                    type="text"
-                    class="form-control form-control-sm rounded-pill {{ $errors->has('categorie') ? 'is-invalid' : '' }}"
-                    name="categorie"
-                    placeholder=""
-                    value="{{ old('categorie', $produs->categorie) }}">
-            </div>
             <div class="form-group col-lg-8 mb-4">
                 <label for="url" class="mb-0 pl-3">URL:</label>
                 <input
@@ -67,6 +58,42 @@
                     name="link_imagine_spate"
                     placeholder=""
                     value="{{ old('link_imagine_spate', $produs->link_imagine_spate) }}">
+            </div>
+            <div class="form-group col-lg-6 mb-4">
+                <label for="categorie" class="mb-0 pl-3">Categorie:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('categorie') ? 'is-invalid' : '' }}"
+                    name="categorie"
+                    placeholder=""
+                    value="{{ old('categorie', $produs->categorie) }}">
+            </div>
+            <div class="form-group col-lg-6 mb-4">
+                <label for="url_categorie" class="mb-0 pl-3">Categorie URL:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('url_categorie') ? 'is-invalid' : '' }}"
+                    name="url_categorie"
+                    placeholder=""
+                    value="{{ old('url_categorie', $produs->url_categorie) }}">
+            </div>
+            <div class="form-group col-lg-6 mb-4">
+                <label for="branduri" class="mb-0 pl-3">Brand:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('branduri') ? 'is-invalid' : '' }}"
+                    name="branduri"
+                    placeholder=""
+                    value="{{ old('branduri', $produs->branduri) }}">
+            </div>
+            <div class="form-group col-lg-6 mb-4">
+                <label for="url_brand" class="mb-0 pl-3">Brand URL:</label>
+                <input
+                    type="text"
+                    class="form-control form-control-sm rounded-pill {{ $errors->has('url_brand') ? 'is-invalid' : '' }}"
+                    name="url_brand"
+                    placeholder=""
+                    value="{{ old('url_brand', $produs->url_brand) }}">
             </div>
         </div>
 
