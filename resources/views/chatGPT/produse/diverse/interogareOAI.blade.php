@@ -29,6 +29,9 @@
                                         <input type="hidden" name="produs_categorie" value="{{ $produs->categorie }}">
                                         <input type="hidden" name="produs_url" value="{{ $produs->url }}">
                                         <input type="hidden" name="produs_descriere" value="{{ $produs->descriere }}">
+                                        <input type="hidden" name="produsCategorieUrl" value="{{ $produs->url_categorie }}">
+                                        <input type="hidden" name="produsBrand" value="{{ $produs->branduri }}">
+                                        <input type="hidden" name="produsBrandUrl" value="{{ $produs->url_brand }}">
                                         <input
                                             type="text"
                                             class="form-control form-control-sm rounded-pill {{ $errors->has('nume') ? 'is-invalid' : '' }}"

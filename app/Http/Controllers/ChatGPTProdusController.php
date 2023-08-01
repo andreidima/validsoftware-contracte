@@ -257,6 +257,21 @@ class ChatGPTProdusController extends Controller
 
         $messages[] = [
             'role' => "user",
+            'content' => 'Link categorie: ' . '"' . strip_tags($request->produsCategorieUrl) . '"'
+        ];
+
+        $messages[] = [
+            'role' => "user",
+            'content' => 'Brand produs: ' . '"' . strip_tags($request->produsBrand) . '"'
+        ];
+
+        $messages[] = [
+            'role' => "user",
+            'content' => 'Link brand: ' . '"' . strip_tags($request->produsBrandUrl) . '"'
+        ];
+
+        $messages[] = [
+            'role' => "user",
             'content' => 'Link Produs: ' . '"' . strip_tags($request->produs_url) . '"'
         ];
 
@@ -343,33 +358,5 @@ class ChatGPTProdusController extends Controller
         }
 
         return view('chatGPT.produse.diverse.raspunsInterogareOAI', compact('produs', 'messages', 'promptTrimis', 'pentruCopyToClipboard', 'response'));
-        // $user->roles()->attach($roleId);
-        // $raspunsOAI->context = '';
-        // dd($raspunsOAI);
-        echo "
-            <br>
-            <div style='text-align:center; padding: 20px'>
-                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/produse'>Produse</a>
-                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;' href='/chat-gpt/raspunsuri-oai'>Răspunsuri</a>";
-        if (isset($produs->site->link_chatgpt)){
-            echo "
-                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;'
-                    href='" . ($produs->site->link_chatgpt ?? '') . "' target='_blank'>Chat GPT</a>";
-        }
-        if (isset($produs->link_imagine_fata)){
-            echo "
-                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
-                    href='" . ($produs->link_imagine_fata ?? '') . "' target='_blank'>Imagine față</a>asd";
-        } else{
-            echo "Fără imagine";
-        }
-        if (isset($produs->url)){
-            echo "
-                <a style='background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-right:20px;'
-                    href='" . ($produs->url) . "' target='_blank'>Link produs</a>";
-        } else{
-            echo "Fără link produs";
-        }
-        echo "</div>";
     }
 }

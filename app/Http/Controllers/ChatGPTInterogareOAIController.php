@@ -68,8 +68,13 @@ class ChatGPTInterogareOAIController extends Controller
 
             $messages[] = [
                 'role' => "user",
-                'content' => "Nume produs: " . strip_tags($produs->nume) . ". " . "Categorie produs: " . strip_tags($produs->categorie) . ". " . "Link Produs: " . strip_tags($produs->url) .
-                                ((($produs->descriere !== "") && ($produs->descriere !== " ")) ? ". " . "Descriere produs: " . strip_tags($produs->descriere) : "")
+                'content' => "Nume produs: " . strip_tags($produs->nume) . ". " .
+                            "Categorie produs: " . strip_tags($produs->categorie) . ". " .
+                            "Link categorie: " . strip_tags($produs->url_categorie) . ". " .
+                            "Brand produs: " . strip_tags($produs->branduri) . ". " .
+                            "Link brand: " . strip_tags($produs->url_brand) . ". " .
+                            "Link Produs: " . strip_tags($produs->url) .
+                            ((($produs->descriere !== "") && ($produs->descriere !== " ")) ? ". " . "Descriere produs: " . strip_tags($produs->descriere) : "") . ". "
             ];
         }
 
