@@ -28,8 +28,8 @@ class ChatGPTProdusController extends Controller
         $searchVanzariMinim = \Request::get('searchVanzariMinim');
         $searchVanzariMaxim = \Request::get('searchVanzariMaxim');
         $searchNrRaspunsuriOAI = \Request::get('searchNrRaspunsuriOAI');
-        $campSortare = \Request::get('campSortare');;
-        $ordineSortare = \Request::get('ordineSortare');;
+        $campSortare = \Request::get('campSortare');
+        $ordineSortare = \Request::get('ordineSortare');
 
         if(isset($_GET['butonSortare'])) {
             $arr = explode(".", $_GET['butonSortare'], 2);
