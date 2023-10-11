@@ -281,7 +281,7 @@ class ServiceFisaController extends Controller
             'banca' => ['max:100'],
             'reprezentant' => ['max:100'],
             'reprezentant_functie' => ['max:100'],
-            'telefon' => ['nullable', 'numeric', 'digits:10'],
+            'telefon' => ['nullable'],
             'email' => ['nullable', 'max:180'],
             'site_web' => ['nullable', 'max:180'],
         ]);
