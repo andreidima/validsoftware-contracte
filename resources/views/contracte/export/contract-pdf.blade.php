@@ -178,6 +178,13 @@
 
                 $html .= '</ol>
                             <br/>
+                        <li><p style="font-weight: bold;">Încetarea contractului - prezentul contract poate înceta prin:</p></li>
+                            <ol type="a">
+                                <li>Ajungerea la termenul prevăzut la pct.4, numai după decontarea contravalorii serviciului.</li>
+                                <li>Acordul scris al părţilor, la data convenită de către acestea.</li>
+                                <li>Prin reziliere, după acordarea unui termen de înștiințare de 30 zile calendaristice în situația executării sau neexecutării culpabile și/sau necorespunzătoare a obligațiilor contractuale.</li>
+                            </ol>
+                            <br/>
                         <li><p style="font-weight: bold;">Forţa majoră</p></li>
                             <ol type="a">
                                 <li style="text-align:justify;">Forţa majoră este constatată de o autoritate competentă.</li>
@@ -191,7 +198,6 @@
                             <ol type="a">
                                 <li style="text-align:justify;"><b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> vor face toate eforturile pentru a rezolva pe cale amiabilă, prin tratative directe, orice neînţelegere sau dispută care se poate ivi între ei în cadrul sau în legătură cu îndeplinirea contractului, conform procedurii concilierii directe reglementată de Codul de Procedură Civilă.</li>
                                 <li style="text-align:justify;">Dacă după 15 zile de la începerea acestor tratative <b>' . $contracte->client->nume . '</b> şi <b>' . ($contracte->firma->nume ?? '') . '</b> nu reuşesc să rezolve în mod amiabil o divergenţă contractuală, fiecare parte poate solicita ca disputa să se soluționeze de către instanțele judecătorești.</li>
-                                <li style="text-align:justify;">În cazul în care achizitorul nu onorează facturile în termen de 30 de zile de la expirarea perioadei convenite, atunci acesta are obligaţia de a plăti ca penalităţi o sumă echivalentă cu 0,1% pe zi de întârziere din plata neefectuată, până la efectuarea plăţii.</li>
                             </ol>
                             <br/>
                         <li><p style="font-weight: bold;">Modificări</p></li>
