@@ -159,7 +159,7 @@ class ContractController extends Controller
             'data_incepere' => [''],
             'data_terminare' => [''],
             'abonament_lunar' => [''],
-            'pret' => ['nullable', 'numeric', 'max:99999'],
+            'pret' => 'nullable|max:200',
             'obiectul_contractului' => [''],
             'anexa' => ['']
         ]);
