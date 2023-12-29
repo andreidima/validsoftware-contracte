@@ -140,7 +140,7 @@
                                 <li style="text-align:justify;"><b>' . ($contracte->firma->nume ?? '') . '</b> este pe deplin responsabil pentru prestarea serviciilor în conformitate cu graficul de prestare convenit şi de siguranţa tuturor operaţiunilor şi metodelor de prestare utilizate pe toată durata contractului. </li>';
 
                     if (($contracte->abonament_lunar === 1) && ($contracte->pret != null)){
-                        $html .= '<li style="text-align:justify;"><b>' . ($contracte->firma->nume ?? '') . '</b> va emite lunar o factură în valoare de ' . $contracte->pret . ' RON (TVA 0), pentru serviciile prestate. </li>';
+                        $html .= '<li style="text-align:justify;"><b>' . ($contracte->firma->nume ?? '') . '</b> va emite lunar o factură în valoare de ' . $contracte->pret . ' RON (' . {{ $contracte->firma->id == '1' ? 'TVA 0' : '+TVA 19%' }} . '), pentru serviciile prestate. </li>';
                     }
 
                 $html .= '</ol>
