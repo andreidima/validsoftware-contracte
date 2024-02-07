@@ -31,7 +31,7 @@ Te informăm că oferim și servicii de Asistență IT de la distanță. Mai mul
 
 @if ($fisa->client->review_google !== 1)
 Ne dorim mult să știm ce părere ai despre serviciile noastre! Te invităm să ne oferi o recenzie.
-@component('mail::button', ['url' => 'http://search.google.com/local/writereview?placeid=ChIJoX8PeK8YtEARgtFebuluoUo', 'color' => 'success'])
+@component('mail::button', ['url' => 'https://g.page/r/CYLRXm7pbqFKEBM/review', 'color' => 'success'])
 Recenzia ta
 @endcomponent
 @endif
