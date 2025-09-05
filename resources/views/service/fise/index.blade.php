@@ -168,7 +168,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($service_fise->take(25) as $service_fisa)
+                        @forelse ($service_fise as $service_fisa)
                             {{-- @if ($service_fisa->inchisa === 0) --}}
                             @if (! $service_fisa->inchisa)
                             <tr style="background-color:rgb(0, 82, 82); color:white">
@@ -273,7 +273,7 @@
                                                 >
                                                 <span class="badge badge-primary">Email
                                                     <span class="badge badge-light" title="Emailuri trimise până acum">
-                                                        {{ $service_fisa->mesaje_trimise_fisa_intrare()->count() }}
+                                                        {{ $service_fisa->mesaje_intrare_count }}
                                                     </span>
                                                 </span>
                                             </a>
@@ -313,7 +313,7 @@
                                                 aria-expanded="false" aria-controls="collapseSMSFisaIntrare{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
                                                         <span class="badge badge-light" title="SMS-uri trimise până acum">
-                                                            {{ $service_fisa->sms_trimise_fisa_intrare_cu_succes()->count() }}
+                                                            {{ $service_fisa->sms_intrare_succes_count }}
                                                         </span>
                                                     </span>
                                             </a>
@@ -345,7 +345,7 @@
                                                 >
                                                 <span class="badge badge-primary">Email
                                                     <span class="badge badge-light" title="Mesaje trimise până acum">
-                                                        {{ $service_fisa->mesaje_trimise_fisa_iesire()->count() }}
+                                                        {{ $service_fisa->mesaje_iesire_count }}
                                                     </span>
                                                 </span>
                                             </a>
@@ -385,7 +385,7 @@
                                                 aria-expanded="false" aria-controls="collapseSMSFisaIesire{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
                                                         <span class="badge badge-light" title="SMS-uri trimise până acum">
-                                                            {{ $service_fisa->sms_trimise_fisa_iesire_cu_succes()->count() }}
+                                                            {{ $service_fisa->sms_iesire_succes_count }}
                                                         </span>
                                                     </span>
                                             </a>
@@ -397,7 +397,7 @@
                                                 aria-expanded="false" aria-controls="collapseEmailFisaPersonalizat{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">Email
                                                         <span class="badge badge-light" title="Email-uri trimise până acum">
-                                                            {{ $service_fisa->emailuri_trimise_fisa_personalizat()->count() }}
+                                                            {{ $service_fisa->email_personalizat_count }}
                                                         </span>
                                                     </span>
                                             </a>
@@ -406,7 +406,7 @@
                                                 aria-expanded="false" aria-controls="collapseSMSFisaPersonalizat{{ $service_fisa->id }}">
                                                     <span class="badge badge-primary">SMS
                                                         <span class="badge badge-light" title="SMS-uri trimise până acum">
-                                                            {{ $service_fisa->sms_trimise_fisa_personalizat_cu_succes()->count() }}
+                                                            {{ $service_fisa->sms_personalizat_succes_count }}
                                                         </span>
                                                     </span>
                                             </a>

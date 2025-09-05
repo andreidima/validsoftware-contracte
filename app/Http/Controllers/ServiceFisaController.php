@@ -26,113 +26,190 @@ class ServiceFisaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /**
+     * @changed 2025-09-05
+     * @reason  Was running way to many queries (186)
+     */
+    // public function index()
+    // {
+    //     $search_numar_intrare = \Request::get('search_numar_intrare');
+    //     $search_nume = \Request::get('search_nume');
+    //     $search_telefon = \Request::get('search_telefon');
+    //     $search_cu_plata = \Request::get('search_cu_plata') ?? 1;
+    //     $search_gratuit = \Request::get('search_gratuit') ?? 1;
+    //     $search_in_lucru = \Request::get('search_in_lucru') ?? 1;
+    //     $search_finalizate = \Request::get('search_finalizate') ?? 1;
+    //     $search_service = \Request::get('search_service') ?? 1;
+    //     $search_donatie = \Request::get('search_donatie') ?? 1;
+
+    //     $service_fise = ServiceFisa::with('mesaje_trimise_fisa_iesire')
+    //         ->leftJoin('service_clienti', 'service_fise.client_id', '=', 'service_clienti.id')
+    //         ->select(
+    //             'service_fise.*',
+    //             'service_clienti.nume',
+    //             'service_clienti.nr_ord_reg_com',
+    //             'service_clienti.cui',
+    //             'service_clienti.adresa',
+    //             'service_clienti.iban',
+    //             'service_clienti.banca',
+    //             'service_clienti.reprezentant',
+    //             'service_clienti.reprezentant_functie',
+    //             'service_clienti.telefon',
+    //             'service_clienti.email',
+    //             'service_clienti.site_web'
+    //         )
+    //         ->when($search_numar_intrare, function ($query, $search_numar_intrare) {
+    //             return $query->where('service_fise.nr_intrare', $search_numar_intrare);
+    //         })
+    //         ->when($search_nume, function ($query, $search_nume) {
+    //             return $query->where('service_clienti.nume', 'like', '%' . $search_nume . '%');
+    //         })
+    //         ->when($search_telefon, function ($query, $search_telefon) {
+    //             return $query->where('service_clienti.telefon', 'like', '%' . $search_telefon . '%');
+    //         })
+    //         ->where(function ($query) use ($search_cu_plata, $search_gratuit) {
+    //             if ($search_cu_plata == '1'){
+    //                 if ($search_gratuit == '1'){
+    //                     $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
+    //                 } else if ($search_gratuit == '0'){
+    //                     $query->where('service_fise.cost', '<>', 0);
+    //                 }
+    //             } else if ($search_cu_plata == '0'){
+    //                 if ($search_gratuit == '1'){
+    //                     $query->where('cost', 0);
+    //                 } else if ($search_gratuit == '0'){
+    //                     $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
+    //                 }
+    //             }
+    //             return $query;
+    //         })
+    //         ->where(function ($query) use ($search_in_lucru, $search_finalizate) {
+    //             if ($search_in_lucru == '1'){
+    //                 if ($search_finalizate == '1'){
+    //                     $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
+    //                 } else if ($search_finalizate == '0'){
+    //                     $query->whereNull('service_fise.inchisa_la');
+    //                 }
+    //             } else if ($search_in_lucru == '0'){
+    //                 if ($search_finalizate == '1'){
+    //                     $query->whereNotNull('service_fise.inchisa_la');
+    //                 } else if ($search_finalizate == '0'){
+    //                     $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
+    //                 }
+    //             }
+    //             return $query;
+    //         })
+    //         ->where(function ($query) use ($search_service, $search_donatie) {
+    //             if ($search_service == '1'){
+    //                 if ($search_donatie == '1'){
+    //                     $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
+    //                 } else if ($search_donatie == '0'){
+    //                     $query->where('service_fise.donatie', 0);
+    //                 }
+    //             } else if ($search_service == '0'){
+    //                 if ($search_donatie == '1'){
+    //                     $query->where('service_fise.donatie', 1);
+    //                 } else if ($search_donatie == '0'){
+    //                     $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
+    //                 }
+    //             }
+    //             return $query;
+    //         })
+    //         ->latest('service_fise.created_at')
+    //         ->withCount('fisiere')
+    //         ->simplePaginate(15);
+
+    //     $service_fise_cu_plata = ServiceFisa::
+    //         whereNull('service_fise.inchisa_la')
+    //         ->where('cost', '<>', 0)
+    //         ->count();
+
+    //     $service_fise_gratuite = ServiceFisa::
+    //         whereNull('service_fise.inchisa_la')
+    //         ->where('cost', 0)
+    //         ->count();
+
+    //     return view('service.fise.index', compact('service_fise', 'search_numar_intrare',
+    //         'search_nume', 'search_telefon', 'search_cu_plata', 'search_gratuit', 'search_in_lucru', 'search_finalizate', 'search_donatie', 'search_service',
+    //         'service_fise_cu_plata', 'service_fise_gratuite'));
+    // }
     public function index()
     {
-        $search_numar_intrare = \Request::get('search_numar_intrare');
-        $search_nume = \Request::get('search_nume');
-        $search_telefon = \Request::get('search_telefon');
-        $search_cu_plata = \Request::get('search_cu_plata') ?? 1;
-        $search_gratuit = \Request::get('search_gratuit') ?? 1;
-        $search_in_lucru = \Request::get('search_in_lucru') ?? 1;
-        $search_finalizate = \Request::get('search_finalizate') ?? 1;
-        $search_service = \Request::get('search_service') ?? 1;
-        $search_donatie = \Request::get('search_donatie') ?? 1;
+        $search_numar_intrare = request('search_numar_intrare');
+        $search_nume          = request('search_nume');
+        $search_telefon       = request('search_telefon');
+        $search_cu_plata      = request('search_cu_plata', '1');
+        $search_gratuit       = request('search_gratuit', '1');
+        $search_in_lucru      = request('search_in_lucru', '1');
+        $search_finalizate    = request('search_finalizate', '1');
+        $search_service       = request('search_service', '1');
+        $search_donatie       = request('search_donatie', '1');
 
-        $service_fise = ServiceFisa::with('mesaje_trimise_fisa_iesire')
-            ->leftJoin('service_clienti', 'service_fise.client_id', '=', 'service_clienti.id')
-            ->select(
-                'service_fise.*',
-                'service_clienti.nume',
-                'service_clienti.nr_ord_reg_com',
-                'service_clienti.cui',
-                'service_clienti.adresa',
-                'service_clienti.iban',
-                'service_clienti.banca',
-                'service_clienti.reprezentant',
-                'service_clienti.reprezentant_functie',
-                'service_clienti.telefon',
-                'service_clienti.email',
-                'service_clienti.site_web'
-            )
-            ->when($search_numar_intrare, function ($query, $search_numar_intrare) {
-                return $query->where('service_fise.nr_intrare', $search_numar_intrare);
+        $service_fise = ServiceFisa::query()
+            // Eager-load only what the view iterates/displays
+            ->with([
+                // keep columns tight
+                'client:id,nume,telefon,email,cui',
+                'sms_trimise_fisa_intrare:id,inregistrare_id,telefon,mesaj,trimis,created_at',
+                'sms_trimise_fisa_iesire:id,inregistrare_id,telefon,mesaj,trimis,created_at',
+                'sms_trimise_fisa_personalizat:id,inregistrare_id,telefon,mesaj,trimis,created_at',
+                'emailuri_trimise_fisa_personalizat:id,inregistrare_id,text,created_at',
+                'fisiere:id,service_fisa_id,nume',
+            ])
+            // Precompute all counts shown in badges (no per-row COUNT queries)
+            ->withCount([
+                'fisiere',
+                'mesaje_trimise_fisa_intrare as mesaje_intrare_count',
+                'mesaje_trimise_fisa_iesire as mesaje_iesire_count',
+                'sms_trimise_fisa_intrare_cu_succes as sms_intrare_succes_count',
+                'sms_trimise_fisa_iesire_cu_succes as sms_iesire_succes_count',
+                'emailuri_trimise_fisa_personalizat as email_personalizat_count',
+                'sms_trimise_fisa_personalizat_cu_succes as sms_personalizat_succes_count',
+            ])
+            // Filters
+            ->when($search_numar_intrare, fn($q,$v) => $q->where('nr_intrare', $v))
+            ->when($search_nume, fn($q,$v) => $q->whereHas('client', fn($c)=>$c->where('nume', 'like', "%{$v}%")))
+            ->when($search_telefon, fn($q,$v) => $q->whereHas('client', fn($c)=>$c->where('telefon', 'like', "%{$v}%")))
+            ->where(function ($q) use ($search_cu_plata, $search_gratuit) {
+                if ($search_cu_plata === '1' && $search_gratuit === '0') $q->where('cost', '<>', 0);
+                elseif ($search_cu_plata === '0' && $search_gratuit === '1') $q->where('cost', 0);
+                elseif ($search_cu_plata === '0' && $search_gratuit === '0') $q->whereRaw('1=0');
             })
-            ->when($search_nume, function ($query, $search_nume) {
-                return $query->where('service_clienti.nume', 'like', '%' . $search_nume . '%');
+            ->where(function ($q) use ($search_in_lucru, $search_finalizate) {
+                if ($search_in_lucru === '1' && $search_finalizate === '0') $q->whereNull('inchisa_la');
+                elseif ($search_in_lucru === '0' && $search_finalizate === '1') $q->whereNotNull('inchisa_la');
+                elseif ($search_in_lucru === '0' && $search_finalizate === '0') $q->whereRaw('1=0');
             })
-            ->when($search_telefon, function ($query, $search_telefon) {
-                return $query->where('service_clienti.telefon', 'like', '%' . $search_telefon . '%');
+            ->where(function ($q) use ($search_service, $search_donatie) {
+                if     ($search_service === '1' && $search_donatie === '0') $q->where('donatie', 0);
+                elseif ($search_service === '0' && $search_donatie === '1') $q->where('donatie', 1);
+                elseif ($search_service === '0' && $search_donatie === '0') $q->whereRaw('1=0');
             })
-            ->where(function ($query) use ($search_cu_plata, $search_gratuit) {
-                if ($search_cu_plata == '1'){
-                    if ($search_gratuit == '1'){
-                        $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
-                    } else if ($search_gratuit == '0'){
-                        $query->where('service_fise.cost', '<>', 0);
-                    }
-                } else if ($search_cu_plata == '0'){
-                    if ($search_gratuit == '1'){
-                        $query->where('cost', 0);
-                    } else if ($search_gratuit == '0'){
-                        $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
-                    }
-                }
-                return $query;
-            })
-            ->where(function ($query) use ($search_in_lucru, $search_finalizate) {
-                if ($search_in_lucru == '1'){
-                    if ($search_finalizate == '1'){
-                        $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
-                    } else if ($search_finalizate == '0'){
-                        // $query->where('service_fise.inchisa', 0);
-                        $query->whereNull('service_fise.inchisa_la');
-                    }
-                } else if ($search_in_lucru == '0'){
-                    if ($search_finalizate == '1'){
-                        // $query->where('service_fise.inchisa', 1);
-                        $query->whereNotNull('service_fise.inchisa_la');
-                    } else if ($search_finalizate == '0'){
-                        $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
-                    }
-                }
-                return $query;
-            })
-            ->where(function ($query) use ($search_service, $search_donatie) {
-                if ($search_service == '1'){
-                    if ($search_donatie == '1'){
-                        $query->where('service_fise.id', '>', 0); // se vor scoate toate inregistrarile
-                    } else if ($search_donatie == '0'){
-                        $query->where('service_fise.donatie', 0);
-                    }
-                } else if ($search_service == '0'){
-                    if ($search_donatie == '1'){
-                        $query->where('service_fise.donatie', 1);
-                    } else if ($search_donatie == '0'){
-                        $query->where('service_fise.id', '<', 0); // nu se va scoate nici o inregistrare
-                    }
-                }
-                return $query;
-            })
-            ->latest('service_fise.created_at')
-            ->withCount('fisiere')
+            ->latest('created_at')
             ->simplePaginate(15);
 
-        $service_fise_cu_plata = ServiceFisa::
-            // where('service_fise.inchisa', 0)
-            whereNull('service_fise.inchisa_la')
-            ->where('cost', '<>', 0)
-            ->count();
+        // Collapse the two “counters” into one fast query (optional)
+        $totals = ServiceFisa::deschise()
+            ->selectRaw('SUM(cost <> 0) AS cu_plata, SUM(cost = 0) AS gratuite')
+            ->first();
 
-        $service_fise_gratuite = ServiceFisa::
-            // where('service_fise.inchisa', 0)
-            whereNull('service_fise.inchisa_la')
-            ->where('cost', 0)
-            ->count();
-
-        return view('service.fise.index', compact('service_fise', 'search_numar_intrare',
-            'search_nume', 'search_telefon', 'search_cu_plata', 'search_gratuit', 'search_in_lucru', 'search_finalizate', 'search_donatie', 'search_service',
-            'service_fise_cu_plata', 'service_fise_gratuite'));
+        return view('service.fise.index', [
+            'service_fise' => $service_fise,
+            'search_numar_intrare' => $search_numar_intrare,
+            'search_nume' => $search_nume,
+            'search_telefon' => $search_telefon,
+            'search_cu_plata' => $search_cu_plata,
+            'search_gratuit' => $search_gratuit,
+            'search_in_lucru' => $search_in_lucru,
+            'search_finalizate' => $search_finalizate,
+            'search_donatie' => $search_donatie,
+            'search_service' => $search_service,
+            'service_fise_cu_plata' => $totals->cu_plata ?? 0,
+            'service_fise_gratuite' => $totals->gratuite ?? 0,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
