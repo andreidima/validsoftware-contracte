@@ -122,7 +122,7 @@
             @if ($fisa->rezultat_service)
                 <p style="text-align:left; font-weight: bold;">Rezultat service</p>
                 <p style="text-align:justify;">
-                    {{ $fisa->rezultat_service }}
+                    {!! $fisa->rezultat_service !!}
                 </p>
                 <br />
             @endif
