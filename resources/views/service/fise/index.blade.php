@@ -1,3 +1,8 @@
+@php
+    use Carbon\Carbon;
+    use Carbon\CarbonInterface;
+@endphp
+
 @extends ('layouts.app')
 
 @section('content')
@@ -177,10 +182,11 @@
                                     <b>{{ $service_fisa->nr_intrare }}</b>/{{ $service_fisa->nr_iesire }}
                                     <br>
                                     <small style="white-space: nowrap;">
-                                        Deschisă la:
-                                        @isset ($service_fisa->created_at)
-                                            {{ \Carbon\Carbon::parse($service_fisa->created_at)->isoFormat('DD.MM.YYYY HH:mm') }}
-                                        @endisset
+                                        Deschisă la: {{ $service_fisa->created_at?->format('d.m.Y H:i') }}
+                                        <br>
+                                        Închisă la: {{ $service_fisa->inchisa_la?->format('d.m.Y H:i') ?? '-' }}
+                                        <br>
+                                        Durata: {{ $service_fisa->durata }}{{ $service_fisa->inchisa ? '' : ' (în curs)' }}
                                     </small>
                                     <br>
                                     {{-- <small style="white-space: nowrap;">
@@ -196,14 +202,15 @@
                                         @endisset
                                     </small> --}}
                                     {{-- @if ($service_fisa->inchisa === 0) --}}
-                                    @if (! $service_fisa->inchisa)
+
+                                    {{-- @if (! $service_fisa->inchisa)
                                         <small style="white-space: nowrap;">
                                             Deschisă de:
                                             @isset ($service_fisa->created_at)
                                                 {{ \Carbon\Carbon::parse($service_fisa->created_at)->diffForHumans(['syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE]) }}
                                             @endisset
                                         </small>
-                                    @endif
+                                    @endif --}}
                                 </td>
                                 <td>
                                     <a href="{{ $service_fisa->client->path() }}">

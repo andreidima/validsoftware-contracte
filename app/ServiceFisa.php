@@ -9,7 +9,9 @@ class ServiceFisa extends Model
     protected $table = 'service_fise';
     protected $guarded = [];
 
-    protected $casts = ['inchisa_la' => 'datetime'];
+    protected $casts = [
+        'inchisa_la' => 'datetime',
+    ];
 
     public function path()
     {
@@ -31,6 +33,14 @@ class ServiceFisa extends Model
     public function inchide(): static   { $this->inchisa_la = now();    return $this; }
     public function deschide(): static  { $this->inchisa_la = null;     return $this; }
 
+    public function getDurataAttribute(): ?string
+    {
+        if (!$this->created_at) return null;
+        $end = $this->inchisa_la ?? now();
+
+        // 2 parts max, absolute wording, localized by app locale
+        return $this->created_at->diffForHumans($end, \Carbon\CarbonInterface::DIFF_ABSOLUTE, false, 2);
+    }
 
     public function client()
     {
