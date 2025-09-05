@@ -164,7 +164,8 @@
                     </thead>
                     <tbody>
                         @forelse ($service_fise->take(25) as $service_fisa)
-                            @if ($service_fisa->inchisa === 0)
+                            {{-- @if ($service_fisa->inchisa === 0) --}}
+                            @if (! $service_fisa->inchisa)
                             <tr style="background-color:rgb(0, 82, 82); color:white">
                             @else
                             <tr>
@@ -194,7 +195,8 @@
                                             {{ \Carbon\Carbon::parse($service_fisa->created_at)->diffInHours($service_fisa->updated_at) . ':' . \Carbon\Carbon::parse($service_fisa->created_at)->diff($service_fisa->updated_at)->format('%I:%S') }}
                                         @endisset
                                     </small> --}}
-                                    @if ($service_fisa->inchisa === 0)
+                                    {{-- @if ($service_fisa->inchisa === 0) --}}
+                                    @if (! $service_fisa->inchisa)
                                         <small style="white-space: nowrap;">
                                             Deschisă de:
                                             @isset ($service_fisa->created_at)
@@ -521,7 +523,8 @@
                                                 </div>
                                         </div>
                                         <div>
-                                            @if ($service_fisa->inchisa === 1)
+                                            {{-- @if ($service_fisa->inchisa === 1) --}}
+                                            @if ($service_fisa->inchisa)
                                                 <a class=""
                                                     href="#"
                                                     role="button"
@@ -553,7 +556,8 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body" style="text-align:left;">
-                                                            @if ($service_fisa->inchisa === 1)
+                                                            {{-- @if ($service_fisa->inchisa === 1) --}}
+                                                            @if ($service_fisa->inchisa)
                                                                 Ești sigur că vrei să deschizi Fișa?
                                                             @else
                                                                 Ești sigur că vrei să închizi Fișă?
@@ -565,7 +569,8 @@
                                                             <form method="POST" action="{{ url('service/fise/' . $service_fisa->id . '/deschide-inchide') }}">
                                                                 @method('PATCH')
                                                                 @csrf
-                                                                    @if ($service_fisa->inchisa === 1)
+                                                                    {{-- @if ($service_fisa->inchisa === 1) --}}
+                                                                    @if ($service_fisa->inchisa)
                                                                         <button type="submit" class="btn btn-warning">
                                                                             Deschide Fișa
                                                                         </button>

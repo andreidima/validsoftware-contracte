@@ -12,7 +12,7 @@ class SmsTrimiteController extends Controller
     {
         // Daca este SMS pentru Fisa iesire service, se inchide automat si Fisa service
         if (($categorie === 'Fise') && ($subcategorie === "Ieșire")) {
-            \App\ServiceFisa::find($inregistrare_id)->update(['inchisa'=>1]);
+            \App\ServiceFisa::find($inregistrare_id)->inchide()->save();
         }
 
 

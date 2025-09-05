@@ -218,7 +218,6 @@ class OfertareController extends Controller
                 ->withInput();
         }
 
-// dd($emailuri_to, $emailuri_bcc);
             // Trimiterea mesajului
         if (intval($ofertari->solicitata) === 1) {
             \Mail::mailer('comunicare')
@@ -253,6 +252,25 @@ class OfertareController extends Controller
         }
     }
 
+    public function duplicaOfertare(Request $request, Ofertare $ofertare)
+    {
+        $ofertare = $ofertare->replicate();
+
+        $ofertare->nr_document = Variabila::Nr_document(); // se da un nr nou ofertareului
+        $ofertare->created_at = Carbon::now();
+        $ofertare->updated_at = Carbon::now();
+
+        $ofertare->save();
+
+        return redirect()->action(
+            'OfertareController@edit',
+            ['ofertari' => $ofertare->id]
+        );
+
+        // return redirect('/contracte')->with('status',
+        //     'Contractul Nr."' . $contract->contract_nr . '", pentru clientul "' . ($contract->client->nume ?? '') . '", a fost duplicat cu succes!');
+    }
+
     /**
      * Validate the request attributes.
      *
@@ -275,6 +293,12 @@ class OfertareController extends Controller
         }
     }
 
+
+
+    /**
+     * @changed 2025-09-03
+     * @reason  Replaced old function with new implementation (chatGPT generated)
+     */
     public function wordExport(Request $request, Ofertare $ofertari)
     {
             $phpWord = new \PhpOffice\PhpWord\PhpWord();
@@ -284,7 +308,7 @@ class OfertareController extends Controller
 
             $phpWord->setDefaultParagraphStyle(
                 array(
-                    'align'      => 'both',
+                    // 'align'      => 'both',
                     // 'spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(12),
                     // 'spacing'    => 120,
                 )
@@ -489,6 +513,26 @@ class OfertareController extends Controller
                 $descriere_solicitare = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $descriere_solicitare);
                 $descriere_solicitare = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $descriere_solicitare);
 
+
+
+                /**
+                 * @added   2025.09.03
+                 * @reason  To fix export errors
+                 */
+                // 1) Make every <br> (with or without attributes) self-closed
+                $descriere_solicitare = preg_replace_callback(
+                    '~<\s*br\b([^>]*)>~i',
+                    function($m) {
+                        $attrs = rtrim($m[1], " \t\n\r\0\x0B/"); // clean trailing spaces/slash
+                        return '<br' . $attrs . '/>';
+                    },
+                    $descriere_solicitare
+                );
+                // 2) Remove a <br/> immediately before </p> (common Quill artifact)
+                $descriere_solicitare = preg_replace('~<br\s*/>\s*</p>~i', '</p>', $descriere_solicitare);
+
+
+
                 \PhpOffice\PhpWord\Shared\Html::addHtml($section, $descriere_solicitare, false, false);
             }
 
@@ -589,6 +633,26 @@ class OfertareController extends Controller
             $propunere_tehnica_si_comerciala = str_replace('background-color: rgb(0, 41, 102);', 'background-color: #002966;', $propunere_tehnica_si_comerciala);
             $propunere_tehnica_si_comerciala = str_replace('background-color: rgb(61, 20, 102);', 'background-color: #3d1466;', $propunere_tehnica_si_comerciala);
 
+
+
+            /**
+             * @added   2025.09.03
+             * @reason  To fix export errors
+             */
+            // 1) Make every <br> (with or without attributes) self-closed
+            $propunere_tehnica_si_comerciala = preg_replace_callback(
+                '~<\s*br\b([^>]*)>~i',
+                function($m) {
+                    $attrs = rtrim($m[1], " \t\n\r\0\x0B/"); // clean trailing spaces/slash
+                    return '<br' . $attrs . '/>';
+                },
+                $propunere_tehnica_si_comerciala
+            );
+            // 2) Remove a <br/> immediately before </p> (common Quill artifact)
+            $propunere_tehnica_si_comerciala = preg_replace('~<br\s*/>\s*</p>~i', '</p>', $propunere_tehnica_si_comerciala);
+
+
+
             \PhpOffice\PhpWord\Shared\Html::addHtml($section, $propunere_tehnica_si_comerciala, false, false);
 
 
@@ -654,22 +718,5 @@ class OfertareController extends Controller
         }
     }
 
-    public function duplicaOfertare(Request $request, Ofertare $ofertare)
-    {
-        $ofertare = $ofertare->replicate();
 
-        $ofertare->nr_document = Variabila::Nr_document(); // se da un nr nou ofertareului
-        $ofertare->created_at = Carbon::now();
-        $ofertare->updated_at = Carbon::now();
-
-        $ofertare->save();
-
-        return redirect()->action(
-            'OfertareController@edit',
-            ['ofertari' => $ofertare->id]
-        );
-
-        // return redirect('/contracte')->with('status',
-        //     'Contractul Nr."' . $contract->contract_nr . '", pentru clientul "' . ($contract->client->nume ?? '') . '", a fost duplicat cu succes!');
-    }
 }

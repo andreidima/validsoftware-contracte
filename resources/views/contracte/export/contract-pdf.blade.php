@@ -125,7 +125,7 @@
             $html .= '<ol>
                         <li><p style="font-weight: bold;">Termeni generali</p></li>
                             <ol type="a">
-                                <li style="text-align:justify;">Contractul se referă la prestarea de servicii informatice de către <b>' . ($contracte->firma->nume ?? '') . '</b> în beneficiul <b>'. $contracte->client->nume . '</b>.</li>
+                                <li style="text-align:justify;">Contractul se referă la prestarea de servicii informatice de către <b>' . ($contracte->firma->nume ?? '') . '</b> pentru <b>'. $contracte->client->nume . '</b>.</li>
                                 <li style="text-align:justify;">Contractul este valabil până la terminarea sa în conformitate cu condiţiile incluse mai jos în prezentul document.</li>
                             </ol>
                             <br/>
@@ -161,7 +161,7 @@
                                 ' și poate fi prelungit prin acte adiționale, încheiate cu acordul ambelor părți contractente.</li>
                             </ol>
                             <br/>
-                        <li><p style="font-weight: bold;">Responsabilităţile <b>' . $contracte->client->nume . '</b></p></li>
+                        <li><p style="font-weight: bold;">Responsabilităţile pentru <b>' . $contracte->client->nume . '</b></p></li>
                             <ol type="a">
                                 <li style="text-align:justify;"><b>' . $contracte->client->nume . '</b> are obligaţia de a pune la dispoziţia <b>' . ($contracte->firma->nume ?? '') . '</b> toate informaţiile pe care <b>' . ($contracte->firma->nume ?? '') . '</b> le consideră necesare în mod rezonabil pentru îndeplinirea contractului.</li>
                                 <li style="text-align:justify;"><b>' . $contracte->client->nume . '</b> are obligaţia de a efectua plata către <b>' . ($contracte->firma->nume ?? '') . '</b> în termen de 30 zile de la emiterea facturii de către acesta.</li>

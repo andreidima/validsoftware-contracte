@@ -9,10 +9,28 @@ class ServiceFisa extends Model
     protected $table = 'service_fise';
     protected $guarded = [];
 
+    protected $casts = ['inchisa_la' => 'datetime'];
+
     public function path()
     {
         return "/service/fise/{$this->id}";
     }
+
+
+    // Keep the old $model->inchisa working (derived from inchisa_la)
+    public function getInchisaAttribute(): bool
+    {
+        return ! is_null($this->inchisa_la);
+    }
+
+    // Handy scopes
+    public function scopeDeschise($q) { return $q->whereNull('inchisa_la'); }
+    public function scopeInchise($q)  { return $q->whereNotNull('inchisa_la'); }
+
+    // Actions
+    public function inchide(): static   { $this->inchisa_la = now();    return $this; }
+    public function deschide(): static  { $this->inchisa_la = null;     return $this; }
+
 
     public function client()
     {
