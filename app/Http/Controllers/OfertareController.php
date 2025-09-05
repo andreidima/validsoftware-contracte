@@ -191,64 +191,75 @@ class OfertareController extends Controller
      */
     protected function trimiteEmail(Request $request, Ofertare $ofertari)
     {
-        $emailuri_to = $ofertari->client->email ?? '';
-        $emailuri_to = str_replace(' ', '', $emailuri_to);
-        $emailuri_to = explode(',', $emailuri_to);
-        // Verificare daca exista email corect catre care sa se trimita mesajul
-        $validator = Validator::make($emailuri_to, [
-            '*' => ['email:rfc,dns']
-        ]);
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+        // --- TO (client) ---
+        $raw_to = (string) ($ofertari->client->email ?? '');
+        $emailuri_to = explode(',', str_replace(' ', '', $raw_to));
+        // remove empties + duplicates
+        $emailuri_to = array_values(array_unique(array_filter($emailuri_to, fn($e) => $e !== '')));
+
+        // validate: at least 1 email and each element must be a valid email
+        $validatorTo = Validator::make(
+            ['to' => $emailuri_to],
+            [
+                'to'   => ['required','array','min:1'],
+                'to.*' => ['distinct','email:rfc,dns'],
+            ],
+            ['to.required' => 'Adresa de email a clientului lipsește.']
+        );
+        if ($validatorTo->fails()) {
+            return back()->withErrors($validatorTo)->withInput();
         }
 
-        // Extragere din baza de date a emailurilor interne ale firmei catre care sa se trimita mesajul cu BCC
-        $emailuri_bcc = \App\Variabila::select('valoare')->where('nume', 'emailuri_service_bcc')->first()->valoare;
-        $emailuri_bcc = str_replace(' ', '', $emailuri_bcc);
-        $emailuri_bcc = explode(',', $emailuri_bcc);
-        // Verificare daca exista email corect catre care sa se trimita mesajul
-        $validator = Validator::make($emailuri_bcc, [
-            '*' => ['email:rfc,dns']
-        ]);
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+        // --- BCC (internal) ---
+        $variabila_bcc = \App\Variabila::select('valoare')
+            ->where('nume', 'emailuri_service_bcc')
+            ->first();
+
+        $raw_bcc = (string) optional($variabila_bcc)->valoare;
+        $emailuri_bcc = explode(',', str_replace(' ', '', $raw_bcc));
+        $emailuri_bcc = array_values(array_unique(array_filter($emailuri_bcc, fn($e) => $e !== '')));
+
+        // validate BCC only if provided (no "required")
+        $validatorBcc = Validator::make(
+            ['bcc' => $emailuri_bcc],
+            ['bcc.*' => ['distinct','email:rfc,dns']]
+        );
+        if ($validatorBcc->fails()) {
+            return back()->withErrors($validatorBcc)->withInput();
         }
 
-            // Trimiterea mesajului
-        if (intval($ofertari->solicitata) === 1) {
-            \Mail::mailer('comunicare')
-                ->to($emailuri_to)
-                ->bcc($emailuri_bcc)
-                ->send(
-                    new \App\Mail\Ofertare($ofertari)
-                );
+        // --- Send ---
+        $mailer = \Mail::mailer('comunicare');
+
+        if ((int) $ofertari->solicitata === 1) {
+            // primary recipients + optional BCC
+            if (!empty($emailuri_to))    { $mailer->to($emailuri_to); }
+            if (!empty($emailuri_bcc))   { $mailer->bcc($emailuri_bcc); }
+
+            $mailer->send(new \App\Mail\Ofertare($ofertari));
+
             $mesaj_trimis = new \App\MesajTrimis;
             $mesaj_trimis->inregistrare_id = $ofertari->id;
             $mesaj_trimis->categorie = 'Ofertare';
-            // $mesaj_trimis->subcategorie = '';
             $mesaj_trimis->save();
-            return back()->with('status', 'Emailul a fost trimis către „' . $ofertari->client->email . '” cu succes!');
-        }else if (intval($ofertari->solicitata) === 0){
-            // Trimiterea mesajului
-            \Mail::mailer('comunicare')
-                // ->to('contact@validsoftware.ro')
-                ->to([])
-                ->bcc($emailuri_to)
-                ->send(
-                    new \App\Mail\Ofertare($ofertari)
-                );
+
+            return back()->with('status', 'Emailul a fost trimis către „' . implode(', ', $emailuri_to) . '” cu succes!');
+        } elseif ((int) $ofertari->solicitata === 0) {
+            // only BCC (no empty ->to([])!)
+            if (empty($emailuri_to)) {
+                return back()->with('error', 'Nu există emailuri pentru BCC.');
+            }
+            if (!empty($emailuri_bcc))   { $mailer->bcc($emailuri_bcc); }
+            $mailer->bcc($emailuri_to)->send(new \App\Mail\Ofertare($ofertari));
+
             $mesaj_trimis = new \App\MesajTrimis;
             $mesaj_trimis->inregistrare_id = $ofertari->id;
             $mesaj_trimis->categorie = 'Ofertare';
-            // $mesaj_trimis->subcategorie = '';
             $mesaj_trimis->save();
-            return back()->with('status', 'Emailul a fost trimis către „' . $ofertari->client->email . '” cu succes!');
-        }else{
-            return back()->with('error', 'Emailul nu s-a putut trimite către „' . $ofertari->client->email . '”.');
+
+            return back()->with('status', 'Emailul a fost trimis către „' . implode(', ', $emailuri_to) . '” cu succes!');
+        } else {
+            return back()->with('error', 'Emailul nu s-a putut trimite către „' . ($ofertari->client->email ?? '—') . '”.');
         }
     }
 
